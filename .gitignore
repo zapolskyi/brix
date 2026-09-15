@@ -1,0 +1,46 @@
+# Репозиторій BRIX 22° тримає лише свій код: тему brix і плагін brix-core.
+# Усе інше в wp-content (ядро Woo, аплоади, кеш, мова) — не наше.
+
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/LICENSE
+
+!/themes/
+/themes/*
+!/themes/brix/
+
+!/plugins/
+/plugins/*
+!/plugins/brix-core/
+
+# --- службові файли ОС і редакторів ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# --- залежності збірки ---
+node_modules/
+vendor/
+
+# --- артефакти SCSS ---
+*.css.map
+.sass-cache/
+
+# Скомпільований CSS лишається в репозиторії навмисно:
+# тема має працювати на сервері без збірки.
+
+# --- локальні перевизначення ---
+.env
+*.local.php
+
+# --- зібрані архіви для заливки на хостинг ---
+dist/
+
+# --- вихідні макети Claude Design ---
+# Робочі файли редактора, а не частина теми. Усе потрібне з них
+# переноситься в SCSS і шаблони; самі файли лежать лише локально.
+/themes/brix/docs/design-source/

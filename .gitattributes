@@ -1,0 +1,29 @@
+# Файли, які не потрапляють в архів для хостингу (git archive).
+# На сервері вони не потрібні: це джерела збірки, документація й dev-інструменти.
+
+/.gitattributes                  export-ignore
+/.gitignore                      export-ignore
+/README.md                       export-ignore
+
+/themes/brix/docs                export-ignore
+/themes/brix/assets/scss         export-ignore
+/themes/brix/tools               export-ignore
+/themes/brix/package.json        export-ignore
+/themes/brix/package-lock.json   export-ignore
+
+/plugins/brix-core/tests         export-ignore
+/plugins/brix-core/composer.lock export-ignore
+
+# Нормалізація перекладів рядків
+*.php  text eol=lf
+*.scss text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+*.md   text eol=lf
+*.json text eol=lf
+
+# Бінарні файли не діфимо
+*.woff2 binary
+*.png   binary
+*.jpg   binary
+*.webp  binary
