@@ -1,0 +1,45 @@
+@use '../abstracts/mixins' as *;
+
+// Чип фільтра. Вмикається натисканням, тож у розмітці це <button>
+// або <input type="checkbox"> з <label> — стан несе aria-pressed/checked,
+// а не самий лише клас.
+.brix-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--brix-gap-4);
+  height: var(--brix-ctl-sm);
+  padding-inline: var(--brix-gap-8);
+  border: 1px solid var(--brix-line);
+  border-radius: var(--brix-radius-pill);
+  background: transparent;
+  color: var(--brix-roast);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--brix-dur) var(--brix-ease),
+              border-color var(--brix-dur) var(--brix-ease),
+              color var(--brix-dur) var(--brix-ease);
+
+  &:hover { border-color: var(--brix-roast); }
+
+  &.is-active,
+  &[aria-pressed='true'] {
+    background: var(--brix-roast);
+    border-color: var(--brix-roast);
+    color: var(--brix-mill);
+  }
+
+  // Лічильник збігів у фільтрі.
+  &__count {
+    font-family: var(--brix-font-mono);
+    font-size: 0.75rem;
+    color: var(--brix-muted);
+  }
+
+  &.is-active &__count,
+  &[aria-pressed='true'] &__count { color: inherit; opacity: 0.7; }
+
+  &--sm { height: 34px; padding-inline: 13px; font-size: 0.8125rem; }
+
+  &[disabled] { opacity: 0.45; cursor: not-allowed; }
+}

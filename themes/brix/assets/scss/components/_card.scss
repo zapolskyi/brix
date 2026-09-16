@@ -1,0 +1,116 @@
+@use '../abstracts/mixins' as *;
+
+// Картка товару в сітці каталогу.
+.brix-card {
+  // Обов'язково позиційована: на ній тримається розтягнуте посилання
+  // з __name. Без цього воно зачепилося б за __stage і клікалась би
+  // сама пачка, а не картка.
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  // Підкладка під пачкою. Її колір теж кодує обробку — у сітці це
+  // читається швидше за текст тега.
+  &__stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1 / 1.06;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--brix-bg-core);
+
+    &--natural { background: var(--brix-bg-natural); }
+    &--washed  { background: var(--brix-bg-washed); }
+    &--honey   { background: var(--brix-bg-honey); }
+    &--lab     { background: var(--brix-bg-lab); }
+    &--core    { background: var(--brix-bg-core); }
+  }
+
+  .brix-pack { width: 54%; }
+
+  &__tag {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+  }
+
+  // Швидке додавання в кошик прямо з сітки.
+  &__add {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--brix-roast);
+    color: var(--brix-mill);
+    transition: transform var(--brix-dur) var(--brix-ease);
+
+    &:hover { transform: scale(1.06); color: var(--brix-mill); }
+  }
+
+  &__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--brix-gap-8);
+    margin-top: 18px;
+  }
+
+  &__name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+
+    // Посилання розтягується на всю картку, щоб клікалась уся площа,
+    // а в дереві доступності лишався один зрозумілий пункт.
+    a::after { content: ''; position: absolute; inset: 0; }
+  }
+
+  &__price {
+    font-family: var(--brix-font-mono);
+    font-size: 0.9375rem;
+    white-space: nowrap;
+  }
+
+  &__notes {
+    margin-top: 5px;
+    font-size: 0.875rem;
+    color: var(--brix-muted);
+  }
+
+  &__data {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-8);
+    margin-top: 13px;
+    padding-top: 11px;
+    border-top: 1px solid var(--brix-line);
+    @include label;
+    letter-spacing: 0.08em;
+
+    b { color: var(--brix-roast); font-weight: 400; }
+  }
+
+  // Розпродано: пачка гасне, але лишається видимою — покупець має
+  // побачити, що лот був, а не просто не знайти його.
+  &--sold-out {
+    .brix-card__stage { filter: grayscale(0.55); }
+    .brix-card__stage::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgb(242 243 238 / 50%);
+    }
+  }
+}
+
+// Сітка каталогу: 4 колонки на десктопі, 2 на телефоні.
+.brix-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--brix-gap-16) var(--brix-gap-12);
+}

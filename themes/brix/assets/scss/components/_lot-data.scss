@@ -1,0 +1,207 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+// ——— таблиця даних лоту ———
+// Моношрифтова сітка «як на етикетці лабораторного зразка».
+.brix-data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--brix-line);
+
+  &__cell {
+    padding: 20px 22px;
+    border-right: 1px solid var(--brix-line);
+    border-bottom: 1px solid var(--brix-line);
+
+    &:nth-child(3n) { border-right: none; }
+  }
+
+  &__label { @include label; }
+
+  &__value {
+    display: block;
+    margin-top: 6px;
+    font-family: var(--brix-font-display);
+    font-weight: 500;
+    font-size: 1.4375rem;
+    letter-spacing: -0.03em;
+  }
+
+  // На телефоні три колонки перетворюють числа на кашу.
+  @include upto($bp-sm) {
+    grid-template-columns: repeat(2, 1fr);
+
+    &__cell:nth-child(3n) { border-right: 1px solid var(--brix-line); }
+    &__cell:nth-child(2n) { border-right: none; }
+  }
+}
+
+// ——— шкали смаку ———
+// Значення передається як --brix-value у відсотках: 4/5 → 80%.
+.brix-taste {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+
+  &__row {
+    display: grid;
+    grid-template-columns: 118px 1fr 34px;
+    gap: var(--brix-gap-8);
+    align-items: center;
+    font-size: 0.875rem;
+  }
+
+  &__track {
+    position: relative;
+    height: 5px;
+    border-radius: 3px;
+    background: var(--brix-stone);
+  }
+
+  &__fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--brix-value, 0%);
+    border-radius: 3px;
+    background: var(--brix-cherry);
+  }
+
+  &__value {
+    font-family: var(--brix-font-mono);
+    font-size: 0.75rem;
+    color: var(--brix-muted);
+    text-align: right;
+  }
+
+  @include upto($bp-sm) {
+    &__row { grid-template-columns: 88px 1fr 34px; }
+  }
+}
+
+// ——— шкала °Bx ———
+// Показує цукристість ягоди при зборі на тлі діапазону стиглості.
+// Позиції (--brix-left, --brix-width) рахує PHP із даних лоту.
+.brix-scale {
+  position: relative;
+  padding-block: 38px 34px;
+
+  &__track {
+    position: relative;
+    height: 3px;
+    background: var(--brix-line);
+  }
+
+  // Зелена смуга — діапазон, у якому ягоду варто збирати.
+  &__band {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--brix-left, 0%);
+    width: var(--brix-width, 0%);
+    background: var(--brix-green);
+  }
+
+  &__tick {
+    position: absolute;
+    top: 0;
+    left: var(--brix-left, 0%);
+    width: 1px;
+    height: 11px;
+    background: var(--brix-line);
+
+    span {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--brix-font-mono);
+      font-size: 0.6875rem;
+      color: var(--brix-muted);
+    }
+  }
+
+  // Позначка самого лоту.
+  &__mark {
+    position: absolute;
+    bottom: 0;
+    left: var(--brix-left, 0%);
+    transform: translateX(-50%);
+    text-align: center;
+
+    b {
+      display: block;
+      margin-bottom: 6px;
+      font-family: var(--brix-font-display);
+      font-weight: 700;
+      font-size: 1.5625rem;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+
+    i {
+      display: block;
+      width: 13px;
+      height: 13px;
+      margin-inline: auto;
+      border: 3px solid var(--brix-mill);
+      border-radius: 50%;
+      background: var(--brix-cherry);
+    }
+  }
+}
+
+// ——— індикатор свіжості ———
+// Вікно від дати обсмаження: дегазація → пік смаку → ще смачно.
+.brix-freshness {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+
+  &__track {
+    position: relative;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--brix-stone);
+  }
+
+  &__peak {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--brix-left, 0%);
+    width: var(--brix-width, 0%);
+    border-radius: 3px;
+    background: var(--brix-green);
+  }
+
+  &__now {
+    position: absolute;
+    top: -3px;
+    left: var(--brix-now, 0%);
+    width: 2px;
+    height: 12px;
+    background: var(--brix-cherry);
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--brix-gap-4);
+    @include label;
+    letter-spacing: 0.08em;
+  }
+}
+
+// ——— усі чотири на темному тлі ———
+.brix-section--dark,
+.brix-footer {
+  .brix-data-grid,
+  .brix-data-grid__cell { border-color: rgb(242 243 238 / 16%); }
+
+  .brix-taste__track { background: rgb(242 243 238 / 16%); }
+  .brix-taste__fill { background: var(--brix-honey); }
+
+  .brix-scale__track,
+  .brix-scale__tick { background: rgb(242 243 238 / 20%); }
+  .brix-scale__mark i { border-color: var(--brix-roast); }
+}

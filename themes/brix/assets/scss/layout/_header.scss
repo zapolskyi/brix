@@ -92,8 +92,8 @@
     &:hover { color: var(--brix-cherry); }
   }
 
-  // Поточний розділ підкреслений — єдина індикація, тож дублюємо aria-current.
-  &__item.is-current &__link,
+  // Поточний розділ підкреслений. Ознаку несе aria-current, який
+  // ставить brix_nav_link_attributes(), а не клас на <li>.
   &__link[aria-current] {
     color: var(--brix-cherry);
     border-bottom-color: var(--brix-cherry);

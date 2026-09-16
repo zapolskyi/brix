@@ -1,0 +1,114 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+// Службова сторінка UI-кіту. Стилі тільки для неї — на бойових
+// сторінках цих класів немає.
+.brix-kit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-32);
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+    padding-top: var(--brix-gap-16);
+    border-top: 1px solid var(--brix-line);
+  }
+
+  &__title { @include label; font-size: 0.75rem; }
+
+  &__sub {
+    margin-top: var(--brix-gap-8);
+    font-family: var(--brix-font-ui);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--brix-muted);
+  }
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--brix-gap-6);
+
+    &--dark {
+      padding: var(--brix-gap-8);
+      border-radius: var(--brix-radius-lg);
+      background: var(--brix-roast);
+    }
+  }
+
+  &__type {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-6);
+  }
+
+  &__swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--brix-gap-8);
+  }
+
+  &__swatch {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-2);
+    font-size: 0.8125rem;
+
+    code { font-size: 0.75rem; color: var(--brix-muted); }
+  }
+
+  &__chipcolor {
+    height: 56px;
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius);
+  }
+
+  &__fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--brix-gap-8);
+    max-width: 780px;
+  }
+
+  &__packs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--brix-gap-12);
+  }
+
+  // Блок — flex-колонка, тож inline-flex усередині розтягнувся б
+  // на всю ширину і перестав показувати справжній розмір контрола.
+  .brix-segmented { align-self: flex-start; }
+
+  // Три розміри однієї пачки поруч — перевірка container queries.
+  // Ширини через min(), а не жорстко: на телефоні 420 px виштовхнули б
+  // сторінку за екран і дали горизонтальний скрол на всьому сайті.
+  &__scale {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--brix-gap-12);
+  }
+
+  &__scale-item {
+    &--sm { width: 120px; }
+    &--md { width: min(260px, 100%); }
+    &--lg { width: min(420px, 100%); }
+  }
+
+  &__photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--brix-gap-8);
+
+    .brix-photo { aspect-ratio: 4 / 3; border-radius: var(--brix-radius); }
+  }
+
+  .brix-data-grid,
+  .brix-scale,
+  .brix-taste,
+  .brix-freshness { max-width: 760px; }
+}

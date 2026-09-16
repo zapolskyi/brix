@@ -1,0 +1,21 @@
+@use '../abstracts/mixins' as *;
+
+// Тег обробки. Колір кодує спосіб обробки і збігається з кольором
+// пачки — той самий код працює в каталозі, фільтрах і на картці.
+.brix-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--brix-gap-2);
+  height: 28px;
+  padding-inline: 11px;
+  border-radius: var(--brix-radius-pill);
+  @include label;
+  color: inherit;
+  background: var(--brix-stone);
+
+  &--natural { background: var(--brix-bg-natural); color: var(--brix-cherry-d); }
+  &--washed  { background: var(--brix-bg-washed);  color: var(--brix-green-d); }
+  &--honey   { background: var(--brix-bg-honey);   color: var(--brix-honey-d); }
+  &--lab     { background: var(--brix-roast);      color: var(--brix-mill); }
+  &--soft    { background: var(--brix-stone);      color: var(--brix-muted); }
+}

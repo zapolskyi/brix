@@ -1,0 +1,46 @@
+@use '../abstracts/mixins' as *;
+
+// Поле форми: підпис, контрол, підказка або помилка.
+.brix-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  &__label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--brix-muted);
+  }
+
+  &__hint {
+    font-size: 0.8125rem;
+    color: var(--brix-muted);
+  }
+
+  // Помилка — не лише червоний колір: поруч є текст, і поле позначається
+  // aria-invalid. Колір тут підсилює, а не несе сенс наодинці.
+  &__error {
+    font-size: 0.8125rem;
+    color: var(--brix-error);
+  }
+
+  &--invalid &__label { color: var(--brix-error); }
+}
+
+.brix-input {
+  @include control-base;
+
+  &--textarea { height: auto; min-height: 120px; padding-block: var(--brix-gap-6); resize: vertical; }
+}
+
+// Селект лишаємо рідним: власний дропдаун довелось би заново вчити
+// клавіатурі, скрінрідеру й мобільному колесу вибору.
+.brix-select {
+  @include control-base;
+
+  appearance: none;
+  padding-inline-end: var(--brix-gap-16);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%236C6763' stroke-width='1.6'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--brix-gap-8) center;
+}

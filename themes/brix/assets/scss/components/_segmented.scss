@@ -1,0 +1,58 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+// Сегмент-контрол: вибір одного з небагатьох варіантів — вага, помел,
+// періодичність підписки. У розмітці це група радіокнопок:
+// вигляд дає label, стан тримає сам input, тож клавіатура працює даром.
+.brix-segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 4px;
+  border: 1px solid var(--brix-line);
+  border-radius: var(--brix-radius-pill);
+  background: var(--brix-paper);
+
+  &__input {
+    @include visually-hidden;
+
+    &:focus-visible + .brix-segmented__label { @include focus-ring(1px); }
+
+    &:checked + .brix-segmented__label {
+      background: var(--brix-roast);
+      color: var(--brix-mill);
+    }
+
+    &[disabled] + .brix-segmented__label {
+      opacity: 0.4;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+  }
+
+  &__label {
+    display: grid;
+    place-items: center;
+    height: var(--brix-ctl-sm);
+    padding-inline: var(--brix-gap-12);
+    border-radius: var(--brix-radius-pill);
+    color: var(--brix-muted);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background var(--brix-dur) var(--brix-ease),
+                color var(--brix-dur) var(--brix-ease);
+  }
+
+  // П'ять помелів у рядок вимагають близько 570 px — тобто не влазять
+  // не лише в телефон, а й у вузький планшет. Нижче 768 перемикач
+  // стає сіткою; flex-wrap вище — страховка на випадок довших підписів.
+  @include upto($bp-md) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-radius: var(--brix-radius-lg);
+
+    &__label { border-radius: var(--brix-radius); }
+  }
+}

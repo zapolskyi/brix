@@ -105,3 +105,32 @@ function brix_disable_emoji(): void {
 	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 }
 add_action( 'init', 'brix_disable_emoji' );
+
+/**
+ * Додає клас і aria-current посиланням головного меню.
+ *
+ * WordPress вішає класи на <li>, а фарбувати треба саме <a>. Без цього
+ * пункти успадковують колір посилання із скидання і все меню стає
+ * вишневим. Заразом позначаємо поточний розділ для скрінрідера:
+ * підкреслення кольором — єдина візуальна ознака, і сама по собі
+ * вона нікому, крім зрячих, нічого не каже.
+ *
+ * @param array<string, string> $atts Атрибути тега <a>.
+ * @param WP_Post               $item Пункт меню.
+ * @param stdClass              $args Аргументи wp_nav_menu().
+ * @return array<string, string>
+ */
+function brix_nav_link_attributes( array $atts, $item, $args ): array {
+	if ( 'primary' !== ( $args->theme_location ?? '' ) ) {
+		return $atts;
+	}
+
+	$atts['class'] = trim( ( $atts['class'] ?? '' ) . ' brix-nav__link' );
+
+	if ( ! empty( $item->current ) || ! empty( $item->current_item_ancestor ) ) {
+		$atts['aria-current'] = 'page';
+	}
+
+	return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'brix_nav_link_attributes', 10, 3 );

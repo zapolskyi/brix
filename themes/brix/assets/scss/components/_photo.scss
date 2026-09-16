@@ -1,0 +1,35 @@
+@use '../abstracts/mixins' as *;
+
+// Плейсхолдер фото. Живе рівно доти, доки немає реальних знімків:
+// підпис усередині каже, що саме має тут бути.
+.brix-photo {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--brix-gap-8);
+  overflow: hidden;
+  background: linear-gradient(145deg, #C9CBBF, #8E9184 55%, #5E5B54);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('../img/grain.svg');
+    background-size: 200px 200px;
+    opacity: 0.3;
+    mix-blend-mode: overlay;
+  }
+
+  &__caption {
+    position: relative;
+    z-index: 2;
+    @include label;
+    font-size: 0.625rem;
+    color: rgb(255 255 255 / 82%);
+  }
+
+  &--warm   { background: linear-gradient(150deg, #D8B39A, #9E5F49 50%, #3A2420); }
+  &--cherry { background: linear-gradient(150deg, #D89AA4, #B61F3A 55%, #4A1017); }
+  &--green  { background: linear-gradient(150deg, #C8D2B2, #7E8C60 55%, #2F3823); }
+  &--dark   { background: linear-gradient(150deg, #4D4844, #211E1C 60%, #100E0D); }
+}
