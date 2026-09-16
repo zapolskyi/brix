@@ -117,6 +117,7 @@ final class Plugin {
 				Taxonomies\Registrar::class,
 				Fields\Registrar::class,
 				Product\LotMeta::class,
+				Wholesale\Application::class,
 			)
 		);
 	}

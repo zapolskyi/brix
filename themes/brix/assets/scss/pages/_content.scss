@@ -573,3 +573,196 @@
     color: var(--brix-muted);
   }
 }
+
+// ——— таблиця прозорості ———
+.brix-table-wrap {
+  overflow-x: auto;
+  margin-top: var(--brix-gap-16);
+}
+
+.brix-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+
+  th, td {
+    padding: var(--brix-gap-6) var(--brix-gap-8);
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--brix-line);
+    font-size: 0.9375rem;
+  }
+
+  thead th {
+    @include label;
+    border-bottom-width: 2px;
+    border-bottom-color: var(--brix-roast);
+    white-space: nowrap;
+  }
+
+  tbody th {
+    font-weight: 600;
+
+    a { color: var(--brix-roast); }
+    a:hover { color: var(--brix-cherry); }
+
+    .brix-label { display: block; margin-top: 2px; }
+  }
+
+  &__num { text-align: right; white-space: nowrap; }
+}
+
+.brix-transparency__note {
+  max-width: 68ch;
+  margin-top: var(--brix-gap-8);
+}
+
+// ——— B2B ———
+.brix-b2b {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: var(--brix-gap-24);
+  align-items: start;
+
+  @include upto($bp-lg) { grid-template-columns: 1fr; }
+
+  &__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-6);
+  }
+
+  &__facts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-4);
+    margin: var(--brix-gap-4) 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9375rem;
+
+    li { display: flex; align-items: center; gap: var(--brix-gap-6); }
+    svg { flex-shrink: 0; color: var(--brix-green-d); }
+  }
+
+  &__form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--brix-gap-8);
+
+    @include upto($bp-sm) { grid-template-columns: 1fr; }
+
+    .brix-field { margin: 0; grid-column: 1 / -1; }
+    .brix-field--half { grid-column: auto; }
+  }
+
+  &__submit {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--brix-gap-8);
+    margin: 0;
+  }
+}
+
+.brix-field__required { color: var(--brix-cherry); }
+
+// ——— кабінет ———
+.woocommerce-account {
+  .woocommerce-MyAccount-navigation ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-4);
+    margin: 0 0 var(--brix-gap-16);
+    padding: 0;
+    list-style: none;
+  }
+
+  .woocommerce-MyAccount-navigation a {
+    display: inline-flex;
+    align-items: center;
+    height: var(--brix-ctl-sm);
+    padding-inline: var(--brix-gap-8);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-pill);
+    color: var(--brix-roast);
+    font-size: 0.9375rem;
+    font-weight: 500;
+
+    &:hover { border-color: var(--brix-roast); }
+  }
+
+  .is-active a {
+    background: var(--brix-roast);
+    border-color: var(--brix-roast);
+    color: var(--brix-mill);
+  }
+
+  .woocommerce-orders-table,
+  .woocommerce-table--order-details {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: var(--brix-gap-6) var(--brix-gap-4);
+      text-align: left;
+      border-bottom: 1px solid var(--brix-line);
+      font-size: 0.9375rem;
+    }
+
+    th { @include label; }
+  }
+}
+
+.brix-account {
+  &__dash {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+  }
+
+  &__hello { font-size: var(--brix-fs-h2); }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+    margin-top: var(--brix-gap-8);
+  }
+
+  &__orders {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--brix-gap-8);
+  }
+}
+
+.brix-order-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-4);
+  padding: var(--brix-gap-12);
+  border: 1px solid var(--brix-line);
+  border-radius: var(--brix-radius-lg);
+  background: var(--brix-paper);
+
+  &__number {
+    font-family: var(--brix-font-ui);
+    font-size: 1.0625rem;
+    font-weight: 600;
+
+    a { color: var(--brix-roast); }
+    a:hover { color: var(--brix-cherry); }
+  }
+
+  &__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--brix-gap-6);
+    margin: 0;
+
+    b { font-size: 1.0625rem; }
+  }
+}

@@ -34,4 +34,5 @@ if ( brix_has_woocommerce() ) {
 	require_once BRIX_DIR . '/inc/home.php';
 	require_once BRIX_DIR . '/inc/quiz.php';
 	require_once BRIX_DIR . '/inc/club.php';
+	require_once BRIX_DIR . '/inc/transparency.php';
 }
