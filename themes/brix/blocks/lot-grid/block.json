@@ -1,0 +1,19 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "brix/lot-grid",
+	"title": "Сітка лотів",
+	"category": "brix",
+	"icon": "grid-view",
+	"description": "Картки лотів із каталогу. Дані беруться запитом при кожному показі, тож сітка не протухає.",
+	"textdomain": "brix",
+	"attributes": {
+		"heading": { "type": "string", "default": "Вісім лотів, усі з паспортом" },
+		"label": { "type": "string", "default": "Зараз в обсмаженні" },
+		"limit": { "type": "number", "default": 4 },
+		"category": { "type": "string", "default": "" },
+		"showLink": { "type": "boolean", "default": true }
+	},
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"render": "file:./render.php"
+}

@@ -71,6 +71,7 @@ final class DemoContent {
 		$this->import_farms();
 		$this->import_guides();
 		$this->import_products();
+		$this->import_reviews();
 
 		// Нові типи записів і таксономії дають 404, доки правила
 		// перезапису не перебудовано.
@@ -516,6 +517,80 @@ final class DemoContent {
 		}
 
 		\WP_CLI::log( sprintf( 'Товарів: %d', $count ) );
+	}
+
+	/**
+	 * Додає відгуки до лотів.
+	 *
+	 * Без жодного відгуку WooCommerce не віддає aggregateRating —
+	 * і правильно робить: вигадана оцінка в розмітці гірша за її
+	 * відсутність. А для демо вони потрібні, щоб зірки й схема
+	 * було на що подивитись.
+	 *
+	 * @return void
+	 */
+	private function import_reviews(): void {
+		$texts = array(
+			array( 5, 'Марина', 'Найчистіша чашка з усього, що брала цього року. Черешня саме така, як обіцяли в паспорті.' ),
+			array( 5, 'Андрій', 'Беру вдруге. На V60 розкривається повністю, у молоці — марно, але про це чесно написано.' ),
+			array( 4, 'Ігор', 'Смак чудовий, але хотілось би більше тіла. Наступного разу візьму щось щільніше.' ),
+			array( 5, 'Олена', 'Приїхало на другий день, обсмажено за три дні до відправки. Все як заявлено.' ),
+			array( 4, 'Дмитро', 'Дорого, але раз на місяць можна. Паспорт лоту — те, чого бракує решті обсмажувалень.' ),
+		);
+
+		$ids = get_posts(
+			array(
+				'post_type'      => 'product',
+				'posts_per_page' => -1,
+				'fields'         => 'ids',
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Разова CLI-операція.
+				'meta_query'     => array(
+					array(
+						'key'     => LotMeta::key( 'code' ),
+						'value'   => '',
+						'compare' => '!=',
+					),
+				),
+			)
+		);
+
+		$added = 0;
+
+		foreach ( $ids as $index => $product_id ) {
+			// Уже є відгуки — другий прогін не має їх дублювати.
+			if ( get_comments_number( (int) $product_id ) > 0 ) {
+				continue;
+			}
+
+			// Різним лотам — різна кількість відгуків, щоб середня
+			// оцінка не була однаковою у всіх.
+			$count = 2 + ( $index % 3 );
+
+			for ( $i = 0; $i < $count; $i++ ) {
+				$review     = $texts[ ( $index + $i ) % count( $texts ) ];
+				$comment_id = wp_insert_comment(
+					array(
+						'comment_post_ID'      => (int) $product_id,
+						'comment_author'       => $review[1],
+						'comment_author_email' => sanitize_title( $review[1] ) . '@example.com',
+						'comment_content'      => $review[2],
+						'comment_type'         => 'review',
+						'comment_approved'     => 1,
+						'comment_date'         => gmdate( 'Y-m-d H:i:s', strtotime( '-' . ( $i * 9 + 3 ) . ' days' ) ),
+					)
+				);
+
+				if ( $comment_id ) {
+					update_comment_meta( (int) $comment_id, 'rating', $review[0] );
+					update_comment_meta( (int) $comment_id, 'verified', 1 );
+					++$added;
+				}
+			}
+
+			\WC_Comments::clear_transients( (int) $product_id );
+		}
+
+		\WP_CLI::log( sprintf( 'Відгуків: %d', $added ) );
 	}
 
 	/**

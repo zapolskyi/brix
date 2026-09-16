@@ -41,6 +41,14 @@
 
   &__title { font-size: var(--brix-fs-h2); }
 
+  &__rating {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-4);
+    margin: 0;
+  }
+
   &__price {
     display: flex;
     align-items: baseline;
@@ -253,4 +261,16 @@
     margin: 0;
     padding: 0;
   }
+}
+
+// Зірки оцінки. Значення дублюється цифрою поруч, тож самі зірки
+// сховані від скрінрідера — інакше він прочитає пʼять символів підряд.
+.brix-stars {
+  display: inline-flex;
+  gap: 1px;
+  font-size: 0.9375rem;
+  line-height: 1;
+  color: var(--brix-line);
+
+  &__item.is-on { color: var(--brix-honey); }
 }

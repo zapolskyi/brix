@@ -60,6 +60,41 @@ $brix_left    = brix_stock_left( $brix_current );
 		<p class="brix-lead brix-muted"><?php echo esc_html( $brix_lot->notes_label() ); ?></p>
 	<?php endif; ?>
 
+	<?php if ( $brix_product->get_review_count() > 0 ) : ?>
+		<p class="brix-buy__rating">
+			<span class="brix-stars" role="img" aria-label="
+			<?php
+			printf(
+				/* translators: %s — середня оцінка. */
+				esc_attr__( 'Оцінка %s з 5', 'brix' ),
+				esc_attr( (string) $brix_product->get_average_rating() )
+			);
+			?>
+			">
+				<?php
+				$brix_rating = (float) $brix_product->get_average_rating();
+
+				for ( $brix_star = 1; $brix_star <= 5; $brix_star++ ) {
+					printf(
+						'<span class="brix-stars__item%s" aria-hidden="true">★</span>',
+						$brix_star <= round( $brix_rating ) ? ' is-on' : ''
+					);
+				}
+				?>
+			</span>
+			<b class="brix-mono"><?php echo esc_html( number_format( (float) $brix_product->get_average_rating(), 1, ',', '' ) ); ?></b>
+			<a class="brix-small brix-muted" href="#reviews">
+				<?php
+				printf(
+					/* translators: %s — кількість відгуків. */
+					esc_html( brix_plural( $brix_product->get_review_count(), __( '%s відгук', 'brix' ), __( '%s відгуки', 'brix' ), __( '%s відгуків', 'brix' ) ) ),
+					esc_html( (string) $brix_product->get_review_count() )
+				);
+				?>
+			</a>
+		</p>
+	<?php endif; ?>
+
 	<div class="brix-buy__price">
 		<b class="brix-mono"><?php echo wp_kses_post( wc_price( (float) $brix_current->get_price() ) ); ?></b>
 
