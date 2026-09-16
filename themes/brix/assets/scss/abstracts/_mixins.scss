@@ -63,3 +63,34 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+// Вигляд текстового поля. Міксин, а не @extend: @extend протягнув би
+// за собою всі вкладені правила .brix-input і роздув селектори.
+@mixin control-base {
+  width: 100%;
+  height: var(--brix-ctl);
+  padding-inline: var(--brix-gap-8);
+  border: 1px solid var(--brix-line);
+  border-radius: var(--brix-radius);
+  background: var(--brix-paper);
+  color: var(--brix-roast);
+  font-size: 1rem;
+
+  &::placeholder { color: var(--brix-muted); }
+
+  // У макеті фокус поля — темніша рамка й ледь помітний ореол 8% чорного.
+  // Самого ореолу мало: це близько 1.1:1 контрасту, а WCAG 2.2 вимагає
+  // 3:1 для індикатора фокуса. Тож ореол лишаємо як у макеті, а поверх
+  // додаємо звичайне обведення — те саме, що на решті елементів.
+  &:focus-visible {
+    border-color: var(--brix-roast);
+    box-shadow: 0 0 0 3px rgb(29 26 25 / 8%);
+    @include focus-ring(1px);
+  }
+
+  &[aria-invalid='true'] {
+    border-color: var(--brix-error);
+
+    &:focus-visible { box-shadow: 0 0 0 3px rgb(182 31 58 / 14%); }
+  }
+}
