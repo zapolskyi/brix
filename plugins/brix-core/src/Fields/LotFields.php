@@ -12,6 +12,7 @@ namespace Brix\Core\Fields;
 use Brix\Core\PostTypes\BrewGuide;
 use Brix\Core\PostTypes\Farm;
 use Brix\Core\Product\LotMeta;
+use Brix\Core\Taxonomies\Registrar as Tax;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -220,6 +221,24 @@ final class LotFields {
 			array(
 				'rows'         => 4,
 				'instructions' => __( 'Пояснення людською мовою під шкалами смаку. Цифри замість епітетів.', 'brix-core' ),
+			)
+		);
+
+		$fields[] = self::field(
+			'notes',
+			__( 'Смакові ноти', 'brix-core' ),
+			'taxonomy',
+			array(
+				'taxonomy'      => Tax::NOTE,
+				'field_type'    => 'multi_select',
+				'return_format' => 'id',
+				'add_term'      => 0,
+				'save_terms'    => 1,
+				// load_terms лишаємо вимкненим навмисно: увімкнений, він
+				// щоразу перечитував би терміни з таксономії за абеткою
+				// і затирав порядок, заради якого поле й існує.
+				'load_terms'    => 0,
+				'instructions'  => __( 'Порядок має значення: перша нота — найпомітніша. Саме так вони стоять під назвою товару.', 'brix-core' ),
 			)
 		);
 

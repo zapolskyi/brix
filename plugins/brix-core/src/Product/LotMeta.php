@@ -76,6 +76,7 @@ final class LotMeta implements Module {
 			cup_notes: self::text( $product_id, 'cup_notes' ),
 			brew_guide_id: self::integer( $product_id, 'brew_guide' ),
 			lot_of_week: (bool) self::raw( $product_id, 'lot_of_week' ),
+			note_ids: self::id_list( $product_id, 'notes' ),
 		);
 
 		self::$cache[ $product_id ] = $lot;
@@ -228,6 +229,28 @@ final class LotMeta implements Module {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Список ID із поля-зв'язку, у збереженому порядку.
+	 *
+	 * @param int    $product_id Товар.
+	 * @param string $field      Поле.
+	 * @return array<int, int>
+	 */
+	private static function id_list( int $product_id, string $field ): array {
+		$value = self::raw( $product_id, $field );
+
+		if ( ! is_array( $value ) ) {
+			return array();
+		}
+
+		$ids = array_map(
+			static fn( $item ): int => $item instanceof \WP_Term ? (int) $item->term_id : (int) $item,
+			$value
+		);
+
+		return array_values( array_filter( $ids ) );
 	}
 
 	/**

@@ -12,6 +12,7 @@ namespace Brix\Core\Cli;
 use Brix\Core\PostTypes\BrewGuide;
 use Brix\Core\PostTypes\Farm;
 use Brix\Core\Product\LotMeta;
+use Brix\Core\Support\Slug;
 use Brix\Core\Taxonomies\Registrar as Tax;
 use Brix\Core\Fields\FarmFields;
 use Brix\Core\Fields\GuideFields;
@@ -69,6 +70,10 @@ final class DemoContent {
 		$this->import_farms();
 		$this->import_guides();
 		$this->import_products();
+
+		// Нові типи записів і таксономії дають 404, доки правила
+		// перезапису не перебудовано.
+		flush_rewrite_rules();
 
 		\WP_CLI::success( 'Демо-контент на місці.' );
 	}
@@ -149,6 +154,22 @@ final class DemoContent {
 			$this->ensure_term( (string) $name, Tax::BREW_METHOD );
 		}
 
+		/*
+		 * Лінійки з власним пакуванням. Origin свого стилю не має —
+		 * там колір бере обробка.
+		 */
+		foreach ( array(
+			'Lab'        => 'lab',
+			'Core'       => 'core',
+			'Drip & Try' => 'drip',
+		) as $name => $style ) {
+			$term = get_term_by( 'name', $name, 'product_cat' );
+
+			if ( $term instanceof \WP_Term ) {
+				update_term_meta( $term->term_id, 'brix_pack_style', $style );
+			}
+		}
+
 		// Ноти ієрархічні: група — батько, конкретна нота — дитина.
 		foreach ( (array) ( $terms['brix_note'] ?? array() ) as $group => $children ) {
 			$parent = $this->ensure_term( (string) $group, Tax::NOTE );
@@ -170,13 +191,32 @@ final class DemoContent {
 	 * @return int ID терміна або 0.
 	 */
 	private function ensure_term( string $name, string $taxonomy, int $parent_id = 0 ): int {
+		$slug     = Slug::latin( $name );
 		$existing = get_term_by( 'name', $name, $taxonomy );
 
 		if ( $existing instanceof \WP_Term ) {
+			/*
+			 * Термін міг лишитись від старішого запуску з кириличним
+			 * slug. Імпортер має приводити дані до потрібного стану,
+			 * а не покладатись на те, що базу почистили руками.
+			 */
+			if ( $existing->slug !== $slug ) {
+				wp_update_term( $existing->term_id, $taxonomy, array( 'slug' => $slug ) );
+			}
+
 			return (int) $existing->term_id;
 		}
 
-		$created = wp_insert_term( $name, $taxonomy, array( 'parent' => $parent_id ) );
+		$created = wp_insert_term(
+			$name,
+			$taxonomy,
+			array(
+				'parent' => $parent_id,
+				// Без цього WordPress лишив би в slug кирилицю, і адреса
+				// перетворилася б на /country/%d0%b5%d1%84%d1%96...
+				'slug'   => $slug,
+			)
+		);
 
 		if ( is_wp_error( $created ) ) {
 			\WP_CLI::warning( sprintf( 'Термін «%s»: %s', $name, $created->get_error_message() ) );
@@ -526,6 +566,27 @@ final class DemoContent {
 
 		if ( ! empty( $row['notes'] ) ) {
 			wp_set_object_terms( $product_id, (array) $row['notes'], Tax::NOTE );
+
+			/*
+			 * Таксономія не зберігає порядок — get_the_terms() віддає
+			 * терміни за абеткою. А в дегустаційному описі порядок
+			 * несе сенс: «Черешня · бергамот · молочний шоколад»,
+			 * а не навпаки. Тому окремо кладемо ID у тому порядку,
+			 * у якому вони записані в demo-content.json.
+			 */
+			$ordered = array();
+
+			foreach ( (array) $row['notes'] as $note ) {
+				$term = get_term_by( 'name', (string) $note, Tax::NOTE );
+
+				if ( $term instanceof \WP_Term ) {
+					$ordered[] = (int) $term->term_id;
+				}
+			}
+
+			$key = LotMeta::key( 'notes' );
+			update_post_meta( $product_id, $key, $ordered );
+			update_post_meta( $product_id, '_' . $key, 'field_' . $key );
 		}
 
 		if ( ! empty( $row['brew_methods'] ) ) {

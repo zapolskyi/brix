@@ -9,6 +9,7 @@ declare( strict_types=1 );
 
 namespace Brix\Core\Product;
 
+use Brix\Core\Support\Format;
 use Brix\Core\Taxonomies\Registrar;
 
 defined( 'ABSPATH' ) || exit;
@@ -51,6 +52,7 @@ final class Lot {
 	 * @param string                  $cup_notes      «Що це означає в чашці».
 	 * @param int|null                $brew_guide_id  Рекомендований рецепт.
 	 * @param bool                    $lot_of_week    Плашка «Лот тижня».
+	 * @param array<int, int>         $note_ids       Ноти в авторському порядку.
 	 */
 	public function __construct(
 		public readonly int $product_id,
@@ -71,6 +73,7 @@ final class Lot {
 		public readonly string $cup_notes = '',
 		public readonly ?int $brew_guide_id = null,
 		public readonly bool $lot_of_week = false,
+		public readonly array $note_ids = array(),
 	) {}
 
 	/**
@@ -95,7 +98,7 @@ final class Lot {
 			return '';
 		}
 
-		$min = number_format_i18n( $this->altitude_min );
+		$min = Format::number( (float) $this->altitude_min );
 
 		if ( null === $this->altitude_max || $this->altitude_max === $this->altitude_min ) {
 			/* translators: %s — висота в метрах. */
@@ -103,7 +106,7 @@ final class Lot {
 		}
 
 		/* translators: 1: нижня межа висоти, 2: верхня межа. */
-		return sprintf( __( '%1$s–%2$s м', 'brix-core' ), $min, number_format_i18n( $this->altitude_max ) );
+		return sprintf( __( '%1$s–%2$s м', 'brix-core' ), $min, Format::number( (float) $this->altitude_max ) );
 	}
 
 	/**
@@ -138,12 +141,29 @@ final class Lot {
 	/**
 	 * Стиль пачки: natural, washed, honey, lab, core, drip.
 	 *
+	 * Спершу дивимось на лінійку: Lab, Core і Drip & Try мають власне
+	 * пакування незалежно від обробки — темна пачка Lab лишається
+	 * темною, навіть якщо зерно всередині natural. Для решти лінійок
+	 * колір кодує саме обробку.
+	 *
 	 * @return string
 	 */
 	public function pack_style(): string {
-		$term = $this->processing();
+		$categories = get_the_terms( $this->product_id, 'product_cat' );
 
-		return $term ? Registrar::pack_style( $term->term_id ) : '';
+		if ( is_array( $categories ) ) {
+			foreach ( $categories as $category ) {
+				$style = Registrar::pack_style( $category->term_id );
+
+				if ( '' !== $style ) {
+					return $style;
+				}
+			}
+		}
+
+		$processing = $this->processing();
+
+		return $processing ? Registrar::pack_style( $processing->term_id ) : '';
 	}
 
 	/**
@@ -164,8 +184,40 @@ final class Lot {
 
 		// Якщо дочірніх немає — товару проставили саму групу; показуємо її.
 		$children = array_filter( $terms, static fn( \WP_Term $term ): bool => $term->parent > 0 );
+		$visible  = array_values( array() === $children ? $terms : $children );
 
-		return array_values( array() === $children ? $terms : $children );
+		return $this->in_author_order( $visible );
+	}
+
+	/**
+	 * Вибудовує ноти в порядку, заданому редактором.
+	 *
+	 * `get_the_terms()` віддає терміни за абеткою, а в дегустаційному
+	 * описі порядок несе сенс: перша нота — найпомітніша. Порядок
+	 * зберігається окремим полем; якщо його немає, лишається абетка.
+	 *
+	 * @param array<int, \WP_Term> $terms Терміни.
+	 * @return array<int, \WP_Term>
+	 */
+	private function in_author_order( array $terms ): array {
+		if ( ! $this->note_ids ) {
+			return $terms;
+		}
+
+		$position = array_flip( $this->note_ids );
+
+		usort(
+			$terms,
+			static function ( \WP_Term $a, \WP_Term $b ) use ( $position ): int {
+				// Ноти, яких немає в списку порядку, йдуть у кінець.
+				$rank_a = $position[ $a->term_id ] ?? PHP_INT_MAX;
+				$rank_b = $position[ $b->term_id ] ?? PHP_INT_MAX;
+
+				return $rank_a <=> $rank_b;
+			}
+		);
+
+		return $terms;
 	}
 
 	/**
@@ -196,7 +248,7 @@ final class Lot {
 		return $term->name . ', ' . sprintf(
 			/* translators: %s — кількість днів обробки. */
 			_n( '%s день', '%s днів', $this->processing_days, 'brix-core' ),
-			number_format_i18n( $this->processing_days )
+			Format::number( (float) $this->processing_days )
 		);
 	}
 

@@ -41,10 +41,19 @@ final class Registrar implements Module {
 	 */
 	public function register(): void {
 		add_action( 'init', array( $this, 'register_taxonomies' ), 5 );
-		add_action( self::PROCESSING . '_add_form_fields', array( $this, 'render_pack_style_add_field' ) );
-		add_action( self::PROCESSING . '_edit_form_fields', array( $this, 'render_pack_style_edit_field' ) );
-		add_action( 'created_' . self::PROCESSING, array( $this, 'save_pack_style' ) );
-		add_action( 'edited_' . self::PROCESSING, array( $this, 'save_pack_style' ) );
+
+		/*
+		 * Стиль пачки задається і на обробці, і на категорії товару.
+		 * Для мікролотів колір кодує обробку, але лінійки Lab, Core
+		 * і Drip & Try мають власне пакування незалежно від того,
+		 * як оброблене зерно — так у макетах і в брендбуку.
+		 */
+		foreach ( array( self::PROCESSING, 'product_cat' ) as $taxonomy ) {
+			add_action( $taxonomy . '_add_form_fields', array( $this, 'render_pack_style_add_field' ) );
+			add_action( $taxonomy . '_edit_form_fields', array( $this, 'render_pack_style_edit_field' ) );
+			add_action( 'created_' . $taxonomy, array( $this, 'save_pack_style' ) );
+			add_action( 'edited_' . $taxonomy, array( $this, 'save_pack_style' ) );
+		}
 	}
 
 	/**

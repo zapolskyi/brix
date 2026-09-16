@@ -10,6 +10,7 @@ declare( strict_types=1 );
 namespace Brix\Core\PostTypes;
 
 use Brix\Core\Contracts\Module;
+use Brix\Core\Product\LotMeta;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -89,7 +90,7 @@ final class Farm implements Module {
 			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Зв'язок «ферма → лоти» інакше не вибрати; результат кешується об'єктним кешем.
 			'meta_query'     => array(
 				array(
-					'key'   => 'farm',
+					'key'   => LotMeta::key( 'farm' ),
 					'value' => $farm_id,
 				),
 			),
