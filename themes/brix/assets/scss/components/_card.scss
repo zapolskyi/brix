@@ -65,6 +65,11 @@
     font-weight: 600;
     letter-spacing: -0.015em;
 
+    // Назва читається як заголовок картки, а не як посилання:
+    // вишневий тут забирав би увагу в тега обробки й ціни.
+    a { color: var(--brix-roast); }
+    a:hover { color: var(--brix-cherry); }
+
     // Посилання розтягується на всю картку, щоб клікалась уся площа,
     // а в дереві доступності лишався один зрозумілий пункт.
     a::after { content: ''; position: absolute; inset: 0; }
@@ -113,4 +118,12 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: var(--brix-gap-16) var(--brix-gap-12);
+}
+
+// Фото або плейсхолдер замість пачки — для обладнання й наборів.
+.brix-card__photo {
+  width: 72%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--brix-radius);
+  object-fit: cover;
 }

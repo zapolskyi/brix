@@ -1,0 +1,198 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+.brix-breadcrumb {
+  @include label;
+  margin-bottom: var(--brix-gap-12);
+
+  a { color: var(--brix-muted); }
+  a:hover { color: var(--brix-cherry); }
+}
+
+.brix-catalog__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-6);
+  margin-bottom: var(--brix-gap-16);
+}
+
+// Перемикач лінійок.
+.brix-lines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--brix-gap-4);
+  margin-bottom: var(--brix-gap-16);
+  padding-bottom: var(--brix-gap-16);
+  border-bottom: 1px solid var(--brix-line);
+}
+
+.brix-catalog {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--brix-gap-24);
+  align-items: start;
+
+  @include upto($bp-lg) { grid-template-columns: 1fr; }
+}
+
+.brix-catalog__aside {
+  position: sticky;
+  top: calc(var(--brix-header-h) + var(--brix-gap-8));
+
+  @include upto($bp-lg) { position: static; }
+}
+
+.brix-catalog__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--brix-gap-8);
+  margin-bottom: var(--brix-gap-16);
+}
+
+.brix-catalog__count {
+  @include label;
+  margin-right: auto;
+}
+
+.brix-active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--brix-gap-4);
+
+  .brix-chip svg { width: 14px; height: 14px; }
+}
+
+// ——— сайдбар фільтрів ———
+// На десктопі <details> має бути завжди розкритим, тож маркер ховаємо
+// і форму показуємо незалежно від стану.
+.brix-filters__drawer {
+  > summary {
+    list-style: none;
+    cursor: pointer;
+
+    &::-webkit-details-marker { display: none; }
+  }
+
+  @include from($bp-lg) {
+    > summary { display: none; }
+    > .brix-filters { display: flex; }
+  }
+
+  @include upto($bp-lg) {
+    &[open] > summary { margin-bottom: var(--brix-gap-8); }
+  }
+}
+
+.brix-filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-12);
+
+  &__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--brix-gap-8);
+  }
+
+  &__title {
+    font-family: var(--brix-font-ui);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  &__reset {
+    @include label;
+    color: var(--brix-cherry);
+  }
+
+  &__group {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-top: 1px solid var(--brix-line);
+    padding-top: var(--brix-gap-8);
+  }
+
+  &__legend {
+    @include label;
+    padding: 0;
+    margin-bottom: var(--brix-gap-6);
+  }
+
+  &__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-4);
+  }
+
+  &__price {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--brix-gap-6);
+  }
+
+  &__stock {
+    display: flex;
+    align-items: center;
+    gap: var(--brix-gap-6);
+    font-size: 0.9375rem;
+    cursor: pointer;
+  }
+}
+
+.brix-empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-8);
+  align-items: flex-start;
+  padding-block: var(--brix-gap-24);
+}
+
+// Пагінація WooCommerce.
+.woocommerce-pagination {
+  margin-top: var(--brix-gap-24);
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a, span {
+    display: grid;
+    place-items: center;
+    min-width: 42px;
+    height: 42px;
+    padding-inline: var(--brix-gap-4);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-pill);
+    color: var(--brix-roast);
+    font-size: 0.9375rem;
+  }
+
+  span.current {
+    background: var(--brix-roast);
+    border-color: var(--brix-roast);
+    color: var(--brix-mill);
+  }
+}
+
+// Сортування Woo — рідний <select> у наших стилях.
+.woocommerce-ordering select {
+  @include control-base;
+
+  width: auto;
+  height: var(--brix-ctl-sm);
+  appearance: none;
+  padding-inline: var(--brix-gap-8) var(--brix-gap-16);
+  border-radius: var(--brix-radius-pill);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%236C6763' stroke-width='1.6'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--brix-gap-6) center;
+  font-size: 0.875rem;
+}

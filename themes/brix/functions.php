@@ -21,9 +21,11 @@ define( 'BRIX_URI', get_template_directory_uri() );
 require_once BRIX_DIR . '/inc/helpers.php';
 require_once BRIX_DIR . '/inc/setup.php';
 require_once BRIX_DIR . '/inc/enqueue.php';
+require_once BRIX_DIR . '/inc/products.php';
 require_once BRIX_DIR . '/inc/class-brix-plain-walker.php';
 require_once BRIX_DIR . '/inc/template-tags.php';
 
 if ( brix_has_woocommerce() ) {
 	require_once BRIX_DIR . '/inc/woocommerce.php';
+	require_once BRIX_DIR . '/inc/catalog.php';
 }

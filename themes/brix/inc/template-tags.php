@@ -94,6 +94,13 @@ function brix_icon( string $name ): string {
 		'bag'     => '<path d="M6.2 8h11.6l1.1 12.5H5.1L6.2 8Z"/><path d="M9.2 8.6V6.4a2.8 2.8 0 0 1 5.6 0v2.2"/>',
 		'menu'    => '<path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/>',
 		'close'   => '<path d="M6 6l12 12"/><path d="M18 6 6 18"/>',
+		'arrow'   => '<path d="M5 12h14"/><path d="m13 6 6 6-6 6"/>',
+		'clock'   => '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+		'truck'   => '<path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>',
+		'drop'    => '<path d="M12 3.5s5.5 6 5.5 9.5a5.5 5.5 0 0 1-11 0C6.5 9.5 12 3.5 12 3.5Z"/>',
+		'plus'    => '<path d="M12 5v14"/><path d="M5 12h14"/>',
+		'filter'  => '<path d="M4 6h16"/><path d="M7 12h10"/><path d="M10 18h4"/>',
+		'check'   => '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
 	);
 
 	if ( ! isset( $paths[ $name ] ) ) {
