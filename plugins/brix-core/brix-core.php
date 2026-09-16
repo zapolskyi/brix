@@ -65,8 +65,10 @@ add_action(
 /**
  * Запускає плагін після того, як WordPress завантажив решту.
  *
- * Плагін безглуздий без WooCommerce, тож за його відсутності
- * показуємо зрозуміле повідомлення замість фаталу.
+ * Без WooCommerce плагін безглуздий, тож модулі не запускаються зовсім.
+ * Без SCF він працює, але поля нічим редагувати — про це попереджаємо
+ * окремо: дані лежать у звичайних мета-полях і нікуди не зникають,
+ * тому вимкнений SCF ламає адмінку, а не сайт.
  */
 add_action(
 	'plugins_loaded',
@@ -74,6 +76,10 @@ add_action(
 		if ( ! class_exists( 'WooCommerce' ) ) {
 			add_action( 'admin_notices', __NAMESPACE__ . '\\render_missing_woocommerce_notice' );
 			return;
+		}
+
+		if ( ! class_exists( 'ACF' ) ) {
+			add_action( 'admin_notices', __NAMESPACE__ . '\\render_missing_scf_notice' );
 		}
 
 		Plugin::instance()->boot();
@@ -94,6 +100,30 @@ function render_missing_woocommerce_notice(): void {
 		'<div class="notice notice-error"><p>%s</p></div>',
 		esc_html__( 'BRIX Core потребує активного WooCommerce. Плагін завантажено, але його модулі вимкнені.', 'brix-core' )
 	);
+}
+
+/**
+ * Повідомлення в адмінці, коли немає Secure Custom Fields.
+ *
+ * @return void
+ */
+function render_missing_scf_notice(): void {
+	if ( ! current_user_can( 'activate_plugins' ) ) {
+		return;
+	}
+
+	printf(
+		'<div class="notice notice-warning"><p>%s</p></div>',
+		esc_html__( 'BRIX Core: не знайдено Secure Custom Fields. Паспорт лоту, дані виробників і кроки гайдів не можна редагувати, доки плагін не активний. Уже збережені дані на місці — сайт показує їх як і раніше.', 'brix-core' )
+	);
+}
+
+/*
+ * CLI-команди. Реєструються лише під WP-CLI, щоб класи команд
+ * не завантажувались на кожному запиті сайту.
+ */
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	\WP_CLI::add_command( 'brix demo', Cli\DemoContent::class );
 }
 
 register_activation_hook( __FILE__, array( Plugin::class, 'on_activate' ) );

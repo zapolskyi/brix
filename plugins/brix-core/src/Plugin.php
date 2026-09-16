@@ -97,9 +97,9 @@ final class Plugin {
 	/**
 	 * Перелік модулів у порядку запуску.
 	 *
-	 * Поки що порожній: модулі з'являються починаючи з фази 2.
-	 * Порядок має значення — таксономії реєструються раніше за все,
-	 * що на них спирається.
+	 * Порядок має значення: типи записів і таксономії реєструються
+	 * раніше за все, що на них спирається, — поля посилаються на них
+	 * у правилах розташування.
 	 *
 	 * @return array<int, class-string<Module>>
 	 */
@@ -109,7 +109,16 @@ final class Plugin {
 		 *
 		 * @param array<int, class-string<Module>> $modules Класи модулів.
 		 */
-		return (array) apply_filters( 'brix_core_modules', array() );
+		return (array) apply_filters(
+			'brix_core_modules',
+			array(
+				PostTypes\Farm::class,
+				PostTypes\BrewGuide::class,
+				Taxonomies\Registrar::class,
+				Fields\Registrar::class,
+				Product\LotMeta::class,
+			)
+		);
 	}
 
 	/**

@@ -1,0 +1,574 @@
+<?php
+/**
+ * Команда wp brix demo — наповнення чистої інсталяції.
+ *
+ * @package Brix\Core
+ */
+
+declare( strict_types=1 );
+
+namespace Brix\Core\Cli;
+
+use Brix\Core\PostTypes\BrewGuide;
+use Brix\Core\PostTypes\Farm;
+use Brix\Core\Product\LotMeta;
+use Brix\Core\Taxonomies\Registrar as Tax;
+use Brix\Core\Fields\FarmFields;
+use Brix\Core\Fields\GuideFields;
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Створює демо-контент магазину.
+ *
+ * Команда ідемпотентна: повторний запуск оновлює те, що вже є, за slug,
+ * а не плодить дублікати. Це важливіше, ніж здається, — демо-контент
+ * доводиться перезаливати щоразу, коли міняється модель даних.
+ */
+final class DemoContent {
+
+	/**
+	 * Уміст demo-content.json.
+	 *
+	 * @var array<string, mixed>
+	 */
+	private array $data = array();
+
+	/**
+	 * Створені записи за slug, щоб зв'язати лоти з фермами й гайдами.
+	 *
+	 * @var array<string, int>
+	 */
+	private array $ids = array();
+
+	/**
+	 * Наповнює магазин демо-контентом.
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--fresh]
+	 * : Спершу видалити раніше створений демо-контент.
+	 *
+	 * ## EXAMPLES
+	 *
+	 *     wp brix demo
+	 *     wp brix demo --fresh
+	 *
+	 * @param array<int, string>    $args       Позиційні аргументи.
+	 * @param array<string, string> $assoc_args Іменовані аргументи.
+	 * @return void
+	 */
+	public function __invoke( array $args, array $assoc_args ): void {
+		$this->data = $this->load();
+
+		if ( isset( $assoc_args['fresh'] ) ) {
+			$this->purge();
+		}
+
+		$this->import_terms();
+		$this->import_farms();
+		$this->import_guides();
+		$this->import_products();
+
+		\WP_CLI::success( 'Демо-контент на місці.' );
+	}
+
+	/**
+	 * Читає файл з даними.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function load(): array {
+		$path = BRIX_CORE_DIR . '/data/demo-content.json';
+
+		if ( ! is_readable( $path ) ) {
+			\WP_CLI::error( 'Немає файлу data/demo-content.json' );
+		}
+
+		$data = json_decode( (string) file_get_contents( $path ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+		if ( ! is_array( $data ) ) {
+			\WP_CLI::error( 'demo-content.json не читається як JSON' );
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Видаляє раніше створений демо-контент.
+	 *
+	 * Впізнає його за мета-полем `_brix_demo`: чужі записи не чіпає.
+	 *
+	 * @return void
+	 */
+	private function purge(): void {
+		$posts = get_posts(
+			array(
+				'post_type'      => array( 'product', Farm::POST_TYPE, BrewGuide::POST_TYPE ),
+				'post_status'    => 'any',
+				'posts_per_page' => -1,
+				'fields'         => 'ids',
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Разова CLI-операція.
+				'meta_query'     => array(
+					array(
+						'key'     => '_brix_demo',
+						'compare' => 'EXISTS',
+					),
+				),
+			)
+		);
+
+		foreach ( $posts as $post_id ) {
+			wp_delete_post( (int) $post_id, true );
+		}
+
+		\WP_CLI::log( sprintf( 'Видалено раніше створеного: %d', count( $posts ) ) );
+	}
+
+	/**
+	 * Створює терміни таксономій.
+	 *
+	 * @return void
+	 */
+	private function import_terms(): void {
+		$terms = (array) ( $this->data['terms'] ?? array() );
+
+		foreach ( (array) ( $terms['brix_country'] ?? array() ) as $name ) {
+			$this->ensure_term( (string) $name, Tax::COUNTRY );
+		}
+
+		foreach ( (array) ( $terms['brix_processing'] ?? array() ) as $row ) {
+			$term_id = $this->ensure_term( (string) $row['name'], Tax::PROCESSING );
+
+			if ( $term_id && ! empty( $row['pack_style'] ) ) {
+				update_term_meta( $term_id, 'brix_pack_style', sanitize_key( (string) $row['pack_style'] ) );
+			}
+		}
+
+		foreach ( (array) ( $terms['brix_brew_method'] ?? array() ) as $name ) {
+			$this->ensure_term( (string) $name, Tax::BREW_METHOD );
+		}
+
+		// Ноти ієрархічні: група — батько, конкретна нота — дитина.
+		foreach ( (array) ( $terms['brix_note'] ?? array() ) as $group => $children ) {
+			$parent = $this->ensure_term( (string) $group, Tax::NOTE );
+
+			foreach ( (array) $children as $child ) {
+				$this->ensure_term( (string) $child, Tax::NOTE, (int) $parent );
+			}
+		}
+
+		\WP_CLI::log( 'Таксономії заповнені.' );
+	}
+
+	/**
+	 * Створює або знаходить термін.
+	 *
+	 * @param string $name     Назва.
+	 * @param string $taxonomy Таксономія.
+	 * @param int    $parent_id Батьківський термін.
+	 * @return int ID терміна або 0.
+	 */
+	private function ensure_term( string $name, string $taxonomy, int $parent_id = 0 ): int {
+		$existing = get_term_by( 'name', $name, $taxonomy );
+
+		if ( $existing instanceof \WP_Term ) {
+			return (int) $existing->term_id;
+		}
+
+		$created = wp_insert_term( $name, $taxonomy, array( 'parent' => $parent_id ) );
+
+		if ( is_wp_error( $created ) ) {
+			\WP_CLI::warning( sprintf( 'Термін «%s»: %s', $name, $created->get_error_message() ) );
+			return 0;
+		}
+
+		return (int) $created['term_id'];
+	}
+
+	/**
+	 * Створює виробників.
+	 *
+	 * @return void
+	 */
+	private function import_farms(): void {
+		foreach ( (array) ( $this->data['farms'] ?? array() ) as $farm ) {
+			$post_id = $this->ensure_post( $farm, Farm::POST_TYPE );
+
+			if ( ! $post_id ) {
+				continue;
+			}
+
+			$fields = (array) ( $farm['fields'] ?? array() );
+
+			foreach ( $fields as $name => $value ) {
+				if ( 'year_calendar' === $name ) {
+					continue;
+				}
+
+				update_post_meta( $post_id, FarmFields::PREFIX . $name, $value );
+			}
+
+			$this->save_repeater(
+				$post_id,
+				FarmFields::PREFIX . 'year_calendar',
+				(array) ( $fields['year_calendar'] ?? array() ),
+				array(
+					'period' => FarmFields::PREFIX . 'calendar_period',
+					'title'  => FarmFields::PREFIX . 'calendar_title',
+					'note'   => FarmFields::PREFIX . 'calendar_note',
+				)
+			);
+
+			if ( ! empty( $farm['country'] ) ) {
+				wp_set_object_terms( $post_id, (string) $farm['country'], Tax::COUNTRY );
+			}
+
+			$this->ids[ 'farm:' . $farm['slug'] ] = $post_id;
+		}
+
+		\WP_CLI::log( sprintf( 'Виробників: %d', count( (array) ( $this->data['farms'] ?? array() ) ) ) );
+	}
+
+	/**
+	 * Створює гайди заварювання.
+	 *
+	 * @return void
+	 */
+	private function import_guides(): void {
+		foreach ( (array) ( $this->data['guides'] ?? array() ) as $guide ) {
+			$post_id = $this->ensure_post( $guide, BrewGuide::POST_TYPE );
+
+			if ( ! $post_id ) {
+				continue;
+			}
+
+			$fields = (array) ( $guide['fields'] ?? array() );
+
+			foreach ( $fields as $name => $value ) {
+				if ( 'steps' === $name ) {
+					continue;
+				}
+
+				update_post_meta( $post_id, GuideFields::PREFIX . $name, $value );
+			}
+
+			$this->save_repeater(
+				$post_id,
+				GuideFields::PREFIX . 'steps',
+				(array) ( $fields['steps'] ?? array() ),
+				array(
+					'at'     => GuideFields::PREFIX . 'step_at',
+					'title'  => GuideFields::PREFIX . 'step_title',
+					'target' => GuideFields::PREFIX . 'step_target',
+					'text'   => GuideFields::PREFIX . 'step_text',
+				)
+			);
+
+			if ( ! empty( $guide['method'] ) ) {
+				wp_set_object_terms( $post_id, (string) $guide['method'], Tax::BREW_METHOD );
+			}
+
+			$this->ids[ 'guide:' . $guide['slug'] ] = $post_id;
+		}
+
+		\WP_CLI::log( sprintf( 'Гайдів: %d', count( (array) ( $this->data['guides'] ?? array() ) ) ) );
+	}
+
+	/**
+	 * Створює або оновлює запис за slug.
+	 *
+	 * @param array<string, mixed> $row       Опис запису.
+	 * @param string               $post_type Тип запису.
+	 * @return int
+	 */
+	private function ensure_post( array $row, string $post_type ): int {
+		$slug     = (string) ( $row['slug'] ?? '' );
+		$existing = get_page_by_path( $slug, OBJECT, $post_type );
+
+		$args = array(
+			'post_type'    => $post_type,
+			'post_status'  => 'publish',
+			'post_title'   => (string) ( $row['title'] ?? $slug ),
+			'post_name'    => $slug,
+			'post_excerpt' => (string) ( $row['excerpt'] ?? '' ),
+			'post_content' => (string) ( $row['content'] ?? '' ),
+		);
+
+		if ( $existing instanceof \WP_Post ) {
+			$args['ID'] = $existing->ID;
+		}
+
+		$post_id = wp_insert_post( $args, true );
+
+		if ( is_wp_error( $post_id ) ) {
+			\WP_CLI::warning( sprintf( '«%s»: %s', $slug, $post_id->get_error_message() ) );
+			return 0;
+		}
+
+		// Позначка, за якою --fresh упізнає своє і не чіпає чуже.
+		update_post_meta( (int) $post_id, '_brix_demo', 1 );
+
+		return (int) $post_id;
+	}
+
+	/**
+	 * Зберігає повторювач у форматі, який розуміє SCF.
+	 *
+	 * SCF тримає повторювач як лічильник рядків у мета-полі й окремі
+	 * записи `поле_0_підполе`. Формат недокументований, але стабільний
+	 * від часів ACF 5 — інакше довелося б піднімати весь плагін
+	 * у CLI-контексті заради `update_field()`.
+	 *
+	 * @param int                      $post_id   Запис.
+	 * @param string                   $field     Мета-ключ повторювача.
+	 * @param array<int, array<mixed>> $rows      Рядки.
+	 * @param array<string, string>    $sub_keys  Мапа «ключ у JSON → мета-ключ підполя».
+	 * @return void
+	 */
+	private function save_repeater( int $post_id, string $field, array $rows, array $sub_keys ): void {
+		// Прибираємо попередні рядки, інакше при скороченні списку
+		// у базі лишаться хвости від довшої версії.
+		$previous = (int) get_post_meta( $post_id, $field, true );
+		$total    = max( $previous, count( $rows ) );
+
+		for ( $i = 0; $i < $total; $i++ ) {
+			foreach ( $sub_keys as $meta_key ) {
+				delete_post_meta( $post_id, $field . '_' . $i . '_' . $meta_key );
+				delete_post_meta( $post_id, '_' . $field . '_' . $i . '_' . $meta_key );
+			}
+		}
+
+		update_post_meta( $post_id, $field, count( $rows ) );
+		update_post_meta( $post_id, '_' . $field, 'field_' . $field );
+
+		foreach ( array_values( $rows ) as $index => $row ) {
+			foreach ( $sub_keys as $json_key => $meta_key ) {
+				$value = $row[ $json_key ] ?? '';
+
+				update_post_meta( $post_id, $field . '_' . $index . '_' . $meta_key, $value );
+				update_post_meta( $post_id, '_' . $field . '_' . $index . '_' . $meta_key, 'field_' . $meta_key );
+			}
+		}
+	}
+
+	/**
+	 * Створює товари.
+	 *
+	 * @return void
+	 */
+	private function import_products(): void {
+		$grinds = (array) ( $this->data['grinds'] ?? array() );
+		$count  = 0;
+
+		foreach ( (array) ( $this->data['products'] ?? array() ) as $row ) {
+			$product = $this->build_product( $row, $grinds );
+
+			if ( $product ) {
+				++$count;
+			}
+		}
+
+		\WP_CLI::log( sprintf( 'Товарів: %d', $count ) );
+	}
+
+	/**
+	 * Створює один товар.
+	 *
+	 * @param array<string, mixed> $row    Опис товару.
+	 * @param array<int, string>   $grinds Варіанти помелу.
+	 * @return bool
+	 */
+	private function build_product( array $row, array $grinds ): bool {
+		$slug     = (string) ( $row['slug'] ?? '' );
+		$existing = get_page_by_path( $slug, OBJECT, 'product' );
+		$is_var   = 'variable' === ( $row['type'] ?? 'simple' );
+
+		$product = $is_var ? new \WC_Product_Variable() : new \WC_Product_Simple();
+
+		if ( $existing instanceof \WP_Post ) {
+			$product->set_id( $existing->ID );
+		}
+
+		$product->set_name( (string) ( $row['title'] ?? $slug ) );
+		$product->set_slug( $slug );
+		$product->set_status( 'publish' );
+		$product->set_catalog_visibility( 'visible' );
+		$product->set_short_description( (string) ( $row['excerpt'] ?? '' ) );
+		$product->set_description( (string) ( $row['fields']['cup_notes'] ?? $row['excerpt'] ?? '' ) );
+
+		if ( ! $is_var ) {
+			$product->set_regular_price( (string) ( $row['regular_price'] ?? $row['price'] ) );
+
+			if ( isset( $row['regular_price'] ) ) {
+				$product->set_sale_price( (string) $row['price'] );
+			}
+
+			$product->set_manage_stock( true );
+			$product->set_stock_quantity( (int) ( $row['stock'] ?? 0 ) );
+		}
+
+		if ( $is_var ) {
+			$product->set_attributes( $this->attributes( $row, $grinds ) );
+		}
+
+		$product_id = $product->save();
+
+		if ( ! $product_id ) {
+			\WP_CLI::warning( sprintf( 'Товар «%s» не створився', $slug ) );
+			return false;
+		}
+
+		update_post_meta( $product_id, '_brix_demo', 1 );
+
+		$this->assign_terms( $product_id, $row );
+		$this->save_lot_fields( $product_id, (array) ( $row['fields'] ?? array() ) );
+
+		if ( $is_var ) {
+			$this->build_variations( $product_id, $row, $grinds );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Атрибути варіативного товару: вага × помел.
+	 *
+	 * @param array<string, mixed> $row    Опис товару.
+	 * @param array<int, string>   $grinds Варіанти помелу.
+	 * @return array<int, \WC_Product_Attribute>
+	 */
+	private function attributes( array $row, array $grinds ): array {
+		$weights = wp_list_pluck( (array) ( $row['weights'] ?? array() ), 'weight' );
+
+		$weight = new \WC_Product_Attribute();
+		$weight->set_name( __( 'Вага', 'brix-core' ) );
+		$weight->set_options( $weights );
+		$weight->set_position( 0 );
+		$weight->set_visible( true );
+		$weight->set_variation( true );
+
+		$grind = new \WC_Product_Attribute();
+		$grind->set_name( __( 'Помел', 'brix-core' ) );
+		$grind->set_options( $grinds );
+		$grind->set_position( 1 );
+		$grind->set_visible( true );
+		$grind->set_variation( true );
+
+		return array( $weight, $grind );
+	}
+
+	/**
+	 * Створює варіації.
+	 *
+	 * Ціна залежить тільки від ваги: помел на вартість не впливає,
+	 * але має бути варіацією, бо змінює те, що кладуть у пачку.
+	 *
+	 * @param int                  $product_id Товар.
+	 * @param array<string, mixed> $row        Опис товару.
+	 * @param array<int, string>   $grinds     Варіанти помелу.
+	 * @return void
+	 */
+	private function build_variations( int $product_id, array $row, array $grinds ): void {
+		$base  = (float) ( $row['price'] ?? 0 );
+		$stock = (int) ( $row['stock'] ?? 0 );
+
+		// Прибираємо старі варіації: інакше при зміні набору ваг
+		// у товарі лишаються осиротілі комбінації.
+		$product = wc_get_product( $product_id );
+
+		if ( $product instanceof \WC_Product_Variable ) {
+			foreach ( $product->get_children() as $child_id ) {
+				wp_delete_post( (int) $child_id, true );
+			}
+		}
+
+		foreach ( (array) ( $row['weights'] ?? array() ) as $weight ) {
+			foreach ( $grinds as $grind ) {
+				$variation = new \WC_Product_Variation();
+				$variation->set_parent_id( $product_id );
+				$variation->set_status( 'publish' );
+				$variation->set_attributes(
+					array(
+						sanitize_title( __( 'Вага', 'brix-core' ) )  => (string) $weight['weight'],
+						sanitize_title( __( 'Помел', 'brix-core' ) ) => (string) $grind,
+					)
+				);
+				$variation->set_regular_price( (string) round( $base * (float) $weight['factor'] ) );
+				$variation->set_manage_stock( true );
+				$variation->set_stock_quantity( $stock );
+				$variation->save();
+			}
+		}
+
+		\WC_Product_Variable::sync( $product_id );
+	}
+
+	/**
+	 * Проставляє терміни товару.
+	 *
+	 * @param int                  $product_id Товар.
+	 * @param array<string, mixed> $row        Опис.
+	 * @return void
+	 */
+	private function assign_terms( int $product_id, array $row ): void {
+		if ( ! empty( $row['categories'] ) ) {
+			wp_set_object_terms( $product_id, (array) $row['categories'], 'product_cat' );
+		}
+
+		if ( ! empty( $row['country'] ) ) {
+			wp_set_object_terms( $product_id, (string) $row['country'], Tax::COUNTRY );
+		}
+
+		if ( ! empty( $row['processing'] ) ) {
+			wp_set_object_terms( $product_id, (string) $row['processing'], Tax::PROCESSING );
+		}
+
+		if ( ! empty( $row['notes'] ) ) {
+			wp_set_object_terms( $product_id, (array) $row['notes'], Tax::NOTE );
+		}
+
+		if ( ! empty( $row['brew_methods'] ) ) {
+			wp_set_object_terms( $product_id, (array) $row['brew_methods'], Tax::BREW_METHOD );
+		}
+	}
+
+	/**
+	 * Зберігає поля паспорта лоту.
+	 *
+	 * @param int                  $product_id Товар.
+	 * @param array<string, mixed> $fields     Поля.
+	 * @return void
+	 */
+	private function save_lot_fields( int $product_id, array $fields ): void {
+		foreach ( $fields as $name => $value ) {
+			// Зв'язки в JSON записані slug'ами — тут перетворюємо на ID.
+			if ( 'farm' === $name ) {
+				$value = $this->ids[ 'farm:' . $value ] ?? '';
+			}
+
+			if ( 'brew_guide' === $name ) {
+				$value = $this->ids[ 'guide:' . $value ] ?? '';
+			}
+
+			if ( 'roast_date' === $name ) {
+				$value = (string) $value;
+			}
+
+			$meta_key = LotMeta::key( (string) $name );
+
+			update_post_meta( $product_id, $meta_key, $value );
+			// Прив'язка мета-поля до поля SCF, щоб редактор побачив значення.
+			update_post_meta( $product_id, '_' . $meta_key, 'field_' . $meta_key );
+		}
+
+		// Дата обсмаження: минулий понеділок, щоб демо завжди було свіжим.
+		if ( ! isset( $fields['roast_date'] ) && ! empty( $fields['code'] ) ) {
+			$monday = new \DateTimeImmutable( 'last monday', wp_timezone() );
+			$key    = LotMeta::key( 'roast_date' );
+
+			update_post_meta( $product_id, $key, $monday->format( 'Ymd' ) );
+			update_post_meta( $product_id, '_' . $key, 'field_' . $key );
+		}
+	}
+}

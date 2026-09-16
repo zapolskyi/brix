@@ -1,0 +1,7 @@
+# Що не потрапляє в архів плагіна для хостингу.
+# Шляхи відносно кореня плагіна.
+
+/.gitattributes export-ignore
+/data          export-ignore
+/tests         export-ignore
+/composer.lock export-ignore

@@ -1,0 +1,986 @@
+{
+ "terms": {
+  "brix_country": [
+   "Ефіопія",
+   "Кенія",
+   "Колумбія",
+   "Руанда",
+   "Гватемала",
+   "Панама"
+  ],
+  "brix_processing": [
+   {
+    "name": "Natural",
+    "pack_style": "natural"
+   },
+   {
+    "name": "Washed",
+    "pack_style": "washed"
+   },
+   {
+    "name": "Honey",
+    "pack_style": "honey"
+   },
+   {
+    "name": "Anaerobic",
+    "pack_style": "lab"
+   }
+  ],
+  "brix_brew_method": [
+   "V60 / фільтр",
+   "Еспресо",
+   "Aeropress",
+   "Френч-прес",
+   "Турка"
+  ],
+  "brix_note": {
+   "ягоди": [
+    "черешня",
+    "чорна смородина",
+    "полуниця",
+    "абрикос"
+   ],
+   "цитрус": [
+    "бергамот",
+    "грейпфрут",
+    "лайм"
+   ],
+   "шоколад": [
+    "молочний шоколад",
+    "какао",
+    "гіркий шоколад"
+   ],
+   "квіти": [
+    "жасмин",
+    "троянда"
+   ],
+   "горіхи": [
+    "мигдаль",
+    "фундук"
+   ],
+   "карамель": [
+    "тростинний цукор",
+    "мед",
+    "карамель"
+   ],
+   "чай": [
+    "чорний чай",
+    "улун"
+   ],
+   "спеції": [
+    "кардамон",
+    "чорний перець"
+   ]
+  }
+ },
+ "farms": [
+  {
+   "slug": "kebele-12",
+   "title": "Станція Кебеле 12",
+   "country": "Ефіопія",
+   "excerpt": "Приймальна станція в зоні Гуджі, яка працює з 640 дрібними господарствами.",
+   "fields": {
+    "headline": "Одна станція, 640 родин",
+    "households": 640,
+    "since_year": 2023,
+    "variety": "Heirloom",
+    "fob_price": 7.8,
+    "lat": "6°10′ пн. ш.",
+    "lng": "38°30′ сх. д.",
+    "region_note": "Південь Ефіопії, зона Гуджі. Сухий сезон з грудня по березень — саме тоді ягоду сушать на ліжках просто неба.",
+    "story": "<p>Кебеле 12 приймає ягоду від дрібних господарств у радіусі семи кілометрів. Середній наділ — менше гектара, тож якість лоту залежить не від однієї ферми, а від того, як станція сортує й сушить те, що їй принесли.</p><p>Ми приїхали сюди вперше 2023 року разом з імпортером, з яким працюємо. Тоді на станції вже міряли °Bx, але тільки вибірково. Домовились просто: платимо премію за партії, зібрані від 20 °Bx, і купуємо їх окремо від решти врожаю.</p>",
+    "quote": "Селективний збір коштує дорожче на кожному кілограмі. Сенс з’являється тільки тоді, коли покупець за нього платить окремо.",
+    "quote_author": "Абебе, керівник станції",
+    "year_calendar": [
+     {
+      "period": "Жов–Лис",
+      "title": "Дозрівання",
+      "note": "Перевіряємо °Bx двічі на тиждень"
+     },
+     {
+      "period": "Груд–Січ",
+      "title": "Селективний збір",
+      "note": "Тільки ягода від 20 °Bx"
+     },
+     {
+      "period": "Січ–Лют",
+      "title": "Сушка 18–21 день",
+      "note": "Африканські ліжка, тінь опівдні"
+     },
+     {
+      "period": "Бер–Кві",
+      "title": "Відправка",
+      "note": "Джимма → Джибуті → Гданськ"
+     },
+     {
+      "period": "Вер",
+      "title": "Обсмаження",
+      "note": "Перша партія в Києві"
+     }
+    ]
+   }
+  },
+  {
+   "slug": "gathaithi",
+   "title": "Фабрика Гатайті",
+   "country": "Кенія",
+   "excerpt": "Мокра фабрика кооперативу Тегу в окрузі Ньєрі.",
+   "fields": {
+    "headline": "Вулканічний ґрунт і подвійна ферментація",
+    "households": 1100,
+    "since_year": 2024,
+    "variety": "SL28, SL34, Ruiru 11",
+    "fob_price": 8.4,
+    "lat": "0°25′ пд. ш.",
+    "lng": "36°57′ сх. д.",
+    "region_note": "Центральна Кенія, схили Ньєрі. Червоний вулканічний ґрунт і дві збиральні кампанії на рік.",
+    "story": "<p>Гатайті — одна з чотирьох фабрик кооперативу Тегу. Ягоду приймають щодня до восьмої вечора, сортують у воді й ферментують двічі з проміжним промиванням.</p>",
+    "quote": "Подвійна ферментація забирає добу. Але саме вона дає ту смородину, за якою до нас повертаються.",
+    "quote_author": "Джеймс, технолог фабрики",
+    "year_calendar": [
+     {
+      "period": "Бер–Тра",
+      "title": "Цвітіння",
+      "note": "Основний врожай закладається тут"
+     },
+     {
+      "period": "Жов–Груд",
+      "title": "Головний збір",
+      "note": "Дві хвилі, по стиглості"
+     },
+     {
+      "period": "Груд–Січ",
+      "title": "Сушка 14–18 днів",
+      "note": "Підняті ліжка, накриття опівдні"
+     },
+     {
+      "period": "Лют",
+      "title": "Відправка",
+      "note": "Момбаса → Гданськ"
+     }
+    ]
+   }
+  },
+  {
+   "slug": "el-paraiso",
+   "title": "Ферма Ель Парайсо",
+   "country": "Колумбія",
+   "excerpt": "Родинна ферма в Уїлі, яка спеціалізується на керованих ферментаціях.",
+   "fields": {
+    "headline": "Ферментація як рецепт, а не як випадковість",
+    "households": 1,
+    "since_year": 2025,
+    "variety": "Castillo, Caturra",
+    "fob_price": 11.2,
+    "lat": "2°01′ пн. ш.",
+    "lng": "75°55′ зх. д.",
+    "region_note": "Департамент Уїла, схили Центральних Анд. Два врожаї на рік.",
+    "story": "<p>Дієго веде ферментацію в закритих танках з контролем температури й pH, записує кожну партію і повторює вдалі протоколи наступного сезону. Це ближче до виноробства, ніж до звичної кавової обробки.</p>",
+    "quote": "Я не шукаю дикого смаку. Я шукаю той самий смак у наступному врожаї.",
+    "quote_author": "Дієго, власник ферми",
+    "year_calendar": [
+     {
+      "period": "Лют–Кві",
+      "title": "Головний збір",
+      "note": "Ручний, у три проходи"
+     },
+     {
+      "period": "Кві",
+      "title": "Анаеробна ферментація",
+      "note": "72 години, 18 °C, контроль pH"
+     },
+     {
+      "period": "Тра–Чер",
+      "title": "Повільна сушка",
+      "note": "20 днів у парниках"
+     },
+     {
+      "period": "Лип",
+      "title": "Відправка",
+      "note": "Буенавентура → Гамбург"
+     }
+    ]
+   }
+  },
+  {
+   "slug": "nyamasheke",
+   "title": "Станція Ньямашеке",
+   "country": "Руанда",
+   "excerpt": "Станція на березі озера Ківу, honey-обробка від 2024 року.",
+   "fields": {
+    "headline": "Пагорби над Ківу",
+    "households": 380,
+    "since_year": 2024,
+    "variety": "Bourbon",
+    "fob_price": 7.1,
+    "lat": "2°21′ пд. ш.",
+    "lng": "29°09′ сх. д.",
+    "region_note": "Захід Руанди, береги озера Ківу. Висота і прохолодні ночі розтягують дозрівання.",
+    "story": "<p>Станція перейшла на honey-обробку 2024 року: слиз лишають на зерні й сушать повільно. Це вимагає постійного перемішування, зате дає ту медову солодкість, якої немає у місцевих washed-лотах.</p>",
+    "quote": "Honey тут складніший за washed. Але він показує, що наші пагорби вміють більше.",
+    "quote_author": "Клодін, агроном станції",
+    "year_calendar": [
+     {
+      "period": "Вер–Жов",
+      "title": "Цвітіння",
+      "note": "Після коротких дощів"
+     },
+     {
+      "period": "Бер–Тра",
+      "title": "Збір",
+      "note": "Ягода від 20 °Bx, решта окремо"
+     },
+     {
+      "period": "Тра–Чер",
+      "title": "Honey-сушка 21 день",
+      "note": "Перемішування тричі на день"
+     },
+     {
+      "period": "Лип",
+      "title": "Відправка",
+      "note": "Кігалі → Момбаса → Гданськ"
+     }
+    ]
+   }
+  }
+ ],
+ "guides": [
+  {
+   "slug": "v60",
+   "title": "V60",
+   "method": "V60 / фільтр",
+   "excerpt": "Класичний рецепт для лійки Hario V60: чиста чашка, виражена кислотність.",
+   "fields": {
+    "dose": 15,
+    "water": 250,
+    "temperature": 93,
+    "grind": "Середньо-дрібний",
+    "total_time": 180,
+    "tip_title": "Якщо немає термометра",
+    "tip_text": "Закип’ятіть воду і зачекайте 45 секунд з відкритою кришкою — буде приблизно 93 °C.",
+    "steps": [
+     {
+      "at": 0,
+      "title": "Блум",
+      "target": "до 45 г води",
+      "text": "Влийте 45 г води, перемішайте ложкою і дайте каві розкритися."
+     },
+     {
+      "at": 45,
+      "title": "Перше доливання",
+      "target": "до 150 г",
+      "text": "Лийте повільною спіраллю від центру до країв."
+     },
+     {
+      "at": 90,
+      "title": "Друге доливання",
+      "target": "до 250 г",
+      "text": "Не лийте на стінки лійки."
+     },
+     {
+      "at": 165,
+      "title": "Злив",
+      "target": "чашка готова",
+      "text": "Вода має пройти повністю. Ложе рівне, без кратерів."
+     }
+    ]
+   }
+  },
+  {
+   "slug": "aeropress",
+   "title": "Aeropress",
+   "method": "Aeropress",
+   "excerpt": "Швидкий рецепт для подорожей: густіше тіло, менше кислотності.",
+   "fields": {
+    "dose": 16,
+    "water": 220,
+    "temperature": 88,
+    "grind": "Середній",
+    "total_time": 150,
+    "tip_title": "Перевернутий спосіб",
+    "tip_text": "Якщо хочете довшу екстракцію — заварюйте в перевернутому положенні й перевертайте за 20 секунд до віджиму.",
+    "steps": [
+     {
+      "at": 0,
+      "title": "Залийте",
+      "target": "усі 220 г",
+      "text": "Влийте воду одразу й перемішайте двічі."
+     },
+     {
+      "at": 30,
+      "title": "Настоювання",
+      "target": "1:30",
+      "text": "Накрийте фільтром і дайте постояти."
+     },
+     {
+      "at": 120,
+      "title": "Віджим",
+      "target": "30 секунд",
+      "text": "Тисніть рівномірно, без зусилля. Зупиніться на шипінні."
+     }
+    ]
+   }
+  },
+  {
+   "slug": "espresso",
+   "title": "Еспресо",
+   "method": "Еспресо",
+   "excerpt": "18 г у 40 г за 28 секунд — відправна точка для налаштування помелу.",
+   "fields": {
+    "dose": 18,
+    "water": 40,
+    "temperature": 93,
+    "grind": "Дрібний",
+    "total_time": 28,
+    "tip_title": "Якщо тече швидше за 24 секунди",
+    "tip_text": "Зробіть помел дрібнішим на один крок. Якщо повільніше за 34 — навпаки, грубішим.",
+    "steps": [
+     {
+      "at": 0,
+      "title": "Темперування",
+      "target": "рівне ложе",
+      "text": "Розрівняйте й притисніть з постійним зусиллям."
+     },
+     {
+      "at": 0,
+      "title": "Передзмочування",
+      "target": "5 секунд",
+      "text": "Якщо машина вміє — дайте каві набрякнути."
+     },
+     {
+      "at": 28,
+      "title": "Зупинка",
+      "target": "40 г у чашці",
+      "text": "Важте результат, а не дивіться на об’єм."
+     }
+    ]
+   }
+  },
+  {
+   "slug": "french-press",
+   "title": "Френч-прес",
+   "method": "Френч-прес",
+   "excerpt": "Найпростіший спосіб: щільне тіло й повний смак без обладнання.",
+   "fields": {
+    "dose": 30,
+    "water": 500,
+    "temperature": 95,
+    "grind": "Грубий",
+    "total_time": 240,
+    "tip_title": "Не тисніть поршень до дна",
+    "tip_text": "Опустіть його лише до поверхні й розливайте — гуща лишиться внизу, чашка буде чистішою.",
+    "steps": [
+     {
+      "at": 0,
+      "title": "Залийте",
+      "target": "усі 500 г",
+      "text": "Влийте воду і перемішайте."
+     },
+     {
+      "at": 240,
+      "title": "Зніміть кірку",
+      "target": "ложкою",
+      "text": "Шумовиння зверху заберіть двома ложками."
+     },
+     {
+      "at": 300,
+      "title": "Розлив",
+      "target": "обережно",
+      "text": "Опустіть поршень до поверхні й розливайте."
+     }
+    ]
+   }
+  },
+  {
+   "slug": "turka",
+   "title": "Турка",
+   "method": "Турка",
+   "excerpt": "Найдрібніший помел і жодного кипіння: густа чашка східним способом.",
+   "fields": {
+    "dose": 8,
+    "water": 100,
+    "temperature": 0,
+    "grind": "Найдрібніший",
+    "total_time": 210,
+    "tip_title": "Не доводьте до кипіння",
+    "tip_text": "Щойно піна почала підніматися — знімайте з вогню. Кипіння забирає аромат.",
+    "steps": [
+     {
+      "at": 0,
+      "title": "Холодна вода",
+      "target": "100 мл",
+      "text": "Засипте каву й залийте холодною водою."
+     },
+     {
+      "at": 0,
+      "title": "Повільний нагрів",
+      "target": "мінімальний вогонь",
+      "text": "Не перемішуйте після початку нагріву."
+     },
+     {
+      "at": 180,
+      "title": "Перша піна",
+      "target": "зняти з вогню",
+      "text": "Дайте осісти й повторіть ще раз."
+     }
+    ]
+   }
+  }
+ ],
+ "grinds": [
+  "Зерно",
+  "V60 / фільтр",
+  "Еспресо",
+  "Френч-прес",
+  "Турка"
+ ],
+ "products": [
+  {
+   "slug": "ethiopia-guji-hambela",
+   "title": "Ethiopia Guji Hambela",
+   "categories": [
+    "Origin"
+   ],
+   "type": "variable",
+   "price": 590,
+   "stock": 24,
+   "country": "Ефіопія",
+   "processing": "Natural",
+   "notes": [
+    "черешня",
+    "бергамот",
+    "молочний шоколад"
+   ],
+   "brew_methods": [
+    "V60 / фільтр"
+   ],
+   "fields": {
+    "code": "ET-GJ-14",
+    "brix": 22.4,
+    "sca": 88.25,
+    "altitude_min": 2050,
+    "altitude_max": 2200,
+    "variety": "Heirloom 74158",
+    "farm": "kebele-12",
+    "region": "Гуджі, Хамбела",
+    "processing_days": 18,
+    "farmer_price": 7.8,
+    "harvest": "Груд. 2025",
+    "roast_level": 2,
+    "taste_acidity": 4,
+    "taste_sweetness": 5,
+    "taste_body": 2,
+    "taste_intensity": 3,
+    "taste_fruitiness": 5,
+    "cup_notes": "Суха ферментація 18 днів на африканських ліжках дає щільну ягідну солодкість. У V60 — стигла черешня і бергамот, у міру охолодження виходить какао. Молоко глушить кислотність, тому цей лот радимо пити чорним.",
+    "brew_guide": "v60",
+    "lot_of_week": true
+   },
+   "weights": [
+    {
+     "weight": "250 г",
+     "factor": 1.0
+    },
+    {
+     "weight": "1 кг",
+     "factor": 3.6
+    }
+   ]
+  },
+  {
+   "slug": "ethiopia-yirgacheffe-konga",
+   "title": "Ethiopia Yirgacheffe Konga",
+   "categories": [
+    "Origin"
+   ],
+   "type": "variable",
+   "price": 610,
+   "stock": 24,
+   "country": "Ефіопія",
+   "processing": "Washed",
+   "notes": [
+    "жасмин",
+    "лайм",
+    "чорний чай"
+   ],
+   "brew_methods": [
+    "V60 / фільтр",
+    "Aeropress"
+   ],
+   "fields": {
+    "code": "ET-YC-07",
+    "brix": 21.9,
+    "sca": 87.5,
+    "altitude_min": 1900,
+    "altitude_max": 2100,
+    "variety": "Heirloom",
+    "farm": "kebele-12",
+    "region": "Їргачеффе, Конга",
+    "processing_days": 12,
+    "farmer_price": 7.4,
+    "harvest": "Січ. 2026",
+    "roast_level": 1,
+    "taste_acidity": 5,
+    "taste_sweetness": 4,
+    "taste_body": 2,
+    "taste_intensity": 3,
+    "taste_fruitiness": 4,
+    "cup_notes": "Класичний washed з Їргачеффе: прозора чашка, квітковий аромат і лаймова кислотність. Добре розкривається на фільтрі, в еспресо буде занадто гострим.",
+    "brew_guide": "v60",
+    "lot_of_week": false
+   },
+   "weights": [
+    {
+     "weight": "250 г",
+     "factor": 1.0
+    },
+    {
+     "weight": "1 кг",
+     "factor": 3.6
+    }
+   ]
+  },
+  {
+   "slug": "kenya-nyeri-ab-lot-14",
+   "title": "Kenya Nyeri AB Lot 14",
+   "categories": [
+    "Origin"
+   ],
+   "type": "variable",
+   "price": 640,
+   "stock": 24,
+   "country": "Кенія",
+   "processing": "Washed",
+   "notes": [
+    "чорна смородина",
+    "грейпфрут",
+    "тростинний цукор"
+   ],
+   "brew_methods": [
+    "V60 / фільтр",
+    "Еспресо"
+   ],
+   "fields": {
+    "code": "KE-NY-14",
+    "brix": 21.8,
+    "sca": 87.75,
+    "altitude_min": 1750,
+    "altitude_max": 1950,
+    "variety": "SL28, SL34",
+    "farm": "gathaithi",
+    "region": "Ньєрі, Тегу",
+    "processing_days": 14,
+    "farmer_price": 8.4,
+    "harvest": "Січ. 2026",
+    "roast_level": 2,
+    "taste_acidity": 5,
+    "taste_sweetness": 4,
+    "taste_body": 3,
+    "taste_intensity": 4,
+    "taste_fruitiness": 4,
+    "cup_notes": "Подвійна ферментація дає ту саму кенійську смородину. Кислотність яскрава й соковита, тіло щільніше за ефіопські лоти. Тримає молоко, якщо заварювати міцніше.",
+    "brew_guide": "v60",
+    "lot_of_week": false
+   },
+   "weights": [
+    {
+     "weight": "250 г",
+     "factor": 1.0
+    },
+    {
+     "weight": "1 кг",
+     "factor": 3.6
+    }
+   ]
+  },
+  {
+   "slug": "colombia-huila-el-paraiso",
+   "title": "Colombia Huila El Paraíso",
+   "categories": [
+    "Lab"
+   ],
+   "type": "variable",
+   "price": 890,
+   "stock": 9,
+   "country": "Колумбія",
+   "processing": "Anaerobic",
+   "notes": [
+    "полуниця",
+    "троянда",
+    "карамель"
+   ],
+   "brew_methods": [
+    "V60 / фільтр"
+   ],
+   "fields": {
+    "code": "CO-HU-21",
+    "brix": 23.4,
+    "sca": 89.5,
+    "altitude_min": 1700,
+    "altitude_max": 1850,
+    "variety": "Castillo",
+    "farm": "el-paraiso",
+    "region": "Уїла, Піталіто",
+    "processing_days": 4,
+    "farmer_price": 11.2,
+    "harvest": "Лип. 2025",
+    "roast_level": 2,
+    "taste_acidity": 4,
+    "taste_sweetness": 5,
+    "taste_body": 3,
+    "taste_intensity": 5,
+    "taste_fruitiness": 5,
+    "cup_notes": "Анаеробна ферментація 72 години при 18 °C. Аромат ближчий до вина, ніж до кави: полуниця, троянда, довге солодке післясмаккя. Лот експериментальний, кількість обмежена.",
+    "brew_guide": "v60",
+    "lot_of_week": false
+   },
+   "weights": [
+    {
+     "weight": "100 г",
+     "factor": 1.0
+    }
+   ]
+  },
+  {
+   "slug": "colombia-narino-la-esperanza",
+   "title": "Colombia Nariño La Esperanza",
+   "categories": [
+    "Origin"
+   ],
+   "type": "variable",
+   "price": 580,
+   "stock": 24,
+   "country": "Колумбія",
+   "processing": "Washed",
+   "notes": [
+    "мигдаль",
+    "какао",
+    "карамель"
+   ],
+   "brew_methods": [
+    "Еспресо",
+    "Френч-прес"
+   ],
+   "fields": {
+    "code": "CO-NA-05",
+    "brix": 21.2,
+    "sca": 86.75,
+    "altitude_min": 1850,
+    "altitude_max": 2000,
+    "variety": "Caturra",
+    "farm": "el-paraiso",
+    "region": "Наріньйо",
+    "processing_days": 16,
+    "farmer_price": 7.6,
+    "harvest": "Чер. 2025",
+    "roast_level": 3,
+    "taste_acidity": 3,
+    "taste_sweetness": 4,
+    "taste_body": 4,
+    "taste_intensity": 3,
+    "taste_fruitiness": 2,
+    "cup_notes": "Збалансований щоденний лот: горіхи, какао і карамель без різкої кислотності. Однаково добре працює у фільтрі й еспресо, добре тримає молоко.",
+    "brew_guide": "espresso",
+    "lot_of_week": false
+   },
+   "weights": [
+    {
+     "weight": "250 г",
+     "factor": 1.0
+    },
+    {
+     "weight": "1 кг",
+     "factor": 3.6
+    }
+   ]
+  },
+  {
+   "slug": "rwanda-nyamasheke",
+   "title": "Rwanda Nyamasheke",
+   "categories": [
+    "Origin"
+   ],
+   "type": "variable",
+   "price": 560,
+   "stock": 24,
+   "country": "Руанда",
+   "processing": "Honey",
+   "notes": [
+    "абрикос",
+    "мед",
+    "чорний чай"
+   ],
+   "brew_methods": [
+    "Aeropress",
+    "V60 / фільтр"
+   ],
+   "fields": {
+    "code": "RW-NY-03",
+    "brix": 21.5,
+    "sca": 87.0,
+    "altitude_min": 1700,
+    "altitude_max": 1900,
+    "variety": "Bourbon",
+    "farm": "nyamasheke",
+    "region": "Ньямашеке, Ківу",
+    "processing_days": 21,
+    "farmer_price": 7.1,
+    "harvest": "Сер. 2025",
+    "roast_level": 2,
+    "taste_acidity": 3,
+    "taste_sweetness": 5,
+    "taste_body": 3,
+    "taste_intensity": 3,
+    "taste_fruitiness": 4,
+    "cup_notes": "Honey-обробка лишає слиз на зерні й дає медову солодкість без важкості. Найм’якший лот у лінійці — з нього варто починати тим, хто переходить із супермаркетної кави.",
+    "brew_guide": "aeropress",
+    "lot_of_week": false
+   },
+   "weights": [
+    {
+     "weight": "250 г",
+     "factor": 1.0
+    },
+    {
+     "weight": "1 кг",
+     "factor": 3.6
+    }
+   ]
+  },
+  {
+   "slug": "guatemala-huehuetenango",
+   "title": "Guatemala Huehuetenango",
+   "categories": [
+    "Origin"
+   ],
+   "type": "variable",
+   "price": 620,
+   "stock": 24,
+   "country": "Гватемала",
+   "processing": "Natural",
+   "notes": [
+    "чорна смородина",
+    "гіркий шоколад",
+    "кардамон"
+   ],
+   "brew_methods": [
+    "Френч-прес",
+    "Турка",
+    "Еспресо"
+   ],
+   "fields": {
+    "code": "GT-HU-11",
+    "brix": 22.0,
+    "sca": 87.25,
+    "altitude_min": 1600,
+    "altitude_max": 1800,
+    "variety": "Bourbon, Typica",
+    "farm": "el-paraiso",
+    "region": "Уеуетенанго",
+    "processing_days": 20,
+    "farmer_price": 7.9,
+    "harvest": "Кві. 2025",
+    "roast_level": 3,
+    "taste_acidity": 3,
+    "taste_sweetness": 4,
+    "taste_body": 4,
+    "taste_intensity": 4,
+    "taste_fruitiness": 3,
+    "cup_notes": "Природна обробка у високогір’ї: темні ягоди, шоколад і легка пряність. Тіло щільне, тому лот добре тримає френч-прес і турку.",
+    "brew_guide": "french-press",
+    "lot_of_week": false
+   },
+   "weights": [
+    {
+     "weight": "250 г",
+     "factor": 1.0
+    },
+    {
+     "weight": "1 кг",
+     "factor": 3.6
+    }
+   ]
+  },
+  {
+   "slug": "panama-geisha-boquete",
+   "title": "Panama Geisha Boquete",
+   "categories": [
+    "Lab"
+   ],
+   "type": "variable",
+   "price": 1240,
+   "stock": 6,
+   "country": "Панама",
+   "processing": "Natural",
+   "notes": [
+    "жасмин",
+    "абрикос",
+    "улун"
+   ],
+   "brew_methods": [
+    "V60 / фільтр"
+   ],
+   "fields": {
+    "code": "PA-BQ-02",
+    "brix": 23.1,
+    "sca": 91.0,
+    "altitude_min": 1600,
+    "altitude_max": 1750,
+    "variety": "Geisha",
+    "farm": "el-paraiso",
+    "region": "Бокете",
+    "processing_days": 22,
+    "farmer_price": 24.5,
+    "harvest": "Тра. 2025",
+    "roast_level": 1,
+    "taste_acidity": 5,
+    "taste_sweetness": 5,
+    "taste_body": 2,
+    "taste_intensity": 4,
+    "taste_fruitiness": 5,
+    "cup_notes": "Гейша з Бокете — найдорожчий лот, який ми привозимо. Жасмин в ароматі, абрикос у чашці, чайне тіло. Заварювати тільки на фільтрі й тільки м’якою водою.",
+    "brew_guide": "v60",
+    "lot_of_week": false
+   },
+   "weights": [
+    {
+     "weight": "100 г",
+     "factor": 1.0
+    }
+   ]
+  },
+  {
+   "slug": "everyday",
+   "title": "Everyday",
+   "categories": [
+    "Core"
+   ],
+   "type": "variable",
+   "price": 480,
+   "stock": 60,
+   "country": null,
+   "processing": null,
+   "notes": [
+    "карамель",
+    "мигдаль",
+    "молочний шоколад"
+   ],
+   "brew_methods": [
+    "Еспресо",
+    "Френч-прес"
+   ],
+   "fields": {
+    "roast_level": 4,
+    "taste_acidity": 2,
+    "taste_sweetness": 4,
+    "taste_body": 5,
+    "taste_intensity": 4,
+    "taste_fruitiness": 1,
+    "cup_notes": "Бленд під еспресо і молоко: карамель, мигдаль, молочний шоколад. Стабільний від партії до партії — саме те, чого хочеться зранку.",
+    "brew_guide": "espresso",
+    "lot_of_week": false
+   },
+   "weights": [
+    {
+     "weight": "250 г",
+     "factor": 1.0
+    },
+    {
+     "weight": "1 кг",
+     "factor": 3.4
+    }
+   ]
+  },
+  {
+   "slug": "open-filter",
+   "title": "Open Filter",
+   "categories": [
+    "Core"
+   ],
+   "type": "variable",
+   "price": 500,
+   "stock": 45,
+   "country": null,
+   "processing": null,
+   "notes": [
+    "черешня",
+    "тростинний цукор",
+    "чорний чай"
+   ],
+   "brew_methods": [
+    "V60 / фільтр",
+    "Aeropress"
+   ],
+   "fields": {
+    "roast_level": 2,
+    "taste_acidity": 4,
+    "taste_sweetness": 4,
+    "taste_body": 3,
+    "taste_intensity": 3,
+    "taste_fruitiness": 4,
+    "cup_notes": "Світлий бленд під фільтр: ягідна кислотність і чайне тіло. Змінюється разом із сезоном, але профіль тримаємо однаковим.",
+    "brew_guide": "v60",
+    "lot_of_week": false
+   },
+   "weights": [
+    {
+     "weight": "250 г",
+     "factor": 1.0
+    },
+    {
+     "weight": "1 кг",
+     "factor": 3.4
+    }
+   ]
+  },
+  {
+   "slug": "tasting-set-three-origins",
+   "title": "Дегустаційний набір «Три походження»",
+   "categories": [
+    "Drip & Try"
+   ],
+   "type": "simple",
+   "price": 1522,
+   "regular_price": 1790,
+   "stock": 18,
+   "excerpt": "Три лоти по 250 г зі знижкою 15%. Ефіопія, Кенія і Руанда — щоб порівняти обробки поруч.",
+   "fields": {}
+  },
+  {
+   "slug": "v60-02-filters",
+   "title": "V60 02 + фільтри",
+   "categories": [
+    "Gear"
+   ],
+   "type": "simple",
+   "price": 680,
+   "stock": 30,
+   "excerpt": "Лійка Hario V60 розміру 02 і сто паперових фільтрів у комплекті.",
+   "fields": {}
+  },
+  {
+   "slug": "scale-with-timer",
+   "title": "Ваги з таймером",
+   "categories": [
+    "Gear"
+   ],
+   "type": "simple",
+   "price": 1480,
+   "stock": 22,
+   "excerpt": "Точність 0,1 г, вбудований таймер, автовимкнення. Без ваг рецепт не повторити.",
+   "fields": {}
+  },
+  {
+   "slug": "gooseneck-kettle",
+   "title": "Чайник з гусячою шийкою",
+   "categories": [
+    "Gear"
+   ],
+   "type": "simple",
+   "price": 2240,
+   "stock": 14,
+   "excerpt": "Контроль температури від 40 до 100 °C і тонкий носик для рівної спіралі.",
+   "fields": {}
+  }
+ ]
+}
