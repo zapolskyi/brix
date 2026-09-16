@@ -1,0 +1,21 @@
+/*
+Theme Name: BRIX 22°
+Theme URI: https://github.com/nzapolskyi/brix22
+Author: Nazar Zapolskyi
+Author URI: https://github.com/nzapolskyi
+Description: Кастомна тема WordPress для specialty-обсмажувальні BRIX 22°. WooCommerce, паспорт лоту на кожен товар, AJAX-фільтри каталогу, checkout з Новою Поштою. SCSS + BEM, ванільний JS, без page builder'ів. Бізнес-логіка живе в окремому плагіні brix-core.
+Version: 0.1.0
+Requires at least: 6.6
+Tested up to: 7.1
+Requires PHP: 8.2
+License: MIT
+License URI: https://opensource.org/licenses/MIT
+Text Domain: brix
+Tags: e-commerce, custom-theme, woocommerce, translation-ready, accessibility-ready
+*/
+
+/*
+  Цей файл потрібен WordPress лише заради заголовка вище.
+  Реальні стилі — в assets/css/main.css, який збирається з assets/scss/.
+  Не дописуйте сюди CSS: він не підключається на фронтенді.
+*/

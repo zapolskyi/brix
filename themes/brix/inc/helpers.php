@@ -1,0 +1,95 @@
+<?php
+/**
+ * Дрібні помічники, якими користуються решта модулів.
+ *
+ * @package BRIX
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Чи активний WooCommerce.
+ *
+ * Тема має лишатись робочою і без нього: на чистій інсталяції
+ * сторінки контенту мусять віддавати 200, а не фатал.
+ *
+ * @return bool
+ */
+function brix_has_woocommerce(): bool {
+	return class_exists( 'WooCommerce' );
+}
+
+/**
+ * Чи активний плагін brix-core з бізнес-логікою магазину.
+ *
+ * @return bool
+ */
+function brix_has_core(): bool {
+	return defined( 'BRIX_CORE_VERSION' );
+}
+
+/**
+ * Версія файлу за часом його зміни.
+ *
+ * Дає браузеру зрозуміти, що CSS перезібрано, без ручного бампу версії
+ * теми і без ?ver=timestamp, який ламає кеш на кожному деплої.
+ *
+ * @param string $relative Шлях відносно кореня теми.
+ * @return string
+ */
+function brix_asset_version( string $relative ): string {
+	$path = BRIX_DIR . '/' . ltrim( $relative, '/' );
+
+	return is_readable( $path ) ? (string) filemtime( $path ) : BRIX_VERSION;
+}
+
+/**
+ * URL файлу в темі.
+ *
+ * @param string $relative Шлях відносно кореня теми.
+ * @return string
+ */
+function brix_asset_uri( string $relative ): string {
+	return BRIX_URI . '/' . ltrim( $relative, '/' );
+}
+
+/**
+ * Маніфест локальних шрифтів.
+ *
+ * Самі @font-face лежать у скомпільованому CSS; маніфест потрібен лише
+ * щоб знати, які файли варто попередньо завантажити. Повертає тільки
+ * записи, для яких файл реально є в темі, — битий маніфест не має
+ * перетворюватись на 404.
+ *
+ * @return array<int, array<string, mixed>>
+ */
+function brix_font_faces(): array {
+	static $faces = null;
+
+	if ( null !== $faces ) {
+		return $faces;
+	}
+
+	$faces    = array();
+	$manifest = BRIX_DIR . '/assets/fonts/fonts.json';
+
+	if ( ! is_readable( $manifest ) ) {
+		return $faces;
+	}
+
+	$decoded = json_decode( (string) file_get_contents( $manifest ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+	if ( ! is_array( $decoded ) ) {
+		return $faces;
+	}
+
+	foreach ( $decoded as $face ) {
+		if ( empty( $face['file'] ) || ! is_readable( BRIX_DIR . '/assets/fonts/' . $face['file'] ) ) {
+			continue;
+		}
+
+		$faces[] = $face;
+	}
+
+	return $faces;
+}

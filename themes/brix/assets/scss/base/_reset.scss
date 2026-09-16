@@ -1,0 +1,50 @@
+@use '../abstracts/mixins' as *;
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--brix-mill);
+  color: var(--brix-roast);
+  font-family: var(--brix-font-ui);
+  font-size: var(--brix-fs-base);
+  line-height: var(--brix-lh-base);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  // Шапка ховається за вирізом на телефонах без цього.
+  padding-inline: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd { margin: 0; }
+
+ul[class], ol[class] { margin: 0; padding: 0; list-style: none; }
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input, button, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+
+a { color: var(--brix-cherry); text-decoration: none; }
+a:hover { color: var(--brix-cherry-d); }
+
+table { border-collapse: collapse; }
+
+// Макети статичні, тож рух додаємо тут — і одразу з поважним вимкненням.
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

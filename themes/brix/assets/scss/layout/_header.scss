@@ -1,0 +1,195 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+// ——— смуга оголошень ———
+.brix-announce {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--brix-gap-12);
+  min-height: 42px;
+  padding: var(--brix-gap-4) var(--brix-sec-x);
+  background: var(--brix-roast);
+  color: var(--brix-mill);
+  @include label;
+  color: var(--brix-mill);
+  text-align: center;
+
+  &__item { white-space: nowrap; }
+
+  // Роздільник — крапка кольору Cherry, суто декоративна.
+  &__item + &__item::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    margin-inline-end: var(--brix-gap-12);
+    border-radius: 50%;
+    background: var(--brix-cherry);
+    vertical-align: middle;
+  }
+
+  // На телефоні поміщається лише перше повідомлення.
+  @include upto($bp-md) {
+    gap: 0;
+    &__item:not(:first-child) { display: none; }
+  }
+}
+
+// ——— шапка ———
+.brix-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--brix-gap-16);
+  min-height: var(--brix-header-h);
+  padding-inline: var(--brix-sec-x);
+  background: var(--brix-mill);
+  border-bottom: 1px solid var(--brix-line);
+
+  @include upto($bp-lg) { min-height: 64px; }
+}
+
+.brix-logo {
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  font-family: var(--brix-font-display);
+  font-weight: 800;
+  font-size: 1.5625rem; // 25px
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--brix-roast);
+
+  sup {
+    margin-top: 1px;
+    font-size: 0.6875rem;
+    letter-spacing: -0.02em;
+    color: var(--brix-cherry);
+  }
+
+  &:hover { color: var(--brix-roast); }
+}
+
+.brix-nav {
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: var(--brix-gap-12);
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  &__link {
+    display: inline-block;
+    padding-block: 2px;
+    border-bottom: 1.5px solid transparent;
+    color: var(--brix-roast);
+
+    &:hover { color: var(--brix-cherry); }
+  }
+
+  // Поточний розділ підкреслений — єдина індикація, тож дублюємо aria-current.
+  &__item.is-current &__link,
+  &__link[aria-current] {
+    color: var(--brix-cherry);
+    border-bottom-color: var(--brix-cherry);
+  }
+
+  @include upto($bp-lg) { display: none; }
+}
+
+.brix-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--brix-gap-4);
+}
+
+.brix-lang {
+  padding-inline: var(--brix-gap-6);
+  font-family: var(--brix-font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--brix-muted);
+
+  b { font-weight: 500; color: var(--brix-roast); }
+
+  @include upto($bp-sm) { display: none; }
+}
+
+.brix-iconbtn {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  color: var(--brix-roast);
+  transition: background var(--brix-dur) var(--brix-ease);
+
+  &:hover { background: var(--brix-stone); }
+}
+
+// Лічильник кошика. Порожній кошик лічильника не показує.
+.brix-bag {
+  position: relative;
+
+  &__count {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    display: grid;
+    place-items: center;
+    min-width: 19px;
+    height: 19px;
+    padding-inline: 5px;
+    border-radius: var(--brix-radius-pill);
+    background: var(--brix-cherry);
+    color: #fff;
+    font-family: var(--brix-font-mono);
+    font-style: normal;
+    font-size: 0.6875rem;
+  }
+}
+
+// Бургер з'являється там, де ховається основна навігація.
+.brix-burger {
+  display: none;
+  @include upto($bp-lg) { display: grid; }
+}
+
+// ——— мобільна навігація ———
+// Панель під шапкою. На десктопі не потрібна взагалі: там видно .brix-nav.
+.brix-mobile-nav {
+  position: sticky;
+  top: var(--brix-header-h);
+  z-index: 49;
+  padding: var(--brix-gap-8) var(--brix-sec-x) var(--brix-gap-16);
+  background: var(--brix-mill);
+  border-bottom: 1px solid var(--brix-line);
+
+  @include upto($bp-lg) { top: 64px; }
+  @include from($bp-lg) { display: none; }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-2);
+  }
+
+  a {
+    display: block;
+    padding-block: var(--brix-gap-6);
+    color: var(--brix-roast);
+    font-size: 1.0625rem;
+    font-weight: 500;
+
+    &:hover { color: var(--brix-cherry); }
+  }
+}
+
+// Поки меню відкрите, сторінка за ним не скролиться.
+.brix-nav-open { overflow: hidden; }

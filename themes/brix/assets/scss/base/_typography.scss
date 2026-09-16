@@ -1,0 +1,40 @@
+@use '../abstracts/mixins' as *;
+
+h1, h2, h3, h4 {
+  font-family: var(--brix-font-display);
+  font-weight: 700;
+  line-height: var(--brix-lh-display);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--brix-fs-h1); letter-spacing: -0.045em; }
+h2 { font-size: var(--brix-fs-h2); }
+h3 { font-size: var(--brix-fs-h3); letter-spacing: -0.02em; }
+
+// h4 у макетах — інтерфейсний, не дисплейний: це підзаголовок картки.
+h4 {
+  font-family: var(--brix-font-ui);
+  font-size: var(--brix-fs-h4);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.brix-display {
+  font-family: var(--brix-font-display);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+}
+
+.brix-lead   { font-size: var(--brix-fs-lead); line-height: 1.5; }
+.brix-small  { font-size: var(--brix-fs-sm); line-height: 1.5; }
+.brix-muted  { color: var(--brix-muted); }
+.brix-label  { @include label; }
+
+// Цифри в даних лоту мають стояти в колонку — звідси tabular-nums.
+.brix-mono {
+  font-family: var(--brix-font-mono);
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,17 @@
+// BRIX 22° — головний файл стилів.
+// Порядок шарів: токени → база → розкладка → компоненти → сторінки.
+// Правити тільки .scss; assets/css/main.css збирається командою npm run css.
+
+@use 'abstracts/tokens';
+@use 'abstracts/mixins';
+
+@use 'base/fonts';
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/a11y';
+
+@use 'layout/layout';
+@use 'layout/header';
+@use 'layout/footer';
+
+@use 'components/button';

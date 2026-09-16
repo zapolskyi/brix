@@ -1,0 +1,96 @@
+// Дизайн-токени BRIX 22°
+// Джерело: docs/design-source/src/parts/base.mjs (:root).
+// Кастомні властивості, а не SCSS-змінні: їх видно в DevTools,
+// вони перевизначаються для темних секцій і доступні з JS.
+
+:root {
+  // ——— бренд ———
+  --brix-roast:    #1D1A19;  // текст, фон пакування
+  --brix-roast-2:  #2B2624;  // темна поверхня
+  --brix-cherry:   #B61F3A;  // акцент, CTA, «22°», natural
+  --brix-cherry-d: #8C1329;  // hover CTA
+  --brix-green:    #A7B48C;  // washed, свіжість
+  --brix-green-d:  #5B6841;
+  --brix-honey:    #D9A441;  // honey-обробка, знижки
+  --brix-honey-d:  #8A5E12;
+
+  // ——— нейтралі ———
+  --brix-mill:  #F2F3EE;  // фон сайту
+  --brix-paper: #FBFBF8;  // поля, картки
+  --brix-stone: #E5E7DE;  // приглушена поверхня
+  --brix-line:  #D4D6CB;  // межі
+  --brix-muted: #6C6763;  // другорядний текст
+
+  // ——— фони тегів обробки ———
+  --brix-bg-natural: #F3DFE2;
+  --brix-bg-washed:  #E7EBDD;
+  --brix-bg-honey:   #F8EDD7;
+  --brix-bg-lab:     #E3E2DD;
+  --brix-bg-core:    #EDEEE8;
+
+  // ——— стани ———
+  --brix-focus: var(--brix-cherry);
+  --brix-error: #B61F3A;
+  --brix-ok:    #5B6841;
+
+  // ——— шрифти ———
+  --brix-font-ui:      'Onest', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --brix-font-display: 'Unbounded', 'Arial Black', sans-serif;
+  --brix-font-mono:    'IBM Plex Mono', ui-monospace, Menlo, monospace;
+
+  // ——— кеглі ———
+  // Заголовки стискаються на вузьких екранах: у макетах вони десктопні.
+  --brix-fs-h1: clamp(2.5rem, 1.6rem + 3.8vw, 4rem);      // 40 → 64
+  --brix-fs-h2: clamp(1.9rem, 1.4rem + 2.2vw, 2.75rem);   // 30 → 44
+  --brix-fs-h3: clamp(1.35rem, 1.15rem + 0.8vw, 1.625rem);// 22 → 26
+  --brix-fs-h4: 1.1875rem;  // 19
+  --brix-fs-lead: 1.1875rem;
+  --brix-fs-base: 1.0625rem; // 17
+  --brix-fs-sm: 0.875rem;    // 14
+  --brix-fs-label: 0.6875rem; // 11, моно, капсом
+
+  --brix-lh-display: 0.98;
+  --brix-lh-base: 1.55;
+
+  // ——— ритм ———
+  // Крок 4px. Назви за призначенням, а не за розміром.
+  --brix-gap-2:  0.25rem;
+  --brix-gap-4:  0.5rem;
+  --brix-gap-6:  0.75rem;
+  --brix-gap-8:  1rem;
+  --brix-gap-12: 1.5rem;
+  --brix-gap-16: 2rem;
+  --brix-gap-24: 3rem;
+  --brix-gap-32: 4rem;
+
+  // Вертикальні відступи секцій: 112px на десктопі, 64 на мобільному
+  --brix-sec-y: clamp(4rem, 2.5rem + 5vw, 7rem);
+  --brix-sec-y-tight: clamp(3rem, 2rem + 3.5vw, 4.75rem);
+  // Бічні поля: 48px на десктопі, 20 на мобільному
+  --brix-sec-x: clamp(1.25rem, 0.5rem + 2.5vw, 3rem);
+
+  --brix-maxw: 1440px;
+
+  // ——— форма ———
+  --brix-radius: 4px;
+  --brix-radius-lg: 7px;
+  --brix-radius-pill: 999px;
+  --brix-shadow-pack: 0 26px 48px -26px rgb(29 26 25 / 50%);
+  --brix-shadow-card: 0 2px 10px -4px rgb(29 26 25 / 14%);
+
+  // ——— висоти елементів керування ———
+  --brix-ctl-sm: 44px;
+  --brix-ctl:    56px;
+  --brix-ctl-xl: 64px;
+  --brix-header-h: 86px;
+
+  // ——— рух ———
+  --brix-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --brix-dur: 180ms;
+}
+
+// Контрольні точки. SCSS-змінні, бо @media не читає custom properties.
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;

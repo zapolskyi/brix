@@ -1,0 +1,29 @@
+<?php
+/**
+ * Точка входу теми BRIX 22°.
+ *
+ * Тут немає логіки — лише константи й підключення модулів з inc/.
+ * Кожен модуль відповідає за одну частину, щоб файл не розростався
+ * у звалище хуків, як це буває з functions.php.
+ *
+ * Бізнес-логіка магазину (паспорт лоту, фільтри, квіз, доставка)
+ * живе в окремому плагіні brix-core — тема лише показує дані.
+ *
+ * @package BRIX
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+define( 'BRIX_VERSION', '0.1.0' );
+define( 'BRIX_DIR', get_template_directory() );
+define( 'BRIX_URI', get_template_directory_uri() );
+
+require_once BRIX_DIR . '/inc/helpers.php';
+require_once BRIX_DIR . '/inc/setup.php';
+require_once BRIX_DIR . '/inc/enqueue.php';
+require_once BRIX_DIR . '/inc/class-brix-plain-walker.php';
+require_once BRIX_DIR . '/inc/template-tags.php';
+
+if ( brix_has_woocommerce() ) {
+	require_once BRIX_DIR . '/inc/woocommerce.php';
+}

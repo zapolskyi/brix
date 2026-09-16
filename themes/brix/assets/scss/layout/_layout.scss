@@ -1,0 +1,54 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+// Сторінка — колонка, підвал завжди внизу навіть на короткому вмісті.
+.brix-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.brix-main { flex: 1 0 auto; }
+
+.brix-section {
+  padding: var(--brix-sec-y) var(--brix-sec-x);
+
+  &--tight { padding-block: var(--brix-sec-y-tight); }
+  &--dark {
+    background: var(--brix-roast);
+    color: var(--brix-mill);
+    --brix-muted: #9A938E;
+  }
+}
+
+.brix-wrap { @include wrap; padding-inline: 0; }
+
+// Заголовок секції: назва зліва, посилання «усі» справа.
+.brix-section__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--brix-gap-16);
+  margin-bottom: var(--brix-gap-24);
+}
+
+// Зернистість — фірмова накладка бренду. Суто декоративна.
+.brix-grain {
+  position: relative;
+
+  > * { position: relative; z-index: 1; }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: url('../img/grain.svg');
+    background-size: 180px 180px;
+    opacity: 0.22;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+}

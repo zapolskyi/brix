@@ -1,0 +1,100 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+.brix-footer {
+  padding: var(--brix-sec-y) var(--brix-sec-x) 0;
+  background: var(--brix-roast);
+  color: var(--brix-mill);
+
+  // Приглушений текст на темному тлі — окремий колір, --brix-muted тут не читається.
+  --brix-muted: #B7B0AB;
+
+  a { color: var(--brix-mill); }
+  a:hover { color: var(--brix-honey); }
+}
+
+.brix-footer__top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--brix-gap-32);
+  padding-bottom: var(--brix-gap-32);
+  border-bottom: 1px solid rgb(242 243 238 / 16%);
+}
+
+.brix-newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-8);
+  max-width: 420px;
+
+  &__form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-6);
+    margin-top: var(--brix-gap-2);
+  }
+
+  &__input {
+    flex: 1 1 200px;
+    height: var(--brix-ctl);
+    padding-inline: var(--brix-gap-8);
+    border: 1px solid rgb(242 243 238 / 32%);
+    border-radius: var(--brix-radius);
+    background: transparent;
+    color: var(--brix-mill);
+
+    &::placeholder { color: #8E8782; }
+  }
+}
+
+.brix-footer__cols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--brix-gap-32);
+  font-size: 0.9375rem;
+}
+
+.brix-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+
+  &-title { font-weight: 600; }
+
+  a, span { color: var(--brix-muted); }
+  a:hover { color: var(--brix-honey); }
+}
+
+.brix-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--brix-gap-12);
+  padding-block: var(--brix-gap-12);
+  @include label;
+  color: #8E8782;
+}
+
+.brix-footer__legal,
+.brix-footer__pay {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--brix-gap-12);
+}
+
+// Гігантський знак унизу — декор. Обрізаний по висоті, тож від скрінрідера ховаємо.
+.brix-footer__mark {
+  height: 112px;
+  overflow: hidden;
+  font-family: var(--brix-font-display);
+  font-weight: 800;
+  font-size: clamp(5rem, 2rem + 14vw, 12.5rem);
+  line-height: 0.78;
+  letter-spacing: -0.06em;
+  color: rgb(242 243 238 / 7%);
+  user-select: none;
+
+  @include upto($bp-md) { height: 64px; }
+}

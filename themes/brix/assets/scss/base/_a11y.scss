@@ -1,0 +1,26 @@
+@use '../abstracts/mixins' as *;
+
+:focus-visible { @include focus-ring; border-radius: var(--brix-radius); }
+:focus:not(:focus-visible) { outline: none; }
+
+.brix-visually-hidden { @include visually-hidden; }
+
+// Перехід до вмісту — перше, що ловить Tab на сторінці.
+.brix-skip-link {
+  @include visually-hidden;
+
+  &:focus {
+    position: fixed;
+    inset: var(--brix-gap-8) auto auto var(--brix-gap-8);
+    z-index: 100;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: var(--brix-gap-6) var(--brix-gap-12);
+    clip-path: none;
+    background: var(--brix-roast);
+    color: var(--brix-mill);
+    border-radius: var(--brix-radius-pill);
+    @include focus-ring;
+  }
+}

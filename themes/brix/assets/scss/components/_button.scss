@@ -1,0 +1,50 @@
+@use '../abstracts/mixins' as *;
+
+// Базова кнопка. Повний набір варіантів — фаза 1; тут те,
+// що вже потрібне шапці, підвалу й формам.
+.brix-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--brix-gap-6);
+  height: var(--brix-ctl);
+  padding-inline: var(--brix-gap-16);
+  border: 0;
+  border-radius: var(--brix-radius-pill);
+  background: var(--brix-cherry);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--brix-dur) var(--brix-ease),
+              color var(--brix-dur) var(--brix-ease);
+
+  &:hover { background: var(--brix-cherry-d); color: #fff; }
+
+  &--dark  { background: var(--brix-roast); color: var(--brix-mill); }
+  &--light { background: var(--brix-mill); color: var(--brix-roast); }
+
+  &--outline {
+    background: transparent;
+    color: var(--brix-roast);
+    border: 1.5px solid var(--brix-roast);
+
+    &:hover { background: var(--brix-roast); color: var(--brix-mill); }
+  }
+
+  &--ghost {
+    background: rgb(242 243 238 / 10%);
+    color: var(--brix-mill);
+    border: 1.5px solid rgb(242 243 238 / 35%);
+
+    &:hover { background: rgb(242 243 238 / 20%); color: var(--brix-mill); }
+  }
+
+  &--sm { height: var(--brix-ctl-sm); padding-inline: var(--brix-gap-12); font-size: 0.9375rem; }
+  &--xl { height: var(--brix-ctl-xl); padding-inline: var(--brix-gap-24); font-size: 1.0625rem; }
+  &--full { width: 100%; }
+
+  &[disabled] { opacity: 0.5; cursor: not-allowed; }
+}

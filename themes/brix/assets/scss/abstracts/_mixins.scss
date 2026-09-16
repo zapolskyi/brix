@@ -1,0 +1,65 @@
+@use 'tokens' as *;
+
+// Медіа-запити. Верстка mobile-first, тож основний міксин — «від ширини».
+@mixin from($bp) {
+  @media (min-width: $bp) { @content; }
+}
+
+@mixin upto($bp) {
+  @media (max-width: $bp - 1px) { @content; }
+}
+
+// Обгортка секції: бічні поля й максимальна ширина.
+@mixin wrap($max: var(--brix-maxw)) {
+  width: 100%;
+  max-width: $max;
+  margin-inline: auto;
+  padding-inline: var(--brix-sec-x);
+}
+
+// Моношрифтова мітка капсом — «лабораторний» голос бренду.
+@mixin label {
+  font-family: var(--brix-font-mono);
+  font-size: var(--brix-fs-label);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brix-muted);
+}
+
+// Заголовок дисплейним шрифтом.
+@mixin display($size: var(--brix-fs-h2), $weight: 700) {
+  font-family: var(--brix-font-display);
+  font-size: $size;
+  font-weight: $weight;
+  line-height: var(--brix-lh-display);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+// Видимий фокус. Один вигляд на весь сайт — вимога WCAG 2.2.
+@mixin focus-ring($offset: 2px) {
+  outline: 2px solid var(--brix-focus);
+  outline-offset: $offset;
+}
+
+// Сховати візуально, лишити для скрінрідера.
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Обрізати текст після N рядків.
+@mixin clamp-lines($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
