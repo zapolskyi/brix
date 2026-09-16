@@ -1,0 +1,193 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+.brix-checkout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--brix-gap-24);
+  align-items: start;
+
+  @include upto($bp-lg) { grid-template-columns: 1fr; }
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-16);
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-12);
+  }
+
+  &__summary {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+    padding: var(--brix-gap-12);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+
+    @include from($bp-lg) {
+      position: sticky;
+      top: calc(var(--brix-header-h) + var(--brix-gap-8));
+    }
+  }
+
+  &__title { font-size: var(--brix-fs-h3); }
+}
+
+// ——— поля WooCommerce ———
+.woocommerce-billing-fields h3,
+.woocommerce-shipping-fields h3,
+.woocommerce-additional-fields h3 {
+  font-size: var(--brix-fs-h3);
+  margin-bottom: var(--brix-gap-8);
+}
+
+.woocommerce-billing-fields__field-wrapper,
+.woocommerce-shipping-fields__field-wrapper,
+.woocommerce-additional-fields__field-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--brix-gap-8);
+
+  @include upto($bp-sm) { grid-template-columns: 1fr; }
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0;
+
+  // Поля на всю ширину, які Woo позначає своїми класами.
+  &.form-row-wide,
+  &.notes,
+  &#billing_address_1_field,
+  &#billing_email_field { grid-column: 1 / -1; }
+
+  label { font-size: 0.8125rem; font-weight: 500; color: var(--brix-muted); }
+
+  .required { color: var(--brix-cherry); text-decoration: none; }
+  .optional { color: var(--brix-muted); }
+
+  textarea { min-height: 96px; padding-block: var(--brix-gap-6); resize: vertical; }
+
+  .description {
+    font-size: 0.8125rem;
+    color: var(--brix-muted);
+  }
+
+  // Повідомлення про помилку від валідації Woo.
+  &.woocommerce-invalid .brix-input,
+  &.woocommerce-invalid .brix-select { border-color: var(--brix-error); }
+}
+
+.woocommerce-form__label-for-checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--brix-gap-6);
+  cursor: pointer;
+}
+
+// ——— підсумок замовлення ———
+.woocommerce-checkout-review-order-table {
+  width: 100%;
+
+  th, td {
+    padding-block: var(--brix-gap-6);
+    text-align: left;
+    font-size: 0.9375rem;
+    border-bottom: 1px solid var(--brix-line);
+  }
+
+  td:last-child,
+  th:last-child { text-align: right; font-family: var(--brix-font-mono); }
+
+  .order-total th,
+  .order-total td { font-size: 1.125rem; border-bottom: 0; }
+
+  .product-name { line-height: 1.35; }
+}
+
+.brix-order {
+  &__name { display: block; font-weight: 600; }
+  &__options { display: block; font-size: 0.8125rem; color: var(--brix-muted); }
+}
+
+#payment {
+  margin-top: var(--brix-gap-8);
+
+  .wc_payment_methods {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-4);
+    list-style: none;
+    margin: 0 0 var(--brix-gap-8);
+    padding: 0;
+  }
+
+  .wc_payment_method > label {
+    display: flex;
+    align-items: center;
+    gap: var(--brix-gap-6);
+    padding: var(--brix-gap-6) var(--brix-gap-8);
+    border: 1.5px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .wc_payment_method input:checked + label { border-color: var(--brix-roast); }
+
+  .payment_box {
+    padding: var(--brix-gap-6) var(--brix-gap-8);
+    font-size: 0.875rem;
+    color: var(--brix-muted);
+
+    p { margin: 0; }
+  }
+
+  #place_order {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: var(--brix-ctl-xl);
+    border: 0;
+    border-radius: var(--brix-radius-pill);
+    background: var(--brix-cherry);
+    color: #fff;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover { background: var(--brix-cherry-d); }
+  }
+}
+
+.woocommerce-privacy-policy-text {
+  font-size: 0.8125rem;
+  color: var(--brix-muted);
+
+  p { margin: 0 0 var(--brix-gap-6); }
+}
+
+// Способи доставки в підсумку.
+#shipping_method {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+
+  label { font-size: 0.9375rem; }
+}
+
+.woocommerce-form-login-toggle,
+.woocommerce-form-coupon-toggle { margin-bottom: var(--brix-gap-8); }

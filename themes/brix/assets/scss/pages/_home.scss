@@ -1,0 +1,251 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+// ——— герой ———
+.brix-hero {
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  gap: var(--brix-gap-32);
+  align-items: center;
+  padding: var(--brix-sec-y) var(--brix-sec-x);
+
+  @include upto($bp-lg) {
+    grid-template-columns: 1fr;
+    gap: var(--brix-gap-24);
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-12);
+    align-items: flex-start;
+  }
+
+  &__title {
+    font-size: clamp(3rem, 1.6rem + 6vw, 6.75rem);
+  }
+
+  &__accent { color: var(--brix-cherry); }
+
+  &__lead { max-width: 46ch; }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-6);
+  }
+
+  &__promises {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-12);
+    margin: var(--brix-gap-4) 0 0;
+    padding-top: var(--brix-gap-12);
+    border-top: 1px solid var(--brix-line);
+    list-style: none;
+    font-size: 0.875rem;
+    color: var(--brix-muted);
+
+    li { display: flex; align-items: center; gap: var(--brix-gap-4); }
+    svg { flex-shrink: 0; }
+  }
+
+  // ——— права частина: пачка на кольоровій плиті ———
+  &__visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding-block: var(--brix-gap-16);
+
+    @include upto($bp-lg) { max-width: 420px; margin-inline: auto; }
+  }
+
+  &__plate {
+    position: absolute;
+    inset: 0 -6% 0 18%;
+    border-radius: 6px;
+    background: var(--brix-bg-natural);
+  }
+
+  &__pack {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 72%;
+    transform: rotate(-4deg);
+    transition: transform var(--brix-dur) var(--brix-ease);
+
+    &:hover { transform: rotate(-2deg) scale(1.02); }
+  }
+
+  // Картка рефрактометра і печатка дати — фірмові деталі з макета.
+  &__meter {
+    position: absolute;
+    left: 0;
+    bottom: 12%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-2);
+    padding: var(--brix-gap-8) var(--brix-gap-8);
+    border-radius: var(--brix-radius);
+    background: var(--brix-roast);
+    color: var(--brix-mill);
+
+    .brix-label { color: #9A938E; }
+    b { font-size: 1.625rem; letter-spacing: -0.02em; }
+
+    @include upto($bp-sm) { position: static; margin-top: var(--brix-gap-8); }
+  }
+
+  &__stamp {
+    position: absolute;
+    right: 0;
+    top: 6%;
+    z-index: 2;
+    display: grid;
+    place-content: center;
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    background: var(--brix-cherry);
+    color: #fff;
+    @include label;
+    color: #fff;
+    text-align: center;
+    line-height: 1.5;
+
+    @include upto($bp-sm) { display: none; }
+  }
+}
+
+// ——— рухомий рядок нот ———
+.brix-marquee {
+  overflow: hidden;
+  padding: var(--brix-gap-6) var(--brix-sec-x);
+  background: var(--brix-roast);
+  color: var(--brix-mill);
+
+  &__track {
+    display: flex;
+    gap: var(--brix-gap-8);
+    white-space: nowrap;
+    @include label;
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    color: var(--brix-mill);
+  }
+
+  &__item { opacity: 0.75; }
+  &__item.is-accent { color: var(--brix-honey); opacity: 1; }
+  &__sep { opacity: 0.35; }
+  &__sep:last-child { display: none; }
+}
+
+// ——— заголовок секції з посиланням ———
+.brix-section__more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--brix-gap-4);
+  font-weight: 600;
+  color: var(--brix-roast);
+
+  &:hover { color: var(--brix-cherry); }
+}
+
+.brix-section--dark .brix-section__more { color: var(--brix-mill); }
+
+// ——— пояснення шкали ———
+.brix-explainer__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--brix-gap-32);
+  align-items: center;
+
+  @include upto($bp-md) { grid-template-columns: 1fr; gap: var(--brix-gap-16); }
+}
+
+.brix-explainer__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-8);
+  align-items: flex-start;
+
+  .brix-lead { max-width: 46ch; }
+}
+
+.brix-explainer__scale {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-6);
+}
+
+// ——— врізки розділів ———
+.brix-teaser {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--brix-gap-24);
+  align-items: center;
+
+  @include upto($bp-md) { grid-template-columns: 1fr; }
+
+  &--reverse .brix-teaser__text { order: 2; }
+
+  @include upto($bp-md) {
+    &--reverse .brix-teaser__text { order: 0; }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+    align-items: flex-start;
+
+    .brix-lead { max-width: 44ch; }
+  }
+
+  &__photo {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--brix-radius-lg);
+  }
+}
+
+// ——— плитки виробників і гайдів ———
+.brix-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: var(--brix-gap-12);
+}
+
+.brix-tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-4);
+  color: var(--brix-roast);
+
+  &:hover { color: var(--brix-cherry); }
+
+  &__photo {
+    aspect-ratio: 3 / 2;
+    border-radius: var(--brix-radius);
+    margin-bottom: var(--brix-gap-2);
+  }
+
+  &__title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+
+  &__meta { color: var(--brix-muted); }
+
+  // Гайд без фото: картка-рецепт із рамкою.
+  &--guide {
+    justify-content: space-between;
+    min-height: 140px;
+    padding: var(--brix-gap-8);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+
+    &:hover { border-color: var(--brix-roast); }
+  }
+}

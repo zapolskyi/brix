@@ -24,7 +24,9 @@
 @use 'components/card';
 @use 'components/lot-data';
 
+@use 'pages/home';
 @use 'pages/catalog';
 @use 'pages/product';
 @use 'pages/cart';
+@use 'pages/checkout';
 @use 'pages/ui-kit';

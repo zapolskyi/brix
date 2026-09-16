@@ -182,3 +182,45 @@ function brix_price_label( WC_Product $product ): string {
 
 	return $product->get_price_html();
 }
+
+/**
+ * Друкує сітку карток товару поза стандартним циклом WooCommerce.
+ *
+ * Шаблон картки читає глобальний $product — так влаштований Woo,
+ * і переписувати його заради головної не варто. Тут глобальна змінна
+ * підміняється на час циклу й повертається назад.
+ *
+ * @param array<int, WC_Product> $products Товари.
+ * @return void
+ */
+function brix_render_product_cards( array $products ): void {
+	if ( ! $products ) {
+		return;
+	}
+
+	// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- $product належить WooCommerce, шаблон картки читає саме його.
+	global $product;
+
+	$previous = $product;
+
+	foreach ( $products as $item ) {
+		if ( ! $item instanceof WC_Product ) {
+			continue;
+		}
+
+		$post = get_post( $item->get_id() );
+
+		if ( ! $post ) {
+			continue;
+		}
+
+		$product = $item;
+		setup_postdata( $post );
+		wc_get_template_part( 'content', 'product' );
+	}
+
+	$product = $previous;
+	// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+
+	wp_reset_postdata();
+}
