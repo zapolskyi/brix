@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<ruleset name="BRIX 22°">
+	<description>WordPress Coding Standards для теми brix і плагіна brix-core.</description>
+
+	<file>themes/brix</file>
+	<file>plugins/brix-core</file>
+
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/docs/design-source/*</exclude-pattern>
+	<exclude-pattern>*/assets/css/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="basepath" value="."/>
+	<arg name="colors"/>
+	<arg name="parallel" value="8"/>
+	<arg value="sp"/>
+
+	<config name="minimum_wp_version" value="6.6"/>
+	<config name="testVersion" value="8.2-"/>
+
+	<rule ref="WordPress">
+		<!--
+			Плагін написаний в ООП з неймспейсами й PSR-4: імена файлів
+			і класів підпорядковані автозавантажувачу, а не схемі
+			class-my-thing.php з часів до Composer.
+		-->
+		<exclude name="WordPress.Files.FileName"/>
+		<exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase"/>
+	</rule>
+
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Префікси, за якими PHPCS впізнає наш код у глобальному просторі. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="brix"/>
+				<element value="Brix"/>
+				<element value="BRIX"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="brix"/>
+				<element value="brix-core"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>
