@@ -10,7 +10,7 @@
     "css:critical": "sass assets/scss/critical.scss assets/css/critical.css --style=compressed --no-source-map",
     "build": "sass assets/scss/main.scss assets/css/main.css --style=compressed --no-source-map && npm run css:critical",
     "fonts": "node tools/fonts.mjs",
-    "zip": "npm run build && mkdir -p ../../../../dist && git archive --format=zip --prefix=brix/ -o ../../../../dist/brix.zip HEAD:themes/brix && echo 'Готово: dist/brix.zip'"
+    "zip": "npm run build && git -C ../.. archive --format=zip --prefix=brix/ -o dist/brix.zip HEAD:themes/brix && echo 'Готово: wp-content/dist/brix.zip'"
   },
   "devDependencies": {
     "sass": "^1.80.0"

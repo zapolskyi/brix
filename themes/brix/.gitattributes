@@ -1,0 +1,10 @@
+# Що не потрапляє в архів теми для хостингу (npm run zip).
+# Шляхи відносно кореня теми — саме її архівує git archive HEAD:themes/brix.
+# На сервері ці файли не потрібні: це джерела збірки, документація й інструменти.
+
+/.gitattributes    export-ignore
+/docs              export-ignore
+/assets/scss       export-ignore
+/tools             export-ignore
+/package.json      export-ignore
+/package-lock.json export-ignore

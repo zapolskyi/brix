@@ -5,14 +5,9 @@
 /.gitignore                      export-ignore
 /README.md                       export-ignore
 
-/themes/brix/docs                export-ignore
-/themes/brix/assets/scss         export-ignore
-/themes/brix/tools               export-ignore
-/themes/brix/package.json        export-ignore
-/themes/brix/package-lock.json   export-ignore
-
-/plugins/brix-core/tests         export-ignore
-/plugins/brix-core/composer.lock export-ignore
+# Тема й плагін архівуються окремо, кожен своїм піддеревом
+# (git archive HEAD:themes/brix), тож їхні export-ignore живуть
+# у власних .gitattributes всередині — правила звідси на піддерево не діють.
 
 # Нормалізація перекладів рядків
 *.php  text eol=lf
