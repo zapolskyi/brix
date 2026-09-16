@@ -123,3 +123,57 @@ function brix_plural( int $number, string $one, string $few, string $many ): str
 
 	return $many;
 }
+
+/**
+ * Читає повторювач SCF як звичайний масив рядків.
+ *
+ * Через `get_field()`, якщо SCF активний — тоді спрацьовують його типи.
+ * Без нього збираємо вручну з мета-полів `поле_0_підполе`: дані лежать
+ * там у будь-якому разі, тож вимкнений плагін ламає редагування,
+ * а не вивід.
+ *
+ * Підполя передаються повними мета-ключами (`brix_farm_calendar_period`),
+ * а не короткими назвами: SCF зберігає саме їх, і вивести префікс
+ * з назви самого повторювача неможливо — `brix_farm_year_calendar`
+ * і `brix_farm_calendar_period` мають спільним лише `brix_farm_`.
+ *
+ * @param int                $post_id  Запис.
+ * @param string             $field    Мета-ключ повторювача.
+ * @param array<int, string> $sub_keys Повні мета-ключі підполів.
+ * @return array<int, array<string, string>>
+ */
+function brix_repeater( int $post_id, string $field, array $sub_keys ): array {
+	$rows = array();
+
+	if ( function_exists( 'get_field' ) ) {
+		$raw = get_field( $field, $post_id );
+
+		if ( is_array( $raw ) ) {
+			foreach ( $raw as $row ) {
+				$clean = array();
+
+				foreach ( $sub_keys as $key ) {
+					$clean[ $key ] = (string) ( $row[ $key ] ?? '' );
+				}
+
+				$rows[] = $clean;
+			}
+
+			return $rows;
+		}
+	}
+
+	$count = (int) get_post_meta( $post_id, $field, true );
+
+	for ( $index = 0; $index < $count; $index++ ) {
+		$clean = array();
+
+		foreach ( $sub_keys as $key ) {
+			$clean[ $key ] = (string) get_post_meta( $post_id, $field . '_' . $index . '_' . $key, true );
+		}
+
+		$rows[] = $clean;
+	}
+
+	return $rows;
+}

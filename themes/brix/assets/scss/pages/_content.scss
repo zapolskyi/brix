@@ -1,0 +1,575 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+// ——— текстові блоки ———
+.brix-prose {
+  max-width: 68ch;
+
+  h2 { margin-bottom: var(--brix-gap-8); }
+  p { margin-bottom: var(--brix-gap-6); }
+  p:last-child { margin-bottom: 0; }
+}
+
+.brix-quote {
+  margin: 0;
+  padding-left: var(--brix-gap-12);
+  border-left: 3px solid var(--brix-cherry);
+
+  blockquote {
+    margin: 0 0 var(--brix-gap-6);
+    font-family: var(--brix-font-display);
+    font-size: var(--brix-fs-lead);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+}
+
+// ——— виробник ———
+.brix-farm {
+  &__top {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--brix-gap-24);
+    align-items: start;
+
+    @include upto($bp-md) { grid-template-columns: 1fr; }
+  }
+
+  &__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-6);
+  }
+
+  &__facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--brix-gap-8);
+    margin: 0;
+    padding: var(--brix-gap-12);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+
+    div { display: flex; flex-direction: column; gap: 2px; }
+    dd { margin: 0; font-family: var(--brix-font-display); font-weight: 500; font-size: 1.25rem; letter-spacing: -0.02em; }
+  }
+
+  &__story {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--brix-gap-24);
+    align-items: start;
+
+    @include upto($bp-md) { grid-template-columns: 1fr; }
+  }
+
+  &__place {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--brix-gap-24);
+    align-items: center;
+
+    @include upto($bp-md) { grid-template-columns: 1fr; }
+
+    > div { display: flex; flex-direction: column; gap: var(--brix-gap-6); }
+    .brix-lead { max-width: 42ch; }
+  }
+
+  &__coords {
+    font-size: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+    letter-spacing: -0.02em;
+  }
+
+  &__map {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--brix-radius-lg);
+  }
+}
+
+// ——— рік на станції ———
+.brix-timeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--brix-gap-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: brix-step;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-2);
+    padding-top: var(--brix-gap-8);
+    border-top: 2px solid var(--brix-cherry);
+  }
+
+  &__period { @include label; color: var(--brix-cherry); }
+  &__title { font-size: 1.0625rem; font-weight: 600; }
+}
+
+// ——— гайд ———
+.brix-guide {
+  &__top {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: var(--brix-gap-24);
+    align-items: start;
+
+    @include upto($bp-md) { grid-template-columns: 1fr; }
+  }
+
+  &__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-6);
+  }
+
+  &__specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+    gap: var(--brix-gap-8);
+    margin: 0;
+    padding: var(--brix-gap-12);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+
+    div { display: flex; flex-direction: column; gap: 2px; }
+    dd { margin: 0; font-size: 1.25rem; }
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--brix-gap-24);
+    align-items: start;
+
+    @include upto($bp-md) { grid-template-columns: 1fr; }
+  }
+}
+
+.brix-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &__item {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: var(--brix-gap-8);
+    padding-bottom: var(--brix-gap-8);
+    border-bottom: 1px solid var(--brix-line);
+  }
+
+  &__time {
+    font-size: 1.125rem;
+    color: var(--brix-cherry);
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-2);
+  }
+
+  &__title { font-size: 1.0625rem; }
+
+  &__target {
+    @include label;
+    color: var(--brix-muted);
+  }
+
+  &__text { color: var(--brix-muted); }
+}
+
+.brix-tip {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-4);
+  padding: var(--brix-gap-12);
+  border-radius: var(--brix-radius-lg);
+  background: var(--brix-bg-honey);
+
+  &__title {
+    font-family: var(--brix-font-ui);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+}
+
+// ——— квіз ———
+.brix-quiz {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-8);
+  max-width: 760px;
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-4);
+  }
+
+  &__progress {
+    position: relative;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--brix-stone);
+  }
+
+  &__fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--brix-value, 0%);
+    border-radius: 2px;
+    background: var(--brix-cherry);
+  }
+
+  &__title { font-size: var(--brix-fs-h2); }
+
+  &__options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--brix-gap-6);
+    margin-top: var(--brix-gap-6);
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--brix-gap-6);
+    min-height: 72px;
+    padding: var(--brix-gap-8) var(--brix-gap-12);
+    border: 1.5px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+    color: var(--brix-roast);
+    font-size: 1.0625rem;
+    font-weight: 500;
+
+    &:hover { border-color: var(--brix-roast); color: var(--brix-roast); }
+
+    &.is-active {
+      border-color: var(--brix-roast);
+      background: var(--brix-roast);
+      color: var(--brix-mill);
+    }
+
+    svg { flex-shrink: 0; }
+  }
+
+  &__nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--brix-gap-6);
+    margin-top: var(--brix-gap-8);
+  }
+
+  &__counter { margin-right: auto; }
+
+  &__recap {
+    margin-top: var(--brix-gap-16);
+    padding-top: var(--brix-gap-12);
+    border-top: 1px solid var(--brix-line);
+
+    dl {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--brix-gap-8);
+      margin: var(--brix-gap-6) 0 0;
+    }
+
+    div { display: flex; flex-direction: column; gap: 2px; }
+    dd { margin: 0; font-weight: 600; }
+  }
+}
+
+// Кнопка «Далі», поки нічого не обрано.
+.brix-btn--disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+// ——— результат квізу ———
+.brix-quiz-result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-24);
+
+  &__head {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: var(--brix-gap-24);
+    align-items: start;
+
+    @include upto($bp-md) { grid-template-columns: 1fr; }
+
+    > div { display: flex; flex-direction: column; gap: var(--brix-gap-6); }
+  }
+
+  &__profile {
+    padding: var(--brix-gap-12);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+  }
+
+  &__picks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--brix-gap-12);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-6);
+  }
+}
+
+.brix-pick {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-4);
+
+  &__stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1 / 1.06;
+    overflow: hidden;
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-bg-core);
+  }
+
+  &__match {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: var(--brix-roast);
+    color: var(--brix-mill);
+  }
+
+  &__name {
+    margin-top: var(--brix-gap-4);
+    font-family: var(--brix-font-ui);
+    font-size: 1.0625rem;
+    font-weight: 600;
+
+    a { color: var(--brix-roast); }
+    a:hover { color: var(--brix-cherry); }
+  }
+
+  &__reason { color: var(--brix-cherry); }
+
+  &__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--brix-gap-6);
+    margin-top: auto;
+    padding-top: var(--brix-gap-6);
+    border-top: 1px solid var(--brix-line);
+
+    b { font-size: 1.0625rem; }
+  }
+}
+
+// ——— BRIX Club ———
+.brix-club-hero {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--brix-gap-32);
+  align-items: center;
+
+  @include upto($bp-md) { grid-template-columns: 1fr; }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+    align-items: flex-start;
+
+    .brix-lead { max-width: 46ch; }
+  }
+
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: var(--brix-gap-16);
+    margin: var(--brix-gap-4) 0 0;
+
+    @include upto($bp-sm) { grid-template-columns: 1fr; gap: var(--brix-gap-8); }
+
+    div { display: flex; flex-direction: column; gap: 2px; }
+    dd { margin: 0; }
+  }
+
+  &__value {
+    font-family: var(--brix-font-display);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.5rem);
+    letter-spacing: -0.03em;
+  }
+
+  &__packs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--brix-gap-8);
+    align-items: center;
+
+    // Друга пачка трохи нижче — так у макеті.
+    > :last-child { transform: translateY(var(--brix-gap-16)); }
+  }
+}
+
+.brix-club {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--brix-gap-24);
+  align-items: start;
+
+  @include upto($bp-lg) { grid-template-columns: 1fr; }
+
+  &__steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-16);
+  }
+
+  &__step {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  &__options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: var(--brix-gap-6);
+    margin-top: var(--brix-gap-6);
+  }
+
+  &__option {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--brix-gap-8);
+    border: 1.5px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+    color: var(--brix-roast);
+
+    &:hover { border-color: var(--brix-roast); color: var(--brix-roast); }
+
+    &.is-active {
+      border-color: var(--brix-roast);
+      background: var(--brix-roast);
+      color: var(--brix-mill);
+
+      .brix-muted { color: #B7B0AB; }
+    }
+
+    &-label { font-weight: 600; }
+  }
+
+  &__summary {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+    padding: var(--brix-gap-12);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+
+    @include from($bp-lg) {
+      position: sticky;
+      top: calc(var(--brix-header-h) + var(--brix-gap-8));
+    }
+
+    &-title { font-size: var(--brix-fs-h3); }
+  }
+
+  &__recap {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-4);
+    margin: 0;
+
+    div {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--brix-gap-6);
+      padding-bottom: var(--brix-gap-4);
+      border-bottom: 1px solid var(--brix-line);
+    }
+
+    dd { margin: 0; font-weight: 600; text-align: right; }
+  }
+
+  &__price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--brix-gap-4);
+
+    b { font-size: 1.625rem; letter-spacing: -0.02em; }
+  }
+
+  &__price-was {
+    color: var(--brix-muted);
+    text-decoration: line-through;
+  }
+}
+
+// ——— FAQ ———
+.brix-faq {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-6);
+  max-width: 760px;
+
+  h2 { margin-bottom: var(--brix-gap-6); }
+
+  &__item {
+    padding-bottom: var(--brix-gap-6);
+    border-bottom: 1px solid var(--brix-line);
+  }
+
+  &__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--brix-gap-8);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker { display: none; }
+
+    &::after {
+      content: '+';
+      font-family: var(--brix-font-mono);
+      font-size: 1.25rem;
+      color: var(--brix-cherry);
+    }
+  }
+
+  &__item[open] &__question::after { content: '−'; }
+
+  &__answer {
+    margin-top: var(--brix-gap-4);
+    color: var(--brix-muted);
+  }
+}
