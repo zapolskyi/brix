@@ -42,6 +42,17 @@
 		</properties>
 	</rule>
 
+	<!--
+		Override шаблонів WooCommerce — це копії шаблонів плагіна,
+		і вони зобов'язані викликати його хуки й користуватись
+		глобальним $product. Вимога префікса тут не має сенсу:
+		перейменувати woocommerce_before_cart означало б зламати
+		сумісність з усіма розширеннями Woo.
+	-->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<exclude-pattern>*/themes/brix/woocommerce/*</exclude-pattern>
+	</rule>
+
 	<!-- Префікси, за якими PHPCS впізнає наш код у глобальному просторі. -->
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>

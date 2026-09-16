@@ -1,0 +1,256 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+.brix-product__top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--brix-gap-24);
+  align-items: start;
+
+  @include upto($bp-lg) { grid-template-columns: 1fr; }
+}
+
+.brix-product__stage {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1.06;
+  overflow: hidden;
+  border-radius: var(--brix-radius-lg);
+  background: var(--brix-bg-core);
+}
+
+.brix-product__thumbs {
+  display: flex;
+  gap: var(--brix-gap-4);
+  margin-top: var(--brix-gap-6);
+
+  img { width: 78px; border-radius: var(--brix-radius); }
+}
+
+// ——— блок покупки ———
+.brix-buy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-8);
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-4);
+  }
+
+  &__title { font-size: var(--brix-fs-h2); }
+
+  &__price {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-6);
+
+    b { font-size: 1.75rem; letter-spacing: -0.02em; }
+  }
+
+  &__choice {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  &__legend {
+    @include label;
+    padding: 0;
+    margin-bottom: var(--brix-gap-4);
+  }
+
+  &__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-4);
+  }
+
+  // Комбінація, якої не існує: у Lab-лотів немає кілограма.
+  // Лишаємо клікабельним, але видимо приглушеним — інакше покупець
+  // не зрозуміє, чому варіанта просто немає в списку.
+  .brix-chip.is-unavailable {
+    opacity: 0.4;
+    text-decoration: line-through;
+  }
+
+  &__form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-6);
+    align-items: center;
+  }
+
+  &__qty {
+    width: 84px;
+    height: var(--brix-ctl-xl);
+    text-align: center;
+  }
+
+  &__submit { flex: 1 1 260px; }
+
+  &__unavailable {
+    padding: var(--brix-gap-8);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius);
+    background: var(--brix-stone);
+    font-size: 0.9375rem;
+  }
+
+  &__freshness {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-4);
+    padding-top: var(--brix-gap-8);
+    border-top: 1px solid var(--brix-line);
+  }
+
+  &__promises {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9375rem;
+    color: var(--brix-muted);
+
+    li { display: flex; align-items: center; gap: var(--brix-gap-6); }
+    svg { flex-shrink: 0; color: var(--brix-green-d); }
+  }
+}
+
+// ——— разова покупка / підписка ———
+.brix-plans {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--brix-gap-4);
+
+  @include upto($bp-sm) { grid-template-columns: 1fr; }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--brix-gap-6);
+    padding: var(--brix-gap-8);
+    border: 1.5px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    color: var(--brix-roast);
+
+    &.is-active {
+      border-color: var(--brix-roast);
+      background: var(--brix-paper);
+    }
+
+    &:hover { border-color: var(--brix-roast); color: var(--brix-roast); }
+
+    b { font-size: 1.125rem; }
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+
+    small { font-weight: 400; font-size: 0.8125rem; }
+  }
+}
+
+// ——— паспорт лоту ———
+.brix-passport {
+  &__note { max-width: 42ch; }
+
+  &__scales {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--brix-gap-24);
+    margin-top: var(--brix-gap-24);
+
+    @include upto($bp-md) { grid-template-columns: 1fr; }
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-6);
+  }
+
+  &__subtitle {
+    font-family: var(--brix-font-ui);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  &__cup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-6);
+    max-width: 62ch;
+    margin-top: var(--brix-gap-16);
+  }
+}
+
+// ——— виробник і рецепт ———
+.brix-farm-teaser {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--brix-gap-24);
+  align-items: center;
+
+  @include upto($bp-md) { grid-template-columns: 1fr; }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+    align-items: flex-start;
+  }
+
+  &__photo {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--brix-radius-lg);
+  }
+}
+
+.brix-recipe {
+  &__specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-16);
+    margin-block: var(--brix-gap-8);
+
+    div { display: flex; flex-direction: column; gap: 2px; }
+    dd { margin: 0; font-size: 1.125rem; }
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-6);
+    align-items: flex-start;
+  }
+}
+
+// Схожі товари від WooCommerce.
+.related.products {
+  margin-top: var(--brix-gap-32);
+
+  > h2 {
+    margin-bottom: var(--brix-gap-16);
+    font-size: var(--brix-fs-h3);
+  }
+
+  ul.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--brix-gap-16) var(--brix-gap-12);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}

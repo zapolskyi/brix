@@ -67,7 +67,7 @@ $brix_total = (int) wc_get_loop_prop( 'total' );
 						<?php
 						printf(
 							/* translators: %s — кількість товарів. */
-							esc_html( _n( '%s товар', '%s товарів', $brix_total, 'brix' ) ),
+							esc_html( brix_plural( $brix_total, __( '%s товар', 'brix' ), __( '%s товари', 'brix' ), __( '%s товарів', 'brix' ) ) ),
 							esc_html( number_format_i18n( $brix_total ) )
 						);
 						?>

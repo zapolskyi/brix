@@ -93,3 +93,33 @@ function brix_font_faces(): array {
 
 	return $faces;
 }
+
+/**
+ * Українська множина: три форми замість двох.
+ *
+ * `_n()` вибирає форму за правилом мови перекладу. Поки в темі немає
+ * .po-файлів, він відкочується на англійське правило «один або решта»
+ * і дає «24 пачок» там, де треба «24 пачки». Для інтерфейсних рядків
+ * із числами це помітно, тож рахуємо форму самі.
+ *
+ * @param int    $number Число.
+ * @param string $one    1 пачка.
+ * @param string $few    2 пачки.
+ * @param string $many   5 пачок.
+ * @return string
+ */
+function brix_plural( int $number, string $one, string $few, string $many ): string {
+	$number = absint( $number );
+	$mod10  = $number % 10;
+	$mod100 = $number % 100;
+
+	if ( 1 === $mod10 && 11 !== $mod100 ) {
+		return $one;
+	}
+
+	if ( $mod10 >= 2 && $mod10 <= 4 && ( $mod100 < 12 || $mod100 > 14 ) ) {
+		return $few;
+	}
+
+	return $many;
+}

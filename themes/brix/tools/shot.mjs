@@ -2,6 +2,7 @@
 // переповнення.
 //
 //   node tools/shot.mjs <url> [--w=390] [--h=844] [--full] [--out=shot.png]
+//                        [--visit=<url>]  — відкрити перед знімком, можна кілька разів
 //
 // Навіщо свій інструмент: headless Chrome на macOS не робить вікно
 // вужчим за 500 px, тож --window-size=390 мовчки віддає знімок,
@@ -32,6 +33,9 @@ if (!url) {
 const width = Number(flag('w', 1440));
 const height = Number(flag('h', 900));
 const fullPage = args.includes('--full');
+// Сторінки кошика й checkout показують щось лише за наявної сесії,
+// тож перед знімком можна пройти сценарій: додати товар, потім знімати.
+const visits = args.filter((a) => a.startsWith('--visit=')).map((a) => a.slice('--visit='.length));
 const out = flag('out', `shot-${width}.png`);
 
 const profile = await mkdtemp(join(tmpdir(), 'brix-shot-'));
@@ -84,6 +88,11 @@ await send('Page.enable');
 await send('Emulation.setDeviceMetricsOverride', {
   width, height, deviceScaleFactor: 1, mobile: width < 768,
 });
+
+for (const step of visits) {
+  await send('Page.navigate', { url: step });
+  await sleep(1500);
+}
 
 await send('Page.navigate', { url });
 await sleep(2500);

@@ -66,6 +66,7 @@ final class DemoContent {
 			$this->purge();
 		}
 
+		$this->import_attributes();
 		$this->import_terms();
 		$this->import_farms();
 		$this->import_guides();
@@ -128,6 +129,111 @@ final class DemoContent {
 		}
 
 		\WP_CLI::log( sprintf( 'Видалено раніше створеного: %d', count( $posts ) ) );
+	}
+
+	/**
+	 * Створює глобальні атрибути «Вага» і «Помел».
+	 *
+	 * Локальні атрибути з кириличними назвами дають у посиланні
+	 * attribute_%d0%b2%d0%b0%d0%b3%d0%b0 — таке не прочитати й не
+	 * надіслати. Глобальні атрибути мають окремо назву («Вага»)
+	 * і slug (`weight`), тож адреса лишається читабельною,
+	 * а значення ще й можна фільтрувати.
+	 *
+	 * @return void
+	 */
+	private function import_attributes(): void {
+		$weights = array();
+
+		foreach ( (array) ( $this->data['products'] ?? array() ) as $row ) {
+			foreach ( (array) ( $row['weights'] ?? array() ) as $weight ) {
+				$weights[ (string) $weight['weight'] ] = true;
+			}
+		}
+
+		$this->ensure_attribute( 'weight', __( 'Вага', 'brix-core' ), array_keys( $weights ) );
+		$this->ensure_attribute( 'grind', __( 'Помел', 'brix-core' ), (array) ( $this->data['grinds'] ?? array() ) );
+
+		// Таксономії атрибутів реєструються на init, а ми вже після
+		// нього: без цього wp_set_object_terms не знайде таксономію.
+		wc_get_attribute_taxonomies();
+		delete_transient( 'wc_attribute_taxonomies' );
+
+		foreach ( wc_get_attribute_taxonomy_names() as $taxonomy ) {
+			if ( ! taxonomy_exists( $taxonomy ) ) {
+				register_taxonomy(
+					$taxonomy,
+					array( 'product' ),
+					array(
+						'hierarchical' => false,
+						'public'       => false,
+					)
+				);
+			}
+		}
+
+		\WP_CLI::log( 'Атрибути готові.' );
+	}
+
+	/**
+	 * Створює глобальний атрибут і його значення.
+	 *
+	 * @param string             $slug   Slug атрибута без префікса pa_.
+	 * @param string             $label  Назва для покупця.
+	 * @param array<int, string> $values Значення.
+	 * @return void
+	 */
+	private function ensure_attribute( string $slug, string $label, array $values ): void {
+		$taxonomy = wc_attribute_taxonomy_name( $slug );
+
+		if ( ! taxonomy_exists( $taxonomy ) && ! wc_attribute_taxonomy_id_by_name( $slug ) ) {
+			$created = wc_create_attribute(
+				array(
+					'name'         => $label,
+					'slug'         => $slug,
+					'type'         => 'select',
+					'order_by'     => 'menu_order',
+					'has_archives' => false,
+				)
+			);
+
+			if ( is_wp_error( $created ) ) {
+				\WP_CLI::warning( sprintf( 'Атрибут «%s»: %s', $label, $created->get_error_message() ) );
+				return;
+			}
+
+			register_taxonomy(
+				$taxonomy,
+				array( 'product' ),
+				array(
+					'hierarchical' => false,
+					'public'       => false,
+				)
+			);
+		}
+
+		foreach ( $values as $index => $value ) {
+			$term = get_term_by( 'name', (string) $value, $taxonomy );
+
+			if ( ! $term instanceof \WP_Term ) {
+				$term_id = wp_insert_term(
+					(string) $value,
+					$taxonomy,
+					array( 'slug' => Slug::latin( (string) $value ) )
+				);
+
+				if ( is_wp_error( $term_id ) ) {
+					continue;
+				}
+
+				$term_id = (int) $term_id['term_id'];
+			} else {
+				$term_id = (int) $term->term_id;
+			}
+
+			// Порядок значень — це порядок у макеті: 100 г, 250 г, 1 кг.
+			update_term_meta( $term_id, 'order_' . $taxonomy, $index );
+		}
 	}
 
 	/**
@@ -462,6 +568,25 @@ final class DemoContent {
 		update_post_meta( $product_id, '_brix_demo', 1 );
 
 		$this->assign_terms( $product_id, $row );
+
+		if ( $is_var ) {
+			// Значення атрибутів — це терміни, і вони мають бути
+			// прив'язані до товару, інакше Woo не знайде варіацію.
+			wp_set_object_terms(
+				$product_id,
+				array_map(
+					fn( $weight ): string => $this->term_slug( 'weight', (string) $weight['weight'] ),
+					(array) ( $row['weights'] ?? array() )
+				),
+				wc_attribute_taxonomy_name( 'weight' )
+			);
+
+			wp_set_object_terms(
+				$product_id,
+				array_map( fn( $grind ): string => $this->term_slug( 'grind', (string) $grind ), $grinds ),
+				wc_attribute_taxonomy_name( 'grind' )
+			);
+		}
 		$this->save_lot_fields( $product_id, (array) ( $row['fields'] ?? array() ) );
 
 		if ( $is_var ) {
@@ -481,21 +606,41 @@ final class DemoContent {
 	private function attributes( array $row, array $grinds ): array {
 		$weights = wp_list_pluck( (array) ( $row['weights'] ?? array() ), 'weight' );
 
-		$weight = new \WC_Product_Attribute();
-		$weight->set_name( __( 'Вага', 'brix-core' ) );
-		$weight->set_options( $weights );
-		$weight->set_position( 0 );
-		$weight->set_visible( true );
-		$weight->set_variation( true );
+		return array(
+			$this->taxonomy_attribute( 'weight', $weights, 0 ),
+			$this->taxonomy_attribute( 'grind', $grinds, 1 ),
+		);
+	}
 
-		$grind = new \WC_Product_Attribute();
-		$grind->set_name( __( 'Помел', 'brix-core' ) );
-		$grind->set_options( $grinds );
-		$grind->set_position( 1 );
-		$grind->set_visible( true );
-		$grind->set_variation( true );
+	/**
+	 * Атрибут товару на основі глобальної таксономії.
+	 *
+	 * @param string             $slug     Slug атрибута без pa_.
+	 * @param array<int, string> $values   Значення.
+	 * @param int                $position Порядок на сторінці товару.
+	 * @return \WC_Product_Attribute
+	 */
+	private function taxonomy_attribute( string $slug, array $values, int $position ): \WC_Product_Attribute {
+		$taxonomy = wc_attribute_taxonomy_name( $slug );
+		$term_ids = array();
 
-		return array( $weight, $grind );
+		foreach ( $values as $value ) {
+			$term = get_term_by( 'name', (string) $value, $taxonomy );
+
+			if ( $term instanceof \WP_Term ) {
+				$term_ids[] = (int) $term->term_id;
+			}
+		}
+
+		$attribute = new \WC_Product_Attribute();
+		$attribute->set_id( wc_attribute_taxonomy_id_by_name( $slug ) );
+		$attribute->set_name( $taxonomy );
+		$attribute->set_options( $term_ids );
+		$attribute->set_position( $position );
+		$attribute->set_visible( true );
+		$attribute->set_variation( true );
+
+		return $attribute;
 	}
 
 	/**
@@ -530,8 +675,8 @@ final class DemoContent {
 				$variation->set_status( 'publish' );
 				$variation->set_attributes(
 					array(
-						sanitize_title( __( 'Вага', 'brix-core' ) )  => (string) $weight['weight'],
-						sanitize_title( __( 'Помел', 'brix-core' ) ) => (string) $grind,
+						wc_attribute_taxonomy_name( 'weight' ) => $this->term_slug( 'weight', (string) $weight['weight'] ),
+						wc_attribute_taxonomy_name( 'grind' )  => $this->term_slug( 'grind', (string) $grind ),
 					)
 				);
 				$variation->set_regular_price( (string) round( $base * (float) $weight['factor'] ) );
@@ -542,6 +687,19 @@ final class DemoContent {
 		}
 
 		\WC_Product_Variable::sync( $product_id );
+	}
+
+	/**
+	 * Slug значення атрибута.
+	 *
+	 * @param string $slug  Атрибут без pa_.
+	 * @param string $value Назва значення.
+	 * @return string
+	 */
+	private function term_slug( string $slug, string $value ): string {
+		$term = get_term_by( 'name', $value, wc_attribute_taxonomy_name( $slug ) );
+
+		return $term instanceof \WP_Term ? $term->slug : Slug::latin( $value );
 	}
 
 	/**

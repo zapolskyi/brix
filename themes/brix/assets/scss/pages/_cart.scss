@@ -1,0 +1,252 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+.brix-cart {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: var(--brix-gap-24);
+  align-items: start;
+
+  @include upto($bp-lg) { grid-template-columns: 1fr; }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+  }
+
+  // Рядок кошика — картка, а не комірки таблиці: у макеті це пачка,
+  // назва з помелом, кількість і ціна в один ряд.
+  &__row {
+    display: grid;
+    grid-template-columns: 96px 1fr auto auto;
+    gap: var(--brix-gap-8);
+    align-items: center;
+    padding-bottom: var(--brix-gap-8);
+    border-bottom: 1px solid var(--brix-line);
+
+    @include upto($bp-sm) {
+      grid-template-columns: 72px 1fr;
+      row-gap: var(--brix-gap-6);
+    }
+  }
+
+  &__visual {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1 / 1.06;
+    border-radius: var(--brix-radius);
+    background: var(--brix-bg-core);
+    overflow: hidden;
+  }
+
+  // Woo обгортає мініатюру посиланням, тож розтягуємо і його —
+  // інакше пачка всередині схлопується в нуль.
+  &__visual > a {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__pack {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__options {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--brix-muted);
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-2);
+
+    // Вага й помел друкує сам WooCommerce.
+    dl { margin: 0; font-size: 0.875rem; color: var(--brix-muted); }
+    dt, dd { display: inline; margin: 0; }
+    dt::after { content: ': '; }
+    dd + dt::before { content: ' · '; }
+    p { margin: 0; }
+  }
+
+  &__name {
+    font-family: var(--brix-font-ui);
+    font-size: 1.0625rem;
+    font-weight: 600;
+
+    a { color: var(--brix-roast); }
+    a:hover { color: var(--brix-cherry); }
+  }
+
+  &__qty-input {
+    width: 76px;
+    height: var(--brix-ctl-sm);
+    text-align: center;
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+    gap: var(--brix-gap-6);
+
+    b { font-size: 1.0625rem; }
+  }
+
+  &__remove {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: var(--brix-muted);
+
+    &:hover { background: var(--brix-stone); color: var(--brix-cherry); }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-6);
+    align-items: center;
+    padding-top: var(--brix-gap-8);
+  }
+
+  &__coupon {
+    display: flex;
+    gap: var(--brix-gap-4);
+    margin-right: auto;
+
+    .brix-input { width: 180px; height: var(--brix-ctl-sm); }
+  }
+
+  &__side {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+    padding: var(--brix-gap-12);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+
+    @include from($bp-lg) {
+      position: sticky;
+      top: calc(var(--brix-header-h) + var(--brix-gap-8));
+    }
+  }
+}
+
+// Прогрес до безкоштовної доставки.
+.brix-shipbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-4);
+
+  &--done {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--brix-gap-6);
+    font-size: 0.9375rem;
+    color: var(--brix-green-d);
+  }
+
+  &__track {
+    position: relative;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--brix-stone);
+  }
+
+  &__fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--brix-value, 0%);
+    border-radius: 3px;
+    background: var(--brix-green);
+    transition: width var(--brix-dur) var(--brix-ease);
+  }
+}
+
+// Підсумки WooCommerce у наших стилях.
+.cart_totals {
+  h2 { font-size: var(--brix-fs-h3); margin-bottom: var(--brix-gap-6); }
+
+  table { width: 100%; }
+
+  th, td {
+    padding-block: var(--brix-gap-4);
+    text-align: left;
+    font-size: 0.9375rem;
+    border-bottom: 1px solid var(--brix-line);
+  }
+
+  td { text-align: right; font-family: var(--brix-font-mono); }
+
+  .order-total th,
+  .order-total td { font-size: 1.125rem; border-bottom: 0; }
+
+  .wc-proceed-to-checkout { margin-top: var(--brix-gap-8); }
+
+  .checkout-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: var(--brix-ctl-xl);
+    border-radius: var(--brix-radius-pill);
+    background: var(--brix-cherry);
+    color: #fff;
+    font-weight: 600;
+
+    &:hover { background: var(--brix-cherry-d); color: #fff; }
+  }
+}
+
+// Порожній кошик.
+.cart-empty,
+.wc-empty-cart-message {
+  font-size: var(--brix-fs-lead);
+}
+
+.return-to-shop {
+  margin-top: var(--brix-gap-8);
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    height: var(--brix-ctl);
+    padding-inline: var(--brix-gap-16);
+    border: 1.5px solid var(--brix-roast);
+    border-radius: var(--brix-radius-pill);
+    color: var(--brix-roast);
+
+    &:hover { background: var(--brix-roast); color: var(--brix-mill); }
+  }
+}
+
+// Повідомлення WooCommerce.
+.woocommerce-message,
+.woocommerce-error,
+.woocommerce-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--brix-gap-8);
+  margin-bottom: var(--brix-gap-12);
+  padding: var(--brix-gap-8) var(--brix-gap-12);
+  border-left: 3px solid var(--brix-green);
+  border-radius: var(--brix-radius);
+  background: var(--brix-stone);
+  list-style: none;
+  font-size: 0.9375rem;
+
+  .button { margin-left: auto; font-weight: 600; }
+}
+
+.woocommerce-error { border-left-color: var(--brix-error); }
+.woocommerce-info { border-left-color: var(--brix-honey); }

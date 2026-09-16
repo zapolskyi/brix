@@ -111,7 +111,7 @@ if ( $brix_sold ) {
 			<?php
 			printf(
 				/* translators: %s — кількість пачок. */
-				esc_html( _n( 'Залишилось %s пачка', 'Залишилось %s пачок', $brix_left, 'brix' ) ),
+				esc_html( brix_plural( $brix_left, __( 'Залишилась %s пачка', 'brix' ), __( 'Залишилось %s пачки', 'brix' ), __( 'Залишилось %s пачок', 'brix' ) ) ),
 				esc_html( (string) $brix_left )
 			);
 			?>
