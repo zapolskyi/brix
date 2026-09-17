@@ -1,0 +1,16 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "brix/marquee",
+	"title": "Рядок смакових нот",
+	"category": "brix",
+	"icon": "editor-ellipsis",
+	"description": "Темна смуга з нотами лотів. Береться з таксономії, тож змінюється разом з каталогом.",
+	"textdomain": "brix",
+	"attributes": {
+		"limit": { "type": "number", "default": 12 }
+	},
+	"supports": { "html": false, "align": ["full"] },
+	"editorScript": "brix-blocks-editor",
+	"render": "file:./render.php"
+}

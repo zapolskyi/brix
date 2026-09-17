@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "brix/feature",
+	"title": "Секція з текстом",
+	"category": "brix",
+	"icon": "align-pull-left",
+	"description": "Заголовок, текст і кнопка поруч з фото або шкалою °Bx. Нею зібрані врізки квізу, клубу й B2B.",
+	"textdomain": "brix",
+	"attributes": {
+		"label": { "type": "string", "default": "" },
+		"heading": { "type": "string", "default": "" },
+		"text": { "type": "string", "default": "" },
+		"buttonLabel": { "type": "string", "default": "" },
+		"buttonUrl": { "type": "string", "default": "" },
+		"media": { "type": "string", "default": "photo" },
+		"tone": { "type": "string", "default": "warm" },
+		"dark": { "type": "boolean", "default": false },
+		"reversed": { "type": "boolean", "default": false }
+	},
+	"supports": { "html": false, "align": ["wide", "full"] },
+	"editorScript": "brix-blocks-editor",
+	"render": "file:./render.php"
+}

@@ -8,12 +8,34 @@
 	"description": "Картки лотів із каталогу. Дані беруться запитом при кожному показі, тож сітка не протухає.",
 	"textdomain": "brix",
 	"attributes": {
-		"heading": { "type": "string", "default": "Вісім лотів, усі з паспортом" },
-		"label": { "type": "string", "default": "Зараз в обсмаженні" },
-		"limit": { "type": "number", "default": 4 },
-		"category": { "type": "string", "default": "" },
-		"showLink": { "type": "boolean", "default": true }
+		"heading": {
+			"type": "string",
+			"default": "Вісім лотів, усі з паспортом"
+		},
+		"label": {
+			"type": "string",
+			"default": "Зараз в обсмаженні"
+		},
+		"limit": {
+			"type": "number",
+			"default": 4
+		},
+		"category": {
+			"type": "string",
+			"default": ""
+		},
+		"showLink": {
+			"type": "boolean",
+			"default": true
+		}
 	},
-	"supports": { "html": false, "align": ["wide", "full"] },
-	"render": "file:./render.php"
+	"supports": {
+		"html": false,
+		"align": [
+			"wide",
+			"full"
+		]
+	},
+	"render": "file:./render.php",
+	"editorScript": "brix-blocks-editor"
 }

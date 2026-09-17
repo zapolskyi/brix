@@ -8,10 +8,25 @@
 	"description": "Плитки рецептів із пропорціями.",
 	"textdomain": "brix",
 	"attributes": {
-		"label": { "type": "string", "default": "Без снобізму" },
-		"heading": { "type": "string", "default": "Заварити вдома" },
-		"limit": { "type": "number", "default": 4 }
+		"label": {
+			"type": "string",
+			"default": "Без снобізму"
+		},
+		"heading": {
+			"type": "string",
+			"default": "Заварити вдома"
+		},
+		"limit": {
+			"type": "number",
+			"default": 4
+		}
 	},
-	"supports": { "html": false, "align": ["wide"] },
-	"render": "file:./render.php"
+	"supports": {
+		"html": false,
+		"align": [
+			"wide"
+		]
+	},
+	"render": "file:./render.php",
+	"editorScript": "brix-blocks-editor"
 }

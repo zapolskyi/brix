@@ -21,15 +21,20 @@ $brix_args = array(
 	'order'          => 'DESC',
 );
 
-if ( '' !== $brix_category ) {
-	$brix_args['tax_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
-		array(
-			'taxonomy' => 'product_cat',
-			'field'    => 'slug',
-			'terms'    => array( $brix_category ),
-		),
-	);
-}
+/*
+ * Без вибраної лінійки беремо тільки каву. Блок називається «Сітка
+ * лотів», і чайник з вагами тут виглядає помилкою — вони не лоти
+ * й паспорта не мають.
+ */
+$brix_terms = '' !== $brix_category ? array( $brix_category ) : array( 'core', 'origin', 'lab' );
+
+$brix_args['tax_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+	array(
+		'taxonomy' => 'product_cat',
+		'field'    => 'slug',
+		'terms'    => $brix_terms,
+	),
+);
 
 $brix_products = array_values( array_filter( array_map( 'wc_get_product', get_posts( $brix_args ) ) ) );
 

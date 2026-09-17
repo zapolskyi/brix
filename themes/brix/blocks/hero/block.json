@@ -8,16 +8,49 @@
 	"description": "Великий заголовок, текст і дві кнопки. Пачка праворуч — лот тижня з каталогу.",
 	"textdomain": "brix",
 	"attributes": {
-		"label": { "type": "string", "default": "" },
-		"heading": { "type": "string", "default": "Зібрано при 22°Bx" },
-		"accent": { "type": "string", "default": "22°Bx" },
-		"text": { "type": "string", "default": "" },
-		"primaryLabel": { "type": "string", "default": "Обрати каву" },
-		"primaryUrl": { "type": "string", "default": "" },
-		"secondaryLabel": { "type": "string", "default": "" },
-		"secondaryUrl": { "type": "string", "default": "" },
-		"showLot": { "type": "boolean", "default": true }
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"heading": {
+			"type": "string",
+			"default": "Зібрано при 22°Bx"
+		},
+		"accent": {
+			"type": "string",
+			"default": "22°Bx"
+		},
+		"text": {
+			"type": "string",
+			"default": ""
+		},
+		"primaryLabel": {
+			"type": "string",
+			"default": "Обрати каву"
+		},
+		"primaryUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"secondaryLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"secondaryUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"showLot": {
+			"type": "boolean",
+			"default": true
+		}
 	},
-	"supports": { "html": false, "align": ["full"] },
-	"render": "file:./render.php"
+	"supports": {
+		"html": false,
+		"align": [
+			"full"
+		]
+	},
+	"render": "file:./render.php",
+	"editorScript": "brix-blocks-editor"
 }

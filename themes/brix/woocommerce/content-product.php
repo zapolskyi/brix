@@ -109,9 +109,32 @@ if ( $brix_sold ) {
 		<p class="brix-card__data">
 			<span><b>
 			<?php
+			// «Пачок» — тільки про каву: у чайника пачок немає.
+			if ( brix_is_coffee( $product ) ) {
+				$brix_left_label = brix_plural(
+					$brix_left,
+					/* translators: %s — кількість пачок. */
+					__( 'Залишилась %s пачка', 'brix' ),
+					/* translators: %s — кількість пачок. */
+					__( 'Залишилось %s пачки', 'brix' ),
+					/* translators: %s — кількість пачок. */
+					__( 'Залишилось %s пачок', 'brix' )
+				);
+			} else {
+				$brix_left_label = brix_plural(
+					$brix_left,
+					/* translators: %s — кількість штук. */
+					__( 'Залишилась %s штука', 'brix' ),
+					/* translators: %s — кількість штук. */
+					__( 'Залишилось %s штуки', 'brix' ),
+					/* translators: %s — кількість штук. */
+					__( 'Залишилось %s штук', 'brix' )
+				);
+			}
+
 			printf(
-				/* translators: %s — кількість пачок. */
-				esc_html( brix_plural( $brix_left, __( 'Залишилась %s пачка', 'brix' ), __( 'Залишилось %s пачки', 'brix' ), __( 'Залишилось %s пачок', 'brix' ) ) ),
+				/* translators: %s — кількість товару. */
+				esc_html( $brix_left_label ),
 				esc_html( (string) $brix_left )
 			);
 			?>
