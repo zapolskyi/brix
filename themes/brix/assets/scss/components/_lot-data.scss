@@ -5,7 +5,10 @@
 // Моношрифтова сітка «як на етикетці лабораторного зразка».
 .brix-data-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  // minmax(0, 1fr), а не 1fr: мінімум у 1fr — це min-content, тож
+  // довге значення на кшталт «2 050–2 200 м» розпирало колонку
+  // ширше за свою частку й виносило таблицю за екран.
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   border-top: 1px solid var(--brix-line);
 
   &__cell {
@@ -29,10 +32,18 @@
 
   // На телефоні три колонки перетворюють числа на кашу.
   @include upto($bp-sm) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    &__cell {
+      // 22px відступу з кожного боку на 390px — це 44px з 195px
+      // колонки, і значенню лишається менше половини клітинки.
+      padding-inline: var(--brix-gap-6);
+    }
 
     &__cell:nth-child(3n) { border-right: 1px solid var(--brix-line); }
     &__cell:nth-child(2n) { border-right: none; }
+
+    &__value { font-size: 1.25rem; }
   }
 }
 

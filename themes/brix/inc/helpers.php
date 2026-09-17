@@ -177,3 +177,21 @@ function brix_repeater( int $post_id, string $field, array $sub_keys ): array {
 
 	return $rows;
 }
+
+/**
+ * Чи це функціональна сторінка магазину, а не текстова.
+ *
+ * Кошик, checkout і кабінет — це інтерфейс із колонками й таблицями,
+ * а не читаний текст. Загальна для сторінок ширина рядка в 68ch тут
+ * не доречна: вона стискала двоколонковий кошик до 769 px усередині
+ * 1352 px і лишала півекрана порожнім.
+ *
+ * @return bool
+ */
+function brix_is_shop_ui_page(): bool {
+	if ( ! brix_has_woocommerce() ) {
+		return false;
+	}
+
+	return is_cart() || is_checkout() || is_account_page();
+}

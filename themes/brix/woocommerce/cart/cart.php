@@ -85,30 +85,23 @@ $brix_progress = brix_free_shipping_progress();
 				</div>
 
 				<div class="brix-cart__qty">
-					<label class="brix-visually-hidden" for="brix-qty-<?php echo esc_attr( $brix_key ); ?>">
-						<?php
-						printf(
-							/* translators: %s — назва товару. */
-							esc_html__( 'Кількість: %s', 'brix' ),
-							esc_html( $brix_product->get_name() )
-						);
-						?>
-					</label>
 					<?php
 					if ( $brix_product->is_sold_individually() ) {
 						printf( '<span class="brix-mono">1</span><input type="hidden" name="cart[%s][qty]" value="1">', esc_attr( $brix_key ) );
 					} else {
-						woocommerce_quantity_input(
+						brix_quantity_stepper(
 							array(
-								'input_name'   => "cart[{$brix_key}][qty]",
-								'input_value'  => $brix_item['quantity'],
-								'max_value'    => $brix_product->get_max_purchase_quantity(),
-								'min_value'    => '0',
-								'product_name' => $brix_product->get_name(),
-								'classes'      => array( 'brix-input', 'brix-cart__qty-input' ),
-								'input_id'     => 'brix-qty-' . $brix_key,
-							),
-							$brix_product
+								'name'  => "cart[{$brix_key}][qty]",
+								'value' => $brix_item['quantity'],
+								// Нуль дозволений навмисно: він прибирає
+								// позицію з кошика при оновленні.
+								'min'   => 0,
+								'max'   => $brix_product->get_max_purchase_quantity(),
+								'id'    => 'brix-qty-' . $brix_key,
+								/* translators: %s — назва товару. */
+								'label' => sprintf( __( 'Кількість: %s', 'brix' ), $brix_product->get_name() ),
+								'size'  => 'sm',
+							)
 						);
 					}
 					?>

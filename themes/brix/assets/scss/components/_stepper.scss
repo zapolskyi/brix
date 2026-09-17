@@ -1,0 +1,91 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+// Поле кількості з макета: пігулка з рамкою, мінус, моно-число, плюс.
+// Числове поле всередині без власної рамки — група читається як один
+// елемент керування, а не як поле поруч із двома кнопками.
+//
+// Кнопки приходять із сервера з атрибутом hidden: без JavaScript
+// лишається звичайне числове поле зі стрілками клавіатури, а не три
+// кнопки, дві з яких нічого не роблять.
+.brix-stepper {
+  display: inline-flex;
+  align-items: center;
+  // 14px і 18px — розміри з артбордів кошика й картки товару.
+  gap: 0.875rem;
+  height: var(--brix-ctl-sm);
+  padding-inline: 0.875rem;
+  border: 1px solid var(--brix-line);
+  border-radius: var(--brix-radius-pill);
+  background: var(--brix-paper);
+
+  &--xl {
+    gap: 1.125rem;
+    height: var(--brix-ctl-xl);
+    padding-inline: 1.125rem;
+    border-width: 1.5px;
+  }
+
+  // Фокус підсвічує всю пігулку: обведення самого поля виглядало б
+  // як рамка в рамці.
+  &:focus-within {
+    border-color: var(--brix-roast);
+    box-shadow: 0 0 0 3px rgb(29 26 25 / 8%);
+  }
+
+  &__input {
+    width: 2.25rem;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--brix-roast);
+    font-family: var(--brix-font-mono);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    appearance: textfield;
+
+    // Власні стрілки браузера поряд із нашими кнопками — це два
+    // однакові органи керування в одному полі.
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button { appearance: none; margin: 0; }
+
+    // Обведення малює пігулка.
+    &:focus-visible { outline: none; box-shadow: none; }
+  }
+
+  &--xl &__input { width: 2.5rem; font-size: 1.0625rem; }
+
+  &__btn {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    align-self: stretch;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--brix-roast);
+    cursor: pointer;
+    transition: color var(--brix-dur) var(--brix-ease);
+
+    svg { width: 1rem; height: 1rem; }
+
+    &:hover { color: var(--brix-cherry); }
+
+    &:focus-visible {
+      border-radius: var(--brix-radius);
+      @include focus-ring(0);
+    }
+
+    // Межа досягнута: кнопка лишається на місці, щоб пігулка не
+    // стрибала в ширині, але вже не обіцяє дії.
+    &[disabled] { color: var(--brix-line); cursor: default; }
+  }
+
+  &--xl &__btn {
+    width: 1.75rem;
+
+    svg { width: 1.125rem; height: 1.125rem; }
+  }
+}

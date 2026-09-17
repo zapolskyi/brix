@@ -91,12 +91,6 @@
     align-items: center;
   }
 
-  &__qty {
-    width: 84px;
-    height: var(--brix-ctl-xl);
-    text-align: center;
-  }
-
   &__submit { flex: 1 1 260px; }
 
   &__unavailable {

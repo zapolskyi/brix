@@ -165,8 +165,16 @@ $brix_left    = brix_stock_left( $brix_current );
 		<p class="brix-buy__unavailable"><?php esc_html_e( 'Лот закінчився. Напишіть нам — підкажемо схожий.', 'brix' ); ?></p>
 	<?php else : ?>
 		<form class="brix-buy__form" method="post" action="<?php echo esc_url( wc_get_cart_url() ); ?>">
-			<label class="brix-visually-hidden" for="brix-qty"><?php esc_html_e( 'Кількість', 'brix' ); ?></label>
-			<input class="brix-input brix-buy__qty" id="brix-qty" type="number" name="quantity" value="1" min="1" step="1" inputmode="numeric">
+			<?php
+			brix_quantity_stepper(
+				array(
+					'id'   => 'brix-qty',
+					'min'  => 1,
+					'max'  => $brix_current->get_max_purchase_quantity(),
+					'size' => 'xl',
+				)
+			);
+			?>
 
 			<button class="brix-btn brix-btn--xl brix-buy__submit" type="submit">
 				<?php esc_html_e( 'Додати в кошик', 'brix' ); ?>

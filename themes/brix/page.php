@@ -19,7 +19,7 @@ while ( have_posts() ) :
 				<h1><?php the_title(); ?></h1>
 			</header>
 
-			<div class="brix-prose">
+			<div class="<?php echo brix_is_shop_ui_page() ? 'brix-page-ui' : 'brix-prose'; ?>">
 				<?php
 				the_content();
 

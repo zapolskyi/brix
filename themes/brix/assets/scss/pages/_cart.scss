@@ -9,25 +9,47 @@
 
   @include upto($bp-lg) { grid-template-columns: 1fr; }
 
+  // Колонки задає весь список, а не кожен рядок окремо. Це принципово:
+  // поки в кожного рядка був свій грід, колонку ціни міряв її власний
+  // вміст, «620 ₴» і «2 320 ₴» давали різну ширину — і кількість у
+  // рядках стояла на різній відстані від краю. Тепер ширину колонки
+  // визначає найдовша ціна в кошику, а рядки беруть її через subgrid.
   &__items {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr) auto auto;
     gap: var(--brix-gap-8);
+
+    @include upto($bp-sm) {
+      grid-template-columns: 72px minmax(0, 1fr);
+    }
+
+    // Усе, що не рядок товару (кнопки, повідомлення, вивід хуків Woo),
+    // займає всю ширину.
+    > * { grid-column: 1 / -1; }
   }
 
   // Рядок кошика — картка, а не комірки таблиці: у макеті це пачка,
   // назва з помелом, кількість і ціна в один ряд.
   &__row {
     display: grid;
-    grid-template-columns: 96px 1fr auto auto;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
     gap: var(--brix-gap-8);
     align-items: center;
     padding-bottom: var(--brix-gap-8);
     border-bottom: 1px solid var(--brix-line);
 
     @include upto($bp-sm) {
-      grid-template-columns: 72px 1fr;
       row-gap: var(--brix-gap-6);
+    }
+
+    // Старі браузери без subgrid: рядок лишається робочим, просто
+    // колонки знову міряються по рядку. Фіксовані ширини тримають
+    // вирівнювання настільки, наскільки це можливо без subgrid.
+    @supports not (grid-template-columns: subgrid) {
+      grid-template-columns: 96px minmax(0, 1fr) 7rem 8rem;
+
+      @include upto($bp-sm) { grid-template-columns: 72px minmax(0, 1fr); }
     }
   }
 
@@ -84,15 +106,13 @@
     a:hover { color: var(--brix-cherry); }
   }
 
-  &__qty-input {
-    width: 76px;
-    height: var(--brix-ctl-sm);
-    text-align: center;
-  }
-
+  // Ціна тулиться до правого краю колонки, а не до лівого: інакше
+  // в рядку з коротшою сумою хрестик поїхав би вліво, хоч колонка
+  // в усіх рядків тепер однакова.
   &__price {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: var(--brix-gap-6);
 
     b { font-size: 1.0625rem; }
