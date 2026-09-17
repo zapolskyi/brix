@@ -5,10 +5,10 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "css": "sass assets/scss/main.scss assets/css/main.css --style=expanded --no-source-map",
-    "css:watch": "sass --watch assets/scss/main.scss assets/css/main.css --style=expanded --no-source-map",
-    "css:critical": "sass assets/scss/critical.scss assets/css/critical.css --style=compressed --no-source-map",
-    "build": "sass assets/scss/main.scss assets/css/main.css --style=compressed --no-source-map && npm run css:critical",
+    "css": "sass assets/scss/main.scss assets/css/main.css --style=expanded --no-source-map --no-charset && sass assets/scss/editor.scss assets/css/editor.css --style=expanded --no-source-map --no-charset",
+    "css:watch": "sass --watch assets/scss/main.scss assets/css/main.css --style=expanded --no-source-map --no-charset",
+    "css:critical": "sass assets/scss/critical.scss assets/css/critical.css --style=compressed --no-source-map --no-charset",
+    "build": "sass assets/scss/main.scss assets/css/main.css --style=compressed --no-source-map --no-charset && sass assets/scss/editor.scss assets/css/editor.css --style=compressed --no-source-map --no-charset && npm run css:critical",
     "fonts": "node tools/fonts.mjs",
     "zip": "npm run build && git -C ../.. archive --format=zip --prefix=brix/ -o dist/brix.zip HEAD:themes/brix && echo 'Готово: wp-content/dist/brix.zip'",
     "shot": "node tools/shot.mjs"

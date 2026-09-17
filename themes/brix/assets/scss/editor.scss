@@ -1,0 +1,40 @@
+// Правки лише для редактора.
+//
+// Основні стилі приходять з main.css через add_editor_style(). Тут
+// те, що стосується самого полотна: секції верстались під повну
+// ширину вікна, а в редакторі вони живуть у вужчому контейнері.
+
+@use 'abstracts/tokens';
+@use 'abstracts/mixins' as *;
+
+.editor-styles-wrapper {
+  background: var(--brix-mill);
+  font-family: var(--brix-font-ui);
+  font-size: var(--brix-fs-base);
+  line-height: var(--brix-lh-base);
+  color: var(--brix-roast);
+
+  // Редактор додає власні відступи абзацам і заголовкам — прибираємо,
+  // бо наші секції рахують ритм самі.
+  p, h1, h2, h3, h4 { margin-block: 0; }
+
+  a { color: var(--brix-cherry); text-decoration: none; }
+
+  // Кожен блок — окрема секція на всю ширину полотна.
+  .wp-block > .brix-section,
+  .wp-block > .brix-hero,
+  .wp-block > .brix-marquee {
+    margin-inline: 0;
+  }
+
+  // Прев'ю блока не має ловити кліки: усередині нема чого редагувати,
+  // а посилання в редакторі нікуди вести не повинні.
+  .brix-block-preview {
+    position: relative;
+  }
+
+  // Порожній стан, поки блок не встиг завантажитись.
+  .components-placeholder {
+    border-radius: var(--brix-radius-lg);
+  }
+}

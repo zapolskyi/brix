@@ -23,6 +23,14 @@ function brix_setup(): void {
 	add_theme_support( 'wp-block-styles' );
 	add_theme_support( 'align-wide' );
 
+	/*
+	 * Стилі теми в редакторі. Без цього блоки з ServerSideRender
+	 * малюються голим текстом: iframe редактора не бачить фронтендного
+	 * CSS, і побачити, як секція виглядатиме насправді, неможливо.
+	 */
+	add_theme_support( 'editor-styles' );
+	add_editor_style( array( 'assets/css/main.css', 'assets/css/editor.css' ) );
+
 	// Тема сама друкує валідний HTML5 — без обгорток і <p> навколо картинок.
 	add_theme_support(
 		'html5',
