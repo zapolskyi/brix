@@ -20,7 +20,7 @@ $brix_price   = brix_price_filter();
 		<h2 class="brix-filters__title"><?php esc_html_e( 'Фільтри', 'brix' ); ?></h2>
 
 		<?php if ( brix_has_active_filters() ) : ?>
-			<a class="brix-filters__reset" href="<?php echo esc_url( brix_catalog_url() ); ?>">
+			<a class="brix-filters__reset" href="<?php echo esc_url( brix_catalog_url() ); ?>" data-brix-reset>
 				<?php esc_html_e( 'Скинути', 'brix' ); ?>
 			</a>
 		<?php endif; ?>
@@ -76,6 +76,8 @@ $brix_price   = brix_price_filter();
 						class="brix-chip<?php echo $brix_on ? ' is-active' : ''; ?>"
 						href="<?php echo esc_url( brix_filter_toggle_url( $brix_key, (string) $brix_slug ) ); ?>"
 						aria-pressed="<?php echo $brix_on ? 'true' : 'false'; ?>"
+						data-brix-filter="<?php echo esc_attr( (string) $brix_key ); ?>"
+						data-brix-value="<?php echo esc_attr( (string) $brix_slug ); ?>"
 						rel="nofollow"
 					>
 						<?php echo esc_html( $brix_option['label'] ); ?>

@@ -43,8 +43,36 @@ function brix_enqueue_assets(): void {
 			),
 		)
 	);
+
+	brix_enqueue_catalog_script();
 }
 add_action( 'wp_enqueue_scripts', 'brix_enqueue_assets' );
+
+/**
+ * Скрипт каталогу — лише там, де є каталог.
+ *
+ * Фільтри без перезавантаження потрібні на сторінці магазину й на
+ * архівах таксономій товару. На решті сторінок цей файл був би
+ * зайвими кілобайтами, які нічого не роблять.
+ *
+ * @return void
+ */
+function brix_enqueue_catalog_script(): void {
+	if ( ! brix_has_woocommerce() || ( ! is_shop() && ! is_product_taxonomy() ) ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'brix-catalog',
+		brix_asset_uri( 'assets/js/catalog.js' ),
+		array( 'brix-app' ),
+		brix_asset_version( 'assets/js/catalog.js' ),
+		array(
+			'strategy'  => 'defer',
+			'in_footer' => true,
+		)
+	);
+}
 
 /**
  * Попередньо завантажує шрифти, потрібні першому екрану.

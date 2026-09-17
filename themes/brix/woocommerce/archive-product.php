@@ -34,7 +34,11 @@ $brix_total = (int) wc_get_loop_prop( 'total' );
 
 		<?php get_template_part( 'template-parts/catalog/lines' ); ?>
 
-		<div class="brix-catalog">
+		<?php
+		$brix_term = is_product_taxonomy() ? get_queried_object() : null;
+		?>
+		<div class="brix-catalog" data-brix-catalog
+			<?php echo $brix_term instanceof WP_Term ? 'data-brix-tax="' . esc_attr( $brix_term->taxonomy ) . '" data-brix-term="' . esc_attr( $brix_term->slug ) . '"' : ''; ?>>
 			<aside class="brix-catalog__aside">
 				<?php
 				/*
@@ -52,12 +56,22 @@ $brix_total = (int) wc_get_loop_prop( 'total' );
 				 * Справжня шторка з підрахунком збігів — фаза 4.
 				 */
 				?>
-				<details class="brix-filters__drawer" data-brix-filters open>
+				<details class="brix-filters__drawer" open>
 					<summary class="brix-btn brix-btn--outline brix-btn--full">
 						<?php echo brix_icon( 'filter' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						<?php esc_html_e( 'Фільтри', 'brix' ); ?>
 					</summary>
-					<?php get_template_part( 'template-parts/catalog/filters' ); ?>
+
+					<?php
+					/*
+					 * Обгортка — цілі для заміни скриптом. Сам <details>
+					 * підміняти не можна: разом із формою знявся б і
+					 * <summary>, а з ним і стан «відкрито».
+					 */
+					?>
+					<div data-brix-filters>
+						<?php get_template_part( 'template-parts/catalog/filters' ); ?>
+					</div>
 				</details>
 			</aside>
 
@@ -74,7 +88,7 @@ $brix_total = (int) wc_get_loop_prop( 'total' );
 					<?php woocommerce_catalog_ordering(); ?>
 				</div>
 
-				<div class="brix-catalog__results" data-brix-results>
+				<div class="brix-catalog__results" data-brix-results tabindex="-1">
 					<?php get_template_part( 'template-parts/catalog/results' ); ?>
 				</div>
 			</div>

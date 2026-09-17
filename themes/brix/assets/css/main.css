@@ -255,6 +255,10 @@ table {
     scroll-behavior: auto !important;
   }
 }
+[hidden] {
+  display: none !important;
+}
+
 h1, h2, h3, h4 {
   font-family: var(--brix-font-display);
   font-weight: 700;
@@ -1931,13 +1935,13 @@ h4 {
 
 .brix-catalog {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 260px minmax(0, 1fr);
   gap: var(--brix-gap-24);
   align-items: start;
 }
 @media (max-width: 1023px) {
   .brix-catalog {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -2100,7 +2104,34 @@ h4 {
   color: var(--brix-mill);
 }
 
-.woocommerce-ordering select {
+[data-brix-filters] {
+  display: contents;
+}
+
+.brix-catalog.is-loading .brix-catalog__results {
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity var(--brix-dur) var(--brix-ease);
+}
+.brix-catalog.is-loading [data-brix-filters] {
+  pointer-events: none;
+}
+
+.brix-catalog__results:focus {
+  outline: none;
+}
+
+.brix-ordering {
+  display: flex;
+  align-items: center;
+  gap: var(--brix-gap-4);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.brix-ordering__select {
+  min-width: 0;
+  max-width: 100%;
   width: 100%;
   height: var(--brix-ctl);
   padding-inline: var(--brix-gap-8);
@@ -2110,22 +2141,22 @@ h4 {
   color: var(--brix-roast);
   font-size: 1rem;
 }
-.woocommerce-ordering select::placeholder {
+.brix-ordering__select::placeholder {
   color: var(--brix-muted);
 }
-.woocommerce-ordering select:focus-visible {
+.brix-ordering__select:focus-visible {
   border-color: var(--brix-roast);
   box-shadow: 0 0 0 3px rgba(29, 26, 25, 0.08);
   outline: 2px solid var(--brix-focus);
   outline-offset: 1px;
 }
-.woocommerce-ordering select[aria-invalid=true] {
+.brix-ordering__select[aria-invalid=true] {
   border-color: var(--brix-error);
 }
-.woocommerce-ordering select[aria-invalid=true]:focus-visible {
+.brix-ordering__select[aria-invalid=true]:focus-visible {
   box-shadow: 0 0 0 3px rgba(182, 31, 58, 0.14);
 }
-.woocommerce-ordering select {
+.brix-ordering__select {
   width: auto;
   height: var(--brix-ctl-sm);
   appearance: none;

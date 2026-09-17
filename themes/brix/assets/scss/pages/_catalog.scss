@@ -28,11 +28,14 @@
 
 .brix-catalog {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  // minmax(0, …) з обох боків: інакше мінімумом колонки стає
+  // min-content її вмісту, і найширший елемент панелі — селект
+  // сортування з довгими варіантами — розпирає всю сітку за екран.
+  grid-template-columns: 260px minmax(0, 1fr);
   gap: var(--brix-gap-24);
   align-items: start;
 
-  @include upto($bp-lg) { grid-template-columns: 1fr; }
+  @include upto($bp-lg) { grid-template-columns: minmax(0, 1fr); }
 }
 
 .brix-catalog__aside {
@@ -188,8 +191,42 @@
   }
 }
 
-// Сортування Woo — рідний <select> у наших стилях.
-.woocommerce-ordering select {
+// Обгортка існує лише як ціль для заміни розмітки скриптом.
+// display:contents прибирає її з розкладки: звичайний div не стискався
+// так, як стискалась сама форма, і сайдбар розпирало до 457px на
+// екрані 390px.
+[data-brix-filters] { display: contents; }
+
+// Поки летить запит фільтрації, сітка притухає, але лишається на
+// місці: висоту на цей час фіксує скрипт, тож сторінка не стрибає
+// під курсором. Курсор і клавіатура в цей момент нічого не чіпають.
+.brix-catalog.is-loading {
+  .brix-catalog__results {
+    opacity: 0.5;
+    pointer-events: none;
+    transition: opacity var(--brix-dur) var(--brix-ease);
+  }
+
+  [data-brix-filters] { pointer-events: none; }
+}
+
+// Область результатів отримує фокус після пагінації, але власного
+// обведення їй не треба — вона не орган керування.
+.brix-catalog__results:focus { outline: none; }
+
+.brix-ordering {
+  display: flex;
+  align-items: center;
+  gap: var(--brix-gap-4);
+  min-width: 0;
+  max-width: 100%;
+}
+
+// Сортування — рідний <select> у наших стилях.
+.brix-ordering__select {
+  min-width: 0;
+  max-width: 100%;
+
   @include control-base;
 
   width: auto;

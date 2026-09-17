@@ -25,6 +25,8 @@ if ( ! brix_has_active_filters() ) {
 			?>
 			<a class="brix-chip brix-chip--sm is-active"
 				href="<?php echo esc_url( brix_filter_toggle_url( $brix_key, $brix_value ) ); ?>"
+				data-brix-filter="<?php echo esc_attr( (string) $brix_key ); ?>"
+				data-brix-value="<?php echo esc_attr( (string) $brix_value ); ?>"
 				rel="nofollow">
 				<?php echo esc_html( $brix_label ); ?>
 				<?php echo brix_icon( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>

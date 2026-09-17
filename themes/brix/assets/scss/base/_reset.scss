@@ -48,3 +48,10 @@ table { border-collapse: collapse; }
     scroll-behavior: auto !important;
   }
 }
+
+// Атрибут hidden діє лише стилями браузера, тож будь-яке авторське
+// `display` його перебиває — а в нас `display` є майже в усього:
+// .brix-btn це inline-flex, кнопка степера це grid. Без цього правила
+// розмітка, яка приходить із сервера схованою й розкривається
+// скриптом, показувалась би і з вимкненим JavaScript.
+[hidden] { display: none !important; }
