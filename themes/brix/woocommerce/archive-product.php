@@ -52,7 +52,7 @@ $brix_total = (int) wc_get_loop_prop( 'total' );
 				 * Справжня шторка з підрахунком збігів — фаза 4.
 				 */
 				?>
-				<details class="brix-filters__drawer" open>
+				<details class="brix-filters__drawer" data-brix-filters open>
 					<summary class="brix-btn brix-btn--outline brix-btn--full">
 						<?php echo brix_icon( 'filter' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						<?php esc_html_e( 'Фільтри', 'brix' ); ?>
@@ -63,49 +63,20 @@ $brix_total = (int) wc_get_loop_prop( 'total' );
 
 			<div class="brix-catalog__main">
 				<div class="brix-catalog__bar">
-					<p class="brix-catalog__count" aria-live="polite">
-						<?php
-						printf(
-							/* translators: %s — кількість товарів. */
-							esc_html( brix_plural( $brix_total, __( '%s товар', 'brix' ), __( '%s товари', 'brix' ), __( '%s товарів', 'brix' ) ) ),
-							esc_html( number_format_i18n( $brix_total ) )
-						);
-						?>
+					<p class="brix-catalog__count" data-brix-count aria-live="polite">
+						<?php echo esc_html( brix_catalog_count_text( $brix_total ) ); ?>
 					</p>
 
-					<?php get_template_part( 'template-parts/catalog/active-filters' ); ?>
+					<div class="brix-catalog__chips" data-brix-chips>
+						<?php get_template_part( 'template-parts/catalog/active-filters' ); ?>
+					</div>
 
 					<?php woocommerce_catalog_ordering(); ?>
 				</div>
 
-				<?php if ( woocommerce_product_loop() ) : ?>
-					<div class="brix-card-grid">
-						<?php
-						woocommerce_product_loop_start( false );
-
-						while ( have_posts() ) {
-							the_post();
-							wc_get_template_part( 'content', 'product' );
-						}
-
-						woocommerce_product_loop_end( false );
-						?>
-					</div>
-
-					<?php woocommerce_pagination(); ?>
-				<?php else : ?>
-					<div class="brix-empty">
-						<h2><?php esc_html_e( 'Під ці фільтри нічого немає', 'brix' ); ?></h2>
-						<p class="brix-muted">
-							<?php esc_html_e( 'Спробуйте прибрати частину умов — лотів у нас небагато, і вони швидко закінчуються.', 'brix' ); ?>
-						</p>
-						<p>
-							<a class="brix-btn brix-btn--outline" href="<?php echo esc_url( brix_catalog_url() ); ?>">
-								<?php esc_html_e( 'Скинути фільтри', 'brix' ); ?>
-							</a>
-						</p>
-					</div>
-				<?php endif; ?>
+				<div class="brix-catalog__results" data-brix-results>
+					<?php get_template_part( 'template-parts/catalog/results' ); ?>
+				</div>
 			</div>
 		</div>
 	</div>

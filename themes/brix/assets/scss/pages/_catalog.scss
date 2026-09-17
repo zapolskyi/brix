@@ -55,6 +55,12 @@
   margin-right: auto;
 }
 
+// Обгортка існує лише як ціль для AJAX-заміни: без неї скрипту нема
+// що підмінити, коли активних фільтрів ще жодного. display:contents
+// прибирає її з розкладки, тож чипи лишаються прямими дітьми панелі
+// і порожня обгортка не з'їдає gap.
+.brix-catalog__chips { display: contents; }
+
 .brix-active-filters {
   display: flex;
   flex-wrap: wrap;

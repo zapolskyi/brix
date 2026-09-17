@@ -29,6 +29,7 @@ require_once BRIX_DIR . '/inc/template-tags.php';
 if ( brix_has_woocommerce() ) {
 	require_once BRIX_DIR . '/inc/woocommerce.php';
 	require_once BRIX_DIR . '/inc/catalog.php';
+	require_once BRIX_DIR . '/inc/catalog-rest.php';
 	require_once BRIX_DIR . '/inc/variations.php';
 	require_once BRIX_DIR . '/inc/cart.php';
 	require_once BRIX_DIR . '/inc/checkout.php';

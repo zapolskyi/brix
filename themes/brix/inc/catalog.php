@@ -52,14 +52,43 @@ function brix_catalog_filters(): array {
 }
 
 /**
+ * Джерело стану каталогу.
+ *
+ * Зазвичай це адресний рядок. Але той самий набір фільтрів приходить
+ * і REST-запитом, тож усі читачі беруть параметри звідси, а не з $_GET
+ * напряму: інакше логіка фільтрації роздвоїлась би на дві реалізації,
+ * які з часом розійдуться.
+ *
+ * Виклик з масивом підміняє джерело до кінця запиту, без аргументу —
+ * читає поточне.
+ *
+ * @param array<string, mixed>|null $params Параметри запиту або null.
+ * @return array<string, mixed>
+ */
+function brix_catalog_request( ?array $params = null ): array {
+	static $override = null;
+
+	if ( null !== $params ) {
+		$override = $params;
+	}
+
+	if ( null !== $override ) {
+		return $override;
+	}
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Читання GET-фільтрів каталогу, не обробка форми.
+	return wp_unslash( $_GET );
+}
+
+/**
  * Обрані значення фільтра з адресного рядка.
  *
  * @param string $key Ключ фільтра.
  * @return array<int, string>
  */
 function brix_active_filter( string $key ): array {
-	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Читання GET-фільтрів, не зміна даних.
-	$raw = isset( $_GET[ 'f_' . $key ] ) ? sanitize_text_field( wp_unslash( $_GET[ 'f_' . $key ] ) ) : '';
+	$request = brix_catalog_request();
+	$raw     = isset( $request[ 'f_' . $key ] ) ? sanitize_text_field( (string) $request[ 'f_' . $key ] ) : '';
 
 	if ( '' === $raw ) {
 		return array();
@@ -91,9 +120,10 @@ function brix_has_active_filters(): bool {
 function brix_price_filter(): array {
 	$range = array();
 
+	$request = brix_catalog_request();
+
 	foreach ( array( 'min', 'max' ) as $bound ) {
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Читання GET-фільтрів.
-		$value = isset( $_GET[ 'price_' . $bound ] ) ? (int) $_GET[ 'price_' . $bound ] : 0;
+		$value = isset( $request[ 'price_' . $bound ] ) ? (int) $request[ 'price_' . $bound ] : 0;
 
 		if ( $value > 0 ) {
 			$range[ $bound ] = $value;
@@ -109,8 +139,9 @@ function brix_price_filter(): array {
  * @return bool
  */
 function brix_in_stock_only(): bool {
-	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Читання GET-фільтрів.
-	return isset( $_GET['in_stock'] ) && '1' === $_GET['in_stock'];
+	$request = brix_catalog_request();
+
+	return isset( $request['in_stock'] ) && '1' === (string) $request['in_stock'];
 }
 
 /**
@@ -169,11 +200,16 @@ function brix_current_filter_args(): array {
 		$args['in_stock'] = '1';
 	}
 
-	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Читання GET-параметра сортування, не обробка форми.
-	if ( isset( $_GET['orderby'] ) ) {
-		$args['orderby'] = sanitize_key( wp_unslash( $_GET['orderby'] ) );
+	$request = brix_catalog_request();
+
+	/*
+	 * Саме непорожнє: REST-маршрут задає параметрам значення за
+	 * замовчуванням, тож `isset()` там істинний завжди — і в адресі
+	 * лишався б хвіст «?orderby» без значення.
+	 */
+	if ( ! empty( $request['orderby'] ) ) {
+		$args['orderby'] = sanitize_key( (string) $request['orderby'] );
 	}
-	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 	return $args;
 }
@@ -185,7 +221,46 @@ function brix_current_filter_args(): array {
  * @return string
  */
 function brix_catalog_url( array $args = array() ): string {
-	$base = is_tax( array( 'product_cat', 'brix_country', 'brix_processing', 'brix_note', 'brix_brew_method' ) )
+	$base = brix_catalog_base();
+
+	return $args ? add_query_arg( $args, $base ) : $base;
+}
+
+/**
+ * Таксономії, на архівах яких каталог працює як каталог.
+ *
+ * Той самий перелік потрібен і для бази адреси, і для перевірки
+ * параметра REST-запиту, тож живе в одному місці.
+ *
+ * @return array<int, string>
+ */
+function brix_catalog_taxonomies(): array {
+	return array( 'product_cat', 'brix_country', 'brix_processing', 'brix_note', 'brix_brew_method' );
+}
+
+/**
+ * Базова адреса каталогу — магазин або архів таксономії.
+ *
+ * REST-запит не має ні is_tax(), ні запитаного обʼєкта, тож ендпоінт
+ * підміняє базу перевіреною адресою терміна. Без цього всі посилання
+ * у відповіді вели б на /shop/ і архів країни мовчки втрачав би себе
+ * з першим же кліком по фільтру.
+ *
+ * @param string|null $url Адреса для підміни або null для читання.
+ * @return string
+ */
+function brix_catalog_base( ?string $url = null ): string {
+	static $override = null;
+
+	if ( null !== $url ) {
+		$override = $url;
+	}
+
+	if ( null !== $override ) {
+		return $override;
+	}
+
+	$base = is_tax( brix_catalog_taxonomies() )
 		? get_term_link( get_queried_object() )
 		: wc_get_page_permalink( 'shop' );
 
@@ -193,7 +268,7 @@ function brix_catalog_url( array $args = array() ): string {
 		$base = wc_get_page_permalink( 'shop' );
 	}
 
-	return $args ? add_query_arg( $args, $base ) : (string) $base;
+	return (string) $base;
 }
 
 /**
@@ -211,6 +286,22 @@ function brix_apply_catalog_filters( WP_Query $query ): void {
 		return;
 	}
 
+	brix_filter_query( $query );
+}
+add_action( 'pre_get_posts', 'brix_apply_catalog_filters' );
+
+/**
+ * Накладає фільтри каталогу на довільний запит.
+ *
+ * Сама фільтрація навмисно не знає, звідки прийшов запит: головний
+ * запит сторінки й запит REST-ендпоінта проходять через один і той
+ * самий код, інакше AJAX і звичайні посилання почали б давати різні
+ * набори товарів.
+ *
+ * @param WP_Query $query Запит.
+ * @return void
+ */
+function brix_filter_query( WP_Query $query ): void {
 	$tax_query = (array) $query->get( 'tax_query' );
 
 	foreach ( brix_catalog_filters() as $key => $filter ) {
@@ -250,7 +341,6 @@ function brix_apply_catalog_filters( WP_Query $query ): void {
 	brix_apply_acidity_filter( $query );
 	brix_apply_price_filter( $query );
 }
-add_action( 'pre_get_posts', 'brix_apply_catalog_filters' );
 
 /**
  * Фільтр кислотності: діапазон по мета-полю, а не таксономія.
@@ -337,6 +427,23 @@ function brix_apply_price_filter( WP_Query $query ): void {
 	}
 
 	$query->set( 'meta_query', $meta_query ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+}
+
+/**
+ * Підпис із кількістю знайдених товарів.
+ *
+ * Українська має три форми множини, і `_n()` без .po-файлів відкочується
+ * на англійське правило з двома — звідси власний `brix_plural()`.
+ *
+ * @param int $total Кількість товарів.
+ * @return string
+ */
+function brix_catalog_count_text( int $total ): string {
+	return sprintf(
+		/* translators: %s — кількість товарів. */
+		brix_plural( $total, __( '%s товар', 'brix' ), __( '%s товари', 'brix' ), __( '%s товарів', 'brix' ) ),
+		brix_has_core() ? \Brix\Core\Support\Format::number( $total ) : number_format_i18n( $total )
+	);
 }
 
 /**

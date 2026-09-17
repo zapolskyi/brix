@@ -13,7 +13,11 @@
 	<arg name="extensions" value="php"/>
 	<arg name="basepath" value="."/>
 	<arg name="colors"/>
-	<arg name="parallel" value="8"/>
+	<!--
+		Без parallel навмисно: у PHPCS 4.0 цей аргумент мовчки обмежує
+		прогін вісьмома файлами замість 95. Прогін виглядає зеленим,
+		а перевірено 8% коду.
+	-->
 	<arg value="sp"/>
 
 	<config name="minimum_wp_version" value="6.6"/>
