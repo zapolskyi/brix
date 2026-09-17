@@ -13,6 +13,7 @@
   var el = wp.element.createElement;
   var registerBlockType = wp.blocks.registerBlockType;
   var InspectorControls = wp.blockEditor.InspectorControls;
+  var useBlockProps = wp.blockEditor.useBlockProps;
   var ServerSideRender = wp.serverSideRender;
   var components = wp.components;
   var __ = wp.i18n.__;
@@ -80,9 +81,17 @@
   function register(name, fields) {
     registerBlockType(name, {
       edit: function (props) {
+        /*
+         * useBlockProps обовʼязковий для apiVersion 3. Без нього
+         * редактор не бачить кореневого елемента блока: клік по
+         * секції виділяє текст, а не сам блок, і панель праворуч
+         * так і лишається порожньою.
+         */
+        var blockProps = useBlockProps({ className: 'brix-block-preview' });
+
         return el(
-          wp.element.Fragment,
-          null,
+          'div',
+          blockProps,
           el(
             InspectorControls,
             null,
@@ -94,23 +103,17 @@
               })
             )
           ),
-          // Блок динамічний: клікати всередині нема чого, тож
-          // перегляд не має ловити події.
-          el(
-            'div',
-            { className: 'brix-block-preview', style: { pointerEvents: 'none' } },
-            el(ServerSideRender, {
-              block: name,
-              attributes: props.attributes,
-              EmptyResponsePlaceholder: function () {
-                return el(
-                  components.Placeholder,
-                  { label: __('Поки що нічого показати', 'brix') },
-                  __('Блок бере дані з каталогу. Щойно там зʼявиться потрібне — воно буде тут.', 'brix')
-                );
-              },
-            })
-          )
+          el(ServerSideRender, {
+            block: name,
+            attributes: props.attributes,
+            EmptyResponsePlaceholder: function () {
+              return el(
+                components.Placeholder,
+                { label: __('Поки що нічого показати', 'brix') },
+                __('Блок бере дані з каталогу. Щойно там зʼявиться потрібне — воно буде тут.', 'brix')
+              );
+            },
+          })
         );
       },
       // Розмітку віддає PHP, тож у базі лишається тільки коментар блока.
