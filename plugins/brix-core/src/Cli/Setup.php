@@ -28,9 +28,33 @@ final class Setup {
 	 */
 	private const COUNTRIES = array(
 		'UA',
-		'PL', 'DE', 'FR', 'IT', 'ES', 'NL', 'AT', 'CZ', 'SK', 'RO',
-		'HU', 'LT', 'LV', 'EE', 'BE', 'PT', 'SE', 'FI', 'DK', 'IE',
-		'GR', 'BG', 'HR', 'SI', 'LU', 'CY', 'MT',
+		'PL',
+		'DE',
+		'FR',
+		'IT',
+		'ES',
+		'NL',
+		'AT',
+		'CZ',
+		'SK',
+		'RO',
+		'HU',
+		'LT',
+		'LV',
+		'EE',
+		'BE',
+		'PT',
+		'SE',
+		'FI',
+		'DK',
+		'IE',
+		'GR',
+		'BG',
+		'HR',
+		'SI',
+		'LU',
+		'CY',
+		'MT',
 	);
 
 	/**
@@ -101,16 +125,16 @@ final class Setup {
 	 */
 	private function core(): void {
 		$options = array(
-			'blogname'           => 'BRIX 22°',
-			'blogdescription'    => 'Specialty-обсмажувальня · зібрано на піку',
-			'WPLANG'             => 'uk',
-			'timezone_string'    => 'Europe/Kyiv',
-			'date_format'        => 'd.m.Y',
-			'time_format'        => 'H:i',
-			'start_of_week'      => 1,
-			'permalink_structure' => '/%postname%/',
+			'blogname'               => 'BRIX 22°',
+			'blogdescription'        => 'Specialty-обсмажувальня · зібрано на піку',
+			'WPLANG'                 => 'uk',
+			'timezone_string'        => 'Europe/Kyiv',
+			'date_format'            => 'd.m.Y',
+			'time_format'            => 'H:i',
+			'start_of_week'          => 1,
+			'permalink_structure'    => '/%postname%/',
 			// Демо-стенд не має потрапляти в пошук.
-			'blog_public'        => 0,
+			'blog_public'            => 0,
 			'default_comment_status' => 'closed',
 			'default_ping_status'    => 'closed',
 		);
@@ -129,39 +153,39 @@ final class Setup {
 	 */
 	private function store(): void {
 		$options = array(
-			'woocommerce_store_address'          => 'вул. Кирилівська, 41',
-			'woocommerce_store_city'             => 'Київ',
-			'woocommerce_store_postcode'         => '04080',
-			'woocommerce_default_country'        => 'UA:UA-30',
-			'woocommerce_currency'               => 'UAH',
-			'woocommerce_currency_pos'           => 'right_space',
+			'woocommerce_store_address'                => 'вул. Кирилівська, 41',
+			'woocommerce_store_city'                   => 'Київ',
+			'woocommerce_store_postcode'               => '04080',
+			'woocommerce_default_country'              => 'UA:UA-30',
+			'woocommerce_currency'                     => 'UAH',
+			'woocommerce_currency_pos'                 => 'right_space',
 			// Роздільник тисяч — нерозривний пробіл: «1 200 ₴» не має
 			// розриватись на кінці рядка.
-			'woocommerce_price_thousand_sep'     => "\u{00A0}",
-			'woocommerce_price_decimal_sep'      => ',',
-			'woocommerce_price_num_decimals'     => 0,
-			'woocommerce_weight_unit'            => 'kg',
-			'woocommerce_dimension_unit'         => 'cm',
-			'woocommerce_allowed_countries'      => 'specific',
-			'woocommerce_specific_allowed_countries' => self::COUNTRIES,
-			'woocommerce_ship_to_countries'      => 'shipping',
-			'woocommerce_enable_guest_checkout'  => 'yes',
-			'woocommerce_manage_stock'           => 'yes',
-			'woocommerce_notify_low_stock_amount' => 5,
-			'woocommerce_enable_reviews'         => 'yes',
-			'woocommerce_review_rating_required' => 'yes',
+			'woocommerce_price_thousand_sep'           => "\u{00A0}",
+			'woocommerce_price_decimal_sep'            => ',',
+			'woocommerce_price_num_decimals'           => 0,
+			'woocommerce_weight_unit'                  => 'kg',
+			'woocommerce_dimension_unit'               => 'cm',
+			'woocommerce_allowed_countries'            => 'specific',
+			'woocommerce_specific_allowed_countries'   => self::COUNTRIES,
+			'woocommerce_ship_to_countries'            => 'shipping',
+			'woocommerce_enable_guest_checkout'        => 'yes',
+			'woocommerce_manage_stock'                 => 'yes',
+			'woocommerce_notify_low_stock_amount'      => 5,
+			'woocommerce_enable_reviews'               => 'yes',
+			'woocommerce_review_rating_required'       => 'yes',
 			// Магазин має бути видимим. WooCommerce 11 вмикає режим
 			// «Coming soon» за замовчуванням, і кожна сторінка віддає
 			// заглушку — зі статусом 200, тож перевірка маршрутів
 			// рапортує успіх на сторінках, яких ніхто не бачить.
-			'woocommerce_coming_soon'            => 'no',
-			'woocommerce_store_pages_only'       => 'no',
+			'woocommerce_coming_soon'                  => 'no',
+			'woocommerce_store_pages_only'             => 'no',
 			// Підказки, майстер онбордингу й телеметрія в адмінці
 			// демо-стенду тільки заважають.
 			'woocommerce_show_marketplace_suggestions' => 'no',
-			'woocommerce_allow_tracking'         => 'no',
-			'woocommerce_task_list_hidden'       => 'yes',
-			'woocommerce_onboarding_profile'     => array( 'skipped' => true ),
+			'woocommerce_allow_tracking'               => 'no',
+			'woocommerce_task_list_hidden'             => 'yes',
+			'woocommerce_onboarding_profile'           => array( 'skipped' => true ),
 		);
 
 		foreach ( $options as $key => $value ) {
@@ -331,7 +355,10 @@ final class Setup {
 	 * @return void
 	 */
 	private function menu_item( int $menu, string $kind, string $value, string $title ): void {
-		$data = array( 'menu-item-title' => $title, 'menu-item-status' => 'publish' );
+		$data = array(
+			'menu-item-title'  => $title,
+			'menu-item-status' => 'publish',
+		);
 
 		if ( 'page' === $kind ) {
 			$page = get_page_by_path( $value );
@@ -446,7 +473,10 @@ final class Setup {
 						'woocommerce_' . $method['id'] . '_' . $instance . '_settings',
 						array_merge(
 							(array) get_option( 'woocommerce_' . $method['id'] . '_' . $instance . '_settings', array() ),
-							array( $key => $value, 'enabled' => 'yes' )
+							array(
+								$key      => $value,
+								'enabled' => 'yes',
+							)
 						)
 					);
 				}
