@@ -2446,6 +2446,12 @@ h4 {
   border-radius: var(--brix-radius);
 }
 
+.brix-buy.is-loading {
+  opacity: 0.55;
+  pointer-events: none;
+  transition: opacity var(--brix-dur) var(--brix-ease);
+}
+
 .brix-buy {
   display: flex;
   flex-direction: column;

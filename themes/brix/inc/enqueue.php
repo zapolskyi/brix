@@ -45,6 +45,7 @@ function brix_enqueue_assets(): void {
 	);
 
 	brix_enqueue_catalog_script();
+	brix_enqueue_product_script();
 }
 add_action( 'wp_enqueue_scripts', 'brix_enqueue_assets' );
 
@@ -120,3 +121,25 @@ function brix_dequeue_block_library(): void {
 	wp_dequeue_style( 'global-styles' );
 }
 add_action( 'wp_enqueue_scripts', 'brix_dequeue_block_library', 100 );
+
+/**
+ * Скрипт картки товару — лише на сторінці товару.
+ *
+ * @return void
+ */
+function brix_enqueue_product_script(): void {
+	if ( ! brix_has_woocommerce() || ! is_product() ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'brix-product',
+		brix_asset_uri( 'assets/js/product.js' ),
+		array( 'brix-app' ),
+		brix_asset_version( 'assets/js/product.js' ),
+		array(
+			'strategy'  => 'defer',
+			'in_footer' => true,
+		)
+	);
+}

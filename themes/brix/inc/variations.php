@@ -18,6 +18,32 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Джерело вибору ваги й помелу.
+ *
+ * Зазвичай це адресний рядок, але той самий вибір приходить і
+ * REST-запитом, коли помел міняють без перезавантаження. Щоб підбір
+ * варіації лишався одним кодом на обидва шляхи, читачі беруть
+ * параметри звідси, а не з $_GET напряму.
+ *
+ * @param array<string, mixed>|null $params Параметри або null для читання.
+ * @return array<string, mixed>
+ */
+function brix_variation_request( ?array $params = null ): array {
+	static $override = null;
+
+	if ( null !== $params ) {
+		$override = $params;
+	}
+
+	if ( null !== $override ) {
+		return $override;
+	}
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Читання вибору ваги й помелу з адреси, не обробка форми.
+	return wp_unslash( $_GET );
+}
+
+/**
  * Обрані значення атрибутів з адресного рядка.
  *
  * @param WC_Product $product Товар.
@@ -33,10 +59,10 @@ function brix_selected_attributes( WC_Product $product ): array {
 
 		$key = 'attribute_' . sanitize_title( $attribute->get_name() );
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Читання вибору з URL, не обробка форми.
-		if ( isset( $_GET[ $key ] ) ) {
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$value = sanitize_text_field( wp_unslash( $_GET[ $key ] ) );
+		$request = brix_variation_request();
+
+		if ( isset( $request[ $key ] ) ) {
+			$value = sanitize_text_field( (string) $request[ $key ] );
 
 			if ( in_array( $value, brix_attribute_values( $attribute, $product->get_id() ), true ) ) {
 				$selected[ $key ] = $value;

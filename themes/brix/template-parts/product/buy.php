@@ -31,7 +31,7 @@ $brix_style   = brix_pack_style( $brix_product );
 $brix_left    = brix_stock_left( $brix_current );
 ?>
 
-<div class="brix-buy">
+<div class="brix-buy" data-brix-buy>
 	<div class="brix-buy__tags">
 		<?php if ( $brix_term && $brix_style ) : ?>
 			<span class="brix-tag <?php echo esc_attr( 'brix-tag--' . $brix_style ); ?>"><?php echo esc_html( $brix_term->name ); ?></span>
@@ -134,6 +134,8 @@ $brix_left    = brix_stock_left( $brix_current );
 							class="brix-chip<?php echo $brix_on ? ' is-active' : ''; ?><?php echo $brix_exists ? '' : ' is-unavailable'; ?>"
 							href="<?php echo esc_url( brix_variation_url( $brix_product, $brix_selected, $brix_key, $brix_option ) ); ?>"
 							aria-pressed="<?php echo $brix_on ? 'true' : 'false'; ?>"
+							data-brix-attr="<?php echo esc_attr( $brix_key ); ?>"
+							data-brix-value="<?php echo esc_attr( $brix_option ); ?>"
 							<?php echo $brix_exists ? '' : 'aria-disabled="true"'; ?>
 						>
 							<?php echo esc_html( brix_attribute_label( $brix_attribute, $brix_option ) ); ?>
