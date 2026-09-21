@@ -46,6 +46,7 @@ function brix_enqueue_assets(): void {
 
 	brix_enqueue_catalog_script();
 	brix_enqueue_product_script();
+	brix_enqueue_checkout_script();
 }
 add_action( 'wp_enqueue_scripts', 'brix_enqueue_assets' );
 
@@ -137,6 +138,28 @@ function brix_enqueue_product_script(): void {
 		brix_asset_uri( 'assets/js/product.js' ),
 		array( 'brix-app' ),
 		brix_asset_version( 'assets/js/product.js' ),
+		array(
+			'strategy'  => 'defer',
+			'in_footer' => true,
+		)
+	);
+}
+
+/**
+ * Скрипт checkout — лише на сторінці оформлення.
+ *
+ * @return void
+ */
+function brix_enqueue_checkout_script(): void {
+	if ( ! brix_has_woocommerce() || ! is_checkout() ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'brix-checkout',
+		brix_asset_uri( 'assets/js/checkout.js' ),
+		array( 'brix-app' ),
+		brix_asset_version( 'assets/js/checkout.js' ),
 		array(
 			'strategy'  => 'defer',
 			'in_footer' => true,
