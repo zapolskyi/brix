@@ -218,6 +218,12 @@
       }
     });
 
+    // Форма фільтрів у шторці — це кнопка «Показати N товарів»:
+    // застосувати й повернутись до сітки.
+    if (form.matches('.brix-filters')) {
+      closeDrawer();
+    }
+
     load(url, true);
   });
 
@@ -234,6 +240,74 @@
 
     if (form) {
       form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event('submit', { cancelable: true }));
+    }
+  });
+
+  /**
+   * Мобільна шторка фільтрів.
+   *
+   * У розмітці <details> стоїть з атрибутом open: закритий <details>
+   * ховає вміст силами браузера, і без open фільтри були б недоступні
+   * зовсім за вимкненого JavaScript. Тож шторку вмикає саме скрипт —
+   * спершу знімає open, потім ставить клас, який вмикає стилі панелі.
+   * Порядок важливий: інакше панель блимнула б розкритою.
+   */
+  function initDrawer() {
+    var drawer = root.querySelector('.brix-filters__drawer');
+
+    if (!drawer || !window.matchMedia) {
+      return null;
+    }
+
+    // 1024px — $bp-lg, та сама межа, що в SCSS.
+    var narrow = window.matchMedia('(max-width: 1023.98px)');
+
+    function apply() {
+      drawer.open = !narrow.matches;
+      document.documentElement.classList.toggle('brix-drawer', narrow.matches);
+    }
+
+    apply();
+
+    // Поворот екрана не має лишати шторку в стані, якого вже немає.
+    if (narrow.addEventListener) {
+      narrow.addEventListener('change', apply);
+    }
+
+    return drawer;
+  }
+
+  var drawer = initDrawer();
+
+  /** Закриває шторку, якщо вона зараз шторка, а не сайдбар. */
+  function closeDrawer() {
+    if (drawer && document.documentElement.classList.contains('brix-drawer')) {
+      drawer.open = false;
+    }
+  }
+
+  // Хрестик у шапці шторки. Делегування, бо саму форму скрипт
+  // перемальовує на кожен фільтр.
+  root.addEventListener('click', function (event) {
+    if (event.target.closest('[data-brix-drawer-close]')) {
+      event.preventDefault();
+      closeDrawer();
+
+      if (drawer) {
+        var summary = drawer.querySelector('summary');
+
+        // Фокус не можна лишати на кнопці, якої вже не видно.
+        if (summary) {
+          summary.focus();
+        }
+      }
+    }
+  });
+
+  // Escape закриває шторку — так само, як мобільне меню.
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && drawer && drawer.open) {
+      closeDrawer();
     }
   });
 

@@ -75,6 +75,20 @@
 // ——— сайдбар фільтрів ———
 // На десктопі <details> має бути завжди розкритим, тож маркер ховаємо
 // і форму показуємо незалежно від стану.
+// Мобільна шторка фільтрів.
+//
+// Побудована на <details>: вона відкривається й закривається без
+// JavaScript, з клавіатури, і браузер сам тримає стан. Коли шторка
+// відкрита, <summary> розтягується на весь екран і стає затемненням —
+// натиск будь-де поза панеллю закриває її, бо це той самий перемикач.
+//
+// Але вмикається вона лише під класом .brix-drawer, який ставить
+// скрипт. Причина в тому, що <details> у розмітці має атрибут open:
+// закритий <details> ховає вміст силами браузера, і перебити це
+// авторським CSS не можна, тож без open фільтри були б недоступні
+// зовсім за вимкненого JavaScript. Скрипт спершу знімає open, потім
+// ставить клас — в одному кадрі, тож панель не блимає. Без скрипта
+// фільтри лишаються звичайним блоком над сіткою, як і були.
 .brix-filters__drawer {
   > summary {
     list-style: none;
@@ -85,12 +99,32 @@
 
   @include from($bp-lg) {
     > summary { display: none; }
-    > .brix-filters { display: flex; }
   }
 
+  .brix-drawer & {
   @include upto($bp-lg) {
-    &[open] > summary { margin-bottom: var(--brix-gap-8); }
+    &[open] > summary {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      height: auto;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: rgb(29 26 25 / 45%);
+
+      // Підпис «Фільтри» тут уже не потрібен: замість кнопки це
+      // затемнення. Прибираємо його, лишаючи елемент клікабельним.
+      > * { display: none; }
+    }
   }
+  }
+}
+
+// Фон за відкритою шторкою не має прокручуватись. :has() дозволяє
+// зробити це без JavaScript — стан тримає сам <details>.
+@include upto($bp-lg) {
+  html.brix-drawer:has(.brix-filters__drawer[open]) { overflow: hidden; }
 }
 
 .brix-filters {
@@ -98,22 +132,110 @@
   flex-direction: column;
   gap: var(--brix-gap-12);
 
+  // Панель шторки: знизу, на всю ширину, із заокругленою «шапкою»
+  // й ручкою — розміри з артборда m-filters.
+  .brix-drawer & {
+  @include upto($bp-lg) {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 70;
+    max-height: 86vh;
+    gap: 0;
+    padding: 0;
+    border-radius: 16px 16px 0 0;
+    background: var(--brix-mill);
+
+    &::before {
+      content: '';
+      width: 44px;
+      height: 4px;
+      margin: 10px auto 4px;
+      border-radius: 2px;
+      background: var(--brix-line);
+    }
+  }
+  }
+
   &__head {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
     gap: var(--brix-gap-8);
+
+    .brix-drawer & {
+      @include upto($bp-lg) {
+        align-items: center;
+        padding: var(--brix-gap-6) 18px var(--brix-gap-8);
+        border-bottom: 1px solid var(--brix-line);
+      }
+    }
+  }
+
+  // Обгортка області, що прокручується. На десктопі її в розкладці
+  // немає — форма лишається звичайним стовпчиком.
+  &__body {
+    display: contents;
+
+    .brix-drawer & {
+      @include upto($bp-lg) {
+        display: flex;
+        flex-direction: column;
+        gap: var(--brix-gap-12);
+        overflow-y: auto;
+        padding: var(--brix-gap-8) 18px;
+        overscroll-behavior: contain;
+      }
+    }
+  }
+
+  &__foot {
+    .brix-drawer & {
+      @include upto($bp-lg) {
+        padding: var(--brix-gap-6) 18px calc(var(--brix-gap-8) + env(safe-area-inset-bottom));
+        border-top: 1px solid var(--brix-line);
+      }
+    }
+  }
+
+  // Хрестик показується лише тоді, коли фільтри справді стали
+  // шторкою — тобто коли скрипт узяв <details> під контроль. Без
+  // JavaScript він не потрібен: там фільтри просто блок над сіткою.
+  &__close {
+    display: none;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: var(--brix-muted);
+    cursor: pointer;
+
+    &:hover { background: var(--brix-stone); color: var(--brix-roast); }
+
+    .brix-drawer & {
+      @include upto($bp-lg) { display: grid; }
+    }
   }
 
   &__title {
     font-family: var(--brix-font-ui);
     font-size: 1rem;
     font-weight: 600;
+
+    .brix-drawer & {
+      @include upto($bp-lg) { font-size: 1.1875rem; }
+    }
   }
 
   &__reset {
     @include label;
     color: var(--brix-cherry);
+
+    // На десктопі кнопка «Застосувати» потрібна лише для полів ціни
+    // й галочки — чипи застосовуються самі, посиланнями.
+    @include from($bp-lg) { margin-left: auto; }
   }
 
   &__group {

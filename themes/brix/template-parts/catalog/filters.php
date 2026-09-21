@@ -13,6 +13,7 @@ defined( 'ABSPATH' ) || exit;
 
 $brix_filters = brix_catalog_filters();
 $brix_price   = brix_price_filter();
+$brix_total   = (int) wc_get_loop_prop( 'total' );
 ?>
 
 <form class="brix-filters" method="get" action="<?php echo esc_url( brix_catalog_url() ); ?>">
@@ -24,7 +25,28 @@ $brix_price   = brix_price_filter();
 				<?php esc_html_e( 'Скинути', 'brix' ); ?>
 			</a>
 		<?php endif; ?>
+
+		<?php
+		/*
+		 * Хрестик закриває шторку скриптом. Без JavaScript він схований,
+		 * і шторка закривається натиском на затемнення або на сам
+		 * <summary> — обидва ведуть до того самого перемикача <details>.
+		 */
+		?>
+		<button class="brix-filters__close" type="button" data-brix-drawer-close
+			aria-label="<?php esc_attr_e( 'Закрити фільтри', 'brix' ); ?>">
+			<?php echo brix_icon( 'close' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		</button>
 	</div>
+
+	<?php
+	/*
+	 * Обгортка потрібна лише мобільній шторці: там це область, яка
+	 * прокручується між нерухомими шапкою й кнопкою. На десктопі вона
+	 * прибрана з розкладки через display:contents.
+	 */
+	?>
+	<div class="brix-filters__body">
 
 	<?php
 	foreach ( $brix_filters as $brix_key => $brix_filter ) :
@@ -126,7 +148,28 @@ $brix_price   = brix_price_filter();
 		<input type="hidden" name="<?php echo esc_attr( $brix_name ); ?>" value="<?php echo esc_attr( $brix_value ); ?>">
 	<?php endforeach; ?>
 
-	<button class="brix-btn brix-btn--outline brix-btn--full brix-filters__apply" type="submit">
-		<?php esc_html_e( 'Застосувати', 'brix' ); ?>
-	</button>
+	</div><!-- .brix-filters__body -->
+
+	<?php
+	/*
+	 * Кнопка робить дві роботи. Без JavaScript вона надсилає форму —
+	 * так застосовуються ціна й галочка наявності, а сторінка
+	 * перезавантажується вже з результатом, тобто шторка закривається
+	 * сама. Зі скриптом форма йде через AJAX, і шторку закриває він.
+	 *
+	 * Кількість у підписі — це те, що покупець побачить після
+	 * застосування: чипи вже враховані в поточному запиті.
+	 */
+	?>
+	<div class="brix-filters__foot">
+		<button class="brix-btn brix-btn--dark brix-btn--full brix-filters__apply" type="submit" data-brix-apply>
+			<?php
+			printf(
+				/* translators: %s — кількість товарів. */
+				esc_html__( 'Показати %s', 'brix' ),
+				esc_html( brix_catalog_count_text( $brix_total ) )
+			);
+			?>
+		</button>
+	</div>
 </form>
