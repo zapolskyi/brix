@@ -118,6 +118,8 @@ final class Plugin {
 				Fields\Registrar::class,
 				Product\LotMeta::class,
 				Product\Schema::class,
+				Payments\Registrar::class,
+				Payments\CashOnDelivery::class,
 				Wholesale\Application::class,
 			)
 		);
