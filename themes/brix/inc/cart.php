@@ -10,18 +10,62 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Поріг безкоштовної доставки.
  *
- * Поки що константа: на фазі 5 вона переїде в налаштування доставки
- * разом із зонами, і смуга оголошень читатиме те саме значення.
+ * Береться з методу «Безкоштовна доставка» в зоні поточного покупця,
+ * тож смуга прогресу в кошику й реальне правило WooCommerce — це одне
+ * й те саме число. Нуль означає, що в зоні такого методу немає, і
+ * смугу показувати нема сенсу.
  *
  * @return float
  */
 function brix_free_shipping_threshold(): float {
+	$threshold = 0.0;
+
+	/*
+	 * Поріг живе в методі доставки, а не в коді теми. Доки він був
+	 * константою, смуга в кошику могла обіцяти безкоштовну доставку
+	 * раніше або пізніше, ніж її реально давав WooCommerce, — і
+	 * помітити це можна було б тільки на checkout.
+	 */
+	if ( function_exists( 'wc_get_chosen_shipping_method_ids' ) && WC()->cart ) {
+		foreach ( brix_free_shipping_methods() as $method ) {
+			$amount = (float) $method->get_option( 'min_amount' );
+
+			if ( $amount > 0 && ( 0.0 === $threshold || $amount < $threshold ) ) {
+				$threshold = $amount;
+			}
+		}
+	}
+
 	/**
 	 * Сума, від якої доставка безкоштовна.
 	 *
 	 * @param float $threshold Поріг у гривнях.
 	 */
-	return (float) apply_filters( 'brix_free_shipping_threshold', 1200 );
+	return (float) apply_filters( 'brix_free_shipping_threshold', $threshold );
+}
+
+/**
+ * Методи безкоштовної доставки в зоні поточного покупця.
+ *
+ * @return array<int, WC_Shipping_Method>
+ */
+function brix_free_shipping_methods(): array {
+	$packages = WC()->cart ? WC()->cart->get_shipping_packages() : array();
+
+	if ( ! $packages ) {
+		return array();
+	}
+
+	$zone  = wc_get_shipping_zone( reset( $packages ) );
+	$found = array();
+
+	foreach ( $zone->get_shipping_methods( true ) as $method ) {
+		if ( 'free_shipping' === $method->id ) {
+			$found[] = $method;
+		}
+	}
+
+	return $found;
 }
 
 /**

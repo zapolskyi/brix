@@ -2,6 +2,8 @@
 # Шляхи відносно кореня плагіна.
 
 /.gitattributes export-ignore
-/data          export-ignore
 /tests         export-ignore
 /composer.lock export-ignore
+
+# data/ навмисно лишається в архіві: demo-content.json потрібен
+# команді wp brix demo, якою наповнюється демо-стенд.

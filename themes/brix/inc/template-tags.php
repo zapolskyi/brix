@@ -35,22 +35,35 @@ function brix_logo(): void {
  * @return void
  */
 function brix_announce(): void {
+	$messages = array(
+		__( 'Обсмажуємо щопонеділка', 'brix' ),
+		__( 'Відправка в день обсмаження', 'brix' ),
+	);
+
+	/*
+	 * Поріг береться з методу доставки, а не з тексту: інакше смуга
+	 * обіцяла б одну суму, а WooCommerce рахував іншу, і розбіжність
+	 * виявилась би аж на checkout.
+	 */
+	$threshold = function_exists( 'brix_free_shipping_threshold' ) ? brix_free_shipping_threshold() : 0.0;
+
+	if ( $threshold > 0 ) {
+		array_unshift(
+			$messages,
+			sprintf(
+				/* translators: %s — сума, від якої доставка безкоштовна. */
+				__( 'Безкоштовна доставка від %s', 'brix' ),
+				wp_strip_all_tags( wc_price( $threshold ) )
+			)
+		);
+	}
+
 	/**
 	 * Дозволяє змінити повідомлення в смузі оголошень.
 	 *
-	 * Поки що значення зашиті; на фазі 5 вони переїдуть у налаштування
-	 * теми разом з порогом безкоштовної доставки.
-	 *
 	 * @param array<int, string> $items Повідомлення.
 	 */
-	$items = apply_filters(
-		'brix_announce_items',
-		array(
-			__( 'Безкоштовна доставка від 1 200 ₴', 'brix' ),
-			__( 'Обсмажуємо щопонеділка', 'brix' ),
-			__( 'Відправка в день обсмаження', 'brix' ),
-		)
-	);
+	$items = apply_filters( 'brix_announce_items', $messages );
 
 	if ( ! $items ) {
 		return;

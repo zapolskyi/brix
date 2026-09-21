@@ -123,6 +123,7 @@ function render_missing_scf_notice(): void {
  * не завантажувались на кожному запиті сайту.
  */
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	\WP_CLI::add_command( 'brix setup', Cli\Setup::class );
 	\WP_CLI::add_command( 'brix demo', Cli\DemoContent::class );
 }
 
