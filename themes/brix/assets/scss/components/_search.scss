@@ -1,0 +1,165 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+// Пошук у шапці. Побудований на <details>: панель розкривається без
+// JavaScript, поле приймає запит, Enter веде на сторінку результатів.
+// Скрипт лише підвішує підказки під полем.
+.brix-search {
+  position: relative;
+
+  > summary {
+    list-style: none;
+    cursor: pointer;
+
+    &::-webkit-details-marker { display: none; }
+  }
+
+  &__panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + var(--brix-gap-4));
+    z-index: 50;
+    width: min(420px, calc(100vw - var(--brix-gap-8) * 2));
+    padding: var(--brix-gap-6);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+    box-shadow: var(--brix-shadow-card);
+
+    // На вузькому екрані панель тулиться до правого краю вікна,
+    // а не до іконки: інакше вона вилазить за екран.
+    @include upto($bp-md) {
+      position: fixed;
+      right: var(--brix-gap-8);
+      left: var(--brix-gap-8);
+      top: calc(var(--brix-header-h) - var(--brix-gap-8));
+      width: auto;
+    }
+  }
+
+  &__form {
+    display: flex;
+    gap: var(--brix-gap-4);
+  }
+
+  &__field {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: var(--brix-ctl-sm);
+
+    // Власний хрестик очищення в Safari дублює нашу панель.
+    &::-webkit-search-cancel-button { appearance: none; }
+  }
+
+  &__submit {
+    flex: 0 0 auto;
+    height: var(--brix-ctl-sm);
+    padding-inline: var(--brix-gap-8);
+    font-size: 0.9375rem;
+  }
+}
+
+// Випадаючі підказки. Порожні, поки нічого не знайдено, — тоді
+// в розмітці немає нічого й відступ не з'їдається.
+.brix-suggest {
+  &:empty { display: none; }
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-2);
+  margin-top: var(--brix-gap-6);
+  max-height: min(60vh, 420px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  &__label {
+    @include label;
+    margin-top: var(--brix-gap-4);
+
+    &:first-child { margin-top: 0; }
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--brix-gap-6);
+    padding: var(--brix-gap-4) var(--brix-gap-4);
+    border-radius: var(--brix-radius);
+    color: var(--brix-roast);
+
+    &:hover,
+    // Підсвітка клавіатурного вибору. Саме клас, а не :focus:
+    // фокус лишається в полі вводу, інакше ламається набір тексту.
+    &.is-current {
+      background: var(--brix-stone);
+      color: var(--brix-cherry);
+    }
+  }
+
+  &__name {
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  &__meta {
+    flex: 0 0 auto;
+    font-size: 0.8125rem;
+    color: var(--brix-muted);
+  }
+
+  &__all {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--brix-gap-4);
+    margin-top: var(--brix-gap-4);
+    padding-top: var(--brix-gap-6);
+    border-top: 1px solid var(--brix-line);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--brix-cherry);
+
+    svg { width: 16px; height: 16px; }
+  }
+
+  &__empty { margin: var(--brix-gap-4) 0 0; }
+}
+
+// Сторінка результатів.
+.brix-search-results {
+  margin-bottom: var(--brix-gap-24);
+
+  &__title {
+    @include label;
+    margin-bottom: var(--brix-gap-8);
+    padding-bottom: var(--brix-gap-4);
+    border-bottom: 1px solid var(--brix-line);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    a {
+      font-family: var(--brix-font-ui);
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--brix-roast);
+
+      &:hover { color: var(--brix-cherry); }
+    }
+
+    p { margin: var(--brix-gap-2) 0 0; }
+  }
+}

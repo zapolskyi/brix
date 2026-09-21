@@ -25,6 +25,7 @@ require_once BRIX_DIR . '/inc/blocks.php';
 require_once BRIX_DIR . '/inc/products.php';
 require_once BRIX_DIR . '/inc/class-brix-plain-walker.php';
 require_once BRIX_DIR . '/inc/template-tags.php';
+require_once BRIX_DIR . '/inc/search.php';
 
 if ( brix_has_woocommerce() ) {
 	require_once BRIX_DIR . '/inc/woocommerce.php';

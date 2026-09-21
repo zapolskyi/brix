@@ -105,8 +105,156 @@
     });
   }
 
+  /**
+   * Живий пошук: підказки під полем у шапці.
+   *
+   * Без цього скрипта пошук усе одно працює — панель розкриває
+   * <details>, а Enter надсилає форму на сторінку результатів. Тут
+   * лише підказки, і розмітку для них малює сервер тією самою
+   * шаблонною частиною, що й сторінка результатів.
+   */
+  function initSearch() {
+    var search = document.querySelector('[data-brix-search]');
+
+    if (!search || !window.brixData || !window.fetch) {
+      return;
+    }
+
+    var field = search.querySelector('[data-brix-search-field]');
+    var box = search.querySelector('[data-brix-suggest]');
+
+    if (!field || !box) {
+      return;
+    }
+
+    var timer = null;
+    var request = 0;
+    var current = -1;
+
+    /** Позначає обраний варіант, не забираючи фокус із поля. */
+    function highlight(index) {
+      var items = box.querySelectorAll('.brix-suggest__item');
+
+      if (!items.length) {
+        return;
+      }
+
+      // Обхід по колу: з останнього вниз — знову на перший.
+      current = (index + items.length) % items.length;
+
+      Array.prototype.forEach.call(items, function (item, i) {
+        var on = i === current;
+
+        item.classList.toggle('is-current', on);
+        item.setAttribute('aria-selected', String(on));
+
+        if (on) {
+          field.setAttribute('aria-activedescendant', item.id);
+          item.scrollIntoView({ block: 'nearest' });
+        }
+      });
+    }
+
+    /** Питає в сервера підказки під поточний запит. */
+    function suggest() {
+      var term = field.value.trim();
+      var ticket = ++request;
+
+      current = -1;
+      field.removeAttribute('aria-activedescendant');
+
+      if (term.length < 2) {
+        box.innerHTML = '';
+        field.setAttribute('aria-expanded', 'false');
+        return;
+      }
+
+      fetch(window.brixData.restUrl + 'search?q=' + encodeURIComponent(term), {
+        headers: { Accept: 'application/json' },
+      })
+        .then(function (response) {
+          return response.ok ? response.json() : Promise.reject(new Error('HTTP ' + response.status));
+        })
+        .then(function (data) {
+          // Відповідь на давно застарілий запит не має перетирати
+          // підказки до того, що покупець набирає зараз.
+          if (ticket !== request) {
+            return;
+          }
+
+          box.innerHTML = data.suggestions;
+          field.setAttribute('aria-expanded', box.innerHTML.trim() ? 'true' : 'false');
+        })
+        .catch(function () {
+          // Підказки — приємність, а не функція: якщо сервер мовчить,
+          // лишається звичайний пошук через Enter.
+          box.innerHTML = '';
+          field.setAttribute('aria-expanded', 'false');
+        });
+    }
+
+    field.setAttribute('role', 'combobox');
+    field.setAttribute('aria-expanded', 'false');
+    field.setAttribute('aria-autocomplete', 'list');
+
+    field.addEventListener('input', function () {
+      window.clearTimeout(timer);
+      // Затримка, щоб не слати запит на кожну літеру.
+      timer = window.setTimeout(suggest, 220);
+    });
+
+    field.addEventListener('keydown', function (event) {
+      var items = box.querySelectorAll('.brix-suggest__item');
+
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        if (!items.length) {
+          return;
+        }
+
+        event.preventDefault();
+        highlight(current + (event.key === 'ArrowDown' ? 1 : -1));
+        return;
+      }
+
+      if (event.key === 'Enter' && current > -1 && items[current]) {
+        // Обраний варіант веде прямо на товар, а не на сторінку
+        // результатів — саме цього чекають від підказки.
+        event.preventDefault();
+        window.location.assign(items[current].href);
+        return;
+      }
+
+      if (event.key === 'Escape') {
+        if (box.innerHTML.trim()) {
+          box.innerHTML = '';
+          field.setAttribute('aria-expanded', 'false');
+          current = -1;
+        } else {
+          search.open = false;
+        }
+      }
+    });
+
+    // Натиск поза панеллю закриває її — інакше вона висить над
+    // сторінкою, поки не клікнеш саме в іконку.
+    document.addEventListener('click', function (event) {
+      if (search.open && !search.contains(event.target)) {
+        search.open = false;
+      }
+    });
+
+    // Курсор одразу в полі: інакше після кліку по іконці треба
+    // клікати вдруге.
+    search.addEventListener('toggle', function () {
+      if (search.open) {
+        field.focus();
+      }
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initMobileNav();
     initSteppers();
+    initSearch();
   });
 })();

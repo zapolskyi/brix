@@ -3,7 +3,13 @@
 :focus-visible { @include focus-ring; border-radius: var(--brix-radius); }
 :focus:not(:focus-visible) { outline: none; }
 
-.brix-visually-hidden { @include visually-hidden; }
+// Наш клас і класи, якими це саме роблять WordPress і WooCommerce.
+// Без них текст для скрінрідера друкується як звичайний: у ціни зі
+// знижкою Woo додає «Оригінальна ціна» й «Поточна ціна», і в картці
+// каталогу це розповзалося поверх сусідніх карток.
+.brix-visually-hidden,
+.screen-reader-text,
+.wc-forward .screen-reader-text { @include visually-hidden; }
 
 // Перехід до вмісту — перше, що ловить Tab на сторінці.
 .brix-skip-link {

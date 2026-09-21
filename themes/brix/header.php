@@ -45,10 +45,45 @@ defined( 'ABSPATH' ) || exit;
 			<b><?php esc_html_e( 'UA', 'brix' ); ?></b> / EN
 		</span>
 
-		<a class="brix-iconbtn" href="<?php echo esc_url( home_url( '/?s=' ) ); ?>">
-			<?php echo brix_icon( 'search' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-			<span class="brix-visually-hidden"><?php esc_html_e( 'Пошук', 'brix' ); ?></span>
-		</a>
+		<?php
+		/*
+		 * Пошук на <details>: без JavaScript панель усе одно
+		 * розкривається, поле приймає запит, Enter надсилає форму —
+		 * і сторінка результатів відкривається звичайним переходом.
+		 * Скрипт лише додає підказки під полем.
+		 */
+		?>
+		<details class="brix-search" data-brix-search>
+			<summary class="brix-iconbtn" aria-label="<?php esc_attr_e( 'Пошук', 'brix' ); ?>">
+				<?php echo brix_icon( 'search' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			</summary>
+
+			<div class="brix-search__panel">
+				<form class="brix-search__form" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" role="search">
+					<label class="brix-visually-hidden" for="brix-search-field">
+						<?php esc_html_e( 'Що шукаємо?', 'brix' ); ?>
+					</label>
+
+					<input
+						class="brix-input brix-search__field"
+						id="brix-search-field"
+						type="search"
+						name="s"
+						value="<?php echo esc_attr( get_search_query() ); ?>"
+						placeholder="<?php esc_attr_e( 'Країна, ферма, нота смаку', 'brix' ); ?>"
+						autocomplete="off"
+						data-brix-search-field
+					>
+
+					<button class="brix-btn brix-btn--dark brix-search__submit" type="submit">
+						<?php esc_html_e( 'Знайти', 'brix' ); ?>
+					</button>
+				</form>
+
+				<div class="brix-suggest" data-brix-suggest role="listbox"
+					aria-label="<?php esc_attr_e( 'Підказки пошуку', 'brix' ); ?>"></div>
+			</div>
+		</details>
 
 		<?php if ( brix_has_woocommerce() ) : ?>
 			<a class="brix-iconbtn" href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>">
