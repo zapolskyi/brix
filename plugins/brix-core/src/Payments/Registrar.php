@@ -52,6 +52,7 @@ final class Registrar implements Module {
 			array(
 				'methods'             => \WP_REST_Server::CREATABLE,
 				'callback'            => array( $this, 'handle_webhook' ),
+
 				/*
 				 * Відкритий маршрут: monobank не має наших ключів і не
 				 * може автентифікуватись. Захист інший — тіло запиту
