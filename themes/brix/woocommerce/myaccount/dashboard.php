@@ -33,6 +33,29 @@ $brix_orders = wc_get_orders(
 		<?php esc_html_e( 'Тут ваші замовлення, адреси й підписка. Повторити попереднє замовлення — одна кнопка.', 'brix' ); ?>
 	</p>
 
+	<?php $brix_quiz = function_exists( 'brix_quiz_saved' ) ? brix_quiz_saved() : array(); ?>
+	<?php if ( $brix_quiz ) : ?>
+		<section class="brix-account__quiz">
+			<h3 class="brix-label"><?php esc_html_e( 'Ваш профіль смаку', 'brix' ); ?></h3>
+
+			<p class="brix-lead">
+				<?php
+				printf(
+					/* translators: %s — назва помелу. */
+					esc_html__( 'Мелемо під %s', 'brix' ),
+					esc_html( (string) ( $brix_quiz['grind'] ?? '' ) )
+				);
+				?>
+			</p>
+
+			<p>
+				<a class="brix-btn brix-btn--outline brix-btn--sm" href="<?php echo esc_url( get_permalink( get_page_by_path( 'quiz' ) ) ); ?>">
+					<?php esc_html_e( 'Пройти квіз заново', 'brix' ); ?>
+				</a>
+			</p>
+		</section>
+	<?php endif; ?>
+
 	<?php if ( $brix_orders ) : ?>
 		<section class="brix-account__block">
 			<header class="brix-section__head">

@@ -47,6 +47,7 @@ function brix_enqueue_assets(): void {
 	brix_enqueue_catalog_script();
 	brix_enqueue_product_script();
 	brix_enqueue_checkout_script();
+	brix_enqueue_quiz_script();
 }
 add_action( 'wp_enqueue_scripts', 'brix_enqueue_assets' );
 
@@ -160,6 +161,28 @@ function brix_enqueue_checkout_script(): void {
 		brix_asset_uri( 'assets/js/checkout.js' ),
 		array( 'brix-app' ),
 		brix_asset_version( 'assets/js/checkout.js' ),
+		array(
+			'strategy'  => 'defer',
+			'in_footer' => true,
+		)
+	);
+}
+
+/**
+ * Скрипт квізу — лише на його сторінці.
+ *
+ * @return void
+ */
+function brix_enqueue_quiz_script(): void {
+	if ( ! is_page_template( 'page-quiz.php' ) && ! is_page( 'quiz' ) ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'brix-quiz',
+		brix_asset_uri( 'assets/js/quiz.js' ),
+		array( 'brix-app' ),
+		brix_asset_version( 'assets/js/quiz.js' ),
 		array(
 			'strategy'  => 'defer',
 			'in_footer' => true,

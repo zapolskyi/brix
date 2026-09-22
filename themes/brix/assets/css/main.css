@@ -4097,6 +4097,23 @@ h4 {
   margin: var(--brix-gap-6) 0 0;
 }
 
+.brix-account__quiz {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-4);
+  margin-bottom: var(--brix-gap-16);
+  padding-bottom: var(--brix-gap-16);
+  border-bottom: 1px solid var(--brix-line);
+}
+.brix-account__quiz p {
+  margin: 0;
+}
+
+[data-brix-quiz].is-loading {
+  opacity: 0.55;
+  transition: opacity var(--brix-dur) var(--brix-ease);
+}
+
 .brix-kit {
   display: flex;
   flex-direction: column;
