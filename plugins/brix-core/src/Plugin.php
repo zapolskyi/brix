@@ -153,6 +153,10 @@ final class Plugin {
 	 * @return void
 	 */
 	public static function on_activate(): void {
+		// Таблиця довідника Нової Пошти має існувати до першого
+		// звернення: інакше автокомпліт впаде на порожньому запиті.
+		Shipping\Directory::install();
+
 		flush_rewrite_rules();
 	}
 

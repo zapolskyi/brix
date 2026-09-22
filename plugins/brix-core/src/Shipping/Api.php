@@ -37,12 +37,35 @@ final class Api {
 	public const OPTION_KEY = 'brix_nova_poshta_key';
 
 	/**
+	 * Константа в wp-config.php, яка має пріоритет над опцією.
+	 */
+	public const CONSTANT = 'BRIX_NOVA_POSHTA_KEY';
+
+	/**
+	 * Ключ доступу до API.
+	 *
+	 * Спершу константа з wp-config.php, і лише потім налаштування.
+	 * Ключ Нової Пошти видається на бізнес-кабінет цілком — з правом
+	 * створювати накладні, — тож у базі публічного стенду йому не
+	 * місце: базу видно з адмінки, вона лягає в кожен бекап.
+	 *
+	 * @return string
+	 */
+	public static function key(): string {
+		if ( defined( self::CONSTANT ) && is_string( constant( self::CONSTANT ) ) ) {
+			return trim( (string) constant( self::CONSTANT ) );
+		}
+
+		return trim( (string) get_option( self::OPTION_KEY, '' ) );
+	}
+
+	/**
 	 * Чи налаштований доступ до API.
 	 *
 	 * @return bool
 	 */
 	public static function configured(): bool {
-		return '' !== trim( (string) get_option( self::OPTION_KEY, '' ) );
+		return '' !== self::key();
 	}
 
 	/**
@@ -142,7 +165,7 @@ final class Api {
 				'headers' => array( 'Content-Type' => 'application/json' ),
 				'body'    => (string) wp_json_encode(
 					array(
-						'apiKey'           => (string) get_option( self::OPTION_KEY, '' ),
+						'apiKey'           => self::key(),
 						'modelName'        => $model,
 						'calledMethod'     => $method,
 						'methodProperties' => $properties,
@@ -166,5 +189,50 @@ final class Api {
 		set_transient( $cache, $data, self::TTL );
 
 		return $data;
+	}
+
+	/**
+	 * Сторінка довідника без кешу — для синхронізації.
+	 *
+	 * Кеш тут навмисно не задіяний: вивантаження йде один раз і
+	 * засмітило б сховище транзієнтів сотнею сторінок.
+	 *
+	 * @param string $model  Модель.
+	 * @param string $method Метод.
+	 * @param int    $page   Сторінка, від 1.
+	 * @param int    $limit  Розмір сторінки.
+	 * @return array<int, array<string, mixed>>
+	 */
+	public function page( string $model, string $method, int $page, int $limit = 500 ): array {
+		$response = wp_remote_post(
+			self::ENDPOINT,
+			array(
+				'timeout' => 60,
+				'headers' => array( 'Content-Type' => 'application/json' ),
+				'body'    => (string) wp_json_encode(
+					array(
+						'apiKey'           => self::key(),
+						'modelName'        => $model,
+						'calledMethod'     => $method,
+						'methodProperties' => array(
+							'Page'  => (string) max( 1, $page ),
+							'Limit' => (string) $limit,
+						),
+					)
+				),
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return array();
+		}
+
+		$body = json_decode( (string) wp_remote_retrieve_body( $response ), true );
+
+		if ( ! is_array( $body ) || empty( $body['success'] ) || ! isset( $body['data'] ) ) {
+			return array();
+		}
+
+		return (array) $body['data'];
 	}
 }

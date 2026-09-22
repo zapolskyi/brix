@@ -36,6 +36,25 @@ final class NovaPoshta implements Module {
 	public function register(): void {
 		add_action( 'rest_api_init', array( $this, 'add_routes' ) );
 		add_filter( 'woocommerce_general_settings', array( $this, 'add_key_setting' ) );
+		add_action( 'admin_notices', array( $this, 'directory_notice' ) );
+	}
+
+	/**
+	 * Нагадує синхронізувати довідник.
+	 *
+	 * @return void
+	 */
+	public function directory_notice(): void {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+		if ( ! $screen || 'woocommerce_page_wc-settings' !== $screen->id || Directory::has( Directory::CITY ) ) {
+			return;
+		}
+
+		printf(
+			'<div class="notice notice-info"><p>%s</p></div>',
+			esc_html__( 'Довідник Нової Пошти порожній. Запустіть wp brix np-sync там, де є ключ API — після цього підказки працюватимуть без звернень до Нової Пошти.', 'brix-core' )
+		);
 	}
 
 	/**
@@ -111,10 +130,33 @@ final class NovaPoshta implements Module {
 	 * @return \WP_REST_Response
 	 */
 	public function cities( \WP_REST_Request $request ): \WP_REST_Response {
+		if ( ! $this->allowed() ) {
+			return new \WP_REST_Response(
+				array(
+					'configured' => false,
+					'items'      => array(),
+				),
+				429
+			);
+		}
+
+		$query = (string) $request->get_param( 'q' );
+
+		// Спершу власний довідник: він не витрачає квоту акаунта і
+		// відповідає швидше за раунд-тріп до чужого сервера.
+		if ( Directory::has( Directory::CITY ) ) {
+			return rest_ensure_response(
+				array(
+					'configured' => true,
+					'items'      => mb_strlen( trim( $query ) ) < 2 ? array() : Directory::cities( $query ),
+				)
+			);
+		}
+
 		return rest_ensure_response(
 			array(
 				'configured' => Api::configured(),
-				'items'      => ( new Api() )->settlements( (string) $request->get_param( 'q' ) ),
+				'items'      => ( new Api() )->settlements( $query ),
 			)
 		);
 	}
@@ -126,11 +168,62 @@ final class NovaPoshta implements Module {
 	 * @return \WP_REST_Response
 	 */
 	public function warehouses( \WP_REST_Request $request ): \WP_REST_Response {
+		if ( ! $this->allowed() ) {
+			return new \WP_REST_Response(
+				array(
+					'configured' => false,
+					'items'      => array(),
+				),
+				429
+			);
+		}
+
+		$city = (string) $request->get_param( 'city' );
+
+		if ( Directory::has( Directory::WAREHOUSE ) ) {
+			return rest_ensure_response(
+				array(
+					'configured' => true,
+					'items'      => '' === trim( $city ) ? array() : Directory::warehouses( $city ),
+				)
+			);
+		}
+
 		return rest_ensure_response(
 			array(
 				'configured' => Api::configured(),
-				'items'      => ( new Api() )->warehouses( (string) $request->get_param( 'city' ) ),
+				'items'      => ( new Api() )->warehouses( $city ),
 			)
 		);
+	}
+
+	/**
+	 * Чи не забагато запитів з однієї адреси.
+	 *
+	 * Маршрут відкритий — інакше гість не заповнив би checkout. Тож
+	 * єдиний захист від перебору це частота: живому покупцю двадцяти
+	 * запитів на хвилину вистачає з запасом, а скрипту — ні.
+	 *
+	 * @return bool
+	 */
+	private function allowed(): bool {
+		$ip = isset( $_SERVER['REMOTE_ADDR'] )
+			? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )
+			: '';
+
+		if ( '' === $ip ) {
+			return true;
+		}
+
+		$key   = 'brix_np_rate_' . md5( $ip );
+		$count = (int) get_transient( $key );
+
+		if ( $count >= 20 ) {
+			return false;
+		}
+
+		set_transient( $key, $count + 1, MINUTE_IN_SECONDS );
+
+		return true;
 	}
 }

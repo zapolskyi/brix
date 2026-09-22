@@ -124,6 +124,7 @@ function render_missing_scf_notice(): void {
  */
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	\WP_CLI::add_command( 'brix setup', Cli\Setup::class );
+	\WP_CLI::add_command( 'brix np-sync', Cli\NovaPoshtaSync::class );
 	\WP_CLI::add_command( 'brix demo', Cli\DemoContent::class );
 }
 
