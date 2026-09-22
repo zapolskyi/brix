@@ -220,7 +220,7 @@ function brix_quiz_saved( int $user_id = 0 ): array {
 		$user_id = get_current_user_id();
 	}
 
-	$saved   = $user_id ? get_user_meta( $user_id, BRIX_QUIZ_META, true ) : array();
+	$saved = $user_id ? get_user_meta( $user_id, BRIX_QUIZ_META, true ) : array();
 
 	return is_array( $saved ) ? $saved : array();
 }
