@@ -122,6 +122,8 @@ final class Plugin {
 				Payments\Registrar::class,
 				Payments\CashOnDelivery::class,
 				Wholesale\Application::class,
+				Wholesale\Role::class,
+				Wholesale\Pricing::class,
 			)
 		);
 	}

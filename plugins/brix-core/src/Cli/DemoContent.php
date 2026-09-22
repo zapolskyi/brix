@@ -757,11 +757,35 @@ final class DemoContent {
 				$variation->set_regular_price( (string) round( $base * (float) $weight['factor'] ) );
 				$variation->set_manage_stock( true );
 				$variation->set_stock_quantity( $stock );
+
+				/*
+				 * Вага потрібна не для краси: на ній тримається і
+				 * розрахунок доставки, і мінімум оптового замовлення
+				 * у кілограмах. Без неї кошик важить нуль, і правило
+				 * «від 5 кг» не спрацьовує ніколи.
+				 */
+				$variation->set_weight( (string) $this->weight_in_kg( (string) $weight['weight'] ) );
 				$variation->save();
 			}
 		}
 
 		\WC_Product_Variable::sync( $product_id );
+	}
+
+	/**
+	 * Вага варіації в кілограмах із підпису на кшталт «250 г».
+	 *
+	 * @param string $label Підпис ваги.
+	 * @return float
+	 */
+	private function weight_in_kg( string $label ): float {
+		if ( ! preg_match( '/([\d.,]+)\s*(кг|г)/u', $label, $match ) ) {
+			return 0.0;
+		}
+
+		$value = (float) str_replace( ',', '.', $match[1] );
+
+		return 'кг' === $match[2] ? $value : $value / 1000;
 	}
 
 	/**
