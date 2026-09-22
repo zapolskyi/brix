@@ -27,15 +27,42 @@ function brix_checkout_fields( array $fields ): array {
 		$fields['shipping']['shipping_state']
 	);
 
-	if ( isset( $fields['billing']['billing_phone'] ) ) {
-		$fields['billing']['billing_phone']['placeholder'] = '+38 0__ ___ __ __';
-		$fields['billing']['billing_phone']['priority']    = 25;
-		$fields['billing']['billing_phone']['required']    = true;
+	/*
+	 * Черга полів адреси живе у brix_address_fields(): звідти її бере
+	 * і PHP, і скрипт WooCommerce. Але для цих двох полів її треба
+	 * повторити тут. Пошта до адресних полів не належить зовсім, а
+	 * телефону WooCommerce прописує в checkout власний пріоритет 100
+	 * поверх того, що стоїть у наборі адресних полів. Числа мають
+	 * збігатися з тими, що у brix_address_fields(), інакше форма без
+	 * JavaScript вишикується інакше, ніж із ним.
+	 */
+	$brix_priority = array(
+		'billing_phone' => 30,
+		'billing_email' => 40,
+	);
+
+	foreach ( $brix_priority as $brix_key => $brix_value ) {
+		if ( isset( $fields['billing'][ $brix_key ] ) ) {
+			$fields['billing'][ $brix_key ]['priority'] = $brix_value;
+		}
+	}
+
+	/*
+	 * Самовивіз адреси не має. Поля лишаються в розмітці, але
+	 * необов'язковими: інакше скрипт не мав би що показати, коли
+	 * покупець передумає й обере доставку без перезавантаження.
+	 */
+	if ( brix_pickup_chosen() ) {
+		foreach ( array( 'billing_city', 'billing_address_1', 'billing_postcode' ) as $key ) {
+			if ( isset( $fields['billing'][ $key ] ) ) {
+				$fields['billing'][ $key ]['required'] = false;
+			}
+		}
 	}
 
 	if ( isset( $fields['billing']['billing_email'] ) ) {
 		$fields['billing']['billing_email']['placeholder'] = 'ваш@email.com';
-		$fields['billing']['billing_email']['description'] = __( 'Надішлемо номер накладної й дату обсмаження.', 'brix' );
+		$fields['billing']['billing_email']['description'] = __( 'Туди надішлемо підтвердження й статус замовлення.', 'brix' );
 	}
 
 	if ( isset( $fields['order']['order_comments'] ) ) {
@@ -58,6 +85,37 @@ add_filter( 'woocommerce_checkout_fields', 'brix_checkout_fields' );
  * @return array<string, array<string, mixed>>
  */
 function brix_address_fields( array $fields ): array {
+	/*
+	 * Порядок полів повторює порядок дій: спершу хто отримує й на
+	 * який телефон дзвонити, потім куди везти. Усередині адреси місто
+	 * йде перед відділенням, бо відділення шукається саме в місті —
+	 * зворотний порядок змушував би повертатись назад.
+	 *
+	 * Черга задається саме тут, а не у woocommerce_checkout_fields.
+	 * Скрипт wc-address-i18n.js перебудовує форму вже в браузері й
+	 * бере пріоритети звідси: те, що прописане поруч із полями
+	 * checkout, він мовчки перезаписує. Саме тому телефон опинявся
+	 * під індексом, хоч у розмітці стояв третім.
+	 */
+	$priority = array(
+		'phone'     => 30,
+		'country'   => 50,
+		'city'      => 60,
+		'address_1' => 70,
+		'postcode'  => 80,
+	);
+
+	foreach ( $priority as $brix_key => $brix_value ) {
+		if ( isset( $fields[ $brix_key ] ) ) {
+			$fields[ $brix_key ]['priority'] = $brix_value;
+		}
+	}
+
+	if ( isset( $fields['phone'] ) ) {
+		$fields['phone']['placeholder'] = '+38 0__ ___ __ __';
+		$fields['phone']['required']    = true;
+	}
+
 	if ( isset( $fields['address_1'] ) ) {
 		$fields['address_1']['label']       = __( 'Адреса або відділення', 'brix' );
 		$fields['address_1']['placeholder'] = __( 'Відділення №12, вул. Кирилівська, 41', 'brix' );
@@ -150,3 +208,270 @@ function brix_strip_default_thankyou(): void {
 	remove_action( 'woocommerce_thankyou', 'woocommerce_order_details_table', 10 );
 }
 add_action( 'wp', 'brix_strip_default_thankyou' );
+
+/**
+ * Чи обрав покупець самовивіз.
+ *
+ * Обгортка над модулем плагіна: тема має працювати й без brix-core,
+ * просто без самовивозу як окремого стану.
+ *
+ * @return bool
+ */
+function brix_pickup_chosen(): bool {
+	return class_exists( '\Brix\Core\Shipping\Pickup' ) && \Brix\Core\Shipping\Pickup::chosen();
+}
+
+/**
+ * Чи є ставка самовивозом.
+ *
+ * @param string $rate_id Ідентифікатор ставки.
+ * @return bool
+ */
+function brix_is_pickup_rate( string $rate_id ): bool {
+	return class_exists( '\Brix\Core\Shipping\Pickup' ) && \Brix\Core\Shipping\Pickup::is_pickup( $rate_id );
+}
+
+/**
+ * Дані точки самовивозу.
+ *
+ * @return array{address: string, hours: string, ready: string}
+ */
+function brix_pickup_info(): array {
+	if ( ! class_exists( '\Brix\Core\Shipping\Pickup' ) ) {
+		return array(
+			'address' => '',
+			'hours'   => '',
+			'ready'   => '',
+		);
+	}
+
+	return array(
+		'address' => \Brix\Core\Shipping\Pickup::address(),
+		'hours'   => \Brix\Core\Shipping\Pickup::hours(),
+		'ready'   => \Brix\Core\Shipping\Pickup::ready(),
+	);
+}
+
+/**
+ * Ставки доставки для першого пакунка й обрана з них.
+ *
+ * @return array{rates: array<string, WC_Shipping_Rate>, chosen: string}
+ */
+function brix_shipping_choices(): array {
+	$packages = WC()->shipping() ? WC()->shipping()->get_packages() : array();
+	$package  = $packages[0] ?? array();
+	$rates    = isset( $package['rates'] ) && is_array( $package['rates'] ) ? $package['rates'] : array();
+	$chosen   = WC()->session ? WC()->session->get( 'chosen_shipping_methods' ) : array();
+
+	return array(
+		'rates'  => $rates,
+		'chosen' => is_array( $chosen ) && isset( $chosen[0] ) ? (string) $chosen[0] : '',
+	);
+}
+
+/**
+ * Блок «Спосіб отримання» на початку checkout.
+ *
+ * Вибір стоїть перед полями, а не збоку в підсумку, бо саме він
+ * вирішує, які поля взагалі потрібні: доставка питає місто й
+ * відділення, самовивіз не питає нічого.
+ *
+ * @return void
+ */
+function brix_delivery_section(): void {
+	$choices = brix_shipping_choices();
+
+	if ( ! $choices['rates'] ) {
+		return;
+	}
+
+	$pickup = brix_pickup_info();
+	$single = 1 === count( $choices['rates'] );
+	?>
+	<section class="brix-checkout__block brix-ship" id="brix-delivery">
+		<h3 class="brix-ship__title"><?php esc_html_e( 'Спосіб отримання', 'brix' ); ?></h3>
+
+		<ul class="brix-ship__options" id="shipping_method">
+			<?php foreach ( $choices['rates'] as $brix_rate ) : ?>
+				<?php
+				$id      = $brix_rate->get_id();
+				$cost    = (float) $brix_rate->get_cost();
+				$is_self = brix_is_pickup_rate( $id );
+				$input   = 'shipping_method_0_' . sanitize_title( $id );
+				?>
+				<li class="brix-ship__item">
+					<label class="brix-ship__option" for="<?php echo esc_attr( $input ); ?>">
+						<input
+							type="<?php echo $single ? 'hidden' : 'radio'; ?>"
+							class="shipping_method"
+							name="shipping_method[0]"
+							data-index="0"
+							data-pickup="<?php echo $is_self ? '1' : '0'; ?>"
+							id="<?php echo esc_attr( $input ); ?>"
+							value="<?php echo esc_attr( $id ); ?>"
+							<?php checked( $id, $choices['chosen'] ); ?>>
+
+						<span class="brix-ship__body">
+							<span class="brix-ship__name"><?php echo esc_html( $brix_rate->get_label() ); ?></span>
+							<span class="brix-ship__note"><?php echo esc_html( brix_rate_note( $brix_rate, $is_self ) ); ?></span>
+						</span>
+
+						<span class="brix-ship__cost brix-mono">
+							<?php
+							echo $cost > 0
+								? wp_kses_post( wc_price( $cost ) )
+								: esc_html__( 'Безкоштовно', 'brix' );
+							?>
+						</span>
+					</label>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+
+		<div class="brix-pickup" id="brix-pickup" <?php echo brix_pickup_chosen() ? '' : 'hidden'; ?>>
+			<p class="brix-pickup__row">
+				<?php echo brix_icon( 'bag' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<span><?php echo esc_html( $pickup['address'] ); ?></span>
+			</p>
+			<p class="brix-pickup__row">
+				<?php echo brix_icon( 'clock' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<span><?php echo esc_html( $pickup['hours'] ); ?></span>
+			</p>
+			<p class="brix-pickup__note"><?php echo esc_html( $pickup['ready'] ); ?></p>
+		</div>
+
+		<?php if ( ! $single ) : ?>
+			<noscript>
+				<p class="brix-small brix-muted"><?php esc_html_e( 'Змінили спосіб отримання — натисніть «Оновити», щоб форма перебудувалась.', 'brix' ); ?></p>
+				<button class="brix-btn brix-btn--outline" type="submit" name="woocommerce_checkout_update_totals" value="<?php esc_attr_e( 'Оновити', 'brix' ); ?>">
+					<?php esc_html_e( 'Оновити', 'brix' ); ?>
+				</button>
+			</noscript>
+		<?php endif; ?>
+	</section>
+	<?php
+}
+
+/**
+ * Підпис під назвою способу отримання.
+ *
+ * @param WC_Shipping_Rate $rate   Ставка.
+ * @param bool             $pickup Чи це самовивіз.
+ * @return string
+ */
+function brix_rate_note( WC_Shipping_Rate $rate, bool $pickup ): string {
+	if ( $pickup ) {
+		return brix_pickup_info()['address'];
+	}
+
+	$note      = __( 'Відділення або поштомат, 1–3 дні', 'brix' );
+	$threshold = function_exists( 'brix_free_shipping_threshold' ) ? brix_free_shipping_threshold() : 0.0;
+
+	if ( (float) $rate->get_cost() > 0 && $threshold > 0 ) {
+		$note .= ' · ' . sprintf(
+			/* translators: %s — сума порога безкоштовної доставки. */
+			__( 'безкоштовно від %s', 'brix' ),
+			wp_strip_all_tags( wc_price( $threshold ) )
+		);
+	}
+
+	return $note;
+}
+
+/**
+ * Прибирає адресу з даних замовлення, коли обрано самовивіз.
+ *
+ * Поля лишаються в розмітці — прихованими, але живими, — тож у них
+ * може бути текст із попереднього вибору. Записати його в замовлення
+ * означало б надіслати посилку туди, куди покупець її не просив.
+ *
+ * @param array<string, mixed> $data Дані checkout.
+ * @return array<string, mixed>
+ */
+function brix_pickup_posted_data( array $data ): array {
+	if ( ! brix_pickup_chosen() ) {
+		return $data;
+	}
+
+	$keys = array(
+		'billing_address_1',
+		'billing_city',
+		'billing_postcode',
+		'shipping_address_1',
+		'shipping_city',
+		'shipping_postcode',
+	);
+
+	foreach ( $keys as $key ) {
+		if ( array_key_exists( $key, $data ) ) {
+			$data[ $key ] = '';
+		}
+	}
+
+	return $data;
+}
+add_filter( 'woocommerce_checkout_posted_data', 'brix_pickup_posted_data' );
+
+/**
+ * Мовчить, коли покупець просто оновлює підсумок.
+ *
+ * Кнопка «Оновити» проходить тим самим шляхом, що й «Підтвердити
+ * замовлення»: WooCommerce перевіряє всю форму й тільки потім бачить,
+ * що замовлення створювати не треба. Без цього натискання на «Оновити»
+ * з половиною заповнених полів відповідало б списком червоних
+ * зауважень за ще не зроблене.
+ *
+ * @param array<string, mixed> $data   Дані checkout.
+ * @param WP_Error             $errors Помилки.
+ * @return void
+ */
+function brix_quiet_totals_update( array $data, WP_Error $errors ): void {
+	unset( $data );
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce перевірив WooCommerce перед викликом.
+	if ( ! isset( $_POST['woocommerce_checkout_update_totals'] ) ) {
+		return;
+	}
+
+	foreach ( $errors->get_error_codes() as $code ) {
+		$errors->remove( $code );
+	}
+
+	wc_clear_notices();
+}
+add_action( 'woocommerce_after_checkout_validation', 'brix_quiet_totals_update', 10, 2 );
+
+/**
+ * Точка самовивозу, записана в замовленні.
+ *
+ * @param WC_Order $order Замовлення.
+ * @return string
+ */
+function brix_order_pickup_point( WC_Order $order ): string {
+	return class_exists( '\Brix\Core\Shipping\Pickup' )
+		? \Brix\Core\Shipping\Pickup::point( $order )
+		: '';
+}
+
+/**
+ * Прибирає префікс фіксету з зауважень checkout.
+ *
+ * WooCommerce складає «Оплата Місто — обов'язкове поле», бо розрізняє
+ * платіжну й доставкову адресу. У цьому магазині адреса одна, і блок
+ * над полем підписаний «Куди доставити» — слово «Оплата» в зауваженні
+ * відсилає до блоку, якого на сторінці немає.
+ *
+ * @param string $translation Переклад.
+ * @param string $text        Оригінал.
+ * @param string $context     Контекст.
+ * @param string $domain      Домен.
+ * @return string
+ */
+function brix_plain_validation_label( string $translation, string $text, string $context, string $domain ): string {
+	if ( 'woocommerce' !== $domain || 'checkout-validation' !== $context ) {
+		return $translation;
+	}
+
+	return in_array( $text, array( 'Billing %s', 'Shipping %s' ), true ) ? '%s' : $translation;
+}
+add_filter( 'gettext_with_context', 'brix_plain_validation_label', 10, 4 );

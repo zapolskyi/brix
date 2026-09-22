@@ -1,4 +1,79 @@
 /**
+ * Checkout: спосіб отримання перемикає поля адреси.
+ *
+ * Без скрипта те саме робить кнопка «Оновити» — сторінка
+ * перемальовується з новим станом. Скрипт лише прибирає
+ * перезавантаження.
+ *
+ * Поля не видаляються, а ховаються: видалені довелося б відтворювати
+ * з нуля, разом із уже набраним текстом. Разом із полем знімається
+ * обов'язковість — інакше браузер відмовився б надсилати форму через
+ * порожнє поле, якого ніхто не бачить.
+ */
+(function () {
+  'use strict';
+
+  var section = document.getElementById('brix-delivery');
+  var address = document.getElementById('brix-address');
+  var panel = document.getElementById('brix-pickup');
+
+  if (!section || !address || !panel) {
+    return;
+  }
+
+  var radios = section.querySelectorAll('input[name^="shipping_method"]');
+  var required = ['billing_city', 'billing_address_1'];
+
+  /** Показує те, що потрібне обраному способу. */
+  function apply(pickup) {
+    address.hidden = pickup;
+    panel.hidden = !pickup;
+
+    required.forEach(function (id) {
+      var field = document.getElementById(id);
+
+      if (!field) {
+        return;
+      }
+
+      field.required = !pickup;
+
+      var row = field.closest('.form-row');
+
+      if (row) {
+        row.classList.toggle('validate-required', !pickup);
+      }
+    });
+
+    if (pickup) {
+      // Вибір міста й відділення більше не діє: наступного разу
+      // покупець обиратиме їх заново.
+      ['brix_np_city_ref', 'brix_np_warehouse_ref'].forEach(function (name) {
+        var hidden = document.querySelector('input[name="' + name + '"]');
+
+        if (hidden) {
+          hidden.value = '';
+        }
+      });
+    }
+  }
+
+  /** Стан за поточною відміткою. */
+  function sync() {
+    var checked = section.querySelector('input[name^="shipping_method"]:checked')
+      || section.querySelector('input[name^="shipping_method"][type="hidden"]');
+
+    apply(!!checked && checked.dataset.pickup === '1');
+  }
+
+  Array.prototype.forEach.call(radios, function (radio) {
+    radio.addEventListener('change', sync);
+  });
+
+  sync();
+})();
+
+/**
  * Checkout: вибір міста й відділення Нової Пошти.
  *
  * Власний випадайко, а не <datalist>. Причини дві.

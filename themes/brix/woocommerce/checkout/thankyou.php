@@ -46,8 +46,11 @@ $brix_failed = $order->has_status( 'failed' );
 			<p class="brix-lead brix-muted">
 				<?php
 				printf(
-					/* translators: 1 — номер замовлення, 2 — пошта покупця. */
-					esc_html__( 'Замовлення №%1$s. Номер накладної надішлемо на %2$s у день обсмаження.', 'brix' ),
+					'' !== brix_order_pickup_point( $order )
+						/* translators: 1 — номер замовлення, 2 — пошта покупця. */
+						? esc_html__( 'Замовлення №%1$s. Напишемо на %2$s, щойно його можна забирати.', 'brix' )
+						/* translators: 1 — номер замовлення, 2 — пошта покупця. */
+						: esc_html__( 'Замовлення №%1$s. Номер накладної надішлемо на %2$s у день обсмаження.', 'brix' ),
 					esc_html( $order->get_order_number() ),
 					esc_html( $order->get_billing_email() )
 				);
@@ -92,13 +95,23 @@ $brix_failed = $order->has_status( 'failed' );
 			</ul>
 
 			<?php
+			$brix_point   = brix_order_pickup_point( $order );
 			$brix_address = $order->get_formatted_shipping_address();
 
 			if ( ! $brix_address ) {
 				$brix_address = $order->get_formatted_billing_address();
 			}
 			?>
-			<?php if ( $brix_address ) : ?>
+			<?php if ( '' !== $brix_point ) : ?>
+				<?php $brix_pickup = brix_pickup_info(); ?>
+				<div class="brix-thanks__address">
+					<p class="brix-label"><?php esc_html_e( 'Звідки забирати', 'brix' ); ?></p>
+					<p class="brix-small brix-muted">
+						<?php echo esc_html( $brix_point ); ?><br>
+						<?php echo esc_html( $brix_pickup['hours'] ); ?>
+					</p>
+				</div>
+			<?php elseif ( $brix_address ) : ?>
 				<div class="brix-thanks__address">
 					<p class="brix-label"><?php esc_html_e( 'Куди', 'brix' ); ?></p>
 					<p class="brix-small brix-muted"><?php echo wp_kses_post( $brix_address ); ?></p>

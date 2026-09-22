@@ -40,6 +40,16 @@
 }
 
 // ——— поля WooCommerce ———
+// Платіжний блок містить два розділи — «Отримувач» і «Куди доставити».
+// Без власного проміжку підпис другого притискався до підказки під
+// поштою, і два питання читались як одне.
+.woocommerce-billing-fields,
+#customer_details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-16);
+}
+
 .woocommerce-billing-fields h3,
 .woocommerce-shipping-fields h3,
 .woocommerce-additional-fields h3 {
@@ -109,6 +119,7 @@
 
   .order-total th,
   .order-total td { font-size: 1.125rem; border-bottom: 0; }
+
 
   .product-name { line-height: 1.35; }
 }
@@ -251,6 +262,142 @@
 
     dt { @include label; margin-bottom: var(--brix-gap-2); }
     dd { margin: 0; font-size: 1.0625rem; font-weight: 600; }
+  }
+}
+
+// ——— спосіб отримання ———
+// Вибір стоїть перед полями, тож картки мають читатись як рішення, а
+// не як ще один рядок форми: власна рамка, помітна відмітка, ціна
+// праворуч на тій самій лінії, що й назва.
+.brix-ship {
+  &__title { font-size: var(--brix-fs-h3); }
+
+  &__options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-4);
+  }
+
+  &__option {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--brix-gap-6);
+    padding: var(--brix-gap-6);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+    cursor: pointer;
+
+    &:hover { border-color: var(--brix-roast); }
+
+    &:has(input:checked) {
+      border-color: var(--brix-roast);
+      box-shadow: inset 0 0 0 1px var(--brix-roast);
+    }
+
+    &:has(input:focus-visible) { outline: 2px solid var(--brix-focus); outline-offset: 2px; }
+
+    // Єдиний варіант приходить прихованим полем: гріди чекають на
+    // три колонки, тож першу треба прибрати разом із ним.
+    &:has(input[type='hidden']) { grid-template-columns: minmax(0, 1fr) auto; }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-2);
+    min-width: 0;
+  }
+
+  &__name { font-weight: 600; }
+
+  &__note {
+    font-size: var(--brix-fs-sm);
+    color: var(--brix-muted);
+  }
+
+  &__cost { white-space: nowrap; }
+
+  &__label {
+    display: block;
+    margin-bottom: var(--brix-gap-4);
+    font-weight: 600;
+  }
+
+  // Рядок у підсумку замовлення: назва зліва, ціна праворуч.
+  &__chosen { display: block; }
+
+  &__chosen-cost {
+    display: block;
+    font-size: var(--brix-fs-sm);
+    color: var(--brix-muted);
+  }
+
+  // Вибір у кошику — той самий список, але без карток: там він
+  // частина таблиці підсумків, а не окреме рішення сторінки.
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-2);
+
+    li {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: start;
+      gap: var(--brix-gap-4);
+    }
+
+    label {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--brix-gap-2) var(--brix-gap-4);
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    input[type='hidden'] + label { grid-column: 1 / -1; }
+  }
+}
+
+// Рядок відправлення в підсумках кошика й замовлення — одна комірка на
+// всю ширину. Підсумки вирівнюють числа праворуч моноширинним; спосіб
+// отримання — не число, тож тут це скасовано. Селектор навмисно
+// докладний: інакше його переважує правило td:last-child підсумків.
+.woocommerce-shipping-totals td.brix-ship__cell {
+  padding-block: var(--brix-gap-6);
+  text-align: left;
+  font-family: var(--brix-font-ui);
+}
+
+// ——— плашка самовивозу ———
+.brix-pickup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-4);
+  padding: var(--brix-gap-8);
+  border-radius: var(--brix-radius-lg);
+  background: var(--brix-bg-core);
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: var(--brix-gap-4);
+    margin: 0;
+
+    svg { flex: none; color: var(--brix-muted); }
+  }
+
+  &__note {
+    margin: 0;
+    font-size: var(--brix-fs-sm);
+    color: var(--brix-muted);
   }
 }
 

@@ -5,9 +5,10 @@
  * Override шаблону WooCommerce: двоколонкова розкладка з макета —
  * поля зліва, підсумок замовлення липким блоком справа.
  *
- * Вибір відділення Нової Пошти з'явиться тут на фазі 5; поки що
- * працюють стандартні методи доставки, і форма проходиться без
- * жодного JavaScript.
+ * Першим у лівій колонці стоїть спосіб отримання, бо він вирішує, що
+ * буде нижче: доставка питає місто й відділення Нової Пошти,
+ * самовивіз — нічого, крім контактів. Форма проходиться без жодного
+ * JavaScript; без нього спосіб отримання перемикає кнопка «Оновити».
  *
  * @package BRIX
  */
@@ -29,10 +30,12 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		<?php if ( $checkout->get_checkout_fields() ) : ?>
 			<?php do_action( 'woocommerce_checkout_before_customer_details' ); ?>
 
-			<section class="brix-checkout__block" id="customer_details">
+			<?php brix_delivery_section(); ?>
+
+			<div id="customer_details">
 				<?php do_action( 'woocommerce_checkout_billing' ); ?>
 				<?php do_action( 'woocommerce_checkout_shipping' ); ?>
-			</section>
+			</div>
 
 			<?php do_action( 'woocommerce_checkout_after_customer_details' ); ?>
 		<?php endif; ?>

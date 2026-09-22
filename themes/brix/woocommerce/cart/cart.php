@@ -156,7 +156,10 @@ $brix_progress = brix_free_shipping_progress();
 	</form>
 
 	<aside class="brix-cart__side">
-		<?php if ( ! $brix_progress['reached'] ) : ?>
+		<?php /* Самовивозу поріг безкоштовної доставки не стосується — підганяти покупця добирати до нього було б нечесно. */ ?>
+		<?php if ( brix_pickup_chosen() ) : ?>
+			<?php /* Нічого: спосіб отримання вже обрано, смуга тут не про нього. */ ?>
+		<?php elseif ( ! $brix_progress['reached'] ) : ?>
 			<div class="brix-shipbar">
 				<p class="brix-small">
 					<?php

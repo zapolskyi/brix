@@ -119,6 +119,8 @@ final class Plugin {
 				Product\LotMeta::class,
 				Product\Schema::class,
 				Shipping\NovaPoshta::class,
+				Shipping\Rates::class,
+				Shipping\Pickup::class,
 				Payments\Registrar::class,
 				Payments\CashOnDelivery::class,
 				Club\Subscription::class,

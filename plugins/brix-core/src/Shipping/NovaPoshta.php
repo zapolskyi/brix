@@ -53,9 +53,23 @@ final class NovaPoshta implements Module {
 	 */
 	public function validate(): void {
 		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce перевіряє сам WooCommerce у woocommerce_checkout_process.
+		$totals    = isset( $_POST['woocommerce_checkout_update_totals'] );
 		$city      = isset( $_POST['brix_np_city_ref'] ) ? sanitize_text_field( wp_unslash( $_POST['brix_np_city_ref'] ) ) : '';
 		$warehouse = isset( $_POST['brix_np_warehouse_ref'] ) ? sanitize_text_field( wp_unslash( $_POST['brix_np_warehouse_ref'] ) ) : '';
 		// phpcs:enable
+
+		// Натиснули «Оновити» в блоці способу отримання — покупець ще
+		// не закінчив заповнювати форму, і зауваження зараз були б
+		// доріканням за незроблене.
+		if ( $totals ) {
+			return;
+		}
+
+		// Самовивіз відділення не має. Поля з ним не показані, а старі
+		// ідентифікатори могли лишитись у формі з попереднього вибору.
+		if ( Pickup::chosen() ) {
+			return;
+		}
 
 		if ( ! Directory::has( Directory::CITY ) ) {
 			return;
@@ -94,6 +108,10 @@ final class NovaPoshta implements Module {
 	 */
 	public function save( \WC_Order $order, array $data ): void {
 		unset( $data );
+
+		if ( Pickup::chosen() ) {
+			return;
+		}
 
 		$fields = array(
 			'brix_np_city_ref'      => '_brix_np_city_ref',
