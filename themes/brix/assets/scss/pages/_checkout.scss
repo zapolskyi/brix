@@ -253,3 +253,29 @@
     dd { margin: 0; font-size: 1.0625rem; font-weight: 600; }
   }
 }
+
+// ——— вибір міста й відділення Нової Пошти ———
+// Випадайко висить під полем, тож контейнер має власну систему
+// координат і піднятий над сусідніми рядками форми.
+.brix-np {
+  position: relative;
+  z-index: 5;
+
+  &:focus-within { z-index: 10; }
+
+  &__list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + var(--brix-gap-2));
+    margin: 0;
+    padding: var(--brix-gap-4);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+    box-shadow: var(--brix-shadow-card);
+    max-height: 320px;
+
+    &:empty { display: none; }
+  }
+}

@@ -83,9 +83,11 @@ final class Directory {
 				area varchar(255) NOT NULL DEFAULT '',
 				category varchar(20) NOT NULL DEFAULT '',
 				search varchar(255) NOT NULL,
+				translit varchar(255) NOT NULL DEFAULT '',
 				PRIMARY KEY  (id),
 				UNIQUE KEY kind_ref (kind, ref),
 				KEY lookup (kind, search(60)),
+				KEY lookup_latin (kind, translit(60)),
 				KEY city (city_ref)
 			) {$collate};"
 		);
@@ -136,15 +138,18 @@ final class Directory {
 		$args   = array();
 
 		foreach ( $rows as $row ) {
-			$values[] = '(%s, %s, %s, %s, %s, %s, %s)';
+			$name = (string) ( $row['name'] ?? '' );
+
+			$values[] = '(%s, %s, %s, %s, %s, %s, %s, %s)';
 
 			$args[] = $kind;
 			$args[] = (string) ( $row['ref'] ?? '' );
 			$args[] = (string) ( $row['city_ref'] ?? '' );
-			$args[] = (string) ( $row['name'] ?? '' );
+			$args[] = $name;
 			$args[] = (string) ( $row['area'] ?? '' );
 			$args[] = (string) ( $row['category'] ?? '' );
-			$args[] = mb_strtolower( (string) ( $row['name'] ?? '' ) );
+			$args[] = mb_strtolower( $name );
+			$args[] = self::latin( $name );
 		}
 
 		/*
@@ -152,15 +157,30 @@ final class Directory {
 		 * у рядку їх шість, і жодне значення в SQL не потрапляє —
 		 * усе йде через $wpdb->prepare().
 		 */
-		$sql = "INSERT INTO {$table} (kind, ref, city_ref, name, area, category, search) VALUES "
+		$sql = "INSERT INTO {$table} (kind, ref, city_ref, name, area, category, search, translit) VALUES "
 			. implode( ', ', $values )
-			. ' ON DUPLICATE KEY UPDATE city_ref = VALUES(city_ref), name = VALUES(name), area = VALUES(area), category = VALUES(category), search = VALUES(search)';
+			. ' ON DUPLICATE KEY UPDATE city_ref = VALUES(city_ref), name = VALUES(name), area = VALUES(area), category = VALUES(category), search = VALUES(search), translit = VALUES(translit)';
 
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$written = (int) $wpdb->query( $wpdb->prepare( $sql, $args ) );
 		// phpcs:enable
 
 		return $written;
+	}
+
+	/**
+	 * Назва латиницею для пошуку.
+	 *
+	 * @param string $text Текст.
+	 * @return string
+	 */
+	public static function latin( string $text ): string {
+		/*
+		 * Дефіси й пробіли прибираються з обох боків порівняння:
+		 * «Біла Церква» транслітерується в «bila-tserkva», а покупець
+		 * набирає «bila tserkva» або «bilatserkva».
+		 */
+		return str_replace( '-', '', \Brix\Core\Support\Slug::latin( $text ) );
 	}
 
 	/**
@@ -174,22 +194,31 @@ final class Directory {
 		global $wpdb;
 
 		$table = self::table();
-		$like  = $wpdb->esc_like( mb_strtolower( trim( $query ) ) );
+		$query = trim( $query );
+		$like  = $wpdb->esc_like( mb_strtolower( $query ) );
+		$latin = $wpdb->esc_like( self::latin( $query ) );
 
 		/*
 		 * Спершу збіги з початку назви, потім будь-де: «Ніжин» має
 		 * стояти вище за «Нижній Ніжин» на запит «ніж».
+		 *
+		 * Шукаємо і в кириличній назві, і в транслітерації: покупець
+		 * однаково часто набирає «Житомир» і «Zhytomyr», а на
+		 * латиниці довідник мовчав узагалі.
 		 */
+
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT ref, name, area FROM {$table}
-				 WHERE kind = %s AND search LIKE %s
-				 ORDER BY (search LIKE %s) DESC, CHAR_LENGTH(name), name
+				 WHERE kind = %s AND ( search LIKE %s OR translit LIKE %s )
+				 ORDER BY ( search LIKE %s OR translit LIKE %s ) DESC, CHAR_LENGTH(name), name
 				 LIMIT %d",
 				self::CITY,
 				'%' . $like . '%',
+				$latin . '%',
 				$like . '%',
+				$latin . '%',
 				$limit
 			),
 			ARRAY_A
@@ -233,6 +262,32 @@ final class Directory {
 		// phpcs:enable
 
 		return is_array( $rows ) ? $rows : array();
+	}
+
+	/**
+	 * Чи належить відділення цьому місту.
+	 *
+	 * @param string $warehouse Ідентифікатор відділення.
+	 * @param string $city      Ідентифікатор міста.
+	 * @return bool
+	 */
+	public static function warehouse_in_city( string $warehouse, string $city ): bool {
+		global $wpdb;
+
+		$table = self::table();
+
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$found = (int) $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT COUNT(*) FROM {$table} WHERE kind = %s AND ref = %s AND city_ref = %s",
+				self::WAREHOUSE,
+				$warehouse,
+				$city
+			)
+		);
+		// phpcs:enable
+
+		return $found > 0;
 	}
 
 	/**

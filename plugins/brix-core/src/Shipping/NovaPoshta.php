@@ -37,6 +37,77 @@ final class NovaPoshta implements Module {
 		add_action( 'rest_api_init', array( $this, 'add_routes' ) );
 		add_filter( 'woocommerce_general_settings', array( $this, 'add_key_setting' ) );
 		add_action( 'admin_notices', array( $this, 'directory_notice' ) );
+		add_action( 'woocommerce_checkout_process', array( $this, 'validate' ) );
+		add_action( 'woocommerce_checkout_create_order', array( $this, 'save' ), 10, 2 );
+	}
+
+	/**
+	 * Перевіряє, що обране місто й відділення справді існують.
+	 *
+	 * Перевірка вмикається лише тоді, коли скрипт поклав у форму
+	 * ідентифікатори. Без JavaScript полів із ідентифікаторами немає,
+	 * і покупець пише адресу руками — вимагати від нього вибору зі
+	 * списку, якого він не бачить, було б знущанням.
+	 *
+	 * @return void
+	 */
+	public function validate(): void {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce перевіряє сам WooCommerce у woocommerce_checkout_process.
+		$city      = isset( $_POST['brix_np_city_ref'] ) ? sanitize_text_field( wp_unslash( $_POST['brix_np_city_ref'] ) ) : '';
+		$warehouse = isset( $_POST['brix_np_warehouse_ref'] ) ? sanitize_text_field( wp_unslash( $_POST['brix_np_warehouse_ref'] ) ) : '';
+		// phpcs:enable
+
+		if ( ! Directory::has( Directory::CITY ) ) {
+			return;
+		}
+
+		if ( '' === $city && '' === $warehouse ) {
+			return;
+		}
+
+		if ( '' === $city ) {
+			wc_add_notice( __( 'Оберіть місто зі списку — так ми точно знаємо, куди відправляти.', 'brix-core' ), 'error' );
+
+			return;
+		}
+
+		if ( '' === $warehouse ) {
+			wc_add_notice( __( 'Оберіть відділення зі списку.', 'brix-core' ), 'error' );
+
+			return;
+		}
+
+		if ( ! Directory::warehouse_in_city( $warehouse, $city ) ) {
+			wc_add_notice( __( 'Це відділення не належить обраному місту. Оберіть зі списку ще раз.', 'brix-core' ), 'error' );
+		}
+	}
+
+	/**
+	 * Зберігає ідентифікатори в замовленні.
+	 *
+	 * Назва відділення може змінитись, а ідентифікатор — ні. Саме за
+	 * ним колись створюватиметься накладна.
+	 *
+	 * @param \WC_Order            $order Замовлення.
+	 * @param array<string, mixed> $data  Дані checkout.
+	 * @return void
+	 */
+	public function save( \WC_Order $order, array $data ): void {
+		unset( $data );
+
+		$fields = array(
+			'brix_np_city_ref'      => '_brix_np_city_ref',
+			'brix_np_warehouse_ref' => '_brix_np_warehouse_ref',
+		);
+
+		foreach ( $fields as $field => $meta ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce перевіряє сам WooCommerce у процесі оформлення.
+			$value = isset( $_POST[ $field ] ) ? sanitize_text_field( wp_unslash( $_POST[ $field ] ) ) : '';
+
+			if ( '' !== $value ) {
+				$order->update_meta_data( $meta, $value );
+			}
+		}
 	}
 
 	/**
