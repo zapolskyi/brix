@@ -211,12 +211,13 @@ final class Directory {
 
 		$table = self::table();
 
-		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		/*
 		 * Спершу звичайні відділення, потім поштомати, потім решта:
 		 * «Відділення №1» покупець шукає частіше за поштомат, а
 		 * сортування лише за назвою ставило б «Поштомат №3559» вище.
 		 */
+
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT ref, name FROM {$table}
