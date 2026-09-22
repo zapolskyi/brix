@@ -197,11 +197,16 @@ final class Api {
 	 * Кеш тут навмисно не задіяний: вивантаження йде один раз і
 	 * засмітило б сховище транзієнтів сотнею сторінок.
 	 *
+	 * Разом із даними повертає `total` — скільки записів у довіднику
+	 * загалом. Без цього числа неможливо відрізнити кінець даних від
+	 * тимчасової відмови: Нова Пошта в обох випадках віддає порожній
+	 * масив.
+	 *
 	 * @param string $model  Модель.
 	 * @param string $method Метод.
 	 * @param int    $page   Сторінка, від 1.
 	 * @param int    $limit  Розмір сторінки.
-	 * @return array<int, array<string, mixed>>
+	 * @return array{rows: array<int, array<string, mixed>>, total: int}
 	 */
 	public function page( string $model, string $method, int $page, int $limit = 500 ): array {
 		$response = wp_remote_post(
@@ -223,16 +228,24 @@ final class Api {
 			)
 		);
 
+		$empty = array(
+			'rows'  => array(),
+			'total' => 0,
+		);
+
 		if ( is_wp_error( $response ) ) {
-			return array();
+			return $empty;
 		}
 
 		$body = json_decode( (string) wp_remote_retrieve_body( $response ), true );
 
 		if ( ! is_array( $body ) || empty( $body['success'] ) || ! isset( $body['data'] ) ) {
-			return array();
+			return $empty;
 		}
 
-		return (array) $body['data'];
+		return array(
+			'rows'  => (array) $body['data'],
+			'total' => (int) ( $body['info']['totalCount'] ?? 0 ),
+		);
 	}
 }

@@ -28,10 +28,34 @@ final class NovaPoshtaSync {
 	private const PAGE_SIZE = 500;
 
 	/**
+	 * Модель, яка віддає міста, — решта віддає відділення.
+	 */
+	private const CITY_MODEL = 'Address';
+
+	/**
+	 * Категорії, у яких покупець може забрати посилку.
+	 *
+	 * DropOff приймає відправлення, але не видає їх, а Fulfillment —
+	 * внутрішні склади Нової Пошти. Обидві в списку для покупця це
+	 * помилка: у Житомирі «Склад №1 (Фулфілмент)» стояв першим.
+	 */
+	private const PICKUP = array( 'Branch', 'Postomat', 'Store' );
+
+	/**
 	 * Стеля сторінок — запобіжник від нескінченного циклу, якщо API
 	 * почне віддавати ту саму сторінку.
 	 */
 	private const MAX_PAGES = 400;
+
+	/**
+	 * Пауза між сторінками, мікросекунд.
+	 */
+	private const PAUSE = 400000;
+
+	/**
+	 * Скільки разів перепитати сторінку, яка не прийшла.
+	 */
+	private const RETRIES = 6;
 
 	/**
 	 * Вивантажує довідник.
@@ -94,23 +118,90 @@ final class NovaPoshtaSync {
 	 * @return int
 	 */
 	private function sync_cities( Api $api ): int {
+		return $this->sync( $api, 'Address', 'getCities', Directory::CITY, 'Міста' );
+	}
+
+	/**
+	 * Загальний цикл вивантаження.
+	 *
+	 * Орієнтир — `totalCount` з відповіді, а не порожня сторінка:
+	 * Нова Пошта притримує часті запити й відповідає тим самим
+	 * порожнім масивом, яким позначає кінець даних. У першому прогоні
+	 * через це набралось 500 відділень із 54 678.
+	 *
+	 * @param Api    $api    Клієнт.
+	 * @param string $model  Модель.
+	 * @param string $method Метод.
+	 * @param string $kind   Вид записів у довіднику.
+	 * @param string $label  Підпис для журналу.
+	 * @return int
+	 */
+	private function sync( Api $api, string $model, string $method, string $kind, string $label ): int {
 		$total = 0;
 
 		for ( $page = 1; $page <= self::MAX_PAGES; $page++ ) {
-			$rows = $api->page( 'Address', 'getCities', $page, self::PAGE_SIZE );
+			$answer = $this->fetch( $api, $model, $method, $page );
+			$rows   = $answer['rows'];
 
 			if ( ! $rows ) {
 				break;
 			}
 
-			$total += Directory::put( Directory::CITY, $this->map_cities( $rows ) );
+			if ( $answer['total'] > 0 ) {
+				$total = $answer['total'];
+			}
 
-			\WP_CLI::log( sprintf( 'Міста: сторінка %d, усього %d', $page, Directory::count( Directory::CITY ) ) );
+			Directory::put( $kind, self::CITY_MODEL === $model ? $this->map_cities( $rows ) : $this->map_warehouses( $rows ) );
+
+			$have = Directory::count( $kind );
+
+			\WP_CLI::log( sprintf( '%s: сторінка %d, %d із %d', $label, $page, $have, $total ) );
+
+			// Кінець даних визначає лічильник, а не порожня відповідь.
+			if ( $total > 0 && $page * self::PAGE_SIZE >= $total ) {
+				break;
+			}
 		}
 
-		unset( $total );
+		return Directory::count( $kind );
+	}
 
-		return Directory::count( Directory::CITY );
+	/**
+	 * Читає сторінку, перепитуючи порожню відповідь.
+	 *
+	 * Нова Пошта притримує занадто часті запити й відповідає порожнім
+	 * масивом — тим самим, яким позначає кінець даних. Без повторів
+	 * вивантаження зупинялось на першому ж тротлінгу: у першому
+	 * прогоні так набралось 500 відділень замість сорока тисяч.
+	 *
+	 * @param Api    $api    Клієнт.
+	 * @param string $model  Модель.
+	 * @param string $method Метод.
+	 * @param int    $page   Сторінка.
+	 * @return array{rows: array<int, array<string, mixed>>, total: int}
+	 */
+	private function fetch( Api $api, string $model, string $method, int $page ): array {
+		$answer = array(
+			'rows'  => array(),
+			'total' => 0,
+		);
+
+		for ( $try = 1; $try <= self::RETRIES; $try++ ) {
+			$answer = $api->page( $model, $method, $page, self::PAGE_SIZE );
+
+			if ( $answer['rows'] ) {
+				usleep( self::PAUSE );
+
+				return $answer;
+			}
+
+			// Пауза росте з кожною спробою: якщо це справді кінець
+			// даних, ми втратимо кілька секунд; якщо тротлінг —
+			// дочекаємось.
+			usleep( self::PAUSE * $try * 4 );
+		}
+
+		return $answer;
 	}
 
 	/**
@@ -120,19 +211,7 @@ final class NovaPoshtaSync {
 	 * @return int
 	 */
 	private function sync_warehouses( Api $api ): int {
-		for ( $page = 1; $page <= self::MAX_PAGES; $page++ ) {
-			$rows = $api->page( 'AddressGeneral', 'getWarehouses', $page, self::PAGE_SIZE );
-
-			if ( ! $rows ) {
-				break;
-			}
-
-			Directory::put( Directory::WAREHOUSE, $this->map_warehouses( $rows ) );
-
-			\WP_CLI::log( sprintf( 'Відділення: сторінка %d, усього %d', $page, Directory::count( Directory::WAREHOUSE ) ) );
-		}
-
-		return Directory::count( Directory::WAREHOUSE );
+		return $this->sync( $api, 'AddressGeneral', 'getWarehouses', Directory::WAREHOUSE, 'Відділення' );
 	}
 
 	/**
@@ -172,9 +251,10 @@ final class NovaPoshtaSync {
 		$mapped = array();
 
 		foreach ( $rows as $row ) {
-			$ref = (string) ( $row['Ref'] ?? '' );
+			$ref      = (string) ( $row['Ref'] ?? '' );
+			$category = (string) ( $row['CategoryOfWarehouse'] ?? '' );
 
-			if ( '' === $ref ) {
+			if ( '' === $ref || ! in_array( $category, self::PICKUP, true ) ) {
 				continue;
 			}
 
@@ -183,6 +263,7 @@ final class NovaPoshtaSync {
 				'city_ref' => (string) ( $row['CityRef'] ?? '' ),
 				'name'     => (string) ( $row['Description'] ?? '' ),
 				'area'     => (string) ( $row['CityDescription'] ?? '' ),
+				'category' => $category,
 			);
 		}
 

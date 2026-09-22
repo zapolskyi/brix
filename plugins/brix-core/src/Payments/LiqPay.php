@@ -70,9 +70,10 @@ final class LiqPay extends \WC_Payment_Gateway {
 				'default' => 'no',
 			),
 			'title'       => array(
-				'title'   => __( 'Назва для покупця', 'brix-core' ),
-				'type'    => 'text',
-				'default' => __( 'Картка онлайн', 'brix-core' ),
+				'title'    => __( 'Назва для покупця', 'brix-core' ),
+				'type'     => 'text',
+				'default'  => __( 'Картка онлайн', 'brix-core' ),
+				'desc_tip' => __( 'Якщо ввімкнено кілька карткових способів, назви мають відрізнятись.', 'brix-core' ),
 			),
 			'description' => array(
 				'title'   => __( 'Опис', 'brix-core' ),

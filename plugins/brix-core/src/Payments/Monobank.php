@@ -74,7 +74,10 @@ final class Monobank extends \WC_Payment_Gateway {
 			'title'       => array(
 				'title'   => __( 'Назва для покупця', 'brix-core' ),
 				'type'    => 'text',
-				'default' => __( 'Картка онлайн', 'brix-core' ),
+				// Назва мусить відрізнятись від інших карткових
+				// способів: два однакові «Картка онлайн» у checkout
+				// виглядають як помилка сайту.
+				'default' => __( 'Картка · Apple Pay · Google Pay', 'brix-core' ),
 			),
 			'description' => array(
 				'title'   => __( 'Опис', 'brix-core' ),

@@ -81,6 +81,7 @@ final class Directory {
 				city_ref varchar(40) NOT NULL DEFAULT '',
 				name varchar(255) NOT NULL,
 				area varchar(255) NOT NULL DEFAULT '',
+				category varchar(20) NOT NULL DEFAULT '',
 				search varchar(255) NOT NULL,
 				PRIMARY KEY  (id),
 				UNIQUE KEY kind_ref (kind, ref),
@@ -135,13 +136,14 @@ final class Directory {
 		$args   = array();
 
 		foreach ( $rows as $row ) {
-			$values[] = '(%s, %s, %s, %s, %s, %s)';
+			$values[] = '(%s, %s, %s, %s, %s, %s, %s)';
 
 			$args[] = $kind;
 			$args[] = (string) ( $row['ref'] ?? '' );
 			$args[] = (string) ( $row['city_ref'] ?? '' );
 			$args[] = (string) ( $row['name'] ?? '' );
 			$args[] = (string) ( $row['area'] ?? '' );
+			$args[] = (string) ( $row['category'] ?? '' );
 			$args[] = mb_strtolower( (string) ( $row['name'] ?? '' ) );
 		}
 
@@ -150,9 +152,9 @@ final class Directory {
 		 * у рядку їх шість, і жодне значення в SQL не потрапляє —
 		 * усе йде через $wpdb->prepare().
 		 */
-		$sql = "INSERT INTO {$table} (kind, ref, city_ref, name, area, search) VALUES "
+		$sql = "INSERT INTO {$table} (kind, ref, city_ref, name, area, category, search) VALUES "
 			. implode( ', ', $values )
-			. ' ON DUPLICATE KEY UPDATE city_ref = VALUES(city_ref), name = VALUES(name), area = VALUES(area), search = VALUES(search)';
+			. ' ON DUPLICATE KEY UPDATE city_ref = VALUES(city_ref), name = VALUES(name), area = VALUES(area), category = VALUES(category), search = VALUES(search)';
 
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$written = (int) $wpdb->query( $wpdb->prepare( $sql, $args ) );
@@ -210,11 +212,16 @@ final class Directory {
 		$table = self::table();
 
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		/*
+		 * Спершу звичайні відділення, потім поштомати, потім решта:
+		 * «Відділення №1» покупець шукає частіше за поштомат, а
+		 * сортування лише за назвою ставило б «Поштомат №3559» вище.
+		 */
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT ref, name FROM {$table}
 				 WHERE kind = %s AND city_ref = %s
-				 ORDER BY CHAR_LENGTH(name), name
+				 ORDER BY FIELD(category, 'Branch', 'Postomat', 'Store'), CHAR_LENGTH(name), name
 				 LIMIT %d",
 				self::WAREHOUSE,
 				$city,
