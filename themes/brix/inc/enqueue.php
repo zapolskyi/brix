@@ -20,6 +20,10 @@ function brix_enqueue_assets(): void {
 		brix_asset_version( 'assets/css/main.css' )
 	);
 
+	// Основний файл вантажиться не блокуючи промальовку — перший
+	// екран малює критичний CSS, вбудований у <head>.
+	wp_style_add_data( 'brix-main', 'brix_defer', true );
+
 	wp_enqueue_script(
 		'brix-app',
 		brix_asset_uri( 'assets/js/app.js' ),
@@ -189,3 +193,55 @@ function brix_enqueue_quiz_script(): void {
 		)
 	);
 }
+
+/**
+ * Вбудовує критичний CSS у <head>.
+ *
+ * 14 КБ інлайном замість очікування 92 КБ зовнішнього файлу: перший
+ * екран малюється одразу, решта стилів доганяє. Файл збирається
+ * командою npm run css:critical з окремого точкового входу.
+ *
+ * @return void
+ */
+function brix_inline_critical(): void {
+	$path = BRIX_DIR . '/assets/css/critical.css';
+
+	if ( ! is_readable( $path ) ) {
+		return;
+	}
+
+	$css = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Локальний файл теми, не віддалений ресурс.
+
+	if ( ! $css ) {
+		return;
+	}
+
+	printf( "<style id=\"brix-critical\">%s</style>\n", $css ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Власний CSS теми.
+}
+add_action( 'wp_head', 'brix_inline_critical', 2 );
+
+/**
+ * Перетворює основний стиль на відкладений.
+ *
+ * `rel="preload"` не блокує промальовку, а `onload` перемикає його на
+ * звичайний стиль. Без JavaScript спрацьовує <noscript> — тож
+ * сторінка лишається оформленою в будь-якому випадку.
+ *
+ * @param string $tag    Тег.
+ * @param string $handle Ідентифікатор стилю.
+ * @return string
+ */
+function brix_defer_style( string $tag, string $handle ): string {
+	if ( ! wp_styles()->get_data( $handle, 'brix_defer' ) || is_admin() ) {
+		return $tag;
+	}
+
+	$deferred = str_replace(
+		"rel='stylesheet'",
+		"rel='preload' as='style' onload=\"this.onload=null;this.rel='stylesheet'\"",
+		$tag
+	);
+
+	return $deferred . '<noscript>' . $tag . '</noscript>' . "\n";
+}
+add_filter( 'style_loader_tag', 'brix_defer_style', 10, 2 );

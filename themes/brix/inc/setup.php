@@ -142,3 +142,40 @@ function brix_nav_link_attributes( array $atts, $item, $args ): array {
 	return $atts;
 }
 add_filter( 'nav_menu_link_attributes', 'brix_nav_link_attributes', 10, 3 );
+
+/**
+ * Віддає завантажені фото у WebP.
+ *
+ * Пачки кави в темі намальовані на CSS, тож справжніх зображень тут
+ * небагато — але ті, що є, важать удвічі менше у WebP при тій самій
+ * якості. Оригінал WordPress зберігає, тож нічого не втрачається.
+ *
+ * @param array<string, string> $formats Відповідність типів.
+ * @return array<string, string>
+ */
+function brix_webp_output( array $formats ): array {
+	$formats['image/jpeg'] = 'image/webp';
+	$formats['image/png']  = 'image/webp';
+
+	return $formats;
+}
+add_filter( 'image_editor_output_format', 'brix_webp_output' );
+
+/**
+ * Розміри зображень у сітці каталогу.
+ *
+ * Без цього браузер бачить `sizes="(max-width: 520px) 100vw, 520px"`
+ * від WordPress і на десктопі тягне зайве: у сітці на чотири колонки
+ * картка вужча за 520px майже завжди.
+ *
+ * @param string $sizes Значення атрибута.
+ * @return string
+ */
+function brix_card_sizes( string $sizes ): string {
+	if ( ! brix_has_woocommerce() || ! ( is_shop() || is_product_taxonomy() ) ) {
+		return $sizes;
+	}
+
+	return '(max-width: 480px) 90vw, (max-width: 1024px) 45vw, 300px';
+}
+add_filter( 'wp_calculate_image_sizes', 'brix_card_sizes' );
