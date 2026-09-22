@@ -2,9 +2,10 @@
 /**
  * Перемикач «разова покупка / підписка BRIX Club».
  *
- * Поки що показує різницю в ціні й веде на сторінку клубу: сама
- * підписка — фаза 6. Показувати перемикач уже зараз варто, бо він
- * є в макеті картки товару й формує очікування покупця.
+ * Радіокнопки, а не посилання: вибір їде разом із формою покупки, тож
+ * підписка оформлюється тим самим натиском «Додати в кошик» і працює
+ * без JavaScript. Підписка — не окремий товар, а позначка на
+ * звичайному лоті.
  *
  * @package BRIX
  */
@@ -23,17 +24,21 @@ if ( ! $brix_product instanceof WC_Product || ! $brix_product->get_price() ) {
  * @param int $discount Відсоток.
  */
 $brix_discount = (int) apply_filters( 'brix_club_discount', 10 );
-$brix_club     = (float) $brix_product->get_price() * ( 100 - $brix_discount ) / 100;
-$brix_club_url = get_page_by_path( 'club' );
+$brix_price    = (float) $brix_product->get_price();
+$brix_club     = $brix_price * ( 100 - $brix_discount ) / 100;
 ?>
 
-<div class="brix-plans">
-	<div class="brix-plans__option is-active">
-		<span class="brix-plans__label"><?php esc_html_e( 'Разова покупка', 'brix' ); ?></span>
-		<b class="brix-mono"><?php echo esc_html( wp_strip_all_tags( wc_price( (float) $brix_product->get_price() ) ) ); ?></b>
-	</div>
+<fieldset class="brix-plans">
+	<legend class="brix-visually-hidden"><?php esc_html_e( 'Як купуєте', 'brix' ); ?></legend>
 
-	<a class="brix-plans__option" href="<?php echo esc_url( $brix_club_url ? (string) get_permalink( $brix_club_url ) : home_url( '/club/' ) ); ?>">
+	<label class="brix-plans__option">
+		<input type="radio" name="brix_club" value="0" checked>
+		<span class="brix-plans__label"><?php esc_html_e( 'Разова покупка', 'brix' ); ?></span>
+		<b class="brix-mono"><?php echo esc_html( wp_strip_all_tags( wc_price( $brix_price ) ) ); ?></b>
+	</label>
+
+	<label class="brix-plans__option">
+		<input type="radio" name="brix_club" value="14">
 		<span class="brix-plans__label">
 			<?php esc_html_e( 'BRIX Club · кожні 2 тижні', 'brix' ); ?>
 			<small class="brix-muted">
@@ -47,5 +52,22 @@ $brix_club_url = get_page_by_path( 'club' );
 			</small>
 		</span>
 		<b class="brix-mono"><?php echo esc_html( wp_strip_all_tags( wc_price( round( $brix_club ) ) ) ); ?></b>
-	</a>
-</div>
+	</label>
+
+	<label class="brix-plans__option">
+		<input type="radio" name="brix_club" value="28">
+		<span class="brix-plans__label">
+			<?php esc_html_e( 'BRIX Club · кожні 4 тижні', 'brix' ); ?>
+			<small class="brix-muted">
+				<?php
+				printf(
+					/* translators: %d — відсоток знижки. */
+					esc_html__( '−%d%%, той самий лот або новий щоразу', 'brix' ),
+					absint( $brix_discount )
+				);
+				?>
+			</small>
+		</span>
+		<b class="brix-mono"><?php echo esc_html( wp_strip_all_tags( wc_price( round( $brix_club ) ) ) ); ?></b>
+	</label>
+</fieldset>

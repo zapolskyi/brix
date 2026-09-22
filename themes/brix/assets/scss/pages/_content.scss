@@ -789,3 +789,45 @@
   opacity: 0.55;
   transition: opacity var(--brix-dur) var(--brix-ease);
 }
+
+// Підписки BRIX Club у кабінеті.
+.brix-account__club {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-6);
+  margin-bottom: var(--brix-gap-16);
+}
+
+.brix-sub-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-4);
+  padding: var(--brix-gap-8);
+  border: 1px solid var(--brix-line);
+  border-radius: var(--brix-radius-lg);
+  background: var(--brix-paper);
+
+  p { margin: 0; }
+
+  &__name {
+    margin: 0;
+    font-family: var(--brix-font-ui);
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--brix-gap-4);
+  }
+
+  &__cancel {
+    margin-left: auto;
+    font-size: 0.875rem;
+    color: var(--brix-muted);
+
+    &:hover { color: var(--brix-error); }
+  }
+}

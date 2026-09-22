@@ -159,14 +159,20 @@ $brix_left    = brix_stock_left( $brix_current );
 		<?php endif; ?>
 	<?php endif; ?>
 
-	<?php get_template_part( 'template-parts/product/subscription', null, array( 'product' => $brix_current ) ); ?>
-
 	<?php if ( $brix_variable && ! $brix_variation ) : ?>
 		<p class="brix-buy__unavailable"><?php esc_html_e( 'Такої комбінації немає. Оберіть іншу вагу або помел.', 'brix' ); ?></p>
 	<?php elseif ( ! $brix_current->is_in_stock() ) : ?>
 		<p class="brix-buy__unavailable"><?php esc_html_e( 'Лот закінчився. Напишіть нам — підкажемо схожий.', 'brix' ); ?></p>
 	<?php else : ?>
 		<form class="brix-buy__form" method="post" action="<?php echo esc_url( wc_get_cart_url() ); ?>">
+			<?php
+			/*
+			 * Перемикач плану всередині форми: вибір підписки має
+			 * доїхати до кошика разом із кількістю й варіацією.
+			 */
+			get_template_part( 'template-parts/product/subscription', null, array( 'product' => $brix_current ) );
+			?>
+
 			<?php
 			brix_quantity_stepper(
 				array(

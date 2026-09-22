@@ -135,10 +135,18 @@
 // ——— разова покупка / підписка ———
 .brix-plans {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  // Три плани: разова покупка й два інтервали підписки.
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--brix-gap-4);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  // Fieldset усередині flex-форми не стискається без цього:
+  // min-width у нього за замовчуванням min-content.
+  min-width: 0;
+  flex: 1 1 100%;
 
-  @include upto($bp-sm) { grid-template-columns: 1fr; }
+  @include upto($bp-lg) { grid-template-columns: 1fr; }
 
   &__option {
     display: flex;
@@ -150,9 +158,24 @@
     border-radius: var(--brix-radius-lg);
     color: var(--brix-roast);
 
+    cursor: pointer;
+
+    // Радіокнопку ховаємо, але лишаємо доступною з клавіатури:
+    // роль перемикача бере на себе вся картка плану.
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &:has(input:checked),
     &.is-active {
       border-color: var(--brix-roast);
       background: var(--brix-paper);
+    }
+
+    &:has(input:focus-visible) {
+      @include focus-ring;
     }
 
     &:hover { border-color: var(--brix-roast); color: var(--brix-roast); }

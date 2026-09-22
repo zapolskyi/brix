@@ -33,6 +33,68 @@ $brix_orders = wc_get_orders(
 		<?php esc_html_e( 'Тут ваші замовлення, адреси й підписка. Повторити попереднє замовлення — одна кнопка.', 'brix' ); ?>
 	</p>
 
+	<?php $brix_subs = brix_has_core() ? \Brix\Core\Club\Subscription::for_user( get_current_user_id() ) : array(); ?>
+	<?php if ( $brix_subs ) : ?>
+		<section class="brix-account__club">
+			<h3 class="brix-label"><?php esc_html_e( 'BRIX Club', 'brix' ); ?></h3>
+
+			<?php
+			foreach ( $brix_subs as $brix_sub ) :
+				$brix_data = \Brix\Core\Club\Subscription::data( $brix_sub->ID );
+
+				if ( \Brix\Core\Club\Subscription::CANCELLED === $brix_data['status'] ) {
+					continue;
+				}
+
+				$brix_paused = \Brix\Core\Club\Subscription::PAUSED === $brix_data['status'];
+				?>
+				<article class="brix-sub-card">
+					<h4 class="brix-sub-card__name">
+						<?php echo esc_html( $brix_data['product'] ? $brix_data['product']->get_name() : __( 'Лот недоступний', 'brix' ) ); ?>
+					</h4>
+
+					<p class="brix-small brix-muted">
+						<?php
+						if ( $brix_paused ) {
+							esc_html_e( 'На паузі', 'brix' );
+						} else {
+							printf(
+								/* translators: 1 — інтервал у тижнях, 2 — дата наступної відправки. */
+								esc_html__( 'Кожні %1$d тижні · наступна %2$s', 'brix' ),
+								absint( $brix_data['interval'] / 7 ),
+								esc_html( date_i18n( 'd.m.Y', $brix_data['next'] ) )
+							);
+						}
+						?>
+					</p>
+
+					<p class="brix-sub-card__actions">
+						<?php if ( $brix_paused ) : ?>
+							<a class="brix-btn brix-btn--outline brix-btn--sm"
+								href="<?php echo esc_url( \Brix\Core\Club\Actions::url( $brix_sub->ID, 'resume' ) ); ?>">
+								<?php esc_html_e( 'Відновити', 'brix' ); ?>
+							</a>
+						<?php else : ?>
+							<a class="brix-btn brix-btn--outline brix-btn--sm"
+								href="<?php echo esc_url( \Brix\Core\Club\Actions::url( $brix_sub->ID, 'skip' ) ); ?>">
+								<?php esc_html_e( 'Пропустити', 'brix' ); ?>
+							</a>
+							<a class="brix-btn brix-btn--outline brix-btn--sm"
+								href="<?php echo esc_url( \Brix\Core\Club\Actions::url( $brix_sub->ID, 'pause' ) ); ?>">
+								<?php esc_html_e( 'Пауза', 'brix' ); ?>
+							</a>
+						<?php endif; ?>
+
+						<a class="brix-sub-card__cancel"
+							href="<?php echo esc_url( \Brix\Core\Club\Actions::url( $brix_sub->ID, 'cancel' ) ); ?>">
+							<?php esc_html_e( 'Скасувати', 'brix' ); ?>
+						</a>
+					</p>
+				</article>
+			<?php endforeach; ?>
+		</section>
+	<?php endif; ?>
+
 	<?php $brix_quiz = function_exists( 'brix_quiz_saved' ) ? brix_quiz_saved() : array(); ?>
 	<?php if ( $brix_quiz ) : ?>
 		<section class="brix-account__quiz">
