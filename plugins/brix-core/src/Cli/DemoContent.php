@@ -72,12 +72,64 @@ final class DemoContent {
 		$this->import_guides();
 		$this->import_products();
 		$this->import_reviews();
+		$this->import_users();
 
 		// Нові типи записів і таксономії дають 404, доки правила
 		// перезапису не перебудовано.
 		flush_rewrite_rules();
 
 		\WP_CLI::success( 'Демо-контент на місці.' );
+	}
+
+	/**
+	 * Створює демо-акаунти покупця й оптового клієнта.
+	 *
+	 * @return void
+	 */
+	private function import_users(): void {
+		$people = array(
+			array(
+				'login' => 'demo',
+				'email' => 'demo@brix.local',
+				'name'  => 'Олена Ковальчук',
+				'role'  => 'customer',
+			),
+			array(
+				'login' => 'demo-b2b',
+				'email' => 'b2b@brix.local',
+				'name'  => 'Кавʼярня «Пірс»',
+				'role'  => \Brix\Core\Wholesale\Role::ROLE,
+			),
+		);
+
+		$created = 0;
+
+		foreach ( $people as $person ) {
+			if ( get_user_by( 'email', $person['email'] ) ) {
+				continue;
+			}
+
+			/*
+			 * Пароль випадковий і нікуди не виводиться: власник задає
+			 * свій через адмінку. Демо-акаунт із відомим паролем у
+			 * репозиторії — це запрошення зайти під ним.
+			 */
+			$id = wp_insert_user(
+				array(
+					'user_login'   => $person['login'],
+					'user_email'   => $person['email'],
+					'user_pass'    => wp_generate_password( 24 ),
+					'display_name' => $person['name'],
+					'role'         => $person['role'],
+				)
+			);
+
+			if ( ! is_wp_error( $id ) ) {
+				++$created;
+			}
+		}
+
+		\WP_CLI::log( sprintf( 'Демо-акаунти: %d нових, усього 2.', $created ) );
 	}
 
 	/**
