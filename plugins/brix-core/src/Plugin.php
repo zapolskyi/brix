@@ -121,6 +121,8 @@ final class Plugin {
 				Shipping\NovaPoshta::class,
 				Payments\Registrar::class,
 				Payments\CashOnDelivery::class,
+				Orders\Repeat::class,
+				Emails\RestockReminder::class,
 				Wholesale\Application::class,
 				Wholesale\Role::class,
 				Wholesale\Pricing::class,

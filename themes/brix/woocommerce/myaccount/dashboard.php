@@ -78,6 +78,15 @@ $brix_orders = wc_get_orders(
 							<span class="brix-tag brix-tag--soft"><?php echo esc_html( wc_get_order_status_name( $brix_order->get_status() ) ); ?></span>
 						</p>
 
+						<?php if ( brix_has_core() ) : ?>
+							<p class="brix-order-card__repeat">
+								<a class="brix-btn brix-btn--outline brix-btn--sm"
+									href="<?php echo esc_url( \Brix\Core\Orders\Repeat::url( $brix_order ) ); ?>">
+									<?php esc_html_e( 'Повторити замовлення', 'brix' ); ?>
+								</a>
+							</p>
+						<?php endif; ?>
+
 						<?php
 						/*
 						 * «Повторити» доступне лише для сплачених замовлень:

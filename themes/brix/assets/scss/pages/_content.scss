@@ -766,3 +766,8 @@
     b { font-size: 1.0625rem; }
   }
 }
+
+// Кнопка повторення в картці замовлення.
+.brix-order-card__repeat {
+  margin: var(--brix-gap-6) 0 0;
+}
