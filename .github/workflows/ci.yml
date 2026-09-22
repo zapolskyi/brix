@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  php:
+    name: PHP — стандарти коду
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: cs2pr
+          coverage: none
+
+      # Тема й плагін не мають власних залежностей у рантаймі —
+      # composer тут лише щоб поставити сам PHPCS зі стандартами.
+      - name: Інструменти перевірки
+        run: |
+          composer global require --no-interaction --no-progress \
+            squizlabs/php_codesniffer \
+            wp-coding-standards/wpcs:"^3.1" \
+            phpcompatibility/phpcompatibility-wp:"^2.1" \
+            dealerdirect/phpcodesniffer-composer-installer:"^1.0"
+          echo "$HOME/.composer/vendor/bin" >> "$GITHUB_PATH"
+
+      - name: Синтаксис PHP
+        run: find themes/brix plugins/brix-core -name '*.php' -not -path '*/vendor/*' -print0 | xargs -0 -n1 php -l
+
+      - name: PHPCS
+        run: phpcs --standard=phpcs.xml.dist --report=checkstyle | cs2pr
+
+  assets:
+    name: Складання стилів і синтаксис JS
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Залежності
+        working-directory: themes/brix
+        run: npm ci || npm install
+
+      - name: Складання CSS
+        working-directory: themes/brix
+        run: npm run build
+
+      # Скомпільований CSS комітиться, тож він має збігатися з
+      # джерелом: інакше на хостинг поїде застарілий файл.
+      - name: Чи CSS відповідає джерелу
+        run: |
+          if ! git diff --quiet -- themes/brix/assets/css; then
+            echo 'assets/css відрізняється від складеного з SCSS. Запустіть npm run build і закомітьте результат.'
+            git --no-pager diff --stat -- themes/brix/assets/css
+            exit 1
+          fi
+
+      - name: Синтаксис JS
+        working-directory: themes/brix
+        run: for f in assets/js/*.js tools/*.mjs; do node --check "$f" || exit 1; done
