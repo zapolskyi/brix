@@ -35,6 +35,7 @@ if ( brix_has_woocommerce() ) {
 	require_once BRIX_DIR . '/inc/variations.php';
 	require_once BRIX_DIR . '/inc/product-rest.php';
 	require_once BRIX_DIR . '/inc/cart.php';
+	require_once BRIX_DIR . '/inc/account.php';
 	require_once BRIX_DIR . '/inc/cart-rest.php';
 	require_once BRIX_DIR . '/inc/checkout.php';
 	require_once BRIX_DIR . '/inc/home.php';
