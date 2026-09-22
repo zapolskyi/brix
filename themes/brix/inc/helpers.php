@@ -195,3 +195,12 @@ function brix_is_shop_ui_page(): bool {
 
 	return is_cart() || is_checkout() || is_account_page();
 }
+
+/**
+ * Чи це сторінка подяки після оформлення замовлення.
+ *
+ * @return bool
+ */
+function brix_is_order_received_page(): bool {
+	return brix_has_woocommerce() && is_order_received_page();
+}

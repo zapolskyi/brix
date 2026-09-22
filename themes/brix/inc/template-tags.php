@@ -92,6 +92,27 @@ function brix_bag_count(): int {
 }
 
 /**
+ * Лічильник над іконкою кошика.
+ *
+ * Винесено окремо, бо цей самий шматок віддає REST після додавання
+ * товару без перезавантаження — і малюється він тим самим кодом.
+ *
+ * @return void
+ */
+function brix_bag_badge(): void {
+	$count = brix_bag_count();
+
+	if ( $count < 1 ) {
+		return;
+	}
+
+	printf(
+		'<em class="brix-bag__count" aria-hidden="true">%s</em>',
+		esc_html( (string) $count )
+	);
+}
+
+/**
  * Іконка з набору теми.
  *
  * Іконки інлайняться в розмітку, а не тягнуться спрайтом: їх мало,

@@ -135,3 +135,18 @@ function brix_checkout_item_name( string $name, array $cart_item ): string {
 
 	return $out;
 }
+
+/**
+ * Прибирає стандартні таблиці із сторінки подяки.
+ *
+ * WooCommerce друкує там «Подробиці замовлення» й «Платіжна адреса»
+ * власною розміткою. Вона дублює те, що сторінка вже показала зверху,
+ * і приходить без наших стилів — заголовки таблиці виходять кеглем
+ * заголовка сторінки. Замість неї шаблон малює свій компактний список.
+ *
+ * @return void
+ */
+function brix_strip_default_thankyou(): void {
+	remove_action( 'woocommerce_thankyou', 'woocommerce_order_details_table', 10 );
+}
+add_action( 'wp', 'brix_strip_default_thankyou' );

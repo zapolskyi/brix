@@ -15,9 +15,18 @@ while ( have_posts() ) :
 
 	<article <?php post_class( 'brix-section brix-section--tight' ); ?>>
 		<div class="brix-wrap">
-			<header class="brix-section__head">
-				<h1><?php the_title(); ?></h1>
-			</header>
+			<?php
+			/*
+			 * Сторінка подяки малює власний заголовок — змістовніший
+			 * за «Замовлення отримано». Дві <h1> на сторінці збивають
+			 * і читалку, і структуру документа.
+			 */
+			?>
+			<?php if ( ! brix_is_order_received_page() ) : ?>
+				<header class="brix-section__head">
+					<h1><?php the_title(); ?></h1>
+				</header>
+			<?php endif; ?>
 
 			<div class="<?php echo brix_is_shop_ui_page() ? 'brix-page-ui' : 'brix-prose'; ?>">
 				<?php

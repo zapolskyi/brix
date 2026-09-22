@@ -191,3 +191,65 @@
 
 .woocommerce-form-login-toggle,
 .woocommerce-form-coupon-toggle { margin-bottom: var(--brix-gap-8); }
+
+// ——— сторінка подяки ———
+.brix-thanks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-12);
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-4);
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-6);
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: var(--brix-gap-4);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--brix-gap-8);
+      padding-bottom: var(--brix-gap-4);
+      border-bottom: 1px solid var(--brix-line);
+    }
+
+    p { margin: 0; }
+
+  }
+
+  &__address {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-2);
+
+    p { margin: 0; }
+  }
+
+  &__name { font-weight: 500; }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-16);
+    margin: 0;
+    padding: var(--brix-gap-8) 0;
+    border-block: 1px solid var(--brix-line);
+
+    dt { @include label; margin-bottom: var(--brix-gap-2); }
+    dd { margin: 0; font-size: 1.0625rem; font-weight: 600; }
+  }
+}

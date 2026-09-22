@@ -91,13 +91,10 @@ defined( 'ABSPATH' ) || exit;
 				<span class="brix-visually-hidden"><?php esc_html_e( 'Мій кабінет', 'brix' ); ?></span>
 			</a>
 
-			<?php $brix_bag = brix_bag_count(); ?>
-			<a class="brix-iconbtn brix-bag" href="<?php echo esc_url( wc_get_cart_url() ); ?>">
+			<a class="brix-iconbtn brix-bag" href="<?php echo esc_url( wc_get_cart_url() ); ?>" data-brix-bag>
 				<?php echo brix_icon( 'bag' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				<span class="brix-visually-hidden"><?php esc_html_e( 'Кошик', 'brix' ); ?></span>
-				<?php if ( $brix_bag > 0 ) : ?>
-					<em class="brix-bag__count" aria-hidden="true"><?php echo esc_html( (string) $brix_bag ); ?></em>
-				<?php endif; ?>
+				<?php brix_bag_badge(); ?>
 			</a>
 		<?php endif; ?>
 

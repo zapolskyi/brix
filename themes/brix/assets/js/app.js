@@ -252,10 +252,92 @@
     });
   }
 
+  /**
+   * Додавання в кошик без перезавантаження.
+   *
+   * Кнопка на картці — звичайне посилання на ?add-to-cart=, і без
+   * цього скрипта вона працює як працювала. Тут лише перехоплення:
+   * кладемо товар запитом і оновлюємо лічильник у шапці.
+   */
+  function initAddToCart() {
+    var bag = document.querySelector('[data-brix-bag]');
+
+    if (!bag || !window.brixData || !window.fetch) {
+      return;
+    }
+
+    document.addEventListener('click', function (event) {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) {
+        return;
+      }
+
+      var link = event.target.closest('[data-brix-add]');
+
+      if (!link) {
+        return;
+      }
+
+      event.preventDefault();
+
+      var id = link.getAttribute('data-brix-add');
+
+      link.classList.add('is-busy');
+
+      fetch(window.brixData.restUrl + 'cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-WP-Nonce': window.brixData.nonce,
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ id: Number(id), quantity: 1 }),
+      })
+        .then(function (response) {
+          return response.json().then(function (data) {
+            return response.ok ? data : Promise.reject(new Error(data.message || 'HTTP ' + response.status));
+          });
+        })
+        .then(function (data) {
+          var badge = bag.querySelector('.brix-bag__count');
+
+          if (badge) {
+            badge.remove();
+          }
+
+          bag.insertAdjacentHTML('beforeend', data.badge);
+          announce(data.name + ' — додано в кошик. Разом у кошику: ' + data.count + '.');
+        })
+        .catch(function () {
+          // Не вийшло — віддаємо керування браузеру, як без скрипта.
+          window.location.assign(link.href);
+        })
+        .then(function () {
+          link.classList.remove('is-busy');
+        });
+    });
+  }
+
+  /** Повідомляє читалці про зміну, якої не видно в потоці сторінки. */
+  function announce(message) {
+    var region = document.getElementById('brix-live');
+
+    if (!region) {
+      region = document.createElement('p');
+      region.id = 'brix-live';
+      region.className = 'brix-visually-hidden';
+      region.setAttribute('role', 'status');
+      region.setAttribute('aria-live', 'polite');
+      document.body.appendChild(region);
+    }
+
+    region.textContent = message;
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initMobileNav();
     initSteppers();
     initSearch();
+    initAddToCart();
   });
 
   // Модулі, які перемальовують шматки сторінки, повідомляють про це
