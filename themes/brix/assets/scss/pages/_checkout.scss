@@ -37,6 +37,11 @@
   }
 
   &__title { font-size: var(--brix-fs-h3); }
+
+  // Повідомлення, які checkout.js вставляє першим дочірнім елементом
+  // форми, займають усю ширину. Без цього повідомлення сідало в ліву
+  // колонку, поля з'їжджали у вузьку праву, а підсумок — під них.
+  > :not(.brix-checkout__fields, .brix-checkout__summary) { grid-column: 1 / -1; }
 }
 
 // ——— поля WooCommerce ———
@@ -141,25 +146,28 @@
     padding: 0;
   }
 
-  .wc_payment_method > label {
-    display: flex;
-    align-items: center;
-    gap: var(--brix-gap-6);
-    padding: var(--brix-gap-6) var(--brix-gap-8);
-    border: 1.5px solid var(--brix-line);
-    border-radius: var(--brix-radius-lg);
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  .wc_payment_method input:checked + label { border-color: var(--brix-roast); }
-
   .payment_box {
     padding: var(--brix-gap-6) var(--brix-gap-8);
     font-size: 0.875rem;
     color: var(--brix-muted);
 
     p { margin: 0; }
+  }
+
+  // Чому зник якийсь спосіб — пояснення поряд зі способами, а не
+  // повідомленням над формою.
+  .place-order {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // Пояснення друкується хуком після умов продажу, а читатись має
+  // одразу під способами оплати, до яких воно стосується.
+  .brix-pay-note {
+    order: -1;
+    margin: 0 0 var(--brix-gap-8);
+    font-size: var(--brix-fs-sm);
+    color: var(--brix-muted);
   }
 
   #place_order {
@@ -177,6 +185,69 @@
     cursor: pointer;
 
     &:hover { background: var(--brix-cherry-d); }
+  }
+}
+
+// Картка способу оплати — та сама, що й картка способу отримання
+// вище: одна мова вибору на всю сторінку. Кружок стоїть поверх
+// картки, а не в ній, бо WooCommerce шукає його поряд із <label>.
+.brix-pay {
+  position: relative;
+
+  &__input {
+    position: absolute;
+    top: calc(var(--brix-gap-6) + 3px);
+    left: var(--brix-gap-6);
+    z-index: 1;
+  }
+
+  &__card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: var(--brix-gap-6);
+    padding: var(--brix-gap-6);
+    padding-inline-start: calc(var(--brix-gap-6) + 18px + var(--brix-gap-6));
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+    cursor: pointer;
+    transition: border-color var(--brix-dur) var(--brix-ease);
+
+    &:hover { border-color: var(--brix-roast); }
+  }
+
+  // Єдиний спосіб WooCommerce показує без кружка — вибирати нема
+  // з чого. Місце під кружок тоді теж зайве.
+  &:only-child &__card { padding-inline-start: var(--brix-gap-6); }
+
+  &__input:checked + &__card {
+    border-color: var(--brix-roast);
+    box-shadow: inset 0 0 0 1px var(--brix-roast);
+  }
+
+  // Фокус видно на всій картці: самого кружка для клавіатури мало.
+  &__input:focus-visible { outline: 0; }
+  &__input:focus-visible + &__card { @include focus-ring(2px); }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-2);
+    min-width: 0;
+  }
+
+  &__name { font-weight: 600; }
+
+  &__desc {
+    font-size: var(--brix-fs-sm);
+    color: var(--brix-muted);
+  }
+
+  &__via {
+    font-family: var(--brix-font-mono);
+    font-size: 0.8125rem;
+    color: var(--brix-muted);
   }
 }
 
@@ -251,6 +322,13 @@
   }
 
   &__name { font-weight: 500; }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--brix-gap-4);
+    margin: var(--brix-gap-4) 0 0;
+  }
 
   &__meta {
     display: flex;

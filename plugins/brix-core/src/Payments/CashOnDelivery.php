@@ -10,6 +10,7 @@ declare( strict_types=1 );
 namespace Brix\Core\Payments;
 
 use Brix\Core\Contracts\Module;
+use Brix\Core\I18n\Currency;
 use Brix\Core\Shipping\Destination;
 
 defined( 'ABSPATH' ) || exit;
@@ -38,6 +39,13 @@ final class CashOnDelivery implements Module {
 	private const DEFAULT_MAX = 2000;
 
 	/**
+	 * Пояснення, чому накладного платежу немає, для цього запиту.
+	 *
+	 * @var string
+	 */
+	private static string $note = '';
+
+	/**
 	 * Вішає хуки.
 	 *
 	 * @return void
@@ -45,6 +53,8 @@ final class CashOnDelivery implements Module {
 	public function register(): void {
 		add_filter( 'woocommerce_settings_api_form_fields_cod', array( $this, 'add_setting' ) );
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'filter_gateways' ) );
+		add_filter( 'woocommerce_no_available_payment_methods_message', array( $this, 'empty_message' ) );
+		add_action( 'woocommerce_review_order_before_submit', array( $this, 'print_note' ) );
 	}
 
 	/**
@@ -89,19 +99,18 @@ final class CashOnDelivery implements Module {
 		if ( ! Destination::is_home() ) {
 			unset( $gateways['cod'] );
 
-			/*
-			 * Якщо карткової оплати ще не під'єднали, покупець за
-			 * кордоном лишається без способів оплати зовсім. Мовчазна
-			 * порожнеча виглядає як зламаний сайт, тож причину
-			 * називаємо вголос.
-			 */
-			if ( is_checkout() && ! $gateways ) {
-				$message = __( 'Замовлення за кордон оплачуються лише карткою онлайн. Якщо спосіб оплати не показується — напишіть нам, оформимо рахунком.', 'brix-core' );
+			return $gateways;
+		}
 
-				if ( ! wc_has_notice( $message, 'notice' ) ) {
-					wc_add_notice( $message, 'notice' );
-				}
-			}
+		/*
+		 * Накладний платіж Нова Пошта бере тільки в гривнях. Замовлення
+		 * в євро з оплатою при отриманні — це сума, яку у відділенні
+		 * ніхто не зможе прийняти. Прибираємо й кажемо, як повернути.
+		 */
+		if ( Currency::active() && count( $gateways ) > 1 ) {
+			unset( $gateways['cod'] );
+
+			self::$note = __( 'Оплата при отриманні приймається лише в гривнях. Перемкніть валюту на ₴ у меню сайту або оплатіть карткою.', 'brix-core' );
 
 			return $gateways;
 		}
@@ -137,13 +146,47 @@ final class CashOnDelivery implements Module {
 
 		/*
 		 * Мовчки прибраний спосіб оплати виглядає як помилка сайту,
-		 * тож пояснюємо просто на checkout.
+		 * тож пояснюємо просто під способами оплати. Саме там, а не
+		 * повідомленням WooCommerce над формою: побачивши таке
+		 * повідомлення, checkout.js перевіряє всі поля разом, і
+		 * покупець, який ще нічого не вводив, отримує форму, де
+		 * червоне кожне поле.
 		 */
-		if ( is_checkout() && ! wc_has_notice( $this->notice( $max ), 'notice' ) ) {
-			wc_add_notice( $this->notice( $max ), 'notice' );
-		}
+		self::$note = $this->notice( $max );
 
 		return $gateways;
+	}
+
+	/**
+	 * Друкує пояснення під способами оплати.
+	 *
+	 * @return void
+	 */
+	public function print_note(): void {
+		if ( '' === self::$note ) {
+			return;
+		}
+
+		printf( '<p class="brix-pay-note">%s</p>', esc_html( self::$note ) );
+	}
+
+	/**
+	 * Текст на місці порожнього списку способів оплати.
+	 *
+	 * Порожнім список буває лише за кордоном, поки картку не
+	 * під'єднано: накладний платіж — послуга Нової Пошти, і туди
+	 * вона його не возить. Стандартне «способів оплати немає» звучить
+	 * як поломка, тож називаємо причину.
+	 *
+	 * @param string $message Текст WooCommerce.
+	 * @return string
+	 */
+	public function empty_message( $message ) {
+		if ( Destination::is_home() ) {
+			return $message;
+		}
+
+		return __( 'Замовлення за кордон оплачуються лише карткою онлайн. Якщо спосіб оплати не показується — напишіть нам, оформимо рахунком.', 'brix-core' );
 	}
 
 	/**

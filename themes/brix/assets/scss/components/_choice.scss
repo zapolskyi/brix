@@ -1,0 +1,68 @@
+@use '../abstracts/mixins' as *;
+
+// Радіокнопки й чекбокси в мові макета: кільце з темною крапкою,
+// квадрат із галочкою. Системні сині кружки були єдиним елементом
+// на сторінці, що не належав бренду.
+//
+// Селектор у :where() — нульова специфічність. Там, де поле свідомо
+// сховане (сегментований перемикач, чипи фільтрів), його клас
+// переважує ці правила сам, без жодних винятків тут.
+:where(input[type='radio'], input[type='checkbox']) {
+  flex: none;
+  display: inline-grid;
+  place-content: center;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  border: 1.5px solid var(--brix-line);
+  background: var(--brix-paper);
+  appearance: none;
+  cursor: pointer;
+  transition: border-color var(--brix-dur) var(--brix-ease),
+              background var(--brix-dur) var(--brix-ease);
+
+  &:hover { border-color: var(--brix-roast); }
+
+  &:focus-visible { @include focus-ring(2px); }
+
+  &:disabled { opacity: 0.45; cursor: not-allowed; }
+}
+
+:where(input[type='radio']) {
+  border-radius: 50%;
+
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--brix-roast);
+    transform: scale(0);
+    transition: transform var(--brix-dur) var(--brix-ease);
+  }
+
+  &:checked { border-color: var(--brix-roast); }
+  &:checked::before { transform: scale(1); }
+}
+
+:where(input[type='checkbox']) {
+  border-radius: 4px;
+
+  &::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: var(--brix-mill);
+    // Галочка маскою: колір задає фон, тож вона слухається теми.
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transition: transform var(--brix-dur) var(--brix-ease);
+  }
+
+  &:checked {
+    border-color: var(--brix-roast);
+    background: var(--brix-roast);
+  }
+
+  &:checked::before { transform: scale(1); }
+}

@@ -1,0 +1,125 @@
+@use '../abstracts/mixins' as *;
+
+// Випадайко вибору країни й області. WooCommerce підміняє ці <select>
+// віджетом selectWoo — і приносить із ним синю підсвітку адмінки
+// WordPress та поле висотою 28 px. Тут він доводиться до вигляду
+// полів форми й списку міст Нової Пошти: те саме поле, той самий
+// список під ним, та сама вишнева підсвітка.
+//
+// Кожен селектор починається з .select2-container--default: так він
+// переважує стилі selectWoo без жодного !important.
+.select2-container--default {
+  width: 100% !important; // selectWoo пише ширину інлайном при кожному відкритті.
+
+  .select2-selection--single {
+    display: flex;
+    align-items: center;
+    height: var(--brix-ctl);
+    margin: 0;
+    padding-inline: var(--brix-gap-8) var(--brix-gap-16);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius);
+    background: var(--brix-paper);
+    transition: border-color var(--brix-dur) var(--brix-ease);
+
+    &:hover { border-color: var(--brix-roast); }
+
+    .select2-selection__rendered {
+      padding: 0;
+      color: var(--brix-roast);
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    .select2-selection__placeholder { color: var(--brix-muted); }
+
+    // Та сама стрілка, що й у рідного .brix-select.
+    .select2-selection__arrow {
+      top: 0;
+      right: var(--brix-gap-8);
+      width: 12px;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%236C6763' stroke-width='1.6'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E") no-repeat center;
+      transition: transform var(--brix-dur) var(--brix-ease);
+
+      b { display: none; }
+    }
+  }
+
+  // Відкрите поле й поле з клавіатурним фокусом — як фокус
+  // текстового поля: темна рамка, ореол, вишневе обведення.
+  &.select2-container--open .select2-selection--single,
+  &.select2-container--focus .select2-selection--single {
+    border-color: var(--brix-roast);
+    box-shadow: 0 0 0 3px rgb(29 26 25 / 8%);
+  }
+
+  .select2-selection--single:focus-visible { @include focus-ring(1px); }
+
+  &.select2-container--open .select2-selection__arrow { transform: rotate(180deg); }
+
+  // selectWoo зрізає нижні кути поля, щоб приклеїти до нього список.
+  // Список у нас висить окремо, тож кути лишаються круглими.
+  &.select2-container--open.select2-container--below .select2-selection--single,
+  &.select2-container--open.select2-container--above .select2-selection--single {
+    border-radius: var(--brix-radius);
+  }
+
+  .select2-dropdown {
+    overflow: hidden;
+    padding: var(--brix-gap-4);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+    box-shadow: var(--brix-shadow-card);
+  }
+
+  .select2-dropdown--below { margin-top: var(--brix-gap-2); }
+  .select2-dropdown--above { margin-top: calc(-1 * var(--brix-gap-2)); }
+
+  .select2-search--dropdown {
+    padding: 0 0 var(--brix-gap-4);
+
+    .select2-search__field {
+      @include control-base;
+      height: var(--brix-ctl-sm);
+
+      &:focus { outline: 0; border-color: var(--brix-roast); }
+    }
+  }
+
+  .select2-results > .select2-results__options {
+    max-height: 320px;
+    overscroll-behavior: contain;
+  }
+
+  .select2-results__option {
+    padding: var(--brix-gap-4);
+    border-radius: var(--brix-radius);
+    color: var(--brix-roast);
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+
+  // Обране значення — вагою, підсвічене — фоном і вишнею, як у
+  // підказках міст. Сірий фон selectWoo для обраного прибрано: інакше
+  // в списку горіли б два рядки одночасно.
+  .select2-results__option[aria-selected='true'],
+  .select2-results__option[data-selected='true'] {
+    background: transparent;
+    font-weight: 600;
+  }
+
+  .select2-results__option--highlighted[aria-selected],
+  .select2-results__option--highlighted[data-selected] {
+    background: var(--brix-stone);
+    color: var(--brix-cherry);
+  }
+
+  .select2-results__message { color: var(--brix-muted); }
+}
+
+// Невалідне поле — червона рамка, як у решти полів.
+.woocommerce-invalid .select2-container--default .select2-selection--single {
+  border-color: var(--brix-error);
+}
