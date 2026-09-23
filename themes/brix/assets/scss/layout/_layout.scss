@@ -12,7 +12,7 @@
 .brix-main { flex: 1 0 auto; }
 
 .brix-section {
-  padding: var(--brix-sec-y) var(--brix-sec-x);
+  padding: var(--brix-sec-y) var(--brix-gutter);
 
   &--tight { padding-block: var(--brix-sec-y-tight); }
   &--dark {

@@ -8,7 +8,7 @@
   justify-content: center;
   gap: var(--brix-gap-12);
   min-height: 42px;
-  padding: var(--brix-gap-4) var(--brix-sec-x);
+  padding: var(--brix-gap-4) var(--brix-gutter);
   background: var(--brix-roast);
   color: var(--brix-mill);
   @include label;
@@ -46,7 +46,7 @@
   justify-content: space-between;
   gap: var(--brix-gap-16);
   min-height: var(--brix-header-h);
-  padding-inline: var(--brix-sec-x);
+  padding-inline: var(--brix-gutter);
   background: var(--brix-mill);
   border-bottom: 1px solid var(--brix-line);
 
@@ -205,7 +205,7 @@
   position: sticky;
   top: var(--brix-header-h);
   z-index: 49;
-  padding: var(--brix-gap-8) var(--brix-sec-x) var(--brix-gap-16);
+  padding: var(--brix-gap-8) var(--brix-gutter) var(--brix-gap-16);
   background: var(--brix-mill);
   border-bottom: 1px solid var(--brix-line);
 

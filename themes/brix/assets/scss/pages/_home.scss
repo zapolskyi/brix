@@ -7,7 +7,7 @@
   grid-template-columns: 1fr 520px;
   gap: var(--brix-gap-32);
   align-items: center;
-  padding: var(--brix-sec-y) var(--brix-sec-x);
+  padding: var(--brix-sec-y) var(--brix-gutter);
 
   @include upto($bp-lg) {
     grid-template-columns: 1fr;
@@ -120,15 +120,31 @@
 }
 
 // ——— рухомий рядок нот ———
+// Стрічка на всю ширину вікна, без бічних полів: ноти виїжджають з-за
+// краю екрана, а не з-за невидимої межі контейнера.
 .brix-marquee {
   overflow: hidden;
-  padding: var(--brix-gap-6) var(--brix-sec-x);
+  padding-block: var(--brix-gap-6);
   background: var(--brix-roast);
   color: var(--brix-mill);
 
   &__track {
     display: flex;
+    width: max-content;
+    animation: brix-marquee var(--brix-marquee-duration, 60s) linear infinite;
+  }
+
+  // Наведення зупиняє стрічку: ноту, що зацікавила, можна дочитати.
+  &:hover &__track { animation-play-state: paused; }
+
+  // Проміжок після останнього елемента половини — той самий, що між
+  // елементами. Інакше на стику двох половин ноти злипались би, і
+  // зсув на -50% давав би помітний ривок.
+  &__half {
+    display: flex;
+    flex: none;
     gap: var(--brix-gap-8);
+    padding-inline-end: var(--brix-gap-8);
     white-space: nowrap;
     @include label;
     font-size: 0.75rem;
@@ -139,7 +155,17 @@
   &__item { opacity: 0.75; }
   &__item.is-accent { color: var(--brix-honey); opacity: 1; }
   &__sep { opacity: 0.35; }
-  &__sep:last-child { display: none; }
+
+  // Хто попросив систему не рухати інтерфейс — отримує нерухомий рядок.
+  @media (prefers-reduced-motion: reduce) {
+    &__track { animation: none; }
+    &__half + &__half { display: none; }
+  }
+}
+
+@keyframes brix-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 // ——— заголовок секції з посиланням ———
