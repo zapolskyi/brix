@@ -23,7 +23,22 @@ if ( ! $order instanceof WC_Order ) {
 
 do_action( 'woocommerce_before_thankyou', $order->get_id() );
 
+/*
+ * Перечитуємо замовлення: хук вище міг щойно підтвердити оплату в
+ * LiqPay, а $order — знімок, зроблений до того. Без цього покупець,
+ * що вже заплатив, бачив би «оплата ще не підтверджена».
+ */
+$order = wc_get_order( $order->get_id() ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Змінна шаблону, не глобальна.
+
 $brix_failed = $order->has_status( 'failed' );
+
+/*
+ * Онлайн-оплата, якої ще немає. Сюди потрапляє покупець, що закрив
+ * сторінку LiqPay, не заплативши, — або той, чий банк ще не
+ * відповів. Обіцяти такому «смажимо й відправляємо» було б неправдою:
+ * без оплати нічого не смажиться.
+ */
+$brix_unpaid = ! $brix_failed && $order->has_status( 'pending' ) && $order->needs_payment();
 ?>
 
 <div class="brix-thanks">
@@ -39,6 +54,28 @@ $brix_failed = $order->has_status( 'failed' );
 				</a>
 			</p>
 		</div>
+	<?php elseif ( $brix_unpaid ) : ?>
+		<header class="brix-thanks__head">
+			<p class="brix-label"><?php esc_html_e( 'Очікуємо оплату', 'brix' ); ?></p>
+			<h1><?php esc_html_e( 'Оплата ще не підтверджена', 'brix' ); ?></h1>
+			<p class="brix-lead brix-muted">
+				<?php
+				printf(
+					/* translators: %s — номер замовлення. */
+					esc_html__( 'Замовлення №%s збережене. Якщо ви вже оплатили, банк підтвердить за хвилину — оновіть сторінку. Якщо ні, оплатити можна зараз.', 'brix' ),
+					esc_html( $order->get_order_number() )
+				);
+				?>
+			</p>
+			<p class="brix-thanks__actions">
+				<a class="brix-btn brix-btn--dark" href="<?php echo esc_url( $order->get_checkout_payment_url( true ) ); ?>">
+					<?php esc_html_e( 'Оплатити', 'brix' ); ?>
+				</a>
+				<a class="brix-btn brix-btn--outline" href="<?php echo esc_url( $order->get_checkout_order_received_url() ); ?>">
+					<?php esc_html_e( 'Перевірити оплату', 'brix' ); ?>
+				</a>
+			</p>
+		</header>
 	<?php else : ?>
 		<header class="brix-thanks__head">
 			<p class="brix-label"><?php esc_html_e( 'Замовлення прийняте', 'brix' ); ?></p>

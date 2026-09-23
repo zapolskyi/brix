@@ -26,6 +26,89 @@ final class Registrar implements Module {
 	public function register(): void {
 		add_filter( 'woocommerce_payment_gateways', array( $this, 'add_gateways' ) );
 		add_action( 'rest_api_init', array( $this, 'add_routes' ) );
+		add_action( 'woocommerce_before_thankyou', array( $this, 'confirm_liqpay' ), 5 );
+		add_action( 'template_redirect', array( $this, 'skip_receipt' ) );
+	}
+
+	/**
+	 * Веде неоплачене замовлення LiqPay одразу на сторінку оплати.
+	 *
+	 * Кнопка «Оплатити» з подяки, кабінету чи листа веде на
+	 * «Оплатити замовлення», а там форма з автовідправкою: покупець
+	 * бачив на мить нашу сторінку, яка тут же змінювалась чужою.
+	 * Перенаправлення сервером прибирає цей проміжний кадр. Сама
+	 * сторінка лишається запасним шляхом — для браузера, що
+	 * перенаправлення не виконав.
+	 *
+	 * @return void
+	 */
+	public function skip_receipt(): void {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Доступ до замовлення перевіряє його ключ.
+		if ( ! function_exists( 'is_wc_endpoint_url' ) || ! is_wc_endpoint_url( 'order-pay' ) || isset( $_GET['pay_for_order'] ) ) {
+			return;
+		}
+
+		$key = isset( $_GET['key'] ) ? sanitize_text_field( wp_unslash( $_GET['key'] ) ) : '';
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+		$order = wc_get_order( absint( get_query_var( 'order-pay' ) ) );
+
+		if ( ! $order instanceof \WC_Order || ! hash_equals( $order->get_order_key(), $key ) ) {
+			return;
+		}
+
+		if ( 'brix_liqpay' !== $order->get_payment_method() || ! $order->needs_payment() ) {
+			return;
+		}
+
+		$gateway = $this->gateway( LiqPay::class );
+
+		if ( ! $gateway instanceof LiqPay || ! $gateway->is_available() ) {
+			return;
+		}
+
+		// Зовнішня адреса, тож wp_redirect, а не wp_safe_redirect.
+		wp_redirect( $gateway->checkout_url( $order ) ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- Адреса LiqPay, збудована нами.
+		exit;
+	}
+
+	/**
+	 * Перепитує LiqPay, коли покупець повертається на подяку.
+	 *
+	 * Покупець повертається з LiqPay раніше, ніж callback встигає
+	 * дійти, — а локальний сайт callback не отримує взагалі. Тож
+	 * статус уточнюємо самі, щойно покупець відкрив сторінку подяки:
+	 * він має бачити «оплачено», а не «чекаємо».
+	 *
+	 * @param int $order_id Замовлення.
+	 * @return void
+	 */
+	public function confirm_liqpay( $order_id ): void {
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order instanceof \WC_Order || 'brix_liqpay' !== $order->get_payment_method() || ! $order->needs_payment() ) {
+			return;
+		}
+
+		$gateway = $this->gateway( LiqPay::class );
+
+		if ( ! $gateway instanceof LiqPay ) {
+			return;
+		}
+
+		$status = $gateway->fetch_status( $order );
+
+		/*
+		 * «error» тут означає не збій оплати, а «платежу ще немає»:
+		 * так LiqPay відповідає про замовлення, яке покупець не почав
+		 * оплачувати. Позначити таке невдалим — означало б відібрати
+		 * в покупця можливість оплатити його пізніше.
+		 */
+		if ( is_wp_error( $status ) || 'error' === $status['status'] ) {
+			return;
+		}
+
+		LiqPay::apply_status( $order, (string) $status['status'], (string) ( $status['payment_id'] ?? '' ) );
 	}
 
 	/**
@@ -216,7 +299,7 @@ final class Registrar implements Module {
 			return new \WP_REST_Response( array( 'ok' => false ), 404 );
 		}
 
-		$this->apply_liqpay_status( $order, (string) ( $payload['status'] ?? '' ), (string) ( $payload['payment_id'] ?? '' ) );
+		LiqPay::apply_status( $order, (string) ( $payload['status'] ?? '' ), (string) ( $payload['payment_id'] ?? '' ) );
 
 		return new \WP_REST_Response( array( 'ok' => true ), 200 );
 	}
@@ -240,44 +323,5 @@ final class Registrar implements Module {
 		}
 
 		return hash_equals( $order->get_order_key(), (string) ( $parts[1] ?? '' ) ) ? $order : null;
-	}
-
-	/**
-	 * Переводить замовлення у стан за статусом LiqPay.
-	 *
-	 * @param \WC_Order $order   Замовлення.
-	 * @param string    $status  Статус LiqPay.
-	 * @param string    $payment Ідентифікатор платежу.
-	 * @return void
-	 */
-	private function apply_liqpay_status( \WC_Order $order, string $status, string $payment ): void {
-		// sandbox — той самий успіх, тільки без грошей.
-		if ( in_array( $status, array( 'success', 'sandbox' ), true ) ) {
-			$order->payment_complete( $payment );
-
-			if ( 'sandbox' === $status ) {
-				$order->add_order_note( __( 'LiqPay: тестовий платіж, гроші не списані.', 'brix-core' ) );
-			}
-
-			return;
-		}
-
-		$map = array(
-			'failure'  => 'failed',
-			'error'    => 'failed',
-			'reversed' => 'refunded',
-			'expired'  => 'cancelled',
-		);
-
-		if ( isset( $map[ $status ] ) && ! $order->has_status( $map[ $status ] ) ) {
-			$order->update_status(
-				$map[ $status ],
-				sprintf(
-					/* translators: %s — статус від LiqPay. */
-					__( 'LiqPay повідомив статус «%s».', 'brix-core' ),
-					$status
-				)
-			);
-		}
 	}
 }
