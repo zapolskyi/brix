@@ -30,14 +30,14 @@ $brix_grind = (string) get_post_meta( $brix_guide->ID, 'brix_guide_grind', true 
 				<?php if ( $brix_dose && $brix_water ) : ?>
 					<div>
 						<dt class="brix-label"><?php esc_html_e( 'Пропорція', 'brix' ); ?></dt>
-						<dd class="brix-mono"><?php echo esc_html( $brix_dose . __( ' г', 'brix' ) . ' / ' . $brix_water . __( ' мл', 'brix' ) ); ?></dd>
+						<dd class="brix-num"><?php echo esc_html( $brix_dose . __( ' г', 'brix' ) . ' / ' . $brix_water . __( ' мл', 'brix' ) ); ?></dd>
 					</div>
 				<?php endif; ?>
 
 				<?php if ( $brix_temp ) : ?>
 					<div>
 						<dt class="brix-label"><?php esc_html_e( 'Температура', 'brix' ); ?></dt>
-						<dd class="brix-mono"><?php echo esc_html( $brix_temp . ' °C' ); ?></dd>
+						<dd class="brix-num"><?php echo esc_html( $brix_temp . ' °C' ); ?></dd>
 					</div>
 				<?php endif; ?>
 

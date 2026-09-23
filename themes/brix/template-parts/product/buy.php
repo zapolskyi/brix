@@ -82,7 +82,7 @@ $brix_left    = brix_stock_left( $brix_current );
 				}
 				?>
 			</span>
-			<b class="brix-mono"><?php echo esc_html( number_format( (float) $brix_product->get_average_rating(), 1, ',', '' ) ); ?></b>
+			<b class="brix-num"><?php echo esc_html( number_format( (float) $brix_product->get_average_rating(), 1, ',', '' ) ); ?></b>
 			<a class="brix-small brix-muted" href="#reviews">
 				<?php
 				printf(
@@ -96,7 +96,7 @@ $brix_left    = brix_stock_left( $brix_current );
 	<?php endif; ?>
 
 	<div class="brix-buy__price">
-		<b class="brix-mono"><?php echo wp_kses_post( wc_price( (float) $brix_current->get_price() ) ); ?></b>
+		<b class="brix-num"><?php echo wp_kses_post( wc_price( (float) $brix_current->get_price() ) ); ?></b>
 
 		<?php if ( $brix_variation ) : ?>
 			<?php $brix_per_kilo = brix_price_per_kilo( $brix_variation ); ?>
@@ -186,7 +186,7 @@ $brix_left    = brix_stock_left( $brix_current );
 
 			<button class="brix-btn brix-btn--xl brix-buy__submit" type="submit">
 				<?php esc_html_e( 'Додати в кошик', 'brix' ); ?>
-				<span class="brix-mono">· <?php echo esc_html( wp_strip_all_tags( wc_price( (float) $brix_current->get_price() ) ) ); ?></span>
+				<span class="brix-num">· <?php echo esc_html( wp_strip_all_tags( wc_price( (float) $brix_current->get_price() ) ) ); ?></span>
 			</button>
 
 			<input type="hidden" name="add-to-cart" value="<?php echo esc_attr( (string) $brix_product->get_id() ); ?>">

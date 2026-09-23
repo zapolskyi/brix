@@ -70,7 +70,7 @@ $brix_taste = array(
 					<div class="brix-kit__swatch">
 						<span class="brix-kit__chipcolor" style="background: var(<?php echo esc_attr( $brix_token ); ?>)"></span>
 						<b><?php echo esc_html( $brix_name ); ?></b>
-						<code class="brix-mono"><?php echo esc_html( $brix_token ); ?></code>
+						<code class="brix-num"><?php echo esc_html( $brix_token ); ?></code>
 					</div>
 				<?php endforeach; ?>
 			</div>
@@ -84,11 +84,11 @@ $brix_taste = array(
 				<h2>Вісім лотів, усі з паспортом</h2>
 				<h3>Стиглість вимірюють у градусах Brix</h3>
 				<h4>Ethiopia Guji Hambela</h4>
-				<p class="brix-lead">Заголовки — Playfair Display, текст набрано Inter, дані лоту — IBM Plex Mono.</p>
+				<p class="brix-lead">Заголовки — Geologica, інтерфейс, ціни й текст — Manrope, мітки й дані лоту — IBM Plex Mono.</p>
 				<p>Основний текст: солодкість стиглої черешні, кислотність зеленого яблука. Зібрано на висоті 2 000 м.</p>
 				<p class="brix-small brix-muted">Дрібний другорядний текст — підписи, застереження, примітки.</p>
 				<p class="brix-label">Моношрифтова мітка капсом</p>
-				<p class="brix-mono">22.4 °Bx · 88.25 SCA · $7.80 / кг</p>
+				<p class="brix-num">22.4 °Bx · 88.25 SCA · $7.80 / кг</p>
 			</div>
 		</section>
 
@@ -176,7 +176,7 @@ $brix_taste = array(
 		<!-- ——— пачки ——— -->
 		<section class="brix-kit__block">
 			<h2 class="brix-kit__title">Пачка кави</h2>
-			<p class="brix-small brix-muted">Колір кодує обробку. Мальована на CSS, розміри в <code class="brix-mono">cqw</code> — однаково виглядає в сітці й у галереї.</p>
+			<p class="brix-small brix-muted">Колір кодує обробку. Мальована на CSS, розміри в <code class="brix-num">cqw</code> — однаково виглядає в сітці й у галереї.</p>
 			<div class="brix-kit__packs">
 				<?php foreach ( $brix_packs as $brix_pack ) : ?>
 					<div class="brix-pack brix-pack--<?php echo esc_attr( $brix_pack[1] ); ?>">

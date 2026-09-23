@@ -34,7 +34,7 @@ $brix_club     = $brix_price * ( 100 - $brix_discount ) / 100;
 	<label class="brix-plans__option">
 		<input type="radio" name="brix_club" value="0" checked>
 		<span class="brix-plans__label"><?php esc_html_e( 'Разова покупка', 'brix' ); ?></span>
-		<b class="brix-mono"><?php echo esc_html( wp_strip_all_tags( wc_price( $brix_price ) ) ); ?></b>
+		<b class="brix-num"><?php echo esc_html( wp_strip_all_tags( wc_price( $brix_price ) ) ); ?></b>
 	</label>
 
 	<label class="brix-plans__option">
@@ -51,7 +51,7 @@ $brix_club     = $brix_price * ( 100 - $brix_discount ) / 100;
 				?>
 			</small>
 		</span>
-		<b class="brix-mono"><?php echo esc_html( wp_strip_all_tags( wc_price( round( $brix_club ) ) ) ); ?></b>
+		<b class="brix-num"><?php echo esc_html( wp_strip_all_tags( wc_price( round( $brix_club ) ) ) ); ?></b>
 	</label>
 
 	<label class="brix-plans__option">
@@ -68,6 +68,6 @@ $brix_club     = $brix_price * ( 100 - $brix_discount ) / 100;
 				?>
 			</small>
 		</span>
-		<b class="brix-mono"><?php echo esc_html( wp_strip_all_tags( wc_price( round( $brix_club ) ) ) ); ?></b>
+		<b class="brix-num"><?php echo esc_html( wp_strip_all_tags( wc_price( round( $brix_club ) ) ) ); ?></b>
 	</label>
 </fieldset>

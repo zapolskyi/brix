@@ -383,7 +383,7 @@ function brix_delivery_section(): void {
 							<span class="brix-ship__note"><?php echo esc_html( brix_rate_note( $brix_rate, $is_self ) ); ?></span>
 						</span>
 
-						<span class="brix-ship__cost brix-mono">
+						<span class="brix-ship__cost brix-num">
 							<?php
 							echo $cost > 0
 								? wp_kses_post( wc_price( $cost ) )

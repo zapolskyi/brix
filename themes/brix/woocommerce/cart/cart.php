@@ -87,7 +87,7 @@ $brix_progress = brix_free_shipping_progress();
 				<div class="brix-cart__qty">
 					<?php
 					if ( $brix_product->is_sold_individually() ) {
-						printf( '<span class="brix-mono">1</span><input type="hidden" name="cart[%s][qty]" value="1">', esc_attr( $brix_key ) );
+						printf( '<span class="brix-num">1</span><input type="hidden" name="cart[%s][qty]" value="1">', esc_attr( $brix_key ) );
 					} else {
 						brix_quantity_stepper(
 							array(
@@ -108,7 +108,7 @@ $brix_progress = brix_free_shipping_progress();
 				</div>
 
 				<div class="brix-cart__price">
-					<b class="brix-mono"><?php echo wp_kses_post( apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $brix_product, $brix_item['quantity'] ), $brix_item, $brix_key ) ); ?></b>
+					<b class="brix-num"><?php echo wp_kses_post( apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $brix_product, $brix_item['quantity'] ), $brix_item, $brix_key ) ); ?></b>
 
 					<a class="brix-cart__remove" href="<?php echo esc_url( wc_get_cart_remove_url( $brix_key ) ); ?>"
 						aria-label="

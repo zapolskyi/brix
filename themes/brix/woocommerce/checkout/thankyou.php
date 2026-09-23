@@ -98,7 +98,7 @@ $brix_unpaid = ! $brix_failed && $order->has_status( 'pending' ) && $order->need
 		<dl class="brix-thanks__meta">
 			<div>
 				<dt><?php esc_html_e( 'Разом', 'brix' ); ?></dt>
-				<dd class="brix-mono"><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></dd>
+				<dd class="brix-num"><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></dd>
 			</div>
 			<div>
 				<dt><?php esc_html_e( 'Оплата', 'brix' ); ?></dt>
@@ -126,7 +126,7 @@ $brix_unpaid = ! $brix_failed && $order->has_status( 'pending' ) && $order->need
 								<span class="brix-muted">× <?php echo esc_html( (string) $brix_line->get_quantity() ); ?></span>
 							<?php endif; ?>
 						</span>
-						<span class="brix-mono"><?php echo wp_kses_post( $order->get_formatted_line_subtotal( $brix_line ) ); ?></span>
+						<span class="brix-num"><?php echo wp_kses_post( $order->get_formatted_line_subtotal( $brix_line ) ); ?></span>
 					</li>
 				<?php endforeach; ?>
 			</ul>

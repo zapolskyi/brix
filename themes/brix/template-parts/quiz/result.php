@@ -98,7 +98,7 @@ $brix_labels = array(
 						<p class="brix-label brix-pick__reason"><?php echo esc_html( $brix_pick['reason'] ); ?></p>
 
 						<div class="brix-pick__foot">
-							<b class="brix-mono"><?php echo wp_kses_post( brix_price_label( $brix_product ) ); ?></b>
+							<b class="brix-num"><?php echo wp_kses_post( brix_price_label( $brix_product ) ); ?></b>
 							<a class="brix-btn brix-btn--sm" href="<?php echo esc_url( $brix_url ); ?>">
 								<?php esc_html_e( 'Обрати', 'brix' ); ?>
 							</a>

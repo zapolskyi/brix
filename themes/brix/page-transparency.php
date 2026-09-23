@@ -69,9 +69,9 @@ $brix_rows = brix_transparency_rows();
 										<?php echo esc_html( $brix_row['farm'] ); ?>
 									<?php endif; ?>
 								</td>
-								<td class="brix-table__num brix-mono"><?php echo esc_html( $brix_row['fob'] ); ?></td>
-								<td class="brix-table__num brix-mono"><?php echo esc_html( $brix_row['retail'] ); ?></td>
-								<td class="brix-table__num brix-mono"><?php echo esc_html( $brix_row['brix'] ); ?></td>
+								<td class="brix-table__num brix-num"><?php echo esc_html( $brix_row['fob'] ); ?></td>
+								<td class="brix-table__num brix-num"><?php echo esc_html( $brix_row['retail'] ); ?></td>
+								<td class="brix-table__num brix-num"><?php echo esc_html( $brix_row['brix'] ); ?></td>
 							</tr>
 						<?php endforeach; ?>
 					</tbody>

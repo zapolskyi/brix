@@ -205,7 +205,7 @@
     border-bottom: 1px solid var(--brix-line);
   }
 
-  td { text-align: right; font-family: var(--brix-font-mono); }
+  td { text-align: right; font-variant-numeric: tabular-nums; }
 
   .order-total th,
   .order-total td { font-size: 1.125rem; border-bottom: 0; }

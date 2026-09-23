@@ -75,7 +75,7 @@ if ( '' !== $brix_accent && str_contains( $brix_heading, $brix_accent ) ) {
 			<?php if ( $brix_lot && null !== $brix_lot->brix ) : ?>
 				<div class="brix-hero__meter">
 					<span class="brix-label"><?php esc_html_e( 'Рефрактометр, станція', 'brix' ); ?></span>
-					<b class="brix-mono"><?php echo esc_html( $brix_lot->brix . ' °Bx' ); ?></b>
+					<b class="brix-num"><?php echo esc_html( $brix_lot->brix . ' °Bx' ); ?></b>
 				</div>
 			<?php endif; ?>
 		</div>

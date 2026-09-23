@@ -64,7 +64,7 @@ $brix_index = 0;
 					<span class="brix-suggest__name"><?php echo esc_html( get_the_title( $brix_post ) ); ?></span>
 
 					<?php if ( $brix_product instanceof WC_Product ) : ?>
-						<span class="brix-suggest__meta brix-mono">
+						<span class="brix-suggest__meta brix-num">
 							<?php echo wp_kses_post( brix_price_label( $brix_product ) ); ?>
 						</span>
 					<?php endif; ?>

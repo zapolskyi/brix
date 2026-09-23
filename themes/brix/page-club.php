@@ -136,8 +136,8 @@ $brix_complete  = count( $brix_selection ) === count( $brix_config );
 
 				<?php if ( $brix_price['regular'] > 0 ) : ?>
 					<div class="brix-club__price">
-						<span class="brix-club__price-was brix-mono"><?php echo esc_html( wp_strip_all_tags( wc_price( $brix_price['regular'] ) ) ); ?></span>
-						<b class="brix-mono"><?php echo esc_html( wp_strip_all_tags( wc_price( $brix_price['club'] ) ) ); ?></b>
+						<span class="brix-club__price-was brix-num"><?php echo esc_html( wp_strip_all_tags( wc_price( $brix_price['regular'] ) ) ); ?></span>
+						<b class="brix-num"><?php echo esc_html( wp_strip_all_tags( wc_price( $brix_price['club'] ) ) ); ?></b>
 						<span class="brix-small brix-muted"><?php esc_html_e( 'орієнтовно за одну відправку', 'brix' ); ?></span>
 					</div>
 				<?php endif; ?>
@@ -181,7 +181,7 @@ $brix_complete  = count( $brix_selection ) === count( $brix_config );
 			foreach ( $brix_how as $brix_item ) :
 				?>
 				<li class="brix-timeline__item">
-					<span class="brix-timeline__period brix-mono"><?php echo esc_html( $brix_item[0] ); ?></span>
+					<span class="brix-timeline__period brix-num"><?php echo esc_html( $brix_item[0] ); ?></span>
 					<span class="brix-timeline__title"><?php echo esc_html( $brix_item[1] ); ?></span>
 					<span class="brix-timeline__note brix-small brix-muted"><?php echo esc_html( $brix_item[2] ); ?></span>
 				</li>

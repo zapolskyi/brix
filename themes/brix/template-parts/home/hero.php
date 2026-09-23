@@ -76,7 +76,7 @@ $brix_processing  = $brix_lot ? $brix_lot->processing() : null;
 			<?php if ( $brix_lot && null !== $brix_lot->brix ) : ?>
 				<div class="brix-hero__meter">
 					<span class="brix-label"><?php esc_html_e( 'Рефрактометр, станція', 'brix' ); ?></span>
-					<b class="brix-mono"><?php echo esc_html( $brix_lot->brix . ' °Bx' ); ?></b>
+					<b class="brix-num"><?php echo esc_html( $brix_lot->brix . ' °Bx' ); ?></b>
 				</div>
 			<?php endif; ?>
 

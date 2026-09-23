@@ -133,7 +133,7 @@
   }
 
   td:last-child,
-  th:last-child { text-align: right; font-family: var(--brix-font-mono); }
+  th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
 
   .order-total th,
   .order-total td { font-size: 1.125rem; border-bottom: 0; }

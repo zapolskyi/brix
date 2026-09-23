@@ -37,10 +37,10 @@ function brix_email_styles( string $css ): string {
 		}
 		.brix-mark {
 			margin: 0 0 14px;
-			font-family: Georgia, "Times New Roman", serif;
+			font-family: Helvetica, Arial, sans-serif;
 			font-size: 22px;
-			font-weight: 700;
-			letter-spacing: -0.01em;
+			font-weight: 800;
+			letter-spacing: -0.04em;
 			color: #F2F3EE;
 			line-height: 1;
 		}
@@ -51,10 +51,10 @@ function brix_email_styles( string $css ): string {
 		}
 		#template_header h1 {
 			margin: 0;
-			font-family: Georgia, "Times New Roman", serif;
+			font-family: Helvetica, Arial, sans-serif;
 			font-size: 28px;
 			font-weight: 700;
-			letter-spacing: 0;
+			letter-spacing: -0.02em;
 			line-height: 1.15;
 			color: #F2F3EE;
 			text-align: left;
@@ -68,7 +68,7 @@ function brix_email_styles( string $css ): string {
 			text-align: left;
 		}
 		#body_content h2 {
-			font-family: Georgia, "Times New Roman", serif;
+			font-family: Helvetica, Arial, sans-serif;
 			font-size: 18px;
 			font-weight: 700;
 			color: #1D1A19;

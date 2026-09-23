@@ -1,5 +1,21 @@
 [
   {
+    "family": "Geologica",
+    "weight": "600 800",
+    "subset": "cyrillic",
+    "file": "geologica-var-cyrillic.woff2",
+    "unicode_range": "U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116",
+    "bytes": 16396
+  },
+  {
+    "family": "Geologica",
+    "weight": "600 800",
+    "subset": "latin",
+    "file": "geologica-var-latin.woff2",
+    "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+    "bytes": 24964
+  },
+  {
     "family": "IBM Plex Mono",
     "weight": "400",
     "subset": "cyrillic",
@@ -32,35 +48,19 @@
     "bytes": 10060
   },
   {
-    "family": "Inter",
-    "weight": "400 700",
+    "family": "Manrope",
+    "weight": "400 800",
     "subset": "cyrillic",
-    "file": "inter-var-cyrillic.woff2",
+    "file": "manrope-var-cyrillic.woff2",
     "unicode_range": "U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116",
-    "bytes": 18744
+    "bytes": 14544
   },
   {
-    "family": "Inter",
-    "weight": "400 700",
+    "family": "Manrope",
+    "weight": "400 800",
     "subset": "latin",
-    "file": "inter-var-latin.woff2",
+    "file": "manrope-var-latin.woff2",
     "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
-    "bytes": 48432
-  },
-  {
-    "family": "Playfair Display",
-    "weight": "700 800",
-    "subset": "cyrillic",
-    "file": "playfair-var-cyrillic.woff2",
-    "unicode_range": "U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116",
-    "bytes": 21144
-  },
-  {
-    "family": "Playfair Display",
-    "weight": "700 800",
-    "subset": "latin",
-    "file": "playfair-var-latin.woff2",
-    "unicode_range": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
-    "bytes": 38460
+    "bytes": 24576
   }
 ]

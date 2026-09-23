@@ -34,5 +34,5 @@ if ( $brix_temp ) {
 
 <a class="brix-tile brix-tile--guide" href="<?php echo esc_url( (string) get_permalink( $brix_guide ) ); ?>">
 	<span class="brix-tile__title"><?php echo esc_html( get_the_title( $brix_guide ) ); ?></span>
-	<span class="brix-tile__meta brix-mono"><?php echo esc_html( implode( ' · ', $brix_bits ) ); ?></span>
+	<span class="brix-tile__meta brix-num"><?php echo esc_html( implode( ' · ', $brix_bits ) ); ?></span>
 </a>

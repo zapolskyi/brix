@@ -22,17 +22,17 @@ const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
 
 // Накреслення рівно ті, що реально вживаються в макетах.
 const API = 'https://fonts.googleapis.com/css2'
-  + '?family=Playfair+Display:wght@700;800'
-  + '&family=Inter:wght@400;500;600;700'
+  + '?family=Geologica:wght@600;700;800'
+  + '&family=Manrope:wght@400;500;600;700;800'
   + '&family=IBM+Plex+Mono:wght@400;500'
   + '&display=swap';
 
 const SUBSETS = ['cyrillic', 'latin'];
-const SLUG = { 'Playfair Display': 'playfair', 'Inter': 'inter', 'IBM Plex Mono': 'plex-mono' };
+const SLUG = { 'Geologica': 'geologica', 'Manrope': 'manrope', 'IBM Plex Mono': 'plex-mono' };
 
 const css = await (await fetch(API, { headers: { 'User-Agent': UA } })).text();
 
-// Змінні шрифти (Inter, Playfair Display) Google віддає одним файлом на
+// Змінні шрифти (Manrope, Geologica) Google віддає одним файлом на
 // всі накреслення: той самий URL повторюється для кожної ваги. Такі
 // накреслення зливаємо в одне @font-face з діапазоном ваг — інакше
 // браузер тягнув би однаковий файл кілька разів під різними іменами.

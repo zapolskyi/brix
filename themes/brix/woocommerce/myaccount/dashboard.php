@@ -189,7 +189,7 @@ $brix_orders = wc_get_orders(
 						</p>
 
 						<p class="brix-order-card__foot">
-							<b class="brix-mono"><?php echo wp_kses_post( $brix_order->get_formatted_order_total() ); ?></b>
+							<b class="brix-num"><?php echo wp_kses_post( $brix_order->get_formatted_order_total() ); ?></b>
 							<span class="brix-tag brix-tag--soft"><?php echo esc_html( wc_get_order_status_name( $brix_order->get_status() ) ); ?></span>
 						</p>
 

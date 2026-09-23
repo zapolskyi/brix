@@ -49,7 +49,7 @@ $brix_label   = __( 'Відправлення', 'brix' );
 			$brix_cost   = (float) $brix_chosen->get_cost();
 			?>
 			<span class="brix-ship__chosen"><?php echo esc_html( $brix_chosen->get_label() ); ?></span>
-			<span class="brix-ship__chosen-cost brix-mono">
+			<span class="brix-ship__chosen-cost brix-num">
 				<?php
 				echo $brix_cost > 0
 					? wp_kses_post( wc_price( $brix_cost ) )
@@ -78,7 +78,7 @@ $brix_label   = __( 'Відправлення', 'brix' );
 
 						<label for="<?php echo esc_attr( $brix_input ); ?>">
 							<span><?php echo esc_html( $brix_method->get_label() ); ?></span>
-							<span class="brix-mono">
+							<span class="brix-num">
 								<?php
 								echo $brix_cost > 0
 									? wp_kses_post( wc_price( $brix_cost ) )

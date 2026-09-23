@@ -85,7 +85,7 @@ while ( have_posts() ) :
 							?>
 							<div>
 								<dt class="brix-label"><?php echo esc_html( $brix_key ); ?></dt>
-								<dd class="brix-mono"><?php echo esc_html( $brix_value ); ?></dd>
+								<dd class="brix-num"><?php echo esc_html( $brix_value ); ?></dd>
 							</div>
 						<?php endforeach; ?>
 					</dl>
@@ -99,13 +99,13 @@ while ( have_posts() ) :
 					<ol class="brix-steps">
 						<?php foreach ( $brix_steps as $brix_step ) : ?>
 							<li class="brix-steps__item">
-								<span class="brix-steps__time brix-mono">
+								<span class="brix-steps__time brix-num">
 									<?php echo esc_html( \Brix\Core\Support\Format::duration( (int) $brix_step['brix_guide_step_at'] ) ); ?>
 								</span>
 								<span class="brix-steps__body">
 									<b class="brix-steps__title"><?php echo esc_html( $brix_step['brix_guide_step_title'] ); ?></b>
 									<?php if ( '' !== $brix_step['brix_guide_step_target'] ) : ?>
-										<span class="brix-steps__target brix-mono"><?php echo esc_html( $brix_step['brix_guide_step_target'] ); ?></span>
+										<span class="brix-steps__target brix-num"><?php echo esc_html( $brix_step['brix_guide_step_target'] ); ?></span>
 									<?php endif; ?>
 									<span class="brix-steps__text"><?php echo esc_html( $brix_step['brix_guide_step_text'] ); ?></span>
 								</span>

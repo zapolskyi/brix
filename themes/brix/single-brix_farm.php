@@ -121,7 +121,7 @@ while ( have_posts() ) :
 				<div class="brix-wrap brix-farm__place">
 					<div>
 						<p class="brix-label"><?php esc_html_e( 'Де це', 'brix' ); ?></p>
-						<p class="brix-farm__coords brix-mono"><?php echo esc_html( trim( $brix_lat . ' ' . $brix_lng ) ); ?></p>
+						<p class="brix-farm__coords brix-num"><?php echo esc_html( trim( $brix_lat . ' ' . $brix_lng ) ); ?></p>
 						<?php if ( '' !== $brix_region ) : ?>
 							<p class="brix-lead"><?php echo esc_html( $brix_region ); ?></p>
 						<?php endif; ?>
@@ -148,7 +148,7 @@ while ( have_posts() ) :
 					<ol class="brix-timeline">
 						<?php foreach ( $brix_calendar as $brix_step ) : ?>
 							<li class="brix-timeline__item">
-								<span class="brix-timeline__period brix-mono"><?php echo esc_html( $brix_step['brix_farm_calendar_period'] ); ?></span>
+								<span class="brix-timeline__period brix-num"><?php echo esc_html( $brix_step['brix_farm_calendar_period'] ); ?></span>
 								<span class="brix-timeline__title"><?php echo esc_html( $brix_step['brix_farm_calendar_title'] ); ?></span>
 								<span class="brix-timeline__note brix-small brix-muted"><?php echo esc_html( $brix_step['brix_farm_calendar_note'] ); ?></span>
 							</li>
