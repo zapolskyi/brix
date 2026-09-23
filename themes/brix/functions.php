@@ -26,6 +26,7 @@ require_once BRIX_DIR . '/inc/blocks.php';
 require_once BRIX_DIR . '/inc/products.php';
 require_once BRIX_DIR . '/inc/class-brix-plain-walker.php';
 require_once BRIX_DIR . '/inc/template-tags.php';
+require_once BRIX_DIR . '/inc/favicon.php';
 require_once BRIX_DIR . '/inc/search.php';
 require_once BRIX_DIR . '/inc/analytics.php';
 
