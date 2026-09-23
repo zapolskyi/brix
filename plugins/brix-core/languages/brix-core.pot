@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-23T12:36:06+00:00\n"
+"POT-Creation-Date: 2026-09-23T17:32:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: brix-core\n"
@@ -47,11 +47,11 @@ msgstr ""
 msgid "BRIX Core: не знайдено Secure Custom Fields. Паспорт лоту, дані виробників і кроки гайдів не можна редагувати, доки плагін не активний. Уже збережені дані на місці — сайт показує їх як і раніше."
 msgstr ""
 
-#: src/Cli/DemoContent.php:207
+#: src/Cli/DemoContent.php:257
 msgid "Вага"
 msgstr ""
 
-#: src/Cli/DemoContent.php:208
+#: src/Cli/DemoContent.php:258
 #: src/Fields/GuideFields.php:77
 msgid "Помел"
 msgstr ""
@@ -269,8 +269,8 @@ msgid "Ціль"
 msgstr ""
 
 #: src/Fields/GuideFields.php:130
-#: src/Payments/LiqPay.php:79
-#: src/Payments/Monobank.php:94
+#: src/Payments/LiqPay.php:87
+#: src/Payments/Monobank.php:96
 msgid "Опис"
 msgstr ""
 
@@ -448,51 +448,51 @@ msgstr ""
 msgid "Плашка в каталозі. Вмикати варто одному товару."
 msgstr ""
 
-#: src/I18n/Currency.php:333
-msgid "Валюта другої мови"
+#: src/I18n/Currency.php:502
+msgid "Друга валюта: євро"
 msgstr ""
 
-#: src/I18n/Currency.php:335
-msgid "Англійська версія сайту показує ціни в євро. У базі лишається гривня — євро рахується за цим курсом на показі."
+#: src/I18n/Currency.php:504
+msgid "Покупець перемикає валюту знаком ₴ / € у шапці; англійська версія без вибору показує євро. У базі лишається гривня — євро рахується за цим курсом на показі."
 msgstr ""
 
-#: src/I18n/Currency.php:340
+#: src/I18n/Currency.php:509
 msgid "Гривень за євро"
 msgstr ""
 
-#: src/I18n/Currency.php:341
-msgid "Нуль вимикає перерахунок: англійська версія показуватиме гривні."
+#: src/I18n/Currency.php:510
+msgid "Нуль вимикає євро зовсім: перемикач зникне, і весь сайт рахуватиме в гривні."
 msgstr ""
 
-#: src/I18n/Translations.php:369
+#: src/I18n/Translations.php:370
 msgid "Англійська версія"
 msgstr ""
 
-#: src/I18n/Translations.php:387
+#: src/I18n/Translations.php:388
 msgid "Заголовок"
 msgstr ""
 
-#: src/I18n/Translations.php:388
+#: src/I18n/Translations.php:389
 msgid "Короткий опис"
 msgstr ""
 
-#: src/I18n/Translations.php:389
+#: src/I18n/Translations.php:390
 msgid "Текст"
 msgstr ""
 
-#: src/I18n/Translations.php:392
+#: src/I18n/Translations.php:393
 msgid "Порожнє поле означає «лишити як українською» — сторінка під /en/ покаже оригінал."
 msgstr ""
 
-#: src/I18n/Translations.php:475
+#: src/I18n/Translations.php:476
 msgid "Назва англійською"
 msgstr ""
 
-#: src/I18n/Translations.php:476
+#: src/I18n/Translations.php:477
 msgid "Опис англійською"
 msgstr ""
 
-#: src/I18n/Translations.php:490
+#: src/I18n/Translations.php:491
 msgid "Порожнє поле означає «лишити як українською»."
 msgstr ""
 
@@ -512,159 +512,167 @@ msgstr ""
 msgid "Цих лотів уже немає: %s. Свіжі партії — у магазині."
 msgstr ""
 
-#: src/Payments/CashOnDelivery.php:58
+#: src/Payments/CashOnDelivery.php:68
 msgid "Максимальна сума замовлення"
 msgstr ""
 
-#: src/Payments/CashOnDelivery.php:60
+#: src/Payments/CashOnDelivery.php:70
 msgid "Понад цю суму оплата при отриманні недоступна. Нуль вимикає обмеження."
 msgstr ""
 
-#: src/Payments/CashOnDelivery.php:99
+#: src/Payments/CashOnDelivery.php:113
+msgid "Оплата при отриманні приймається лише в гривнях. Перемкніть валюту на ₴ у меню сайту або оплатіть карткою."
+msgstr ""
+
+#: src/Payments/CashOnDelivery.php:189
 msgid "Замовлення за кордон оплачуються лише карткою онлайн. Якщо спосіб оплати не показується — напишіть нам, оформимо рахунком."
 msgstr ""
 
 #. translators: %s — сума порога.
-#: src/Payments/CashOnDelivery.php:158
+#: src/Payments/CashOnDelivery.php:201
 #, php-format
 msgid "Оплата при отриманні доступна для замовлень до %s. Для більших сум лишається оплата карткою — так ми впевнені, що змелений під ваш рецепт лот дочекається саме вас."
 msgstr ""
 
-#: src/Payments/LiqPay.php:44
+#: src/Payments/LiqPay.php:52
 msgid "LiqPay"
 msgstr ""
 
-#: src/Payments/LiqPay.php:45
+#: src/Payments/LiqPay.php:53
 msgid "Оплата карткою на стороні LiqPay. Платіжні дані на сайт не потрапляють."
 msgstr ""
 
-#: src/Payments/LiqPay.php:67
-#: src/Payments/Monobank.php:80
+#: src/Payments/LiqPay.php:75
+#: src/Payments/Monobank.php:82
 msgid "Увімкнено"
 msgstr ""
 
-#: src/Payments/LiqPay.php:69
+#: src/Payments/LiqPay.php:77
 msgid "Приймати оплату карткою через LiqPay"
 msgstr ""
 
-#: src/Payments/LiqPay.php:73
-#: src/Payments/Monobank.php:86
+#: src/Payments/LiqPay.php:81
+#: src/Payments/Monobank.php:88
 msgid "Назва для покупця"
 msgstr ""
 
-#: src/Payments/LiqPay.php:75
+#: src/Payments/LiqPay.php:83
 msgid "Картка онлайн"
 msgstr ""
 
-#: src/Payments/LiqPay.php:76
+#: src/Payments/LiqPay.php:84
 msgid "Якщо ввімкнено кілька карткових способів, назви мають відрізнятись."
 msgstr ""
 
-#: src/Payments/LiqPay.php:81
+#: src/Payments/LiqPay.php:89
 msgid "Visa, Mastercard, Apple Pay і Google Pay на захищеній сторінці LiqPay."
 msgstr ""
 
-#: src/Payments/LiqPay.php:84
+#: src/Payments/LiqPay.php:92
 msgid "Публічний ключ"
 msgstr ""
 
-#: src/Payments/LiqPay.php:86
+#: src/Payments/LiqPay.php:94
 msgid "З кабінету LiqPay. Тестовий ключ починається на sandbox_."
 msgstr ""
 
-#: src/Payments/LiqPay.php:90
+#: src/Payments/LiqPay.php:98
 msgid "Приватний ключ"
 msgstr ""
 
-#: src/Payments/LiqPay.php:95
+#: src/Payments/LiqPay.php:103
 msgid "Тестовий режим"
 msgstr ""
 
-#: src/Payments/LiqPay.php:97
+#: src/Payments/LiqPay.php:105
 msgid "Платежі не списують справжні гроші"
 msgstr ""
 
-#: src/Payments/LiqPay.php:127
+#: src/Payments/LiqPay.php:135
 msgid "Очікуємо оплату через LiqPay."
 msgstr ""
 
-#: src/Payments/LiqPay.php:158
+#: src/Payments/LiqPay.php:189
 msgid "Переходимо на захищену сторінку LiqPay…"
 msgstr ""
 
-#: src/Payments/LiqPay.php:170
+#: src/Payments/LiqPay.php:201
 msgid "Перейти до оплати"
 msgstr ""
 
 #. translators: %s — номер замовлення.
-#: src/Payments/LiqPay.php:195
-#: src/Payments/Monobank.php:190
+#: src/Payments/LiqPay.php:226
+#: src/Payments/Monobank.php:192
 #, php-format
 msgid "Замовлення №%s у BRIX 22°"
 msgstr ""
 
-#: src/Payments/Monobank.php:58
+#: src/Payments/LiqPay.php:298
+msgid "LiqPay не повернув статус платежу."
+msgstr ""
+
+#: src/Payments/LiqPay.php:326
+msgid "LiqPay: тестовий платіж, гроші не списані."
+msgstr ""
+
+#. translators: %s — статус від LiqPay.
+#: src/Payments/LiqPay.php:344
+#, php-format
+msgid "LiqPay повідомив статус «%s»."
+msgstr ""
+
+#: src/Payments/Monobank.php:60
 msgid "monobank"
 msgstr ""
 
-#: src/Payments/Monobank.php:59
+#: src/Payments/Monobank.php:61
 msgid "Оплата карткою на стороні monobank. Платіжні дані на сайт не потрапляють."
 msgstr ""
 
-#: src/Payments/Monobank.php:82
+#: src/Payments/Monobank.php:84
 msgid "Приймати оплату карткою через monobank"
 msgstr ""
 
-#: src/Payments/Monobank.php:91
+#: src/Payments/Monobank.php:93
 msgid "Картка · Apple Pay · Google Pay"
 msgstr ""
 
-#: src/Payments/Monobank.php:96
+#: src/Payments/Monobank.php:98
 msgid "Оплата карткою на захищеній сторінці monobank. Apple Pay і Google Pay теж працюють."
 msgstr ""
 
-#: src/Payments/Monobank.php:99
+#: src/Payments/Monobank.php:101
 msgid "Токен продавця"
 msgstr ""
 
 #. translators: %s — адреса сторінки з токеном.
-#: src/Payments/Monobank.php:103
+#: src/Payments/Monobank.php:105
 #, php-format
 msgid "Тестовий токен видають на %s. Без токена спосіб оплати не показується покупцям."
 msgstr ""
 
 #. translators: %s — текст помилки.
-#: src/Payments/Monobank.php:143
+#: src/Payments/Monobank.php:145
 #, php-format
 msgid "monobank не створив інвойс: %s"
 msgstr ""
 
-#: src/Payments/Monobank.php:148
+#: src/Payments/Monobank.php:150
 msgid "Не вдалося перейти до оплати. Спробуйте ще раз або оберіть інший спосіб."
 msgstr ""
 
-#: src/Payments/Monobank.php:154
+#: src/Payments/Monobank.php:156
 msgid "Очікуємо оплату через monobank."
 msgstr ""
 
-#: src/Payments/Monobank.php:250
+#: src/Payments/Monobank.php:252
 msgid "шт"
 msgstr ""
 
 #. translators: %s — статус від monobank.
-#: src/Payments/Registrar.php:156
+#: src/Payments/Registrar.php:239
 #, php-format
 msgid "monobank повідомив статус «%s»."
-msgstr ""
-
-#: src/Payments/Registrar.php:259
-msgid "LiqPay: тестовий платіж, гроші не списані."
-msgstr ""
-
-#. translators: %s — статус від LiqPay.
-#: src/Payments/Registrar.php:277
-#, php-format
-msgid "LiqPay повідомив статус «%s»."
 msgstr ""
 
 #: src/PostTypes/BrewGuide.php:42
@@ -913,12 +921,12 @@ msgid "Це не відсіє лоти, лише вплине на порядо�
 msgstr ""
 
 #. translators: %s — сума з валютою.
-#: src/Quiz/Questions.php:203
+#: src/Quiz/Questions.php:204
 #, php-format
 msgid "До %s"
 msgstr ""
 
-#: src/Quiz/Questions.php:213
+#: src/Quiz/Questions.php:214
 msgid "Без обмежень"
 msgstr ""
 

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-23T12:36:05+00:00\n"
+"POT-Creation-Date: 2026-09-23T17:31:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: brix\n"
@@ -288,19 +288,19 @@ msgid "яскрава"
 msgstr ""
 
 #. translators: %s — кількість товарів.
-#: inc/catalog.php:449
+#: inc/catalog.php:450
 #, php-format
 msgid "%s товар"
 msgstr ""
 
 #. translators: %s — кількість товарів.
-#: inc/catalog.php:449
+#: inc/catalog.php:450
 #, php-format
 msgid "%s товари"
 msgstr ""
 
 #. translators: %s — кількість товарів.
-#: inc/catalog.php:449
+#: inc/catalog.php:450
 #, php-format
 msgid "%s товарів"
 msgstr ""
@@ -495,6 +495,16 @@ msgstr ""
 
 #: inc/i18n.php:84
 msgid "Мова сайту"
+msgstr ""
+
+#: inc/i18n.php:123
+msgid "Валюта цін"
+msgstr ""
+
+#. translators: %s — код валюти.
+#: inc/i18n.php:136
+#, php-format
+msgid "Ціни в %s"
 msgstr ""
 
 #: inc/product-rest.php:48
@@ -1610,59 +1620,81 @@ msgstr ""
 msgid "Дякуємо. Замовлення прийняте."
 msgstr ""
 
-#: woocommerce/checkout/thankyou.php:32
+#: woocommerce/checkout/thankyou.php:47
 msgid "Оплата не пройшла"
 msgstr ""
 
-#: woocommerce/checkout/thankyou.php:34
+#: woocommerce/checkout/thankyou.php:49
 msgid "Банк відхилив платіж. Замовлення ми зберегли — спробуйте оплатити ще раз або оберіть інший спосіб."
 msgstr ""
 
-#: woocommerce/checkout/thankyou.php:38
+#: woocommerce/checkout/thankyou.php:53
 msgid "Спробувати ще раз"
 msgstr ""
 
-#: woocommerce/checkout/thankyou.php:44
+#: woocommerce/checkout/thankyou.php:59
+msgid "Очікуємо оплату"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:60
+msgid "Оплата ще не підтверджена"
+msgstr ""
+
+#. translators: %s — номер замовлення.
+#: woocommerce/checkout/thankyou.php:65
+#, php-format
+msgid "Замовлення №%s збережене. Якщо ви вже оплатили, банк підтвердить за хвилину — оновіть сторінку. Якщо ні, оплатити можна зараз."
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:72
+msgid "Оплатити"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:75
+msgid "Перевірити оплату"
+msgstr ""
+
+#: woocommerce/checkout/thankyou.php:81
 msgid "Замовлення прийняте"
 msgstr ""
 
-#: woocommerce/checkout/thankyou.php:45
+#: woocommerce/checkout/thankyou.php:82
 msgid "Смажимо й відправляємо"
 msgstr ""
 
 #. translators: 1 — номер замовлення, 2 — пошта покупця.
-#: woocommerce/checkout/thankyou.php:51
+#: woocommerce/checkout/thankyou.php:88
 #, php-format
 msgid "Замовлення №%1$s. Напишемо на %2$s, щойно його можна забирати."
 msgstr ""
 
 #. translators: 1 — номер замовлення, 2 — пошта покупця.
-#: woocommerce/checkout/thankyou.php:53
+#: woocommerce/checkout/thankyou.php:90
 #, php-format
 msgid "Замовлення №%1$s. Номер накладної надішлемо на %2$s у день обсмаження."
 msgstr ""
 
-#: woocommerce/checkout/thankyou.php:63
+#: woocommerce/checkout/thankyou.php:100
 msgid "Разом"
 msgstr ""
 
-#: woocommerce/checkout/thankyou.php:67
+#: woocommerce/checkout/thankyou.php:104
 msgid "Оплата"
 msgstr ""
 
-#: woocommerce/checkout/thankyou.php:72
+#: woocommerce/checkout/thankyou.php:109
 msgid "Доставка"
 msgstr ""
 
-#: woocommerce/checkout/thankyou.php:81
+#: woocommerce/checkout/thankyou.php:118
 msgid "Що їде до вас"
 msgstr ""
 
-#: woocommerce/checkout/thankyou.php:108
+#: woocommerce/checkout/thankyou.php:145
 msgid "Звідки забирати"
 msgstr ""
 
-#: woocommerce/checkout/thankyou.php:116
+#: woocommerce/checkout/thankyou.php:153
 msgid "Куди"
 msgstr ""
 

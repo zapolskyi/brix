@@ -73,12 +73,62 @@ final class DemoContent {
 		$this->import_products();
 		$this->import_reviews();
 		$this->import_users();
+		$this->import_pages();
 
 		// Нові типи записів і таксономії дають 404, доки правила
 		// перезапису не перебудовано.
 		flush_rewrite_rules();
 
 		\WP_CLI::success( 'Демо-контент на місці.' );
+	}
+
+	/**
+	 * Наповнює текстом сторінки, які створює `wp brix setup`.
+	 *
+	 * Setup створює сторінки порожніми — він про структуру, а не про
+	 * слова. Довго тексти головної, «Про нас», «Питання», «Доставки»
+	 * й «Контактів» жили лише в локальній базі: на чистій інсталяції
+	 * сторінки виходили порожні, хоча їхні англійські переклади
+	 * лежали в репозиторії й не мали що перекладати.
+	 *
+	 * Текст пишеться лише в порожню сторінку. Сторінку, яку власник
+	 * уже заповнив, імпорт не чіпає — і не позначає демо-вмістом,
+	 * тож --fresh її не видалить.
+	 *
+	 * @return void
+	 */
+	private function import_pages(): void {
+		$filled = 0;
+
+		foreach ( (array) ( $this->data['pages'] ?? array() ) as $row ) {
+			$slug     = (string) ( $row['slug'] ?? '' );
+			$existing = get_page_by_path( $slug );
+
+			if ( '' === $slug || ( $existing instanceof \WP_Post && '' !== trim( $existing->post_content ) ) ) {
+				continue;
+			}
+
+			$args = array(
+				'post_type'    => 'page',
+				'post_status'  => 'publish',
+				'post_name'    => $slug,
+				'post_title'   => (string) ( $row['title'] ?? $slug ),
+				'post_content' => (string) ( $row['content'] ?? '' ),
+			);
+
+			if ( $existing instanceof \WP_Post ) {
+				$args['ID']         = $existing->ID;
+				$args['post_title'] = $existing->post_title;
+			}
+
+			// wp_slash: інакше wp_insert_post з'їсть зворотні слеші
+			// в атрибутах блоків, і розмітка розвалиться.
+			if ( ! is_wp_error( wp_insert_post( wp_slash( $args ), true ) ) ) {
+				++$filled;
+			}
+		}
+
+		\WP_CLI::log( sprintf( 'Сторінок заповнено: %d', $filled ) );
 	}
 
 	/**

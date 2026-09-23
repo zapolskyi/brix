@@ -349,6 +349,10 @@
     "brix_guide_steps_3_brix_guide_step_target": "the cup is ready",
     "brix_guide_steps_3_brix_guide_step_text": "The water should pass through completely. The bed is flat, with no craters."
    }
+  },
+  "page|privacy": {
+   "title": "Privacy policy",
+   "content": "<!-- wp:paragraph --><p>Briefly and without legal fog: what data we ask for, why, and who gets to see it.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Who we are</h2><!-- /wp:heading --><!-- wp:paragraph --><p>BRIX 22° is a specialty coffee roastery at 41 Kyrylivska St, Kyiv. Anything about your data goes to <a href=\"mailto:hello@brix22.coffee\">hello@brix22.coffee</a>.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">What we collect</h2><!-- /wp:heading --><!-- wp:paragraph --><p>For an order: your name, phone, email and delivery address or Nova Poshta branch. For an account: also a password (we store only its hash), your order history and BRIX Club subscription. From the café form: the venue name and contacts.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Why</h2><!-- /wp:heading --><!-- wp:paragraph --><p>To roast, ship and follow up on your order: send the confirmation, the tracking number and status updates. The Monday letter goes only to those who subscribed, and every letter has an unsubscribe link.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Who we share it with</h2><!-- /wp:heading --><!-- wp:paragraph --><p><strong>Nova Poshta</strong> — name, phone and address, without which the parcel cannot be delivered. <strong>LiqPay</strong> — the amount and order number. You enter your card details on LiqPay’s page, and they never reach us. Nobody else, and we sell nothing.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Cookies</h2><!-- /wp:heading --><!-- wp:paragraph --><p>The cart and checkout rely on a session cookie — without it the site would not remember what you put in the cart. Another cookie remembers your chosen currency. WooCommerce records where you came to the site from, so we can see which advertising works. If Google Analytics is enabled, it receives anonymised page-view data.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">How long we keep it</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Orders — as long as accounting requires. Your account — until you delete it.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Your rights</h2><!-- /wp:heading --><!-- wp:paragraph --><p>You can view and correct your data in your account. To get a copy or have it erased, write to <a href=\"mailto:hello@brix22.coffee\">hello@brix22.coffee</a> — we reply within 30 days.</p><!-- /wp:paragraph -->"
   }
  },
  "terms": {
@@ -521,7 +525,8 @@
   "Доставка й оплата": "Delivery & payment",
   "Питання": "FAQ",
   "Контакти": "Contacts",
-  "Публічна оферта": "Terms of service"
+  "Публічна оферта": "Terms of service",
+  "Політика конфіденційності": "Privacy policy"
  },
  "strings": {
   "Нова Пошта — відділення": "Nova Poshta — branch",

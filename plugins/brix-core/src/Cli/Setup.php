@@ -74,6 +74,7 @@ final class Setup {
 		'wholesale'    => 'Для кав’ярень',
 		'club'         => 'BRIX Club',
 		'quiz'         => 'Підібрати каву',
+		'privacy'      => 'Політика конфіденційності',
 	);
 
 	/**
@@ -218,11 +219,61 @@ final class Setup {
 			$this->page( $slug, $title );
 		}
 
+		$this->legal_pages();
+
 		// Сторінки магазину створює сам WooCommerce, але на чистій
 		// інсталяції їх може ще не бути.
 		\WC_Install::create_pages();
 
 		\WP_CLI::log( 'Сторінки на місці.' );
+	}
+
+	/**
+	 * Політика конфіденційності й заглушка повернень.
+	 *
+	 * На політику посилається згода під кнопкою «Підтвердити
+	 * замовлення». WordPress при встановленні створює її чернеткою з
+	 * англійським шаблоном — і покупець, що хотів її прочитати,
+	 * отримував 404. Тож сторінку публікуємо й прописуємо в
+	 * налаштуваннях; текст для неї кладе `wp brix demo`.
+	 *
+	 * WooCommerce своєю чергою публікує англійську «Refund and Returns
+	 * Policy» на 30 днів — вона суперечить нашим умовам на сторінці
+	 * «Доставка й оплата». Її ховаємо в чернетки, але лише доки там
+	 * лежить заглушка: сторінку, яку хтось переписав, не чіпаємо.
+	 *
+	 * @return void
+	 */
+	private function legal_pages(): void {
+		$privacy = $this->page( 'privacy', self::PAGES['privacy'] );
+
+		if ( $privacy ) {
+			if ( 'publish' !== get_post_status( $privacy ) ) {
+				wp_update_post(
+					array(
+						'ID'          => $privacy,
+						'post_status' => 'publish',
+					)
+				);
+			}
+
+			update_option( 'wp_page_for_privacy_policy', $privacy );
+		}
+
+		$refund = get_page_by_path( 'refund_returns' );
+
+		if (
+			$refund instanceof \WP_Post
+			&& 'publish' === $refund->post_status
+			&& false !== strpos( $refund->post_content, 'Our refund and returns policy lasts 30 days' )
+		) {
+			wp_update_post(
+				array(
+					'ID'          => $refund->ID,
+					'post_status' => 'draft',
+				)
+			);
+		}
 	}
 
 	/**
@@ -320,7 +371,7 @@ final class Setup {
 				'items' => array(
 					array( 'url', 'https://instagram.com', 'Instagram' ),
 					array( 'url', 'https://t.me', 'Telegram' ),
-					array( 'page', 'privacy-policy', 'Публічна оферта' ),
+					array( 'page', 'privacy', 'Політика конфіденційності' ),
 				),
 			),
 		);
