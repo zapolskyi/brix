@@ -73,6 +73,7 @@ final class Emails implements Module {
 	 */
 	public function register(): void {
 		add_action( 'woocommerce_checkout_create_order', array( $this, 'remember' ) );
+		add_action( 'woocommerce_created_customer', array( $this, 'remember_user' ), 1 );
 		add_filter( 'woocommerce_email_actions', array( $this, 'wrap_actions' ) );
 		add_filter( 'woocommerce_allow_switching_email_locale', array( $this, 'setup_locale' ), 10, 2 );
 		add_filter( 'woocommerce_allow_restoring_email_locale', array( $this, 'restore_locale' ), 10, 2 );
@@ -86,6 +87,40 @@ final class Emails implements Module {
 	 */
 	public function remember( \WC_Order $order ): void {
 		$order->update_meta_data( self::META, Language::current() );
+	}
+
+	/**
+	 * Запам'ятовує мову покупця, що створив кабінет.
+	 *
+	 * Листи про кабінет — «кабінет створено», «скидання пароля» — не
+	 * мають замовлення, з якого взяти мову. Тож мову бере сам покупець:
+	 * та, якою він реєструвався.
+	 *
+	 * @param int $user_id Покупець.
+	 * @return void
+	 */
+	public function remember_user( $user_id ): void {
+		update_user_meta( (int) $user_id, self::META, Language::current() );
+	}
+
+	/**
+	 * Мова листа за його об'єктом.
+	 *
+	 * @param \WC_Email $email Лист.
+	 * @return string|null Код мови або null, якщо об'єкт мови не знає.
+	 */
+	private static function language_of_email( \WC_Email $email ): ?string {
+		if ( $email->object instanceof \WC_Order ) {
+			return self::language( $email->object );
+		}
+
+		if ( $email->object instanceof \WP_User ) {
+			$lang = (string) get_user_meta( $email->object->ID, self::META, true );
+
+			return Language::SECOND === $lang ? Language::SECOND : Language::MAIN;
+		}
+
+		return null;
 	}
 
 	/**
@@ -162,7 +197,26 @@ final class Emails implements Module {
 	 */
 	public function setup_locale( $allow, $email = null ): bool {
 		$customer = $email instanceof \WC_Email && $email->is_customer_email();
-		$lang     = ( $customer && Language::SECOND === $this->sending ) ? Language::SECOND : Language::MAIN;
+
+		/*
+		 * Мову беремо з об'єкта листа: із замовлення або з покупця.
+		 * Колись вона бралась лише з аргументу події через
+		 * wc_get_order() — а в листах про кабінет перший аргумент —
+		 * ID користувача: лист «кабінет створено» йшов українською
+		 * навіть з /en/, а збіг ID з номером чужого замовлення дав
+		 * би мову того замовлення.
+		 */
+		$own = $customer ? self::language_of_email( $email ) : null;
+
+		/*
+		 * WooCommerce перемикає мову на самому початку trigger(), іноді
+		 * ще до того, як лист знає свого адресата. Лист без замовлення —
+		 * «кабінет створено», «скидання пароля» — відправляється під
+		 * час запиту самого покупця, тож тоді правду каже мова запиту.
+		 * В адмінці й кроні вона завжди українська.
+		 */
+		$want = $own ?? $this->sending ?? ( $customer ? Language::current() : null );
+		$lang = $customer && Language::SECOND === $want ? Language::SECOND : Language::MAIN;
 
 		Language::use( $lang );
 
