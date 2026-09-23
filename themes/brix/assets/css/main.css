@@ -3421,6 +3421,11 @@ h4 {
 .brix-np:focus-within {
   z-index: 10;
 }
+.brix-np__note {
+  margin: var(--brix-gap-2) 0 0;
+  font-size: var(--brix-fs-sm);
+  color: var(--brix-muted);
+}
 .brix-np__list {
   position: absolute;
   left: 0;

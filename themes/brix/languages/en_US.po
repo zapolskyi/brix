@@ -402,6 +402,30 @@ msgstr "roasted %s"
 msgid "Закрити меню"
 msgstr "Close menu"
 
+#: inc/enqueue.php:184
+msgid "Шукаємо…"
+msgstr "Searching…"
+
+#: inc/enqueue.php:185
+msgid "Спершу оберіть місто зі списку."
+msgstr "Pick a city from the list first."
+
+#: inc/enqueue.php:186
+msgid "Такого міста не знайшли. Перевірте написання."
+msgstr "We could not find that city. Check the spelling."
+
+#: inc/enqueue.php:187
+msgid "Нічого не знайшли. Можна вписати адресу вручну — звіримо її під час обробки."
+msgstr "Nothing found. You can type the address by hand — we will check it when we process the order."
+
+#: inc/enqueue.php:188
+msgid "Не вдалося завантажити список. Впишіть адресу вручну — звіримо її під час обробки."
+msgstr "We could not load the list. Type the address by hand — we will check it when we process the order."
+
+#: inc/enqueue.php:189
+msgid "Забагато запитів поспіль. Зачекайте хвилину або впишіть адресу вручну."
+msgstr "Too many requests in a row. Wait a minute, or type the address by hand."
+
 #: inc/i18n.php:84
 msgid "Мова сайту"
 msgstr "Site language"

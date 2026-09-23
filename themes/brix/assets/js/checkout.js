@@ -76,15 +76,21 @@
 /**
  * Checkout: вибір міста й відділення Нової Пошти.
  *
- * Власний випадайко, а не <datalist>. Причини дві.
+ * Власний випадайко, а не <datalist>. Рідний список браузера не дає
+ * перевірити вибір: у полі лишається довільний текст, і замовлення
+ * приходить із адресою, якої немає. А ще він показується не завжди й
+ * по-різному в різних браузерах — покупець просто не бачить підказок
+ * і вирішує, що їх немає.
  *
- * Рідний список браузера не дає перевірити вибір: у полі лишається
- * довільний текст, і замовлення приходить із адресою, якої немає.
- * А ще він показується не завжди й по-різному в різних браузерах —
- * покупець просто не бачить підказок і вирішує, що їх немає.
+ * Відділення міста запитуються один раз і фільтруються на місці.
+ * Доти кожна літера в полі відділення означала окремий запит по всі
+ * чотириста точок міста: поки покупець дописував «Відділення №12»,
+ * він витрачав півтора десятка запитів, упирався в обмеження частоти
+ * й бачив порожній список — рівно тоді, коли список був найпотрібніший.
  *
- * Тут список свій: видно завжди, працює з клавіатури, а вибір пише
- * ідентифікатор у приховане поле, яке перевіряє сервер.
+ * Жодна помилка не мовчить. Порожній список без пояснення покупець
+ * читає як «тут нічого немає», тож під полем завжди написано, що
+ * саме сталося і що з цим робити.
  *
  * Без JavaScript обидва поля лишаються звичайними текстовими —
  * замовлення оформлюється, просто адресу покупець пише руками.
@@ -99,11 +105,14 @@
     return;
   }
 
-  /** Обгортає поле й вішає на нього список підказок. */
+  var texts = (window.brixCheckout && window.brixCheckout.strings) || {};
+
+  /** Обгортає поле, вішає на нього список підказок і рядок стану. */
   function attach(field, name) {
+    var holder = document.createElement('div');
     var box = document.createElement('div');
     var hidden = document.createElement('input');
-    var holder = document.createElement('div');
+    var note = document.createElement('p');
 
     holder.className = 'brix-np';
     field.parentNode.insertBefore(holder, field);
@@ -117,16 +126,29 @@
     hidden.name = name;
     holder.appendChild(hidden);
 
+    note.className = 'brix-np__note';
+    note.hidden = true;
+    // Рядок стану читається вголос, щойно змінився: людина зі
+    // скрінрідером не бачить, що список спорожнів.
+    note.setAttribute('role', 'status');
+    holder.appendChild(note);
+
     field.setAttribute('autocomplete', 'off');
     field.setAttribute('role', 'combobox');
     field.setAttribute('aria-expanded', 'false');
     field.setAttribute('aria-autocomplete', 'list');
 
-    return { field: field, box: box, hidden: hidden, current: -1, items: [] };
+    return { field: field, box: box, hidden: hidden, note: note, current: -1, items: [] };
   }
 
   var cityBox = attach(city, 'brix_np_city_ref');
   var whBox = attach(warehouse, 'brix_np_warehouse_ref');
+
+  /** Пише під полем, що відбувається. */
+  function say(state, text) {
+    state.note.textContent = text || '';
+    state.note.hidden = !text;
+  }
 
   /** Малює список варіантів. */
   function render(state, items) {
@@ -190,29 +212,105 @@
     state.box.innerHTML = '';
     state.field.setAttribute('aria-expanded', 'false');
     state.current = -1;
+    say(state, '');
 
     if (after) {
       after(item);
     }
   }
 
-  /** Питає сервер і показує варіанти. */
-  function ask(state, url, after) {
-    fetch(url, { headers: { Accept: 'application/json' } })
-      .then(function (response) {
-        return response.ok ? response.json() : Promise.reject(new Error('HTTP ' + response.status));
-      })
-      .then(function (data) {
-        render(state, data.items || []);
+  /** Запит до довідника. Розрізняє «забагато запитів» і решту бід. */
+  function request(url) {
+    return fetch(url, { headers: { Accept: 'application/json' } }).then(function (response) {
+      if (response.status === 429) {
+        throw new Error('too-many');
+      }
 
-        if (after) {
-          after(data);
-        }
+      if (!response.ok) {
+        throw new Error('http-' + response.status);
+      }
+
+      return response.json();
+    });
+  }
+
+  /** Текст помилки під полем. */
+  function excuse(error) {
+    return error && 'too-many' === error.message ? texts.tooMany : texts.failed;
+  }
+
+  var cityCache = {};
+  var whCache = {};
+  var timer = null;
+
+  /** Міста за запитом. Однакові запити другий раз не питаємо. */
+  function findCities(query) {
+    if (Object.prototype.hasOwnProperty.call(cityCache, query)) {
+      show(cityBox, cityCache[query], texts.noCity);
+      return;
+    }
+
+    say(cityBox, texts.loading);
+
+    request(window.brixData.restUrl + 'np/cities?q=' + encodeURIComponent(query))
+      .then(function (data) {
+        cityCache[query] = data.items || [];
+        show(cityBox, cityCache[query], texts.noCity);
       })
-      .catch(function () {
-        // Довідник недоступний — лишається звичайне текстове поле.
-        render(state, []);
+      .catch(function (error) {
+        render(cityBox, []);
+        say(cityBox, excuse(error));
       });
+  }
+
+  /** Відділення обраного міста: один запит на місто, далі з пам'яті. */
+  function findWarehouses(filter) {
+    var ref = cityBox.hidden.value;
+
+    if (!ref) {
+      render(whBox, []);
+      say(whBox, texts.pickCity);
+      return;
+    }
+
+    if (Object.prototype.hasOwnProperty.call(whCache, ref)) {
+      showWarehouses(ref, filter);
+      return;
+    }
+
+    say(whBox, texts.loading);
+
+    request(window.brixData.restUrl + 'np/warehouses?city=' + encodeURIComponent(ref))
+      .then(function (data) {
+        whCache[ref] = data.items || [];
+        showWarehouses(ref, filter);
+      })
+      .catch(function (error) {
+        render(whBox, []);
+        say(whBox, excuse(error));
+      });
+  }
+
+  /** Фільтрує вже отримані відділення на місці. */
+  function showWarehouses(ref, filter) {
+    var needle = (filter || '').trim().toLowerCase();
+    var list = whCache[ref];
+
+    if (needle) {
+      list = list.filter(function (item) {
+        return item.name.toLowerCase().indexOf(needle) !== -1;
+      });
+    }
+
+    // Обмеження показу, а не пошуку: у великому місті відділень
+    // кілька сотень, і малювати їх усі немає сенсу.
+    show(whBox, list.slice(0, 60), texts.noPlace);
+  }
+
+  /** Показує список або пояснює, чому він порожній. */
+  function show(state, items, empty) {
+    render(state, items);
+    say(state, items.length ? '' : empty);
   }
 
   /** Спільна поведінка клавіатури й мишки. */
@@ -249,6 +347,7 @@
 
       if (event.key === 'Escape') {
         render(state, []);
+        say(state, '');
       }
     });
 
@@ -260,29 +359,31 @@
     });
   }
 
-  var timer = null;
-
   city.addEventListener('input', function () {
     // Ручна правка знецінює попередній вибір: поки місто не обране
     // зі списку, відділення шукати нема де.
     cityBox.hidden.value = '';
     whBox.hidden.value = '';
     render(whBox, []);
+    say(whBox, '');
 
     window.clearTimeout(timer);
     timer = window.setTimeout(function () {
-      if (city.value.trim().length < 2) {
+      var query = city.value.trim();
+
+      if (query.length < 2) {
         render(cityBox, []);
+        say(cityBox, '');
         return;
       }
 
-      ask(cityBox, window.brixData.restUrl + 'np/cities?q=' + encodeURIComponent(city.value.trim()));
+      findCities(query);
     }, 220);
   });
 
   city.addEventListener('focus', function () {
     if (city.value.trim().length >= 2 && !cityBox.hidden.value) {
-      ask(cityBox, window.brixData.restUrl + 'np/cities?q=' + encodeURIComponent(city.value.trim()));
+      findCities(city.value.trim());
     }
   });
 
@@ -290,45 +391,16 @@
     // Щойно місто обране — одразу показуємо його відділення.
     warehouse.value = '';
     warehouse.focus();
-    loadWarehouses();
+    findWarehouses('');
   });
 
-  /** Відділення обраного міста. */
-  function loadWarehouses() {
-    if (!cityBox.hidden.value) {
-      render(whBox, []);
-      return;
-    }
-
-    ask(whBox, window.brixData.restUrl + 'np/warehouses?city=' + encodeURIComponent(cityBox.hidden.value));
-  }
-
-  warehouse.addEventListener('focus', loadWarehouses);
+  warehouse.addEventListener('focus', function () {
+    findWarehouses(warehouse.value);
+  });
 
   warehouse.addEventListener('input', function () {
     whBox.hidden.value = '';
-
-    if (!cityBox.hidden.value) {
-      return;
-    }
-
-    var needle = warehouse.value.trim().toLowerCase();
-
-    window.clearTimeout(timer);
-    timer = window.setTimeout(function () {
-      ask(whBox, window.brixData.restUrl + 'np/warehouses?city=' + encodeURIComponent(cityBox.hidden.value), function () {
-        if (!needle) {
-          return;
-        }
-
-        // Фільтруємо вже отриманий список на місці: відділень у
-        // місті кількасот, і смикати сервер на кожну літеру немає
-        // сенсу.
-        render(whBox, whBox.items.filter(function (item) {
-          return item.name.toLowerCase().indexOf(needle) !== -1;
-        }).slice(0, 40));
-      });
-    }, 180);
+    findWarehouses(warehouse.value);
   });
 
   wire(whBox, null);

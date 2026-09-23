@@ -84,6 +84,8 @@ final class Language implements Module {
 		add_filter( 'locale', array( $this, 'locale' ) );
 		add_filter( 'determine_locale', array( $this, 'locale' ) );
 		add_filter( 'home_url', array( $this, 'home_url' ), 10, 4 );
+		add_filter( 'wp_setup_nav_menu_item', array( $this, 'menu_url' ) );
+		add_filter( 'the_content', array( $this, 'content_links' ), 20 );
 		add_action( 'wp_head', array( $this, 'alternates' ), 1 );
 	}
 
@@ -223,6 +225,15 @@ final class Language implements Module {
 			return $url;
 		}
 
+		// Кінцевий слеш зберігається: без нього WordPress відповідає
+		// перенаправленням на ту саму адресу зі слешем, і кожен пункт
+		// меню коштував би зайвого запиту.
+		$path = (string) ( $parts['path'] ?? '' );
+
+		if ( '' !== $rest && '/' === substr( $path, -1 ) ) {
+			$rest .= '/';
+		}
+
 		$out = self::origin( $parts ) . self::base_path() . '/' . self::SECOND
 			. ( '' === $rest ? '/' : '/' . $rest );
 
@@ -235,6 +246,78 @@ final class Language implements Module {
 		}
 
 		return $out;
+	}
+
+	/**
+	 * Адреса пункту меню, якщо вона записана шляхом.
+	 *
+	 * Пункти-сторінки й пункти-категорії WordPress перебудовує на
+	 * кожен показ через get_permalink(), тож префікс мови вони
+	 * отримують самі. А «довільне посилання» зберігає адресу в базі
+	 * як є — і «/farms/» з англійської сторінки вело назад на
+	 * українську. Саме так губилася мова на «Виробниках» і «Гайдах».
+	 *
+	 * @param \WP_Post|mixed $item Пункт меню.
+	 * @return \WP_Post|mixed
+	 */
+	public function menu_url( $item ) {
+		if ( ! self::is_second() || ! isset( $item->url ) || ! is_string( $item->url ) ) {
+			return $item;
+		}
+
+		$item->url = self::localize( $item->url );
+
+		return $item;
+	}
+
+	/**
+	 * Посилання всередині тексту сторінки.
+	 *
+	 * У редакторі посилання на свою ж сторінку пишуть шляхом:
+	 * «/about/», «/wholesale/». Під /en/ такий шлях веде на
+	 * українську версію — текст англійський, а сторінка за
+	 * посиланням ні.
+	 *
+	 * @param string $content Текст.
+	 * @return string
+	 */
+	public function content_links( $content ): string {
+		$content = (string) $content;
+
+		if ( ! self::is_second() || false === strpos( $content, 'href="/' ) ) {
+			return $content;
+		}
+
+		return (string) preg_replace_callback(
+			'~href="(/[^"/][^"]*)"~',
+			static fn( array $m ): string => 'href="' . esc_url( self::localize( $m[1] ) ) . '"',
+			$content
+		);
+	}
+
+	/**
+	 * Додає префікс мови до шляху всередині сайту.
+	 *
+	 * Зовнішні адреси, протокольні посилання й те, де префікс уже є,
+	 * лишаються як були.
+	 *
+	 * @param string $url Адреса або шлях.
+	 * @return string
+	 */
+	public static function localize( string $url ): string {
+		$url = trim( $url );
+
+		if ( '' === $url || 0 !== strpos( $url, '/' ) || 0 === strpos( $url, '//' ) ) {
+			return $url;
+		}
+
+		$rest = self::strip_base( (string) wp_parse_url( $url, PHP_URL_PATH ) );
+
+		if ( self::SECOND === $rest || 0 === strpos( $rest, self::SECOND . '/' ) ) {
+			return $url;
+		}
+
+		return home_url( $url );
 	}
 
 	/**
