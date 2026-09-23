@@ -243,16 +243,25 @@ final class Setup {
 			// демо-стенду тільки заважають.
 			'woocommerce_show_marketplace_suggestions' => 'no',
 			'woocommerce_allow_tracking'               => 'no',
-			// WooCommerce пише ці тексти при активації мовою, яка на
-			// той момент є, — на свіжому сайті це англійська.
-			'woocommerce_checkout_privacy_policy_text' => 'Ваші дані потрібні, щоб оформити й доставити замовлення. Деталі — у [privacy_policy].',
-			'woocommerce_registration_privacy_policy_text' => 'Ваші дані потрібні, щоб створити кабінет. Деталі — у [privacy_policy].',
-			'woocommerce_email_footer_text'            => 'BRIX 22° · Обсмажувальня, Київ · {site_url}',
 			'woocommerce_task_list_hidden'             => 'yes',
 			'woocommerce_onboarding_profile'           => array( 'skipped' => true ),
 		);
 
 		foreach ( $options as $key => $value ) {
+			update_option( $key, $value );
+		}
+
+		/*
+		 * Тексти, які WooCommerce пише при активації мовою, що на той
+		 * момент є, — на свіжому сайті це англійська.
+		 */
+		$texts = array(
+			'woocommerce_checkout_privacy_policy_text'     => 'Ваші дані потрібні, щоб оформити й доставити замовлення. Деталі — у [privacy_policy].',
+			'woocommerce_registration_privacy_policy_text' => 'Ваші дані потрібні, щоб створити кабінет. Деталі — у [privacy_policy].',
+			'woocommerce_email_footer_text'                => 'BRIX 22° · Обсмажувальня, Київ · {site_url}',
+		);
+
+		foreach ( $texts as $key => $value ) {
 			update_option( $key, $value );
 		}
 
