@@ -56,7 +56,11 @@ final class Plan implements Module {
 	 * @return array<string, mixed>
 	 */
 	public function add_data( array $data, int $product_id ): array {
-		unset( $product_id );
+		// Підписка — лише на каву. Тема не показує вибору плану для
+		// обладнання, але запит можна зібрати й руками.
+		if ( has_term( 'gear', 'product_cat', $product_id ) ) {
+			return $data;
+		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce перевіряє WooCommerce у формі додавання в кошик.
 		$interval = isset( $_POST[ self::KEY ] ) ? absint( wp_unslash( $_POST[ self::KEY ] ) ) : 0;

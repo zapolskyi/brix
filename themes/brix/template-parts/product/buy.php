@@ -44,11 +44,15 @@ $brix_left    = brix_stock_left( $brix_current );
 		<?php if ( $brix_left > 0 && $brix_left <= 30 ) : ?>
 			<span class="brix-tag brix-tag--soft">
 				<?php
-				printf(
+				// Кава рахується пачками, обладнання — штуками, як і в
+				// картці каталогу: «залишилось 14 пачок» чайника — неправда.
+				$brix_left_label = brix_is_coffee( $brix_product )
 					/* translators: %s — кількість пачок. */
-					esc_html( brix_plural( $brix_left, __( 'Залишилась %s пачка', 'brix' ), __( 'Залишилось %s пачки', 'brix' ), __( 'Залишилось %s пачок', 'brix' ) ) ),
-					esc_html( (string) $brix_left )
-				);
+					? brix_plural( $brix_left, __( 'Залишилась %s пачка', 'brix' ), __( 'Залишилось %s пачки', 'brix' ), __( 'Залишилось %s пачок', 'brix' ) )
+					/* translators: %s — кількість штук. */
+					: brix_plural( $brix_left, __( 'Залишилась %s штука', 'brix' ), __( 'Залишилось %s штуки', 'brix' ), __( 'Залишилось %s штук', 'brix' ) );
+
+				printf( esc_html( $brix_left_label ), esc_html( (string) $brix_left ) );
 				?>
 			</span>
 		<?php endif; ?>
@@ -170,7 +174,11 @@ $brix_left    = brix_stock_left( $brix_current );
 			 * Перемикач плану всередині форми: вибір підписки має
 			 * доїхати до кошика разом із кількістю й варіацією.
 			 */
-			get_template_part( 'template-parts/product/subscription', null, array( 'product' => $brix_current ) );
+			// BRIX Club — підписка на каву. Чайник кожні два тижні
+			// нікому не потрібен.
+			if ( brix_is_coffee( $brix_product ) ) {
+				get_template_part( 'template-parts/product/subscription', null, array( 'product' => $brix_current ) );
+			}
 			?>
 
 			<?php
@@ -202,8 +210,25 @@ $brix_left    = brix_stock_left( $brix_current );
 
 	<?php get_template_part( 'template-parts/product/freshness', null, array( 'lot' => $brix_lot ) ); ?>
 
+	<?php
+	/*
+	 * Обіцянки різні для кави й обладнання. Каву обсмажують щопонеділка
+	 * і відправляють того ж дня — «завтра» для неї неправда. А «замінимо
+	 * лот» для чайника не має сенсу: там звичайний обмін.
+	 */
+	$brix_promises = brix_is_coffee( $brix_product )
+		? array(
+			'truck' => __( 'Відправимо в понеділок, у день обсмаження', 'brix' ),
+			'check' => __( 'Не сподобалось — замінимо лот', 'brix' ),
+		)
+		: array(
+			'truck' => __( 'Нова Пошта завтра, якщо замовити до 16:00', 'brix' ),
+			'check' => __( 'Обмін протягом 14 днів, якщо річ не використовували', 'brix' ),
+		);
+	?>
 	<ul class="brix-buy__promises">
-		<li><?php echo brix_icon( 'truck' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e( 'Нова Пошта завтра, якщо замовити до 16:00', 'brix' ); ?></li>
-		<li><?php echo brix_icon( 'check' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e( 'Не сподобалось — замінимо лот', 'brix' ); ?></li>
+		<?php foreach ( $brix_promises as $brix_icon => $brix_promise ) : ?>
+			<li><?php echo brix_icon( $brix_icon ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php echo esc_html( $brix_promise ); ?></li>
+		<?php endforeach; ?>
 	</ul>
 </div>
