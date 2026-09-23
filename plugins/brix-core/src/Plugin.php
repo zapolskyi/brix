@@ -143,6 +143,7 @@ final class Plugin {
 				Wholesale\Role::class,
 				Wholesale\Pricing::class,
 				Newsletter\Subscribers::class,
+				Mail\Brevo::class,
 			)
 		);
 	}
