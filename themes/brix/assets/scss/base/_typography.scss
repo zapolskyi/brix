@@ -6,6 +6,11 @@ h1, h2, h3, h4 {
   line-height: var(--brix-lh-display);
   letter-spacing: -0.03em;
   text-wrap: balance;
+  // Дисплейний шрифт широкий: «конфіденційності» на телефоні в
+  // рядок не вміщалась і розпирала сторінку вбік. Спершу браузер
+  // пробує перенести за правилами мови, а коли не вміє — ламає слово.
+  hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 h1 { font-size: var(--brix-fs-h1); letter-spacing: -0.045em; }

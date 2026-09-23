@@ -1,7 +1,8 @@
 @use '../abstracts/mixins' as *;
 
 // Чип фільтра. Вмикається натисканням, тож у розмітці це <button>
-// або <input type="checkbox"> з <label> — стан несе aria-pressed/checked,
+// або <input type="checkbox"> з <label> — стан несе aria-pressed/checked
+// (у посилання-чипа — aria-current: aria-pressed дозволений лише кнопкам),
 // а не самий лише клас.
 .brix-chip {
   display: inline-flex;
@@ -23,7 +24,8 @@
   &:hover { border-color: var(--brix-roast); }
 
   &.is-active,
-  &[aria-pressed='true'] {
+  &[aria-pressed='true'],
+  &[aria-current='true'] {
     background: var(--brix-roast);
     border-color: var(--brix-roast);
     color: var(--brix-mill);
@@ -37,7 +39,8 @@
   }
 
   &.is-active &__count,
-  &[aria-pressed='true'] &__count { color: inherit; opacity: 0.7; }
+  &[aria-pressed='true'] &__count,
+  &[aria-current='true'] &__count { color: inherit; opacity: 0.7; }
 
   &--sm { height: 34px; padding-inline: 13px; font-size: 0.8125rem; }
 

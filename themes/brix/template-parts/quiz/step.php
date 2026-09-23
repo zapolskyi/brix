@@ -48,7 +48,7 @@ $brix_max      = (int) ( $brix_question['max'] ?? 2 );
 				<a
 					class="brix-quiz__option<?php echo $brix_on ? ' is-active' : ''; ?>"
 					href="<?php echo esc_url( brix_quiz_option_url( $brix_question, $brix_answers, (string) $brix_value, $brix_step ) ); ?>"
-					aria-pressed="<?php echo $brix_on ? 'true' : 'false'; ?>"
+					<?php echo $brix_on ? 'aria-current="true"' : ''; ?>
 					rel="nofollow"
 				>
 					<span class="brix-quiz__option-label"><?php echo esc_html( $brix_option['label'] ); ?></span>

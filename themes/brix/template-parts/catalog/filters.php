@@ -97,7 +97,7 @@ $brix_total   = (int) wc_get_loop_prop( 'total' );
 					<a
 						class="brix-chip<?php echo $brix_on ? ' is-active' : ''; ?>"
 						href="<?php echo esc_url( brix_filter_toggle_url( $brix_key, (string) $brix_slug ) ); ?>"
-						aria-pressed="<?php echo $brix_on ? 'true' : 'false'; ?>"
+						<?php echo $brix_on ? 'aria-current="true"' : ''; ?>
 						data-brix-filter="<?php echo esc_attr( (string) $brix_key ); ?>"
 						data-brix-value="<?php echo esc_attr( (string) $brix_slug ); ?>"
 						rel="nofollow"

@@ -133,7 +133,7 @@ $brix_left    = brix_stock_left( $brix_current );
 						<a
 							class="brix-chip<?php echo $brix_on ? ' is-active' : ''; ?><?php echo $brix_exists ? '' : ' is-unavailable'; ?>"
 							href="<?php echo esc_url( brix_variation_url( $brix_product, $brix_selected, $brix_key, $brix_option ) ); ?>"
-							aria-pressed="<?php echo $brix_on ? 'true' : 'false'; ?>"
+							<?php echo $brix_on ? 'aria-current="true"' : ''; ?>
 							data-brix-attr="<?php echo esc_attr( $brix_key ); ?>"
 							data-brix-value="<?php echo esc_attr( $brix_option ); ?>"
 							<?php echo $brix_exists ? '' : 'aria-disabled="true"'; ?>

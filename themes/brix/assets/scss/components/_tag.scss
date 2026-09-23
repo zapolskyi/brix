@@ -17,5 +17,7 @@
   &--washed  { background: var(--brix-bg-washed);  color: var(--brix-green-d); }
   &--honey   { background: var(--brix-bg-honey);   color: var(--brix-honey-d); }
   &--lab     { background: var(--brix-roast);      color: var(--brix-mill); }
-  &--soft    { background: var(--brix-stone);      color: var(--brix-muted); }
+  // Не --brix-muted: на кам'яному тлі він дає 4,48:1, трохи нижче
+  // порогу WCAG. Цей відтінок майже не відрізняється на око — 5,21:1.
+  &--soft    { background: var(--brix-stone);      color: #625D59; }
 }

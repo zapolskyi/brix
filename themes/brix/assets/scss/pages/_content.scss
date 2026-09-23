@@ -6,8 +6,27 @@
   max-width: 68ch;
 
   h2 { margin-bottom: var(--brix-gap-8); }
+
+  // Заголовок усередині тексту відкриває новий розділ — без відступу
+  // згори він прилипав до попереднього абзацу.
+  * + h2 { margin-top: var(--brix-gap-16); }
+
   p { margin-bottom: var(--brix-gap-6); }
   p:last-child { margin-bottom: 0; }
+}
+
+// Посилання посеред тексту підкреслені: самого кольору мало — хто
+// погано розрізняє вишневий і чорний, не знайшов би їх (WCAG 1.4.1).
+// Навігація, картки й кнопки лишаються без підкреслення.
+.brix-prose :is(p, li) a,
+.brix-buy__hint a,
+.woocommerce-privacy-policy-text a,
+.brix-newsletter__fine a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+
+  &:hover { text-decoration-thickness: 2px; }
 }
 
 .brix-quote {

@@ -278,7 +278,7 @@
     font-size: var(--brix-fs-h3);
   }
 
-  ul.products {
+  .products {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: var(--brix-gap-16) var(--brix-gap-12);

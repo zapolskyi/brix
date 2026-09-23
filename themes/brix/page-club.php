@@ -99,7 +99,7 @@ $brix_complete  = count( $brix_selection ) === count( $brix_config );
 								<a
 									class="brix-club__option<?php echo $brix_on ? ' is-active' : ''; ?>"
 									href="<?php echo esc_url( brix_club_url( $brix_key, (string) $brix_value ) ); ?>"
-									aria-pressed="<?php echo $brix_on ? 'true' : 'false'; ?>"
+									<?php echo $brix_on ? 'aria-current="true"' : ''; ?>
 									rel="nofollow"
 								>
 									<span class="brix-club__option-label"><?php echo esc_html( $brix_option['label'] ); ?></span>
