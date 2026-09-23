@@ -142,6 +142,7 @@ final class Plugin {
 				Wholesale\Application::class,
 				Wholesale\Role::class,
 				Wholesale\Pricing::class,
+				Newsletter\Subscribers::class,
 			)
 		);
 	}

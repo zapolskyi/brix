@@ -45,6 +45,7 @@
   --brix-sec-y-tight: clamp(3rem, 2rem + 3.5vw, 4.75rem);
   --brix-sec-x: clamp(1.25rem, 0.5rem + 2.5vw, 3rem);
   --brix-maxw: 1440px;
+  --brix-gutter: max(var(--brix-sec-x), calc((100% - var(--brix-maxw)) / 2));
   --brix-radius: 4px;
   --brix-radius-lg: 7px;
   --brix-radius-pill: 999px;

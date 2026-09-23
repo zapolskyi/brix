@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BRIX Core\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/brix-core\n"
-"POT-Creation-Date: 2026-09-23T17:32:16+00:00\n"
+"POT-Creation-Date: 2026-09-23T18:00:20+00:00\n"
 "Last-Translator: Nazar Zapolskyi <nazar.zapolski@gmail.com>\n"
 "Language-Team: English\n"
 "Language: en_US\n"
@@ -28,7 +28,11 @@ msgid ""
 "Бізнес-логіка магазину BRIX 22°: паспорт лоту, таксономії обробки, "
 "виробники, гайди, AJAX-фільтри каталогу, квіз підбору, Нова Пошта, оптовий "
 "кабінет і транзакційні листи. Презентація — в темі brix."
-msgstr "Business logic for the BRIX 22° store: lot passport, processing taxonomies, producers, guides, AJAX catalogue filters, coffee finder quiz, Nova Poshta, wholesale account and transactional emails. Presentation lives in the brix theme."
+msgstr ""
+"Business logic for the BRIX 22° store: lot passport, processing taxonomies, "
+"producers, guides, AJAX catalogue filters, coffee finder quiz, Nova Poshta, "
+"wholesale account and transactional emails. Presentation lives in the brix "
+"theme."
 
 #. Author of the plugin
 #: brix-core.php
@@ -469,59 +473,176 @@ msgstr "Lot of the week"
 msgid "Плашка в каталозі. Вмикати варто одному товару."
 msgstr "A badge in the catalogue. Worth switching on for one product only."
 
-#: src/I18n/Currency.php:502
+#: src/I18n/Currency.php:513
 msgid "Друга валюта: євро"
 msgstr "Second currency: euro"
 
-#: src/I18n/Currency.php:504
+#: src/I18n/Currency.php:515
 msgid ""
 "Покупець перемикає валюту знаком ₴ / € у шапці; англійська версія без вибору "
 "показує євро. У базі лишається гривня — євро рахується за цим курсом на "
 "показі."
-msgstr "Shoppers switch the currency with ₴ / € in the header; without a choice the English version shows euros. Hryvnias stay in the database — euros are calculated at this rate for display."
+msgstr ""
+"Shoppers switch the currency with ₴ / € in the header; without a choice the "
+"English version shows euros. Hryvnias stay in the database — euros are "
+"calculated at this rate for display."
 
-#: src/I18n/Currency.php:509
+#: src/I18n/Currency.php:520
 msgid "Гривень за євро"
 msgstr "Hryvnias per euro"
 
-#: src/I18n/Currency.php:510
+#: src/I18n/Currency.php:521
 msgid ""
 "Нуль вимикає євро зовсім: перемикач зникне, і весь сайт рахуватиме в гривні."
-msgstr "Zero turns euros off entirely: the switcher disappears and the whole site counts in hryvnias."
+msgstr ""
+"Zero turns euros off entirely: the switcher disappears and the whole site "
+"counts in hryvnias."
 
-#: src/I18n/Translations.php:370
+#: src/I18n/Translations.php:372
 msgid "Англійська версія"
 msgstr "English version"
 
-#: src/I18n/Translations.php:388
+#: src/I18n/Translations.php:390
 msgid "Заголовок"
 msgstr "Title"
 
-#: src/I18n/Translations.php:389
+#: src/I18n/Translations.php:391
 msgid "Короткий опис"
 msgstr "Short description"
 
-#: src/I18n/Translations.php:390
+#: src/I18n/Translations.php:392
 msgid "Текст"
 msgstr "Text"
 
-#: src/I18n/Translations.php:393
+#: src/I18n/Translations.php:395
 msgid ""
 "Порожнє поле означає «лишити як українською» — сторінка під /en/ покаже "
 "оригінал."
-msgstr "An empty field means “leave it as in Ukrainian” — the page under /en/ will show the original."
+msgstr ""
+"An empty field means “leave it as in Ukrainian” — the page under /en/ will "
+"show the original."
 
-#: src/I18n/Translations.php:476
+#: src/I18n/Translations.php:478
 msgid "Назва англійською"
 msgstr "Name in English"
 
-#: src/I18n/Translations.php:477
+#: src/I18n/Translations.php:479
 msgid "Опис англійською"
 msgstr "Description in English"
 
-#: src/I18n/Translations.php:491
+#: src/I18n/Translations.php:493
 msgid "Порожнє поле означає «лишити як українською»."
 msgstr "An empty field means “leave it as in Ukrainian”."
+
+#: src/Newsletter/Subscribers.php:96 src/Newsletter/Subscribers.php:99
+msgid "Підписники"
+msgstr "Subscribers"
+
+#: src/Newsletter/Subscribers.php:97
+msgid "Підписник"
+msgstr "Subscriber"
+
+#: src/Newsletter/Subscribers.php:98
+msgid "Розсилка"
+msgstr "Newsletter"
+
+#: src/Newsletter/Subscribers.php:100
+msgid "Підписників поки немає"
+msgstr "No subscribers yet"
+
+#: src/Newsletter/Subscribers.php:220
+msgid "Підтвердіть підписку"
+msgstr "Confirm your subscription"
+
+#: src/Newsletter/Subscribers.php:224
+msgid ""
+"Щопонеділка — що обсмажили цього тижня, які лоти закінчуються і один рецепт. "
+"Щоб лист почав приходити, підтвердіть адресу:"
+msgstr "Every Monday — what we roasted this week, which lots are running out and one recipe. To start receiving the letter, confirm your address:"
+
+#: src/Newsletter/Subscribers.php:226
+msgid "Так, надсилайте"
+msgstr "Yes, send it"
+
+#: src/Newsletter/Subscribers.php:227
+msgid ""
+"Якщо ви не підписувались — просто проігноруйте цей лист, більше ми не "
+"напишемо."
+msgstr "If you did not subscribe, just ignore this email — we will not write again."
+
+#: src/Newsletter/Subscribers.php:228
+msgid "Передумали?"
+msgstr "Changed your mind?"
+
+#: src/Newsletter/Subscribers.php:230
+msgid "Відписатися"
+msgstr "Unsubscribe"
+
+#: src/Newsletter/Subscribers.php:367
+msgid ""
+"Майже готово. Ми надіслали вам лист — натисніть у ньому «Так, надсилайте», і "
+"підписку буде підтверджено."
+msgstr "Almost there. We have sent you an email — press “Yes, send it” in it to confirm your subscription."
+
+#: src/Newsletter/Subscribers.php:368
+msgid "Ця адреса вже підписана. Наступний лист прийде в понеділок."
+msgstr "This address is already subscribed. The next letter arrives on Monday."
+
+#: src/Newsletter/Subscribers.php:369
+msgid "Підписку підтверджено. Перший лист — у найближчий понеділок."
+msgstr "Subscription confirmed. The first letter arrives next Monday."
+
+#: src/Newsletter/Subscribers.php:370
+msgid "Ви відписались. Більше листів не буде."
+msgstr "You have unsubscribed. No more letters."
+
+#: src/Newsletter/Subscribers.php:371
+msgid "Схоже, в адресі помилка. Перевірте й спробуйте ще раз."
+msgstr "That address looks wrong. Check it and try again."
+
+#: src/Newsletter/Subscribers.php:372
+msgid "Забагато спроб. Спробуйте за годину."
+msgstr "Too many attempts. Try again in an hour."
+
+#: src/Newsletter/Subscribers.php:373
+msgid "Посилання застаріло. Підпишіться ще раз — надішлемо нове."
+msgstr "This link has expired. Subscribe again and we will send a new one."
+
+#: src/Newsletter/Subscribers.php:374
+msgid "Не вдалося надіслати лист. Спробуйте трохи пізніше."
+msgstr "We could not send the email. Please try again a little later."
+
+#: src/Newsletter/Subscribers.php:396
+msgid "Пошта"
+msgstr "Email"
+
+#: src/Newsletter/Subscribers.php:397
+msgid "Стан"
+msgstr "Status"
+
+#: src/Newsletter/Subscribers.php:398
+msgid "Мова"
+msgstr "Language"
+
+#: src/Newsletter/Subscribers.php:399
+msgid "Дата"
+msgstr "Date"
+
+#: src/Newsletter/Subscribers.php:413
+msgid "Підтверджено"
+msgstr "Confirmed"
+
+#: src/Newsletter/Subscribers.php:414
+msgid "Чекає підтвердження"
+msgstr "Awaiting confirmation"
+
+#: src/Newsletter/Subscribers.php:432
+msgid "Вивантажити підтверджених у CSV"
+msgstr "Export confirmed to CSV"
+
+#: src/Newsletter/Subscribers.php:445
+msgid "Немає доступу."
+msgstr "Access denied."
 
 #: src/Orders/Repeat.php:80
 msgid "Це замовлення недоступне."
@@ -553,7 +674,9 @@ msgstr ""
 msgid ""
 "Оплата при отриманні приймається лише в гривнях. Перемкніть валюту на ₴ у "
 "меню сайту або оплатіть карткою."
-msgstr "Cash on delivery is accepted in hryvnias only. Switch the currency to ₴ in the site menu or pay by card."
+msgstr ""
+"Cash on delivery is accepted in hryvnias only. Switch the currency to ₴ in "
+"the site menu or pay by card."
 
 #: src/Payments/CashOnDelivery.php:189
 msgid ""

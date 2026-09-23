@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-23T17:31:15+00:00\n"
+"POT-Creation-Date: 2026-09-23T18:00:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: brix\n"
@@ -135,36 +135,44 @@ msgstr ""
 msgid "Весь каталог"
 msgstr ""
 
-#: footer.php:15
+#: footer.php:19
 msgid "Лист у понеділок"
 msgstr ""
 
-#: footer.php:17
+#: footer.php:21
 msgid "Що обсмажили цього тижня, які лоти закінчуються і один рецепт. Без спаму — 4 листи на місяць."
 msgstr ""
 
-#: footer.php:23
+#: footer.php:50
 msgid "Ваш email"
 msgstr ""
 
-#: footer.php:34
+#: footer.php:57
+msgid "ваш@email.com"
+msgstr ""
+
+#: footer.php:65
 msgid "Підписатись"
 msgstr ""
 
-#: footer.php:40
+#: footer.php:68
+msgid "Надішлемо лист для підтвердження. Відписатися можна з будь-якого листа."
+msgstr ""
+
+#: footer.php:75
 msgid "Магазин"
 msgstr ""
 
-#: footer.php:41
+#: footer.php:76
 msgid "Бренд"
 msgstr ""
 
-#: footer.php:42
+#: footer.php:77
 msgid "Допомога"
 msgstr ""
 
 #. translators: %s — поточний рік.
-#: footer.php:52
+#: footer.php:87
 #, php-format
 msgid "© %s BRIX 22° · Обсмажувальня, Київ"
 msgstr ""

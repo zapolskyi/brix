@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BRIX 22°\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/brix\n"
-"POT-Creation-Date: 2026-09-23T17:31:15+00:00\n"
+"POT-Creation-Date: 2026-09-23T18:00:21+00:00\n"
 "Last-Translator: Nazar Zapolskyi <nazar.zapolski@gmail.com>\n"
 "Language-Team: English\n"
 "Language: en_US\n"
@@ -29,7 +29,11 @@ msgid ""
 "паспорт лоту на кожен товар, AJAX-фільтри каталогу, checkout з Новою Поштою. "
 "SCSS + BEM, ванільний JS, без page builder'ів. Бізнес-логіка живе в окремому "
 "плагіні brix-core."
-msgstr "Custom WordPress theme for the BRIX 22° specialty roastery. WooCommerce, a lot passport on every product, AJAX catalogue filters, checkout with Nova Poshta. SCSS + BEM, vanilla JS, no page builders. Business logic lives in the separate brix-core plugin."
+msgstr ""
+"Custom WordPress theme for the BRIX 22° specialty roastery. WooCommerce, a "
+"lot passport on every product, AJAX catalogue filters, checkout with Nova "
+"Poshta. SCSS + BEM, vanilla JS, no page builders. Business logic lives in "
+"the separate brix-core plugin."
 
 #. Author of the theme
 #: style.css
@@ -138,11 +142,11 @@ msgstr "Refractometer, mill"
 msgid "Весь каталог"
 msgstr "The whole catalogue"
 
-#: footer.php:15
+#: footer.php:19
 msgid "Лист у понеділок"
 msgstr "The Monday letter"
 
-#: footer.php:17
+#: footer.php:21
 msgid ""
 "Що обсмажили цього тижня, які лоти закінчуються і один рецепт. Без спаму — 4 "
 "листи на місяць."
@@ -150,28 +154,36 @@ msgstr ""
 "What we roasted this week, which lots are running out and one recipe. No "
 "spam — four letters a month."
 
-#: footer.php:23
+#: footer.php:50
 msgid "Ваш email"
 msgstr "Your email"
 
-#: footer.php:34
+#: footer.php:57
+msgid "ваш@email.com"
+msgstr "you@email.com"
+
+#: footer.php:65
 msgid "Підписатись"
 msgstr "Subscribe"
 
-#: footer.php:40
+#: footer.php:68
+msgid "Надішлемо лист для підтвердження. Відписатися можна з будь-якого листа."
+msgstr "We will send an email to confirm. You can unsubscribe from any letter."
+
+#: footer.php:75
 msgid "Магазин"
 msgstr "Shop"
 
-#: footer.php:41
+#: footer.php:76
 msgid "Бренд"
 msgstr "Brand"
 
-#: footer.php:42
+#: footer.php:77
 msgid "Допомога"
 msgstr "Help"
 
 #. translators: %s — поточний рік.
-#: footer.php:52
+#: footer.php:87
 #, php-format
 msgid "© %s BRIX 22° · Обсмажувальня, Київ"
 msgstr "© %s BRIX 22° · Roastery, Kyiv"
@@ -1743,7 +1755,9 @@ msgstr "Payment not confirmed yet"
 msgid ""
 "Замовлення №%s збережене. Якщо ви вже оплатили, банк підтвердить за хвилину "
 "— оновіть сторінку. Якщо ні, оплатити можна зараз."
-msgstr "Order No. %s is saved. If you have already paid, the bank will confirm within a minute — refresh the page. If not, you can pay now."
+msgstr ""
+"Order No. %s is saved. If you have already paid, the bank will confirm "
+"within a minute — refresh the page. If not, you can pay now."
 
 #: woocommerce/checkout/thankyou.php:72
 msgid "Оплатити"
@@ -1942,7 +1956,9 @@ msgstr "Nothing to show yet"
 #: assets/js/blocks-editor.js:113
 msgid ""
 "Блок бере дані з каталогу. Щойно там зʼявиться потрібне — воно буде тут."
-msgstr "This block pulls data from the catalogue. As soon as something fits, it will appear here."
+msgstr ""
+"This block pulls data from the catalogue. As soon as something fits, it will "
+"appear here."
 
 #: assets/js/blocks-editor.js:127
 msgid "Мітка над заголовком"

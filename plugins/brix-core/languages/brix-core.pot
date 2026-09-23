@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-23T17:32:16+00:00\n"
+"POT-Creation-Date: 2026-09-23T18:00:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: brix-core\n"
@@ -448,52 +448,157 @@ msgstr ""
 msgid "Плашка в каталозі. Вмикати варто одному товару."
 msgstr ""
 
-#: src/I18n/Currency.php:502
+#: src/I18n/Currency.php:513
 msgid "Друга валюта: євро"
 msgstr ""
 
-#: src/I18n/Currency.php:504
+#: src/I18n/Currency.php:515
 msgid "Покупець перемикає валюту знаком ₴ / € у шапці; англійська версія без вибору показує євро. У базі лишається гривня — євро рахується за цим курсом на показі."
 msgstr ""
 
-#: src/I18n/Currency.php:509
+#: src/I18n/Currency.php:520
 msgid "Гривень за євро"
 msgstr ""
 
-#: src/I18n/Currency.php:510
+#: src/I18n/Currency.php:521
 msgid "Нуль вимикає євро зовсім: перемикач зникне, і весь сайт рахуватиме в гривні."
 msgstr ""
 
-#: src/I18n/Translations.php:370
+#: src/I18n/Translations.php:372
 msgid "Англійська версія"
 msgstr ""
 
-#: src/I18n/Translations.php:388
+#: src/I18n/Translations.php:390
 msgid "Заголовок"
 msgstr ""
 
-#: src/I18n/Translations.php:389
+#: src/I18n/Translations.php:391
 msgid "Короткий опис"
 msgstr ""
 
-#: src/I18n/Translations.php:390
+#: src/I18n/Translations.php:392
 msgid "Текст"
 msgstr ""
 
-#: src/I18n/Translations.php:393
+#: src/I18n/Translations.php:395
 msgid "Порожнє поле означає «лишити як українською» — сторінка під /en/ покаже оригінал."
 msgstr ""
 
-#: src/I18n/Translations.php:476
+#: src/I18n/Translations.php:478
 msgid "Назва англійською"
 msgstr ""
 
-#: src/I18n/Translations.php:477
+#: src/I18n/Translations.php:479
 msgid "Опис англійською"
 msgstr ""
 
-#: src/I18n/Translations.php:491
+#: src/I18n/Translations.php:493
 msgid "Порожнє поле означає «лишити як українською»."
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:96
+#: src/Newsletter/Subscribers.php:99
+msgid "Підписники"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:97
+msgid "Підписник"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:98
+msgid "Розсилка"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:100
+msgid "Підписників поки немає"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:220
+msgid "Підтвердіть підписку"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:224
+msgid "Щопонеділка — що обсмажили цього тижня, які лоти закінчуються і один рецепт. Щоб лист почав приходити, підтвердіть адресу:"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:226
+msgid "Так, надсилайте"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:227
+msgid "Якщо ви не підписувались — просто проігноруйте цей лист, більше ми не напишемо."
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:228
+msgid "Передумали?"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:230
+msgid "Відписатися"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:367
+msgid "Майже готово. Ми надіслали вам лист — натисніть у ньому «Так, надсилайте», і підписку буде підтверджено."
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:368
+msgid "Ця адреса вже підписана. Наступний лист прийде в понеділок."
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:369
+msgid "Підписку підтверджено. Перший лист — у найближчий понеділок."
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:370
+msgid "Ви відписались. Більше листів не буде."
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:371
+msgid "Схоже, в адресі помилка. Перевірте й спробуйте ще раз."
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:372
+msgid "Забагато спроб. Спробуйте за годину."
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:373
+msgid "Посилання застаріло. Підпишіться ще раз — надішлемо нове."
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:374
+msgid "Не вдалося надіслати лист. Спробуйте трохи пізніше."
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:396
+msgid "Пошта"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:397
+msgid "Стан"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:398
+msgid "Мова"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:399
+msgid "Дата"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:413
+msgid "Підтверджено"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:414
+msgid "Чекає підтвердження"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:432
+msgid "Вивантажити підтверджених у CSV"
+msgstr ""
+
+#: src/Newsletter/Subscribers.php:445
+msgid "Немає доступу."
 msgstr ""
 
 #: src/Orders/Repeat.php:80

@@ -2,7 +2,7 @@
 @use '../abstracts/tokens' as *;
 
 .brix-footer {
-  padding: var(--brix-sec-y) var(--brix-sec-x) 0;
+  padding: var(--brix-sec-y) var(--brix-gutter) 0;
   background: var(--brix-roast);
   color: var(--brix-mill);
 
@@ -50,6 +50,28 @@
     color: var(--brix-mill);
 
     &::placeholder { color: #8E8782; }
+  }
+
+  // Результат підписки. Рамка зліва — медова для «усе гаразд», вишнева
+  // для помилки; колір лише підсилює, сенс несе сам текст.
+  &__notice {
+    margin: 0;
+    padding: var(--brix-gap-6) var(--brix-gap-8);
+    border-inline-start: 3px solid var(--brix-honey);
+    background: rgb(242 243 238 / 6%);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--brix-mill);
+
+    &.is-error { border-inline-start-color: var(--brix-cherry); }
+
+    &:focus { outline: none; }
+  }
+
+  &__fine {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--brix-muted);
   }
 }
 
