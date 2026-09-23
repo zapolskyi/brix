@@ -70,7 +70,9 @@ final class Destination {
 			}
 		}
 
-		return strtoupper( (string) ( WC()->countries->get_base_country() ?: self::HOME ) );
+		$base = (string) WC()->countries->get_base_country();
+
+		return strtoupper( '' === $base ? self::HOME : $base );
 	}
 
 	/**

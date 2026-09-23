@@ -362,6 +362,41 @@ final class Language implements Module {
 	}
 
 	/**
+	 * Та сама адреса, але без мовного префікса.
+	 *
+	 * Потрібна там, де адресу читає не людина, а чужий сервер:
+	 * платіжна система зберігає її у себе й стукає назад через
+	 * хвилини або дні. Мова такому запиту нічого не дає, а зайвий
+	 * префікс прив'язує чужу систему до нашого способу робити
+	 * двомовність — і зламається, щойно ми його змінимо.
+	 *
+	 * @param string $url Адреса.
+	 * @return string
+	 */
+	public static function without_prefix( string $url ): string {
+		$parts = wp_parse_url( $url );
+
+		if ( ! is_array( $parts ) ) {
+			return $url;
+		}
+
+		$rest = self::strip_base( (string) ( $parts['path'] ?? '' ) );
+
+		if ( self::SECOND !== $rest && 0 !== strpos( $rest, self::SECOND . '/' ) ) {
+			return $url;
+		}
+
+		$rest = ltrim( substr( $rest, strlen( self::SECOND ) ), '/' );
+		$out  = self::origin( $parts ) . self::base_path() . '/' . $rest;
+
+		if ( isset( $parts['query'] ) ) {
+			$out .= '?' . $parts['query'];
+		}
+
+		return $out;
+	}
+
+	/**
 	 * Шлях, за яким стоїть WordPress: порожній рядок або «/підтека».
 	 *
 	 * Читається з опції, а не з home_url(), бо home_url() ми ж і
@@ -388,7 +423,7 @@ final class Language implements Module {
 			return '';
 		}
 
-		$out = isset( $parts['scheme'] ) ? $parts['scheme'] . '://' : '//';
+		$out  = isset( $parts['scheme'] ) ? $parts['scheme'] . '://' : '//';
 		$out .= $parts['host'];
 
 		return isset( $parts['port'] ) ? $out . ':' . $parts['port'] : $out;

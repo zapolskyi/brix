@@ -49,7 +49,7 @@ final class Translate {
 	public function __invoke( array $args, array $assoc_args = array() ): void {
 		unset( $args );
 
-		$path = $assoc_args['file'] ?? dirname( BRIX_CORE_FILE ) . '/data/translations-en.json';
+		$path  = $assoc_args['file'] ?? dirname( BRIX_CORE_FILE ) . '/data/translations-en.json';
 		$force = isset( $assoc_args['force'] );
 
 		if ( ! is_readable( $path ) ) {
@@ -172,7 +172,9 @@ final class Translate {
 		$done = 0;
 
 		foreach ( wp_get_nav_menus() as $menu ) {
-			foreach ( wp_get_nav_menu_items( $menu->term_id ) ?: array() as $item ) {
+			$items = wp_get_nav_menu_items( $menu->term_id );
+
+			foreach ( is_array( $items ) ? $items : array() as $item ) {
 				$source = html_entity_decode( (string) $item->title, ENT_QUOTES, 'UTF-8' );
 
 				if ( ! isset( $labels[ $source ] ) ) {

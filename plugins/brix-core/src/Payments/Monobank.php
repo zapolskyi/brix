@@ -9,6 +9,8 @@ declare( strict_types=1 );
 
 namespace Brix\Core\Payments;
 
+use Brix\Core\I18n\Language;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -32,7 +34,7 @@ final class Monobank extends \WC_Payment_Gateway {
 	/**
 	 * Коди валют за ISO 4217.
 	 *
-	 * monobank чекає число, а не літерний код. Валюта береться з
+	 * Тут monobank чекає число, а не літерний код. Валюта береться з
 	 * замовлення, а не з налаштувань магазину: англійська версія
 	 * рахує в євро, і лічильник «620 копійок» замість «12,92 €»
 	 * списав би з картки не ту суму й не ту валюту.
@@ -193,7 +195,7 @@ final class Monobank extends \WC_Payment_Gateway {
 				'basketOrder' => $this->basket( $order ),
 			),
 			'redirectUrl'      => $this->get_return_url( $order ),
-			'webHookUrl'       => rest_url( 'brix/v1/monobank' ),
+			'webHookUrl'       => Language::without_prefix( rest_url( 'brix/v1/monobank' ) ),
 			'validity'         => self::VALIDITY,
 		);
 

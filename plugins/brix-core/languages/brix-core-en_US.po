@@ -1,7 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BRIX Core\n"
-"Report-Msgid-Bugs-To: https://github.com/nzapolskyi/brix22\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/brix-core\n"
+"POT-Creation-Date: 2026-09-23T12:36:06+00:00\n"
 "Last-Translator: Nazar Zapolskyi <nazar.zapolski@gmail.com>\n"
 "Language-Team: English\n"
 "Language: en_US\n"
@@ -11,20 +12,57 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: brix-core\n"
 
+#. Plugin Name of the plugin
+#: brix-core.php
+msgid "BRIX Core"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: brix-core.php
+msgid "https://github.com/nzapolskyi/brix22"
+msgstr ""
+
+#. Description of the plugin
+#: brix-core.php
+msgid ""
+"Бізнес-логіка магазину BRIX 22°: паспорт лоту, таксономії обробки, "
+"виробники, гайди, AJAX-фільтри каталогу, квіз підбору, Нова Пошта, оптовий "
+"кабінет і транзакційні листи. Презентація — в темі brix."
+msgstr ""
+
+#. Author of the plugin
+#: brix-core.php
+msgid "Nazar Zapolskyi"
+msgstr ""
+
+#. Author URI of the plugin
+#: brix-core.php
+msgid "https://github.com/nzapolskyi"
+msgstr ""
+
 #: brix-core.php:101
-msgid "BRIX Core потребує активного WooCommerce. Плагін завантажено, але його модулі вимкнені."
-msgstr "BRIX Core needs WooCommerce to be active. The plugin is loaded, but its modules are switched off."
+msgid ""
+"BRIX Core потребує активного WooCommerce. Плагін завантажено, але його "
+"модулі вимкнені."
+msgstr ""
+"BRIX Core needs WooCommerce to be active. The plugin is loaded, but its "
+"modules are switched off."
 
 #: brix-core.php:117
-msgid "BRIX Core: не знайдено Secure Custom Fields. Паспорт лоту, дані виробників і кроки гайдів не можна редагувати, доки плагін не активний. Уже збережені дані на місці — сайт показує їх як і раніше."
-msgstr "BRIX Core: Secure Custom Fields not found. Lot passports, producer data and guide steps cannot be edited until that plugin is active. Data already saved is intact — the site shows it as before."
+msgid ""
+"BRIX Core: не знайдено Secure Custom Fields. Паспорт лоту, дані виробників і "
+"кроки гайдів не можна редагувати, доки плагін не активний. Уже збережені "
+"дані на місці — сайт показує їх як і раніше."
+msgstr ""
+"BRIX Core: Secure Custom Fields not found. Lot passports, producer data and "
+"guide steps cannot be edited until that plugin is active. Data already saved "
+"is intact — the site shows it as before."
 
 #: src/Cli/DemoContent.php:207
 msgid "Вага"
 msgstr "Weight"
 
-#: src/Cli/DemoContent.php:208
-#: src/Fields/GuideFields.php:77
+#: src/Cli/DemoContent.php:208 src/Fields/GuideFields.php:77
 msgid "Помел"
 msgstr "Grind"
 
@@ -52,11 +90,15 @@ msgstr "The subscription is cancelled. The lots stay available in the shop."
 msgid "BRIX Club"
 msgstr "BRIX Club"
 
+#. translators: 1 — інтервал у тижнях, 2 — знижка.
 #: src/Club/Plan.php:85
+#, php-format
 msgid "кожні %1$d тижні, −%2$d%%"
 msgstr "every %1$d weeks, −%2$d%%"
 
+#. translators: %d — кількість підписок.
 #: src/Club/Plan.php:186
+#, php-format
 msgid "Створено %d підписку BRIX Club."
 msgid_plural "Створено %d підписки BRIX Club."
 msgstr[0] "Created %d BRIX Club subscription."
@@ -66,8 +108,7 @@ msgstr[1] "Created %d BRIX Club subscriptions."
 msgid "Чергове замовлення BRIX Club."
 msgstr "The next BRIX Club order."
 
-#: src/Club/Subscription.php:62
-#: src/Club/Subscription.php:64
+#: src/Club/Subscription.php:62 src/Club/Subscription.php:64
 msgid "Підписки"
 msgstr "Subscriptions"
 
@@ -83,20 +124,25 @@ msgstr "All subscriptions"
 msgid "Підписок немає"
 msgstr "No subscriptions"
 
+#. translators: 1 — назва лоту, 2 — номер замовлення.
 #: src/Club/Subscription.php:96
+#, php-format
 msgid "%1$s (замовлення №%2$s)"
 msgstr "%1$s (order No. %2$s)"
 
 #: src/Emails/RestockReminder.php:124
-msgid "Три тижні тому ми відправили вам каву. Якщо пачка добігає кінця — свіже обсмаження вже на підході."
-msgstr "Three weeks ago we sent you coffee. If the bag is running out, a fresh roast is already on the way."
+msgid ""
+"Три тижні тому ми відправили вам каву. Якщо пачка добігає кінця — свіже "
+"обсмаження вже на підході."
+msgstr ""
+"Three weeks ago we sent you coffee. If the bag is running out, a fresh roast "
+"is already on the way."
 
 #: src/Emails/RestockReminder.php:127
 msgid "Повторити замовлення"
 msgstr "Repeat order"
 
-#: src/Emails/RestockReminder.php:132
-#: src/Emails/RestockReminder.php:133
+#: src/Emails/RestockReminder.php:132 src/Emails/RestockReminder.php:133
 msgid "Кава закінчується?"
 msgstr "Running low on coffee?"
 
@@ -120,8 +166,7 @@ msgstr "Farms"
 msgid "Працюємо з"
 msgstr "Working together since"
 
-#: src/Fields/FarmFields.php:76
-#: src/Fields/LotFields.php:142
+#: src/Fields/FarmFields.php:76 src/Fields/LotFields.php:142
 #: src/Product/Schema.php:145
 msgid "Різновид"
 msgstr "Variety"
@@ -216,7 +261,8 @@ msgstr "Steps"
 
 #: src/Fields/GuideFields.php:99
 msgid "Час кроку — секунди від старту. За ними йде таймер на сторінці."
-msgstr "A step’s time is seconds from the start. The timer on the page follows them."
+msgstr ""
+"A step’s time is seconds from the start. The timer on the page follows them."
 
 #: src/Fields/GuideFields.php:101
 msgid "Додати крок"
@@ -234,8 +280,7 @@ msgstr "Name"
 msgid "Ціль"
 msgstr "Goal"
 
-#: src/Fields/GuideFields.php:130
-#: src/Payments/LiqPay.php:79
+#: src/Fields/GuideFields.php:130 src/Payments/LiqPay.php:79
 #: src/Payments/Monobank.php:94
 msgid "Опис"
 msgstr "Description"
@@ -261,8 +306,12 @@ msgid "Паспорт лоту"
 msgstr "Lot passport"
 
 #: src/Fields/LotFields.php:42
-msgid "Дані, які показуються в картці товару, каталозі, квізі й на сторінці «Прозорість»."
-msgstr "The data shown on the product page, in the catalogue, in the quiz and on the Transparency page."
+msgid ""
+"Дані, які показуються в картці товару, каталозі, квізі й на сторінці "
+"«Прозорість»."
+msgstr ""
+"The data shown on the product page, in the catalogue, in the quiz and on the "
+"Transparency page."
 
 #: src/Fields/LotFields.php:55
 msgid "Походження"
@@ -281,11 +330,14 @@ msgid "Код лоту"
 msgstr "Lot code"
 
 #: src/Fields/LotFields.php:94
-msgid "Стоїть у заголовку паспорта й на пачці. Порожній код означає, що товар не є лотом."
-msgstr "Appears in the passport heading and on the bag. An empty code means the product is not a lot."
+msgid ""
+"Стоїть у заголовку паспорта й на пачці. Порожній код означає, що товар не є "
+"лотом."
+msgstr ""
+"Appears in the passport heading and on the bag. An empty code means the "
+"product is not a lot."
 
-#: src/Fields/LotFields.php:100
-#: src/PostTypes/Farm.php:49
+#: src/Fields/LotFields.php:100 src/PostTypes/Farm.php:49
 msgid "Виробник"
 msgstr "Producer"
 
@@ -321,28 +373,23 @@ msgstr "Days of processing"
 msgid "Показується поруч з обробкою: «Natural, 18 днів»."
 msgstr "Shown next to the process: “Natural, 18 days”."
 
-#: src/Fields/LotFields.php:179
-#: src/Product/Lot.php:328
+#: src/Fields/LotFields.php:179 src/Product/Lot.php:328
 msgid "Кислотність"
 msgstr "Acidity"
 
-#: src/Fields/LotFields.php:180
-#: src/Product/Lot.php:329
+#: src/Fields/LotFields.php:180 src/Product/Lot.php:329
 msgid "Солодкість"
 msgstr "Sweetness"
 
-#: src/Fields/LotFields.php:181
-#: src/Product/Lot.php:330
+#: src/Fields/LotFields.php:181 src/Product/Lot.php:330
 msgid "Тіло"
 msgstr "Body"
 
-#: src/Fields/LotFields.php:182
-#: src/Product/Lot.php:331
+#: src/Fields/LotFields.php:182 src/Product/Lot.php:331
 msgid "Інтенсивність"
 msgstr "Intensity"
 
-#: src/Fields/LotFields.php:183
-#: src/Product/Lot.php:332
+#: src/Fields/LotFields.php:183 src/Product/Lot.php:332
 msgid "Фруктовість"
 msgstr "Fruitiness"
 
@@ -352,7 +399,8 @@ msgstr "Roast level"
 
 #: src/Fields/LotFields.php:212
 msgid "1 — світле, 5 — темне. Фільтра за ним немає, але за ним підбирає квіз."
-msgstr "1 is light, 5 is dark. There is no filter for it, but the quiz matches on it."
+msgstr ""
+"1 is light, 5 is dark. There is no filter for it, but the quiz matches on it."
 
 #: src/Fields/LotFields.php:219
 msgid "Що це означає в чашці"
@@ -360,17 +408,22 @@ msgstr "What that means in the cup"
 
 #: src/Fields/LotFields.php:223
 msgid "Пояснення людською мовою під шкалами смаку. Цифри замість епітетів."
-msgstr "A plain-language explanation under the flavour scales. Numbers instead of epithets."
+msgstr ""
+"A plain-language explanation under the flavour scales. Numbers instead of "
+"epithets."
 
-#: src/Fields/LotFields.php:229
-#: src/Product/Schema.php:149
+#: src/Fields/LotFields.php:229 src/Product/Schema.php:149
 #: src/Taxonomies/Registrar.php:97
 msgid "Смакові ноти"
 msgstr "Tasting notes"
 
 #: src/Fields/LotFields.php:241
-msgid "Порядок має значення: перша нота — найпомітніша. Саме так вони стоять під назвою товару."
-msgstr "Order matters: the first note is the most prominent. That is how they sit under the product name."
+msgid ""
+"Порядок має значення: перша нота — найпомітніша. Саме так вони стоять під "
+"назвою товару."
+msgstr ""
+"Order matters: the first note is the most prominent. That is how they sit "
+"under the product name."
 
 #: src/Fields/LotFields.php:247
 msgid "Рецепт під цей лот"
@@ -382,10 +435,10 @@ msgstr "Sugar content at picking, °Bx"
 
 #: src/Fields/LotFields.php:275
 msgid "Головне число бренду. Стоїть на печатці пачки й на шкалі стиглості."
-msgstr "The brand’s key number. It is on the bag stamp and on the ripeness scale."
+msgstr ""
+"The brand’s key number. It is on the bag stamp and on the ripeness scale."
 
-#: src/Fields/LotFields.php:281
-#: src/Product/Schema.php:133
+#: src/Fields/LotFields.php:281 src/Product/Schema.php:133
 msgid "Оцінка SCA"
 msgstr "SCA score"
 
@@ -397,14 +450,16 @@ msgstr "Price to the farmer, $/kg FOB"
 msgid "З цього поля збирається сторінка «Прозорість»."
 msgstr "The Transparency page is built from this field."
 
-#: src/Fields/LotFields.php:303
-#: src/Product/Schema.php:153
+#: src/Fields/LotFields.php:303 src/Product/Schema.php:153
 msgid "Дата обсмаження"
 msgstr "Roast date"
 
 #: src/Fields/LotFields.php:309
-msgid "Від неї рахується вікно свіжості: тиждень дегазації, далі три тижні піку."
-msgstr "The freshness window is counted from it: a week of degassing, then three weeks at peak."
+msgid ""
+"Від неї рахується вікно свіжості: тиждень дегазації, далі три тижні піку."
+msgstr ""
+"The freshness window is counted from it: a week of degassing, then three "
+"weeks at peak."
 
 #: src/Fields/LotFields.php:315
 msgid "Лот тижня"
@@ -414,15 +469,71 @@ msgstr "Lot of the week"
 msgid "Плашка в каталозі. Вмикати варто одному товару."
 msgstr "A badge in the catalogue. Worth switching on for one product only."
 
+#: src/I18n/Currency.php:333
+msgid "Валюта другої мови"
+msgstr "Second language currency"
+
+#: src/I18n/Currency.php:335
+msgid ""
+"Англійська версія сайту показує ціни в євро. У базі лишається гривня — євро "
+"рахується за цим курсом на показі."
+msgstr ""
+
+#: src/I18n/Currency.php:340
+msgid "Гривень за євро"
+msgstr "Hryvnias per euro"
+
+#: src/I18n/Currency.php:341
+msgid "Нуль вимикає перерахунок: англійська версія показуватиме гривні."
+msgstr "Zero turns conversion off: the English version will show hryvnias."
+
+#: src/I18n/Translations.php:369
+msgid "Англійська версія"
+msgstr "English version"
+
+#: src/I18n/Translations.php:387
+msgid "Заголовок"
+msgstr "Title"
+
+#: src/I18n/Translations.php:388
+msgid "Короткий опис"
+msgstr "Short description"
+
+#: src/I18n/Translations.php:389
+msgid "Текст"
+msgstr "Text"
+
+#: src/I18n/Translations.php:392
+msgid ""
+"Порожнє поле означає «лишити як українською» — сторінка під /en/ покаже "
+"оригінал."
+msgstr ""
+
+#: src/I18n/Translations.php:475
+msgid "Назва англійською"
+msgstr "Name in English"
+
+#: src/I18n/Translations.php:476
+msgid "Опис англійською"
+msgstr "Description in English"
+
+#: src/I18n/Translations.php:490
+msgid "Порожнє поле означає «лишити як українською»."
+msgstr "An empty field means “leave it as in Ukrainian”."
+
 #: src/Orders/Repeat.php:80
 msgid "Це замовлення недоступне."
 msgstr "This order is unavailable."
 
+#. translators: %s — номер замовлення.
 #: src/Orders/Repeat.php:122
+#, php-format
 msgid "Склад замовлення №%s у кошику."
 msgstr "The contents of order No. %s are in your cart."
 
+#. translators: %s — перелік лотів.
 #: src/Orders/Repeat.php:133
+#, php-format
 msgid "Цих лотів уже немає: %s. Свіжі партії — у магазині."
 msgstr "These lots are gone: %s. Fresh batches are in the shop."
 
@@ -432,15 +543,29 @@ msgstr "Maximum order amount"
 
 #: src/Payments/CashOnDelivery.php:60
 msgid "Понад цю суму оплата при отриманні недоступна. Нуль вимикає обмеження."
-msgstr "Above this amount cash on delivery is unavailable. Zero switches the limit off."
+msgstr ""
+"Above this amount cash on delivery is unavailable. Zero switches the limit "
+"off."
 
 #: src/Payments/CashOnDelivery.php:99
-msgid "Замовлення за кордон оплачуються лише карткою онлайн. Якщо спосіб оплати не показується — напишіть нам, оформимо рахунком."
-msgstr "Orders going abroad are paid by card online. If no payment method is shown, write to us and we will send an invoice."
+msgid ""
+"Замовлення за кордон оплачуються лише карткою онлайн. Якщо спосіб оплати не "
+"показується — напишіть нам, оформимо рахунком."
+msgstr ""
+"Orders going abroad are paid by card online. If no payment method is shown, "
+"write to us and we will send an invoice."
 
+#. translators: %s — сума порога.
 #: src/Payments/CashOnDelivery.php:158
-msgid "Оплата при отриманні доступна для замовлень до %s. Для більших сум лишається оплата карткою — так ми впевнені, що змелений під ваш рецепт лот дочекається саме вас."
-msgstr "Cash on delivery is available for orders up to %s. Above that, card payment remains — that way we know the lot ground for your recipe will wait for you and no one else."
+#, php-format
+msgid ""
+"Оплата при отриманні доступна для замовлень до %s. Для більших сум лишається "
+"оплата карткою — так ми впевнені, що змелений під ваш рецепт лот дочекається "
+"саме вас."
+msgstr ""
+"Cash on delivery is available for orders up to %s. Above that, card payment "
+"remains — that way we know the lot ground for your recipe will wait for you "
+"and no one else."
 
 #: src/Payments/LiqPay.php:44
 msgid "LiqPay"
@@ -450,8 +575,7 @@ msgstr "LiqPay"
 msgid "Оплата карткою на стороні LiqPay. Платіжні дані на сайт не потрапляють."
 msgstr "Card payment on LiqPay’s side. Card details never reach this site."
 
-#: src/Payments/LiqPay.php:67
-#: src/Payments/Monobank.php:80
+#: src/Payments/LiqPay.php:67 src/Payments/Monobank.php:80
 msgid "Увімкнено"
 msgstr "Enabled"
 
@@ -459,8 +583,7 @@ msgstr "Enabled"
 msgid "Приймати оплату карткою через LiqPay"
 msgstr "Accept card payments through LiqPay"
 
-#: src/Payments/LiqPay.php:73
-#: src/Payments/Monobank.php:86
+#: src/Payments/LiqPay.php:73 src/Payments/Monobank.php:86
 msgid "Назва для покупця"
 msgstr "Name shown to the customer"
 
@@ -508,8 +631,9 @@ msgstr "Taking you to LiqPay’s secure page…"
 msgid "Перейти до оплати"
 msgstr "Go to payment"
 
-#: src/Payments/LiqPay.php:195
-#: src/Payments/Monobank.php:190
+#. translators: %s — номер замовлення.
+#: src/Payments/LiqPay.php:195 src/Payments/Monobank.php:190
+#, php-format
 msgid "Замовлення №%s у BRIX 22°"
 msgstr "Order No. %s at BRIX 22°"
 
@@ -518,7 +642,8 @@ msgid "monobank"
 msgstr "monobank"
 
 #: src/Payments/Monobank.php:59
-msgid "Оплата карткою на стороні monobank. Платіжні дані на сайт не потрапляють."
+msgid ""
+"Оплата карткою на стороні monobank. Платіжні дані на сайт не потрапляють."
 msgstr "Card payment on monobank’s side. Card details never reach this site."
 
 #: src/Payments/Monobank.php:82
@@ -530,23 +655,35 @@ msgid "Картка · Apple Pay · Google Pay"
 msgstr "Card · Apple Pay · Google Pay"
 
 #: src/Payments/Monobank.php:96
-msgid "Оплата карткою на захищеній сторінці monobank. Apple Pay і Google Pay теж працюють."
-msgstr "Card payment on monobank’s secure page. Apple Pay and Google Pay work too."
+msgid ""
+"Оплата карткою на захищеній сторінці monobank. Apple Pay і Google Pay теж "
+"працюють."
+msgstr ""
+"Card payment on monobank’s secure page. Apple Pay and Google Pay work too."
 
 #: src/Payments/Monobank.php:99
 msgid "Токен продавця"
 msgstr "Merchant token"
 
+#. translators: %s — адреса сторінки з токеном.
 #: src/Payments/Monobank.php:103
-msgid "Тестовий токен видають на %s. Без токена спосіб оплати не показується покупцям."
-msgstr "A test token is issued at %s. Without one the payment method is not shown to customers."
+#, php-format
+msgid ""
+"Тестовий токен видають на %s. Без токена спосіб оплати не показується "
+"покупцям."
+msgstr ""
+"A test token is issued at %s. Without one the payment method is not shown to "
+"customers."
 
+#. translators: %s — текст помилки.
 #: src/Payments/Monobank.php:143
+#, php-format
 msgid "monobank не створив інвойс: %s"
 msgstr "monobank did not create an invoice: %s"
 
 #: src/Payments/Monobank.php:148
-msgid "Не вдалося перейти до оплати. Спробуйте ще раз або оберіть інший спосіб."
+msgid ""
+"Не вдалося перейти до оплати. Спробуйте ще раз або оберіть інший спосіб."
 msgstr "We could not take you to payment. Try again or pick another method."
 
 #: src/Payments/Monobank.php:154
@@ -557,7 +694,9 @@ msgstr "Waiting for payment through monobank."
 msgid "шт"
 msgstr "pcs"
 
+#. translators: %s — статус від monobank.
 #: src/Payments/Registrar.php:156
+#, php-format
 msgid "monobank повідомив статус «%s»."
 msgstr "monobank reported the status “%s”."
 
@@ -565,7 +704,9 @@ msgstr "monobank reported the status “%s”."
 msgid "LiqPay: тестовий платіж, гроші не списані."
 msgstr "LiqPay: test payment, no money charged."
 
+#. translators: %s — статус від LiqPay.
 #: src/Payments/Registrar.php:277
+#, php-format
 msgid "LiqPay повідомив статус «%s»."
 msgstr "LiqPay reported the status “%s”."
 
@@ -581,8 +722,7 @@ msgstr "Guide"
 msgid "Додати гайд"
 msgstr "Add a guide"
 
-#: src/PostTypes/BrewGuide.php:45
-#: src/PostTypes/BrewGuide.php:47
+#: src/PostTypes/BrewGuide.php:45 src/PostTypes/BrewGuide.php:47
 msgid "Новий гайд"
 msgstr "New guide"
 
@@ -602,8 +742,7 @@ msgstr "Search guides"
 msgid "Гайдів немає"
 msgstr "No guides"
 
-#: src/PostTypes/BrewGuide.php:51
-#: src/PostTypes/Farm.php:57
+#: src/PostTypes/BrewGuide.php:51 src/PostTypes/Farm.php:57
 msgid "У кошику порожньо"
 msgstr "The bin is empty"
 
@@ -615,8 +754,7 @@ msgstr "All guides"
 msgid "Гайди"
 msgstr "Guides"
 
-#: src/PostTypes/Farm.php:48
-#: src/PostTypes/Farm.php:59
+#: src/PostTypes/Farm.php:48 src/PostTypes/Farm.php:59
 msgid "Виробники"
 msgstr "Producers"
 
@@ -624,8 +762,7 @@ msgstr "Producers"
 msgid "Додати виробника"
 msgstr "Add a producer"
 
-#: src/PostTypes/Farm.php:51
-#: src/PostTypes/Farm.php:53
+#: src/PostTypes/Farm.php:51 src/PostTypes/Farm.php:53
 msgid "Новий виробник"
 msgstr "New producer"
 
@@ -665,15 +802,21 @@ msgstr "Still good"
 msgid "Краще взяти свіжіше"
 msgstr "Better to take something fresher"
 
+#. translators: %s — висота в метрах.
 #: src/Product/Lot.php:105
+#, php-format
 msgid "%s м"
 msgstr "%s m"
 
+#. translators: 1: нижня межа висоти, 2: верхня межа.
 #: src/Product/Lot.php:109
+#, php-format
 msgid "%1$s–%2$s м"
 msgstr "%1$s–%2$s m"
 
+#. translators: %s — кількість днів обробки.
 #: src/Product/Lot.php:250
+#, php-format
 msgid "%s день"
 msgid_plural "%s днів"
 msgstr[0] "%s day"
@@ -687,8 +830,7 @@ msgstr "Sugar content at picking"
 msgid "Висота"
 msgstr "Altitude"
 
-#: src/Product/Schema.php:141
-#: src/Taxonomies/Registrar.php:81
+#: src/Product/Schema.php:141 src/Taxonomies/Registrar.php:81
 msgid "Обробка"
 msgstr "Process"
 
@@ -808,7 +950,9 @@ msgstr "What is your budget for a 250 g bag?"
 msgid "Це не відсіє лоти, лише вплине на порядок."
 msgstr "This will not rule lots out, only change their order."
 
+#. translators: %s — сума з валютою.
 #: src/Quiz/Questions.php:203
+#, php-format
 msgid "До %s"
 msgstr "Up to %s"
 
@@ -842,11 +986,16 @@ msgstr "Pick a branch from the list."
 
 #: src/Shipping/NovaPoshta.php:106
 msgid "Це відділення не належить обраному місту. Оберіть зі списку ще раз."
-msgstr "This branch does not belong to the chosen city. Pick from the list again."
+msgstr ""
+"This branch does not belong to the chosen city. Pick from the list again."
 
 #: src/Shipping/NovaPoshta.php:156
-msgid "Довідник Нової Пошти порожній. Запустіть wp brix np-sync там, де є ключ API — після цього підказки працюватимуть без звернень до Нової Пошти."
-msgstr "The Nova Poshta directory is empty. Run wp brix np-sync where the API key is available — after that the suggestions work without calling Nova Poshta."
+msgid ""
+"Довідник Нової Пошти порожній. Запустіть wp brix np-sync там, де є ключ API "
+"— після цього підказки працюватимуть без звернень до Нової Пошти."
+msgstr ""
+"The Nova Poshta directory is empty. Run wp brix np-sync where the API key is "
+"available — after that the suggestions work without calling Nova Poshta."
 
 #: src/Shipping/NovaPoshta.php:168
 msgid "Нова Пошта"
@@ -857,11 +1006,14 @@ msgid "Ключ API"
 msgstr "API key"
 
 #: src/Shipping/NovaPoshta.php:175
-msgid "Без ключа місто й відділення лишаються звичайними текстовими полями: замовлення оформлюється, просто без підказок."
-msgstr "Without a key, city and branch stay plain text fields: the order still goes through, just without suggestions."
+msgid ""
+"Без ключа місто й відділення лишаються звичайними текстовими полями: "
+"замовлення оформлюється, просто без підказок."
+msgstr ""
+"Without a key, city and branch stay plain text fields: the order still goes "
+"through, just without suggestions."
 
-#: src/Shipping/Pickup.php:104
-#: src/Shipping/Pickup.php:124
+#: src/Shipping/Pickup.php:104 src/Shipping/Pickup.php:124
 #: src/Shipping/Pickup.php:236
 msgid "Самовивіз"
 msgstr "Pickup"
@@ -871,10 +1023,15 @@ msgid "Пн–Пт 10:00–19:00, Сб 11:00–17:00"
 msgstr "Mon–Fri 10:00–19:00, Sat 11:00–17:00"
 
 #: src/Shipping/Pickup.php:225
-msgid "Зазвичай замовлення готове за 24 години — напишемо, щойно можна забирати."
-msgstr "An order is usually ready within 24 hours — we will write as soon as you can collect it."
+msgid ""
+"Зазвичай замовлення готове за 24 години — напишемо, щойно можна забирати."
+msgstr ""
+"An order is usually ready within 24 hours — we will write as soon as you can "
+"collect it."
 
+#. translators: %s — адреса магазину з налаштувань WooCommerce.
 #: src/Shipping/Pickup.php:240
+#, php-format
 msgid "Адресу точки беремо з налаштувань магазину: %s."
 msgstr "The pickup address comes from the store settings: %s."
 
@@ -914,29 +1071,34 @@ msgstr "Brew methods"
 msgid "Спосіб заварювання"
 msgstr "Brew method"
 
+#. translators: %s — назва таксономії в множині.
 #: src/Taxonomies/Registrar.php:130
+#, php-format
 msgid "Шукати: %s"
 msgstr "Search: %s"
 
+#. translators: %s — назва таксономії в однині.
 #: src/Taxonomies/Registrar.php:132
+#, php-format
 msgid "Редагувати: %s"
 msgstr "Edit: %s"
 
+#. translators: %s — назва таксономії в однині.
 #: src/Taxonomies/Registrar.php:133
+#, php-format
 msgid "Додати: %s"
 msgstr "Add: %s"
 
+#. translators: %s — назва таксономії в однині.
 #: src/Taxonomies/Registrar.php:134
 msgid "Нічого не знайдено"
 msgstr "Nothing found"
 
-#: src/Taxonomies/Registrar.php:158
-#: src/Taxonomies/Registrar.php:174
+#: src/Taxonomies/Registrar.php:158 src/Taxonomies/Registrar.php:174
 msgid "Стиль пачки"
 msgstr "Bag style"
 
-#: src/Taxonomies/Registrar.php:160
-#: src/Taxonomies/Registrar.php:177
+#: src/Taxonomies/Registrar.php:160 src/Taxonomies/Registrar.php:177
 msgid "Задає колір пачки й тега для лотів цієї обробки."
 msgstr "Sets the bag and tag colour for lots with this process."
 
@@ -944,13 +1106,11 @@ msgstr "Sets the bag and tag colour for lots with this process."
 msgid "— за замовчуванням —"
 msgstr "— default —"
 
-#: src/Wholesale/Application.php:68
-#: src/Wholesale/Application.php:70
+#: src/Wholesale/Application.php:68 src/Wholesale/Application.php:70
 msgid "Заявки B2B"
 msgstr "B2B requests"
 
-#: src/Wholesale/Application.php:69
-#: src/Wholesale/Application.php:72
+#: src/Wholesale/Application.php:69 src/Wholesale/Application.php:72
 msgid "Заявка"
 msgstr "Request"
 
@@ -962,9 +1122,12 @@ msgstr "All requests"
 msgid "Заявок немає"
 msgstr "No requests"
 
+#. translators: 1 — мінімум, 2 — поточна вага.
 #: src/Wholesale/Pricing.php:111
+#, php-format
 msgid "Оптове замовлення — від %1$s кг. Зараз у кошику %2$s кг."
-msgstr "A wholesale order starts at %1$s kg. Your cart currently holds %2$s kg."
+msgstr ""
+"A wholesale order starts at %1$s kg. Your cart currently holds %2$s kg."
 
 #: src/Wholesale/Role.php:66
 msgid "Оптовий клієнт"
@@ -983,14 +1146,18 @@ msgid "Недостатньо прав."
 msgstr "Not enough permissions."
 
 #: src/Wholesale/Role.php:173
-msgid "Заявку схвалено. Клієнт отримав лист із посиланням на пароль і бачить оптові ціни."
-msgstr "The request is approved. The customer has received an email with a password link and now sees wholesale prices."
+msgid ""
+"Заявку схвалено. Клієнт отримав лист із посиланням на пароль і бачить оптові "
+"ціни."
+msgstr ""
+"The request is approved. The customer has received an email with a password "
+"link and now sees wholesale prices."
 
 #: src/Wholesale/Role.php:174
 msgid "У заявці немає коректної пошти — акаунт створити нема на що."
-msgstr "The request has no valid email — there is nothing to create an account on."
+msgstr ""
+"The request has no valid email — there is nothing to create an account on."
 
 #: src/Wholesale/Role.php:175
 msgid "Не вдалося створити користувача."
 msgstr "We could not create the user."
-

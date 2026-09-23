@@ -78,6 +78,7 @@ final class Translations implements Module {
 		add_filter( 'woocommerce_product_get_description', array( $this, 'product_description' ), 10, 2 );
 		add_filter( 'woocommerce_product_get_short_description', array( $this, 'product_excerpt' ), 10, 2 );
 		add_filter( 'woocommerce_attribute_label', array( $this, 'string' ) );
+
 		/*
 		 * Позиції замовлення всі мають тип order_item — окремих
 		 * префіксів у товарної й доставкової немає, тож фільтр один,
@@ -197,8 +198,8 @@ final class Translations implements Module {
 	/**
 	 * Назва товару.
 	 *
-	 * @param string       $name    Назва.
-	 * @param \WC_Product  $product Товар.
+	 * @param string      $name    Назва.
+	 * @param \WC_Product $product Товар.
 	 * @return string
 	 */
 	public function product_text( string $name, $product ): string {
@@ -439,7 +440,7 @@ final class Translations implements Module {
 
 		unset( $post );
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce перевірено вище.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Nonce перевірено вище; кожне поле очищується нижче своїм правилом.
 		$posted = isset( $_POST['brix_en'] ) ? (array) wp_unslash( $_POST['brix_en'] ) : array();
 
 		foreach ( array( 'title', 'excerpt', 'content' ) as $key ) {
@@ -515,7 +516,7 @@ final class Translations implements Module {
 			return;
 		}
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce перевірено вище.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Nonce перевірено вище; кожне поле очищується нижче.
 		$posted = isset( $_POST['brix_en_term'] ) ? (array) wp_unslash( $_POST['brix_en_term'] ) : array();
 
 		foreach ( array( 'name', 'description' ) as $key ) {

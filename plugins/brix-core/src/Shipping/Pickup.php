@@ -139,7 +139,7 @@ final class Pickup implements Module {
 	 * @return bool
 	 */
 	public static function chosen(): bool {
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce перевіряє WooCommerce; тут лише читання вибору.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Nonce перевіряє WooCommerce; масив очищується поелементно нижче.
 		$posted = isset( $_POST['shipping_method'] ) ? wp_unslash( $_POST['shipping_method'] ) : null;
 
 		if ( is_array( $posted ) && isset( $posted[0] ) && is_string( $posted[0] ) ) {

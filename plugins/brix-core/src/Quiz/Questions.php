@@ -193,6 +193,7 @@ final class Questions {
 				'multiple' => false,
 				'options'  => array(
 					'low' => array(
+
 						/*
 						 * Суми в гривні, підпис — валютою показу.
 						 * Англійська версія рахує в євро, і «До 600 ₴»

@@ -9,6 +9,9 @@ declare( strict_types=1 );
 
 namespace Brix\Core\Payments;
 
+use Brix\Core\I18n\Emails;
+use Brix\Core\I18n\Language;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -197,10 +200,31 @@ final class LiqPay extends \WC_Payment_Gateway {
 			),
 			'order_id'    => (string) $order->get_id() . '-' . $order->get_order_key(),
 			'sandbox'     => 'yes' === $this->get_option( 'sandbox' ) ? 1 : 0,
-			'server_url'  => rest_url( 'brix/v1/liqpay' ),
+			'server_url'  => Language::without_prefix( rest_url( 'brix/v1/liqpay' ) ),
 			'result_url'  => $this->get_return_url( $order ),
-			'language'    => 'uk',
+			'language'    => self::language( $order ),
 		);
+	}
+
+	/**
+	 * Мова сторінки оплати.
+	 *
+	 * LiqPay не вгадує мову з браузера — вона приходить у даних
+	 * платежу. Беремо її із замовлення, а не з поточного запиту:
+	 * покупець може повернутись до оплати з листа, і тоді активною
+	 * мовою сайту буде зовсім не та, якою він оформляв.
+	 *
+	 * @param \WC_Order $order Замовлення.
+	 * @return string
+	 */
+	private static function language( \WC_Order $order ): string {
+		$lang = (string) $order->get_meta( Emails::META );
+
+		if ( '' === $lang ) {
+			$lang = Language::current();
+		}
+
+		return Language::SECOND === $lang ? 'en' : 'uk';
 	}
 
 	/**
