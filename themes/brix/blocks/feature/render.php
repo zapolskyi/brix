@@ -18,6 +18,18 @@ $brix_reversed = ! empty( $attributes['reversed'] );
 $brix_media    = (string) ( $attributes['media'] ?? 'photo' );
 $brix_tone     = (string) ( $attributes['tone'] ?? 'warm' );
 
+/*
+ * Фото секції — файл теми, а не вкладення медіатеки: секції частина
+ * дизайну, і їхні фото їдуть на хостинг разом з темою, без імпорту.
+ * Alt — сталий опис кожного знімка, перекладений для /en/.
+ */
+$brix_photos = array(
+	'quiz'      => __( 'Способи заварювання поруч: V60, аеропрес, турка, френч-прес', 'brix' ),
+	'club'      => __( 'Три пачки кави в коробці доставки', 'brix' ),
+	'wholesale' => __( 'Бариста готує еспресо за баром кав’ярні', 'brix' ),
+);
+$brix_photo  = (string) ( $attributes['photo'] ?? '' );
+
 $brix_section = 'brix-section brix-section--tight';
 
 if ( $brix_dark ) {
@@ -76,9 +88,16 @@ $brix_button_class = $brix_dark ? 'brix-btn brix-btn--light' : 'brix-btn brix-bt
 				<p class="brix-small brix-muted"><?php esc_html_e( 'Зелена смуга — вікно стиглості, 20–24 °Bx.', 'brix' ); ?></p>
 			</div>
 		<?php else : ?>
-			<div class="brix-photo <?php echo esc_attr( 'brix-photo--' . $brix_tone ); ?> brix-teaser__photo">
-				<span class="brix-photo__caption"><?php echo esc_html( brix_t( (string) ( $attributes['heading'] ?? '' ) ) ); ?></span>
-			</div>
+			<?php
+			brix_photo(
+				array(
+					'class'   => 'brix-photo--' . $brix_tone . ' brix-teaser__photo',
+					'asset'   => isset( $brix_photos[ $brix_photo ] ) ? 'section-' . $brix_photo : '',
+					'alt'     => $brix_photos[ $brix_photo ] ?? '',
+					'caption' => brix_t( (string) ( $attributes['heading'] ?? '' ) ),
+				)
+			);
+			?>
 		<?php endif; ?>
 	</div>
 </section>

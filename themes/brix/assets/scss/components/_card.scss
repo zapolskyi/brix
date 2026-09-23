@@ -128,10 +128,22 @@
   gap: var(--brix-gap-16) var(--brix-gap-12);
 }
 
-// Фото або плейсхолдер замість пачки — для обладнання й наборів.
+// Плейсхолдер замість пачки — для обладнання без фото.
 .brix-card__photo {
   width: 72%;
   aspect-ratio: 3 / 4;
   border-radius: var(--brix-radius);
   object-fit: cover;
+}
+
+// Справжнє фото обладнання заповнює сцену цілком. Вузьким
+// прямокутником посередині воно читалось як фото, вклеєне в картку:
+// тло знімка й тло сцени трохи різні, і межа між ними видна.
+img.brix-card__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  border-radius: inherit;
 }

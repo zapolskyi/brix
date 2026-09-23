@@ -127,9 +127,7 @@ while ( have_posts() ) :
 						<?php endif; ?>
 					</div>
 
-					<div class="brix-photo brix-photo--green brix-farm__map">
-						<span class="brix-photo__caption"><?php the_title(); ?></span>
-					</div>
+					<?php brix_farm_photo( get_the_ID(), 'brix-photo--green brix-farm__map' ); ?>
 				</div>
 			</section>
 		<?php endif; ?>

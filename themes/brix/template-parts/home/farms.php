@@ -34,9 +34,7 @@ if ( ! $brix_farms ) {
 				$brix_terms = get_the_terms( $brix_farm->ID, 'brix_country' );
 				?>
 				<a class="brix-tile" href="<?php echo esc_url( (string) get_permalink( $brix_farm ) ); ?>">
-					<span class="brix-photo brix-photo--warm brix-tile__photo">
-						<span class="brix-photo__caption"><?php echo esc_html( get_the_title( $brix_farm ) ); ?></span>
-					</span>
+					<?php brix_farm_photo( $brix_farm, 'brix-photo--warm brix-tile__photo', 'span' ); ?>
 					<span class="brix-tile__title"><?php echo esc_html( get_the_title( $brix_farm ) ); ?></span>
 					<span class="brix-tile__meta brix-label">
 						<?php

@@ -168,6 +168,18 @@
       ],
     },
     {
+      name: 'photo',
+      label: __('Фото', 'brix'),
+      help: __('Без фото секція показує плашку тону нижче.', 'brix'),
+      type: 'select',
+      options: [
+        { label: __('Без фото', 'brix'), value: '' },
+        { label: __('Способи заварювання', 'brix'), value: 'quiz' },
+        { label: __('Пачки в коробці', 'brix'), value: 'club' },
+        { label: __('Бар кав’ярні', 'brix'), value: 'wholesale' },
+      ],
+    },
+    {
       name: 'tone',
       label: __('Тон фото', 'brix'),
       type: 'select',

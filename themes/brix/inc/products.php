@@ -67,7 +67,17 @@ function brix_the_product_visual( WC_Product $product, string $size = '54%' ): v
 	}
 
 	if ( $product->get_image_id() ) {
-		echo wp_kses_post( $product->get_image( 'brix-card', array( 'class' => 'brix-card__photo' ) ) );
+		// Alt — назва товару, а не опис вкладення: той лишається
+		// українським і на /en/, а назва перекладена.
+		echo wp_kses_post(
+			$product->get_image(
+				'brix-card',
+				array(
+					'class' => 'brix-card__photo',
+					'alt'   => $product->get_name(),
+				)
+			)
+		);
 		return;
 	}
 

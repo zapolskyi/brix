@@ -31,9 +31,7 @@ get_header();
 					$brix_country = get_the_terms( get_the_ID(), 'brix_country' );
 					?>
 					<a class="brix-tile" href="<?php the_permalink(); ?>">
-						<span class="brix-photo brix-photo--warm brix-tile__photo">
-							<span class="brix-photo__caption"><?php the_title(); ?></span>
-						</span>
+						<?php brix_farm_photo( get_the_ID(), 'brix-photo--warm brix-tile__photo', 'span' ); ?>
 						<span class="brix-tile__title"><?php the_title(); ?></span>
 						<span class="brix-tile__meta brix-label">
 							<?php

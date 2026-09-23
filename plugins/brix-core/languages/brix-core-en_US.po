@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BRIX Core\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/brix-core\n"
-"POT-Creation-Date: 2026-09-23T19:19:59+00:00\n"
+"POT-Creation-Date: 2026-09-23T22:23:11+00:00\n"
 "Last-Translator: Nazar Zapolskyi <nazar.zapolski@gmail.com>\n"
 "Language-Team: English\n"
 "Language: en_US\n"
@@ -62,11 +62,11 @@ msgstr ""
 "guide steps cannot be edited until that plugin is active. Data already saved "
 "is intact — the site shows it as before."
 
-#: src/Cli/DemoContent.php:257
+#: src/Cli/DemoContent.php:332
 msgid "Вага"
 msgstr "Weight"
 
-#: src/Cli/DemoContent.php:258 src/Fields/GuideFields.php:77
+#: src/Cli/DemoContent.php:333 src/Fields/GuideFields.php:77
 msgid "Помел"
 msgstr "Grind"
 
@@ -90,18 +90,18 @@ msgstr "The next shipment has been skipped."
 msgid "Підписку скасовано. Лоти лишаються доступними в магазині."
 msgstr "The subscription is cancelled. The lots stay available in the shop."
 
-#: src/Club/Plan.php:84
+#: src/Club/Plan.php:88
 msgid "BRIX Club"
 msgstr "BRIX Club"
 
 #. translators: 1 — інтервал у тижнях, 2 — знижка.
-#: src/Club/Plan.php:87
+#: src/Club/Plan.php:91
 #, php-format
 msgid "кожні %1$d тижні, −%2$d%%"
 msgstr "every %1$d weeks, −%2$d%%"
 
 #. translators: %d — кількість підписок.
-#: src/Club/Plan.php:234
+#: src/Club/Plan.php:238
 #, php-format
 msgid "Створено %d підписку BRIX Club."
 msgid_plural "Створено %d підписки BRIX Club."

@@ -181,7 +181,17 @@ final class Schema implements Module {
 		}
 
 		$english = Language::is_second();
-		$image   = is_singular() ? get_the_post_thumbnail_url( get_queried_object_id(), 'full' ) : '';
+		$image   = is_singular() ? (string) get_the_post_thumbnail_url( get_queried_object_id(), 'full' ) : '';
+
+		/*
+		 * Сторінка без власного фото — картинка бренду від теми.
+		 * Без og:image посилання в месенджері виходить голим рядком.
+		 *
+		 * @param string $image Адреса картинки 1200×630.
+		 */
+		if ( '' === $image ) {
+			$image = (string) apply_filters( 'brix_default_og_image', '' );
+		}
 
 		$tags = array(
 			'og:type'             => function_exists( 'is_product' ) && is_product() ? 'product' : ( is_singular( 'post' ) ? 'article' : 'website' ),

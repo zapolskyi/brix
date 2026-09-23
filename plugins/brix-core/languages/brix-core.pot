@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-23T19:19:59+00:00\n"
+"POT-Creation-Date: 2026-09-23T22:23:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: brix-core\n"
@@ -47,11 +47,11 @@ msgstr ""
 msgid "BRIX Core: не знайдено Secure Custom Fields. Паспорт лоту, дані виробників і кроки гайдів не можна редагувати, доки плагін не активний. Уже збережені дані на місці — сайт показує їх як і раніше."
 msgstr ""
 
-#: src/Cli/DemoContent.php:257
+#: src/Cli/DemoContent.php:332
 msgid "Вага"
 msgstr ""
 
-#: src/Cli/DemoContent.php:258
+#: src/Cli/DemoContent.php:333
 #: src/Fields/GuideFields.php:77
 msgid "Помел"
 msgstr ""
@@ -76,18 +76,18 @@ msgstr ""
 msgid "Підписку скасовано. Лоти лишаються доступними в магазині."
 msgstr ""
 
-#: src/Club/Plan.php:84
+#: src/Club/Plan.php:88
 msgid "BRIX Club"
 msgstr ""
 
 #. translators: 1 — інтервал у тижнях, 2 — знижка.
-#: src/Club/Plan.php:87
+#: src/Club/Plan.php:91
 #, php-format
 msgid "кожні %1$d тижні, −%2$d%%"
 msgstr ""
 
 #. translators: %d — кількість підписок.
-#: src/Club/Plan.php:234
+#: src/Club/Plan.php:238
 #, php-format
 msgid "Створено %d підписку BRIX Club."
 msgid_plural "Створено %d підписки BRIX Club."

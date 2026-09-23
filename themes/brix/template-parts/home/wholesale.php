@@ -24,8 +24,14 @@ defined( 'ABSPATH' ) || exit;
 			</p>
 		</div>
 
-		<div class="brix-photo brix-photo--dark brix-teaser__photo">
-			<span class="brix-photo__caption"><?php esc_html_e( 'Фото · бар кав’ярні', 'brix' ); ?></span>
-		</div>
+		<?php
+		brix_photo(
+			array(
+				'class' => 'brix-photo--dark brix-teaser__photo',
+				'asset' => 'section-wholesale',
+				'alt'   => __( 'Бариста готує еспресо за баром кав’ярні', 'brix' ),
+			)
+		);
+		?>
 	</div>
 </section>

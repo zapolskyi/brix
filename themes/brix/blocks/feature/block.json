@@ -15,6 +15,7 @@
 		"buttonUrl": { "type": "string", "default": "" },
 		"media": { "type": "string", "default": "photo" },
 		"tone": { "type": "string", "default": "warm" },
+		"photo": { "type": "string", "default": "" },
 		"dark": { "type": "boolean", "default": false },
 		"reversed": { "type": "boolean", "default": false }
 	},

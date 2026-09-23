@@ -35,8 +35,6 @@ $brix_headline = (string) get_post_meta( $brix_farm->ID, 'brix_farm_headline', t
 			</p>
 		</div>
 
-		<div class="brix-photo brix-photo--warm brix-farm-teaser__photo">
-			<span class="brix-photo__caption"><?php esc_html_e( 'Фото · станція', 'brix' ); ?></span>
-		</div>
+		<?php brix_farm_photo( $brix_farm, 'brix-photo--warm brix-farm-teaser__photo' ); ?>
 	</div>
 </section>

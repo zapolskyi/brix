@@ -74,12 +74,87 @@ final class DemoContent {
 		$this->import_reviews();
 		$this->import_users();
 		$this->import_pages();
+		$this->import_images();
 
 		// Нові типи записів і таксономії дають 404, доки правила
 		// перезапису не перебудовано.
 		flush_rewrite_rules();
 
 		\WP_CLI::success( 'Демо-контент на місці.' );
+	}
+
+	/**
+	 * Фото виробників і обладнання.
+	 *
+	 * Файли лежать у data/images і їдуть на хостинг разом з плагіном:
+	 * медіатека живе в базі й на чисту інсталяцію сама не переїде.
+	 * Звідси вони завантажуються в медіатеку як звичайні вкладення —
+	 * WordPress наріже розміри й зробить WebP, а власник далі міняє їх
+	 * в адмінці, як будь-яке фото.
+	 *
+	 * Фото ставиться лише там, де його ще немає: замінене власником
+	 * повторний запуск не чіпає.
+	 *
+	 * @return void
+	 */
+	private function import_images(): void {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+
+		$rows = array();
+
+		foreach ( (array) ( $this->data['farms'] ?? array() ) as $farm ) {
+			$rows[] = array( Farm::POST_TYPE, $farm );
+		}
+
+		foreach ( (array) ( $this->data['products'] ?? array() ) as $product ) {
+			$rows[] = array( 'product', $product );
+		}
+
+		$added = 0;
+
+		foreach ( $rows as $row ) {
+			list( $type, $item ) = $row;
+			$file                = (string) ( $item['image'] ?? '' );
+			$post                = '' !== $file ? get_page_by_path( (string) $item['slug'], OBJECT, $type ) : null;
+
+			if ( ! $post instanceof \WP_Post || has_post_thumbnail( $post ) ) {
+				continue;
+			}
+
+			$source = dirname( BRIX_CORE_FILE ) . '/data/images/' . basename( $file );
+
+			if ( ! is_readable( $source ) ) {
+				\WP_CLI::warning( sprintf( 'Немає файлу %s.', $file ) );
+				continue;
+			}
+
+			// media_handle_sideload переносить файл, тож даємо йому копію.
+			$copy = wp_tempnam( $file );
+			copy( $source, $copy );
+
+			$id = media_handle_sideload(
+				array(
+					'name'     => basename( $file ),
+					'tmp_name' => $copy,
+				),
+				$post->ID,
+				get_the_title( $post )
+			);
+
+			if ( is_wp_error( $id ) ) {
+				\WP_CLI::warning( sprintf( '%s: %s', $file, $id->get_error_message() ) );
+				continue;
+			}
+
+			update_post_meta( $id, '_wp_attachment_image_alt', get_the_title( $post ) );
+			update_post_meta( $id, '_brix_demo', 1 );
+			set_post_thumbnail( $post->ID, $id );
+			++$added;
+		}
+
+		\WP_CLI::log( sprintf( 'Фото додано: %d', $added ) );
 	}
 
 	/**

@@ -11,6 +11,8 @@
 }
 
 .brix-product__stage {
+  // Система координат для фото обладнання, що заповнює сцену цілком.
+  position: relative;
   display: grid;
   place-items: center;
   aspect-ratio: 1 / 1.06;

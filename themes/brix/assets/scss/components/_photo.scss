@@ -20,6 +20,25 @@
     mix-blend-mode: overlay;
   }
 
+  // Справжнє фото заповнює слот, як обкладинка. Пропорції слота
+  // задає сам слот — фото обрізається під нього, а не розтягує його.
+  &.has-image {
+    padding: 0;
+    background: var(--brix-stone);
+
+    // Зернистість бренду лишається, але ледь помітна: на плашці вона
+    // робить фактуру, на фото — лише бруднила б знімок.
+    &::after { opacity: 0.12; }
+  }
+
+  &__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   &__caption {
     position: relative;
     z-index: 2;

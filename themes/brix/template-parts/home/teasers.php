@@ -18,6 +18,8 @@ $brix_teasers = array(
 		'button' => __( 'Пройти квіз', 'brix' ),
 		'url'    => brix_page_url( 'quiz' ),
 		'photo'  => 'brix-photo--green',
+		'asset'  => 'section-quiz',
+		'alt'    => __( 'Способи заварювання поруч: V60, аеропрес, турка, френч-прес', 'brix' ),
 		'dark'   => false,
 	),
 	array(
@@ -27,6 +29,8 @@ $brix_teasers = array(
 		'button' => __( 'Як це працює', 'brix' ),
 		'url'    => brix_page_url( 'club' ),
 		'photo'  => 'brix-photo--cherry',
+		'asset'  => 'section-club',
+		'alt'    => __( 'Три пачки кави в коробці доставки', 'brix' ),
 		'dark'   => false,
 	),
 );
@@ -47,9 +51,16 @@ $brix_teasers = array(
 				</p>
 			</div>
 
-			<div class="brix-photo <?php echo esc_attr( $brix_teaser['photo'] ); ?> brix-teaser__photo">
-				<span class="brix-photo__caption"><?php echo esc_html( $brix_teaser['title'] ); ?></span>
-			</div>
+			<?php
+			brix_photo(
+				array(
+					'class'   => $brix_teaser['photo'] . ' brix-teaser__photo',
+					'asset'   => $brix_teaser['asset'],
+					'alt'     => $brix_teaser['alt'],
+					'caption' => $brix_teaser['title'],
+				)
+			);
+			?>
 		</div>
 	</section>
 <?php endforeach; ?>
