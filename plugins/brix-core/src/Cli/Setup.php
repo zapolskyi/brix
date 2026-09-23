@@ -100,6 +100,21 @@ final class Setup {
 	);
 
 	/**
+	 * Описи лінійок: вони стоять під заголовком сторінки категорії.
+	 *
+	 * Довго жили лише в локальній базі — на чистій інсталяції
+	 * категорії лишились би без опису українською, хоча англійський
+	 * переклад опису є.
+	 */
+	private const CATEGORY_DESCRIPTIONS = array(
+		'core'     => 'Два бленди на щодень: Everyday для еспресо і Open Filter для фільтра.',
+		'origin'   => 'Сезонні мікролоти single origin від ферм, з якими працюємо напряму.',
+		'lab'      => 'Лімітовані експериментальні обробки. Обмежена кількість.',
+		'drip-try' => 'Дріп-пакети й дегустаційні набори з 3–4 лотів.',
+		'gear'     => 'V60, ваги й чайник з гусячою шийкою.',
+	);
+
+	/**
 	 * Налаштовує магазин.
 	 *
 	 * ## EXAMPLES
@@ -463,11 +478,24 @@ final class Setup {
 	 */
 	private function categories(): void {
 		foreach ( self::CATEGORIES as $slug => $name ) {
-			if ( term_exists( $slug, 'product_cat' ) ) {
+			$term = get_term_by( 'slug', $slug, 'product_cat' );
+
+			if ( ! $term instanceof \WP_Term ) {
+				wp_insert_term(
+					$name,
+					'product_cat',
+					array(
+						'slug'        => $slug,
+						'description' => self::CATEGORY_DESCRIPTIONS[ $slug ] ?? '',
+					)
+				);
 				continue;
 			}
 
-			wp_insert_term( $name, 'product_cat', array( 'slug' => $slug ) );
+			// Опис, який власник уже переписав, не чіпаємо.
+			if ( '' === trim( $term->description ) && isset( self::CATEGORY_DESCRIPTIONS[ $slug ] ) ) {
+				wp_update_term( $term->term_id, 'product_cat', array( 'description' => self::CATEGORY_DESCRIPTIONS[ $slug ] ) );
+			}
 		}
 
 		\WP_CLI::log( 'Лінійки товарів на місці.' );
