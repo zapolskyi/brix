@@ -41,7 +41,7 @@ defined( 'ABSPATH' ) || exit;
 	</nav>
 
 	<div class="brix-header__actions">
-		<?php brix_language_switcher(); ?>
+		<?php brix_preferences(); ?>
 
 		<?php
 		/*
@@ -120,6 +120,12 @@ defined( 'ABSPATH' ) || exit;
 			'fallback_cb'    => false,
 		)
 	);
+	?>
+
+	<?php
+	// У вузькій шапці місця на перемикачі немає — на телефоні вони
+	// живуть тут. Без цього мову на телефоні не було де змінити.
+	brix_preferences();
 	?>
 </div>
 

@@ -134,7 +134,28 @@
     }
   }
 
-  @include upto($bp-sm) { display: none; }
+}
+
+// Мова й валюта — дві групи поруч, розділені тонкою рискою.
+.brix-prefs {
+  display: flex;
+  align-items: center;
+
+  .brix-lang + .brix-lang { border-inline-start: 1px solid var(--brix-line); }
+
+  .brix-header & { @include upto($bp-sm) { display: none; } }
+
+  .brix-mobile-nav & {
+    margin-top: var(--brix-gap-8);
+    padding-top: var(--brix-gap-8);
+    border-top: 1px solid var(--brix-line);
+
+    .brix-lang { padding-inline: 0 var(--brix-gap-8); font-size: 0.875rem; }
+    .brix-lang + .brix-lang { padding-inline-start: var(--brix-gap-8); }
+
+    // Посилання мобільного меню великі — перемикачам це не пасує.
+    a { display: inline; padding: 0; font-size: inherit; font-weight: 400; }
+  }
 }
 
 .brix-iconbtn {

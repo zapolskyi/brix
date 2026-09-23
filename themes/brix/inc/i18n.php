@@ -98,6 +98,66 @@ function brix_language_switcher(): void {
 }
 
 /**
+ * Перемикач валюти: ₴ / €.
+ *
+ * Валюта окремо від мови: мова — про те, як людина читає, валюта —
+ * про те, чим вона платить. Посилання, а не форма: працює без
+ * JavaScript, сервер запам'ятовує вибір і повертає на ту саму
+ * сторінку вже без параметра.
+ *
+ * @return void
+ */
+function brix_currency_switcher(): void {
+	if ( ! class_exists( '\Brix\Core\I18n\Currency' ) ) {
+		return;
+	}
+
+	$currencies = \Brix\Core\I18n\Currency::all();
+
+	if ( count( $currencies ) < 2 ) {
+		return;
+	}
+
+	$current = \Brix\Core\I18n\Currency::chosen();
+	?>
+	<nav class="brix-lang brix-lang--currency" aria-label="<?php esc_attr_e( 'Валюта цін', 'brix' ); ?>">
+		<?php foreach ( $currencies as $brix_code => $brix_sign ) : ?>
+			<?php if ( $brix_code === $current ) : ?>
+				<b class="brix-lang__item is-current" aria-current="true">
+					<span aria-hidden="true"><?php echo esc_html( $brix_sign ); ?></span>
+					<span class="brix-visually-hidden"><?php echo esc_html( $brix_code ); ?></span>
+				</b>
+			<?php else : ?>
+				<a class="brix-lang__item" href="<?php echo esc_url( \Brix\Core\I18n\Currency::switch_url( $brix_code ) ); ?>" rel="nofollow">
+					<span aria-hidden="true"><?php echo esc_html( $brix_sign ); ?></span>
+					<span class="brix-visually-hidden">
+						<?php
+						/* translators: %s — код валюти. */
+						printf( esc_html__( 'Ціни в %s', 'brix' ), esc_html( $brix_code ) );
+						?>
+					</span>
+				</a>
+			<?php endif; ?>
+		<?php endforeach; ?>
+	</nav>
+	<?php
+}
+
+/**
+ * Мова й валюта поруч — у шапці та в мобільному меню.
+ *
+ * @return void
+ */
+function brix_preferences(): void {
+	?>
+	<div class="brix-prefs">
+		<?php brix_language_switcher(); ?>
+		<?php brix_currency_switcher(); ?>
+	</div>
+	<?php
+}
+
+/**
  * Адреса всередині сайту з урахуванням мови.
  *
  * Посилання в атрибутах блоків редактор зберігає відносними: «/about/».

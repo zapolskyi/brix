@@ -14,12 +14,19 @@ use Brix\Core\Contracts\Module;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Англійська версія рахує в євро.
+ * Друга валюта: євро поруч із гривнею.
  *
- * Валюта прив'язана до мови, а не до країни покупця. Це спрощення, і
- * воно свідоме: визначати країну за IP означає помилятися на кожному
- * VPN, а ще один перемикач поруч із мовним — два питання там, де
- * покупець прийшов по каву.
+ * Валюту покупець обирає сам, перемикачем «₴ / €» у шапці. Якщо не
+ * обирав — вона випливає з мови: українська версія рахує в гривні,
+ * англійська в євро. Вибір пам'ятає кука, тож він переживає зміну
+ * мови й повернення на сайт.
+ *
+ * Спершу валюта була жорстко прив'язана до мови, і це ламалось на
+ * живих людях. Англомовний експат у Києві отримував ціни в євро для
+ * посилки Новою Поштою — і накладний платіж у євро, якого Нова Пошта
+ * не приймає. Українка у Варшаві читала сайт українською й не могла
+ * побачити ціну у валюті, якою платить. Мова — про те, як людина
+ * читає; валюта — про те, чим вона платить. Це різні питання.
  *
  * Друга ціна ніде не зберігається. У базі лежить гривня, а євро
  * рахується на читанні за курсом з налаштувань — тож зміна курсу не
@@ -50,6 +57,27 @@ final class Currency implements Module {
 	public const CODE = 'EUR';
 
 	/**
+	 * Основна валюта магазину.
+	 *
+	 * @var string
+	 */
+	public const MAIN = 'UAH';
+
+	/**
+	 * Кука з вибором покупця.
+	 *
+	 * @var string
+	 */
+	public const COOKIE = 'brix_currency';
+
+	/**
+	 * Параметр адреси, яким перемикач міняє валюту.
+	 *
+	 * @var string
+	 */
+	public const PARAM = 'currency';
+
+	/**
 	 * Курс за замовчуванням.
 	 *
 	 * @var float
@@ -69,6 +97,13 @@ final class Currency implements Module {
 	private static array $thresholds = array();
 
 	/**
+	 * Валюта цього запиту, коли вже визначена.
+	 *
+	 * @var string|null
+	 */
+	private static ?string $chosen = null;
+
+	/**
 	 * Вішає хуки.
 	 *
 	 * @return void
@@ -76,6 +111,13 @@ final class Currency implements Module {
 	public function register(): void {
 		add_filter( 'woocommerce_general_settings', array( $this, 'settings' ) );
 		add_filter( 'wc_price_args', array( $this, 'price_args' ) );
+		add_filter( 'litespeed_vary_cookies', array( $this, 'vary' ) );
+		add_action( 'template_redirect', array( $this, 'clean_url' ), 1 );
+
+		// Вибір із перемикача записуємо до того, як вирішувати, чи
+		// вмикати перерахунок: інакше перша сторінка після кліку
+		// показала б ще стару валюту.
+		self::remember();
 
 		if ( ! self::active() ) {
 			return;
@@ -101,7 +143,145 @@ final class Currency implements Module {
 	 * @return bool
 	 */
 	public static function active(): bool {
-		return Language::is_second() && self::rate() > 0;
+		return self::CODE === self::chosen() && self::rate() > 0;
+	}
+
+	/**
+	 * Валюта, в якій покупець зараз бачить ціни.
+	 *
+	 * Адмінка, крон і WP-CLI завжди в гривні — як і мова там завжди
+	 * українська: власник рахує гроші в тій валюті, в якій їх отримує.
+	 *
+	 * @return string
+	 */
+	public static function chosen(): string {
+		if ( null !== self::$chosen ) {
+			return self::$chosen;
+		}
+
+		self::$chosen = self::detect();
+
+		return self::$chosen;
+	}
+
+	/**
+	 * Визначає валюту запиту: адмінка, кука, мова — саме в такому порядку.
+	 *
+	 * @return string
+	 */
+	private static function detect(): string {
+		if ( is_admin() || wp_doing_cron() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+			return self::MAIN;
+		}
+
+		$cookie = isset( $_COOKIE[ self::COOKIE ] ) ? sanitize_key( wp_unslash( $_COOKIE[ self::COOKIE ] ) ) : '';
+		$cookie = strtoupper( $cookie );
+
+		if ( in_array( $cookie, array( self::MAIN, self::CODE ), true ) ) {
+			return $cookie;
+		}
+
+		return Language::SECOND === Language::current() ? self::CODE : self::MAIN;
+	}
+
+	/**
+	 * Адреса поточної сторінки з іншою валютою.
+	 *
+	 * Перемикач — звичайне посилання, а не форма чи скрипт: так він
+	 * працює без JavaScript, а адреса з параметром одразу
+	 * перенаправляється на чисту.
+	 *
+	 * @param string $code Код валюти.
+	 * @return string
+	 */
+	public static function switch_url( string $code ): string {
+		return add_query_arg( self::PARAM, strtolower( $code ) );
+	}
+
+	/**
+	 * Валюти для перемикача: код => знак.
+	 *
+	 * Порожньо, коли курсу немає: тоді й перемикати нема на що.
+	 *
+	 * @return array<string, string>
+	 */
+	public static function all(): array {
+		if ( self::rate() <= 0 ) {
+			return array();
+		}
+
+		return array(
+			self::MAIN => '₴',
+			self::CODE => '€',
+		);
+	}
+
+	/**
+	 * Запам'ятовує вибір із перемикача.
+	 *
+	 * @return void
+	 */
+	private static function remember(): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Перемикання показу, нічого не змінює на сервері.
+		$wanted = isset( $_GET[ self::PARAM ] ) ? strtoupper( sanitize_key( wp_unslash( $_GET[ self::PARAM ] ) ) ) : '';
+
+		if ( ! in_array( $wanted, array( self::MAIN, self::CODE ), true ) || is_admin() ) {
+			return;
+		}
+
+		self::$chosen = $wanted;
+
+		if ( headers_sent() ) {
+			return;
+		}
+
+		setcookie(
+			self::COOKIE,
+			$wanted,
+			array(
+				'expires'  => time() + YEAR_IN_SECONDS,
+				'path'     => COOKIEPATH ? COOKIEPATH : '/',
+				'domain'   => COOKIE_DOMAIN ? COOKIE_DOMAIN : '',
+				'secure'   => is_ssl(),
+				'httponly' => true,
+				'samesite' => 'Lax',
+			)
+		);
+	}
+
+	/**
+	 * Прибирає параметр валюти з адреси.
+	 *
+	 * Вибір уже в куці, а адреса з параметром потрапила б у закладки
+	 * й перемикала б валюту кожному, хто нею скористається.
+	 *
+	 * @return void
+	 */
+	public function clean_url(): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Лише читання параметра перемикача.
+		if ( ! isset( $_GET[ self::PARAM ] ) || is_admin() ) {
+			return;
+		}
+
+		wp_safe_redirect( remove_query_arg( self::PARAM ), 302 );
+		exit;
+	}
+
+	/**
+	 * Просить кеш сторінок LiteSpeed зберігати копію на кожну валюту.
+	 *
+	 * Мова живе в адресі, тож кеш розрізняє її сам. Валюта живе в
+	 * куці — і без цього перший відвідувач, що обрав євро, лишив би
+	 * євро в кеші для всіх наступних.
+	 *
+	 * @param array<int, string> $cookies Куки, від яких залежить сторінка.
+	 * @return array<int, string>
+	 */
+	public function vary( $cookies ) {
+		$cookies   = is_array( $cookies ) ? $cookies : array();
+		$cookies[] = self::COOKIE;
+
+		return $cookies;
 	}
 
 	/**
@@ -330,15 +510,15 @@ final class Currency implements Module {
 	 */
 	public function settings( array $settings ): array {
 		$settings[] = array(
-			'title' => __( 'Валюта другої мови', 'brix-core' ),
+			'title' => __( 'Друга валюта: євро', 'brix-core' ),
 			'type'  => 'title',
-			'desc'  => __( 'Англійська версія сайту показує ціни в євро. У базі лишається гривня — євро рахується за цим курсом на показі.', 'brix-core' ),
+			'desc'  => __( 'Покупець перемикає валюту знаком ₴ / € у шапці; англійська версія без вибору показує євро. У базі лишається гривня — євро рахується за цим курсом на показі.', 'brix-core' ),
 			'id'    => 'brix_currency_options',
 		);
 
 		$settings[] = array(
 			'title'             => __( 'Гривень за євро', 'brix-core' ),
-			'desc'              => __( 'Нуль вимикає перерахунок: англійська версія показуватиме гривні.', 'brix-core' ),
+			'desc'              => __( 'Нуль вимикає євро зовсім: перемикач зникне, і весь сайт рахуватиме в гривні.', 'brix-core' ),
 			'id'                => self::OPTION,
 			'type'              => 'number',
 			'default'           => (string) self::DEFAULT_RATE,
