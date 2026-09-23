@@ -76,7 +76,7 @@ if ( $brix_sold ) {
 
 	<div class="brix-card__head">
 		<span class="brix-card__name">
-			<a href="<?php the_permalink(); ?>"><?php echo esc_html( $product->get_name() ); ?></a>
+			<a href="<?php echo esc_url( $product->get_permalink() ); ?>"><?php echo esc_html( $product->get_name() ); ?></a>
 		</span>
 		<span class="brix-card__price"><?php echo wp_kses_post( brix_price_label( $product ) ); ?></span>
 	</div>

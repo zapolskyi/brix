@@ -199,9 +199,16 @@ function brix_render_product_cards( array $products ): void {
 	}
 
 	// phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- $product належить WooCommerce, шаблон картки читає саме його.
-	global $product;
+	global $product, $post;
 
-	$previous = $product;
+	/*
+	 * Глобальний $post теж підміняємо, не лише $product: setup_postdata()
+	 * сам його не міняє, а все, що в картці читає «поточний запис»,
+	 * брало б сторінку, на якій сітка стоїть. Саме так назви лотів на
+	 * головній вели на головну.
+	 */
+	$previous      = $product;
+	$previous_post = $post;
 
 	foreach ( $products as $item ) {
 		if ( ! $item instanceof WC_Product ) {
@@ -220,6 +227,7 @@ function brix_render_product_cards( array $products ): void {
 	}
 
 	$product = $previous;
+	$post    = $previous_post;
 	// phpcs:enable WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
 	wp_reset_postdata();
