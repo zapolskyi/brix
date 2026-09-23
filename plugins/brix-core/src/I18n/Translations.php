@@ -87,6 +87,7 @@ final class Translations implements Module {
 		add_filter( 'woocommerce_order_item_get_method_title', array( $this, 'string' ) );
 		add_filter( 'woocommerce_order_get_payment_method_title', array( $this, 'string' ) );
 		add_filter( 'option_woocommerce_cod_settings', array( $this, 'gateway_settings' ) );
+		add_filter( 'option_woocommerce_bacs_settings', array( $this, 'gateway_settings' ) );
 		add_filter( 'option_woocommerce_email_footer_text', array( $this, 'string' ) );
 		add_filter( 'woocommerce_shipping_rate_label', array( $this, 'string' ) );
 		add_filter( 'woocommerce_gateway_title', array( $this, 'string' ) );

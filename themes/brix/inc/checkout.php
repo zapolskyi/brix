@@ -18,13 +18,22 @@ defined( 'ABSPATH' ) || exit;
  * @return array<string, array<string, mixed>>
  */
 function brix_checkout_fields( array $fields ): array {
+	/*
+	 * Компанію й другу адресу прибираємо всюди: менше полів — більше
+	 * оформлених замовлень.
+	 *
+	 * Область лишається в розмітці, хоч українській адресі вона й не
+	 * потрібна. Її ховає локаль країни нижче, і ховає саме в браузері
+	 * — тож коли покупець перемикає країну на Італію, поле провінції
+	 * з'являється само. Прибрана з PHP, вона не з'явилася б уже
+	 * ніколи, і італійська адреса лишилась би без обов'язкової
+	 * частини.
+	 */
 	unset(
 		$fields['billing']['billing_company'],
 		$fields['billing']['billing_address_2'],
-		$fields['billing']['billing_state'],
 		$fields['shipping']['shipping_company'],
-		$fields['shipping']['shipping_address_2'],
-		$fields['shipping']['shipping_state']
+		$fields['shipping']['shipping_address_2']
 	);
 
 	/*
@@ -102,6 +111,7 @@ function brix_address_fields( array $fields ): array {
 		'country'   => 50,
 		'city'      => 60,
 		'address_1' => 70,
+		'state'     => 75,
 		'postcode'  => 80,
 	);
 
@@ -116,25 +126,81 @@ function brix_address_fields( array $fields ): array {
 		$fields['phone']['required']    = true;
 	}
 
+	/*
+	 * Підписи тут нейтральні — звичайна поштова адреса. Усе, що
+	 * стосується Нової Пошти, переїхало в локаль України нижче:
+	 * інакше покупець із Варшави бачив би поле «Адреса або
+	 * відділення» й шукав би польське місто в українському довіднику.
+	 */
 	if ( isset( $fields['address_1'] ) ) {
-		$fields['address_1']['label']       = __( 'Адреса або відділення', 'brix' );
-		$fields['address_1']['placeholder'] = __( 'Відділення №12, вул. Кирилівська, 41', 'brix' );
+		$fields['address_1']['label']       = __( 'Адреса', 'brix' );
+		$fields['address_1']['placeholder'] = __( 'Вулиця, будинок, квартира', 'brix' );
 	}
 
 	if ( isset( $fields['city'] ) ) {
-		$fields['city']['label']       = __( 'Місто', 'brix' );
-		$fields['city']['placeholder'] = __( 'Київ', 'brix' );
+		$fields['city']['label'] = __( 'Місто', 'brix' );
 	}
 
-	// Індекс Новій Пошті не потрібен: відділення однозначне саме собою.
 	if ( isset( $fields['postcode'] ) ) {
-		$fields['postcode']['required'] = false;
-		$fields['postcode']['label']    = __( 'Поштовий індекс', 'brix' );
+		$fields['postcode']['label'] = __( 'Поштовий індекс', 'brix' );
 	}
 
 	return $fields;
 }
 add_filter( 'woocommerce_default_address_fields', 'brix_address_fields' );
+
+/**
+ * Особливості української адреси.
+ *
+ * Локаль країни — єдине місце, де WooCommerce дозволяє різні поля для
+ * різних адрес. І PHP, і скрипт `wc-address-i18n.js` беруть підписи
+ * звідси, тож при зміні країни форма перебудовується прямо на
+ * сторінці, без перезавантаження.
+ *
+ * @param array<string, array<string, mixed>> $locale Локалі країн.
+ * @return array<string, array<string, mixed>>
+ */
+function brix_country_locale( array $locale ): array {
+	$locale['UA'] = array_merge(
+		$locale['UA'] ?? array(),
+		array(
+			'address_1' => array(
+				'label'       => __( 'Адреса або відділення', 'brix' ),
+				'placeholder' => __( 'Відділення №12, вул. Кирилівська, 41', 'brix' ),
+				'required'    => true,
+			),
+			'city'      => array(
+				'label'       => __( 'Місто', 'brix' ),
+				'placeholder' => __( 'Київ', 'brix' ),
+				'required'    => true,
+			),
+			// Індекс Новій Пошті не потрібен: відділення однозначне
+			// саме собою. За кордоном без індексу посилку не вручать.
+			'postcode'  => array(
+				'label'    => __( 'Поштовий індекс', 'brix' ),
+				'required' => false,
+			),
+			// Область теж зайва: відділення визначає і місто, і область.
+			'state'     => array(
+				'required' => false,
+				'hidden'   => true,
+			),
+		)
+	);
+
+	return $locale;
+}
+add_filter( 'woocommerce_get_country_locale', 'brix_country_locale' );
+
+/**
+ * Чи їде замовлення по Україні.
+ *
+ * @return bool
+ */
+function brix_is_home_delivery(): bool {
+	return ! class_exists( '\Brix\Core\Shipping\Destination' )
+		|| \Brix\Core\Shipping\Destination::is_home();
+}
 
 /**
  * Класи теми на полях Woo, щоб не переписувати їх селекторами.
@@ -280,16 +346,17 @@ function brix_shipping_choices(): array {
  */
 function brix_delivery_section(): void {
 	$choices = brix_shipping_choices();
-
-	if ( ! $choices['rates'] ) {
-		return;
-	}
-
-	$pickup = brix_pickup_info();
-	$single = 1 === count( $choices['rates'] );
+	$pickup  = brix_pickup_info();
+	$single  = 1 === count( $choices['rates'] );
 	?>
 	<section class="brix-checkout__block brix-ship" id="brix-delivery">
 		<h3 class="brix-ship__title"><?php esc_html_e( 'Спосіб отримання', 'brix' ); ?></h3>
+
+		<?php if ( ! $choices['rates'] ) : ?>
+			<p class="brix-small brix-muted">
+				<?php esc_html_e( 'Для цієї країни доставки поки немає. Оберіть іншу країну або напишіть нам — порахуємо окремо.', 'brix' ); ?>
+			</p>
+		<?php else : ?>
 
 		<ul class="brix-ship__options" id="shipping_method">
 			<?php foreach ( $choices['rates'] as $brix_rate ) : ?>
@@ -340,7 +407,9 @@ function brix_delivery_section(): void {
 			<p class="brix-pickup__note"><?php echo esc_html( $pickup['ready'] ); ?></p>
 		</div>
 
-		<?php if ( ! $single ) : ?>
+		<?php endif; ?>
+
+		<?php if ( $choices['rates'] && ! $single ) : ?>
 			<noscript>
 				<p class="brix-small brix-muted"><?php esc_html_e( 'Змінили спосіб отримання — натисніть «Оновити», щоб форма перебудувалась.', 'brix' ); ?></p>
 				<button class="brix-btn brix-btn--outline" type="submit" name="woocommerce_checkout_update_totals" value="<?php esc_attr_e( 'Оновити', 'brix' ); ?>">
@@ -353,6 +422,32 @@ function brix_delivery_section(): void {
 }
 
 /**
+ * Блок способу отримання в відповіді на зміну адреси.
+ *
+ * Країна вирішує, які способи доставки взагалі існують: Нова Пошта
+ * возить Україною, у ЄС їде звичайна посилка. Блок стоїть поза
+ * підсумком замовлення, який WooCommerce оновлює сам, тож віддаємо
+ * його окремим фрагментом — з тієї самої функції, що малює сторінку.
+ * Розмітка лишається в одному місці, а вибір способу не встигає
+ * розійтися з адресою.
+ *
+ * @param array<string, string> $fragments Фрагменти відповіді.
+ * @return array<string, string>
+ */
+function brix_delivery_fragment( array $fragments ): array {
+	ob_start();
+	brix_delivery_section();
+	$html = trim( (string) ob_get_clean() );
+
+	if ( '' !== $html ) {
+		$fragments['#brix-delivery'] = $html;
+	}
+
+	return $fragments;
+}
+add_filter( 'woocommerce_update_order_review_fragments', 'brix_delivery_fragment' );
+
+/**
  * Підпис під назвою способу отримання.
  *
  * @param WC_Shipping_Rate $rate   Ставка.
@@ -362,6 +457,10 @@ function brix_delivery_section(): void {
 function brix_rate_note( WC_Shipping_Rate $rate, bool $pickup ): string {
 	if ( $pickup ) {
 		return brix_pickup_info()['address'];
+	}
+
+	if ( ! brix_is_home_delivery() ) {
+		return __( 'Нова Пошта Global, 5–9 днів. Трек-номер надішлемо на пошту.', 'brix' );
 	}
 
 	$note      = __( 'Відділення або поштомат, 1–3 дні', 'brix' );

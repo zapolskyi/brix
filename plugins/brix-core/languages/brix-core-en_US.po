@@ -426,15 +426,19 @@ msgstr "The contents of order No. %s are in your cart."
 msgid "Цих лотів уже немає: %s. Свіжі партії — у магазині."
 msgstr "These lots are gone: %s. Fresh batches are in the shop."
 
-#: src/Payments/CashOnDelivery.php:57
+#: src/Payments/CashOnDelivery.php:58
 msgid "Максимальна сума замовлення"
 msgstr "Maximum order amount"
 
-#: src/Payments/CashOnDelivery.php:59
+#: src/Payments/CashOnDelivery.php:60
 msgid "Понад цю суму оплата при отриманні недоступна. Нуль вимикає обмеження."
 msgstr "Above this amount cash on delivery is unavailable. Zero switches the limit off."
 
-#: src/Payments/CashOnDelivery.php:131
+#: src/Payments/CashOnDelivery.php:99
+msgid "Замовлення за кордон оплачуються лише карткою онлайн. Якщо спосіб оплати не показується — напишіть нам, оформимо рахунком."
+msgstr "Orders going abroad are paid by card online. If no payment method is shown, write to us and we will send an invoice."
+
+#: src/Payments/CashOnDelivery.php:158
 msgid "Оплата при отриманні доступна для замовлень до %s. Для більших сум лишається оплата карткою — так ми впевнені, що змелений під ваш рецепт лот дочекається саме вас."
 msgstr "Cash on delivery is available for orders up to %s. Above that, card payment remains — that way we know the lot ground for your recipe will wait for you and no one else."
 
@@ -828,31 +832,31 @@ msgstr "The sweetest of the three"
 msgid "Наймʼякший варіант"
 msgstr "The softest option"
 
-#: src/Shipping/NovaPoshta.php:83
+#: src/Shipping/NovaPoshta.php:94
 msgid "Оберіть місто зі списку — так ми точно знаємо, куди відправляти."
 msgstr "Pick a city from the list — that way we know exactly where to ship."
 
-#: src/Shipping/NovaPoshta.php:89
+#: src/Shipping/NovaPoshta.php:100
 msgid "Оберіть відділення зі списку."
 msgstr "Pick a branch from the list."
 
-#: src/Shipping/NovaPoshta.php:95
+#: src/Shipping/NovaPoshta.php:106
 msgid "Це відділення не належить обраному місту. Оберіть зі списку ще раз."
 msgstr "This branch does not belong to the chosen city. Pick from the list again."
 
-#: src/Shipping/NovaPoshta.php:145
+#: src/Shipping/NovaPoshta.php:156
 msgid "Довідник Нової Пошти порожній. Запустіть wp brix np-sync там, де є ключ API — після цього підказки працюватимуть без звернень до Нової Пошти."
 msgstr "The Nova Poshta directory is empty. Run wp brix np-sync where the API key is available — after that the suggestions work without calling Nova Poshta."
 
-#: src/Shipping/NovaPoshta.php:157
+#: src/Shipping/NovaPoshta.php:168
 msgid "Нова Пошта"
 msgstr "Nova Poshta"
 
-#: src/Shipping/NovaPoshta.php:163
+#: src/Shipping/NovaPoshta.php:174
 msgid "Ключ API"
 msgstr "API key"
 
-#: src/Shipping/NovaPoshta.php:164
+#: src/Shipping/NovaPoshta.php:175
 msgid "Без ключа місто й відділення лишаються звичайними текстовими полями: замовлення оформлюється, просто без підказок."
 msgstr "Without a key, city and branch stay plain text fields: the order still goes through, just without suggestions."
 

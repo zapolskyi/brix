@@ -71,6 +71,17 @@ final class NovaPoshta implements Module {
 			return;
 		}
 
+		/*
+		 * Нова Пошта возить Україною. Для закордонного замовлення в
+		 * полях звичайна адреса, а ідентифікатори могли лишитись від
+		 * того моменту, коли покупець ще збирався на українську
+		 * адресу, — перевіряти їх означало б вимагати відділення там,
+		 * де його не питали.
+		 */
+		if ( ! Destination::is_home() ) {
+			return;
+		}
+
 		if ( ! Directory::has( Directory::CITY ) ) {
 			return;
 		}
@@ -109,7 +120,7 @@ final class NovaPoshta implements Module {
 	public function save( \WC_Order $order, array $data ): void {
 		unset( $data );
 
-		if ( Pickup::chosen() ) {
+		if ( Pickup::chosen() || ! Destination::is_home() ) {
 			return;
 		}
 

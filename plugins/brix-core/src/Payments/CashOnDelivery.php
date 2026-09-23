@@ -10,6 +10,7 @@ declare( strict_types=1 );
 namespace Brix\Core\Payments;
 
 use Brix\Core\Contracts\Module;
+use Brix\Core\Shipping\Destination;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -76,6 +77,32 @@ final class CashOnDelivery implements Module {
 	 */
 	public function filter_gateways( array $gateways ): array {
 		if ( is_admin() || ! isset( $gateways['cod'] ) || ! WC()->cart ) {
+			return $gateways;
+		}
+
+		/*
+		 * Накладний платіж — послуга Нової Пошти, і закордон вона не
+		 * возить. Доки цієї перевірки не було, покупцю з Варшави
+		 * пропонували «оплатити у відділенні Нової Пошти, коли
+		 * забиратимете посилку» — обіцянку, яку нема кому виконати.
+		 */
+		if ( ! Destination::is_home() ) {
+			unset( $gateways['cod'] );
+
+			/*
+			 * Якщо карткової оплати ще не під'єднали, покупець за
+			 * кордоном лишається без способів оплати зовсім. Мовчазна
+			 * порожнеча виглядає як зламаний сайт, тож причину
+			 * називаємо вголос.
+			 */
+			if ( is_checkout() && ! $gateways ) {
+				$message = __( 'Замовлення за кордон оплачуються лише карткою онлайн. Якщо спосіб оплати не показується — напишіть нам, оформимо рахунком.', 'brix-core' );
+
+				if ( ! wc_has_notice( $message, 'notice' ) ) {
+					wc_add_notice( $message, 'notice' );
+				}
+			}
+
 			return $gateways;
 		}
 

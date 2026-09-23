@@ -13,21 +13,23 @@
 (function () {
   'use strict';
 
-  var section = document.getElementById('brix-delivery');
   var address = document.getElementById('brix-address');
-  var panel = document.getElementById('brix-pickup');
 
-  if (!section || !address || !panel) {
+  if (!address) {
     return;
   }
 
-  var radios = section.querySelectorAll('input[name^="shipping_method"]');
   var required = ['billing_city', 'billing_address_1'];
 
   /** Показує те, що потрібне обраному способу. */
   function apply(pickup) {
+    var panel = document.getElementById('brix-pickup');
+
     address.hidden = pickup;
-    panel.hidden = !pickup;
+
+    if (panel) {
+      panel.hidden = !pickup;
+    }
 
     required.forEach(function (id) {
       var field = document.getElementById(id);
@@ -60,15 +62,33 @@
 
   /** Стан за поточною відміткою. */
   function sync() {
+    var section = document.getElementById('brix-delivery');
+
+    if (!section) {
+      return;
+    }
+
     var checked = section.querySelector('input[name^="shipping_method"]:checked')
       || section.querySelector('input[name^="shipping_method"][type="hidden"]');
 
     apply(!!checked && checked.dataset.pickup === '1');
   }
 
-  Array.prototype.forEach.call(radios, function (radio) {
-    radio.addEventListener('change', sync);
+  /*
+   * Слухаємо документ, а не самі радіокнопки. Блок способу отримання
+   * WooCommerce перемальовує при зміні адреси — країна вирішує, які
+   * способи доставки існують, — і підписка на конкретну кнопку
+   * пережила б це рівно один раз.
+   */
+  document.addEventListener('change', function (event) {
+    if (event.target && event.target.matches('#brix-delivery input[name^="shipping_method"]')) {
+      sync();
+    }
   });
+
+  if (window.jQuery) {
+    window.jQuery(document.body).on('updated_checkout', sync);
+  }
 
   sync();
 })();
@@ -106,6 +126,19 @@
   }
 
   var texts = (window.brixCheckout && window.brixCheckout.strings) || {};
+  var home = (window.brixCheckout && window.brixCheckout.home) || 'UA';
+  var country = document.getElementById('billing_country');
+
+  /**
+   * Чи їде посилка країною, де працює Нова Пошта.
+   *
+   * Довідник український, тож для будь-якої іншої країни підказок
+   * немає зовсім: покупець із Варшави шукав би «Wars» серед
+   * українських міст і не знаходив нічого.
+   */
+  function atHome() {
+    return !country || country.value === home;
+  }
 
   /** Обгортає поле, вішає на нього список підказок і рядок стану. */
   function attach(field, name) {
@@ -245,6 +278,10 @@
 
   /** Міста за запитом. Однакові запити другий раз не питаємо. */
   function findCities(query) {
+    if (!atHome()) {
+      return;
+    }
+
     if (Object.prototype.hasOwnProperty.call(cityCache, query)) {
       show(cityBox, cityCache[query], texts.noCity);
       return;
@@ -265,6 +302,10 @@
 
   /** Відділення обраного міста: один запит на місто, далі з пам'яті. */
   function findWarehouses(filter) {
+    if (!atHome()) {
+      return;
+    }
+
     var ref = cityBox.hidden.value;
 
     if (!ref) {
@@ -404,4 +445,45 @@
   });
 
   wire(whBox, null);
+
+  /**
+   * Зміна країни перебудовує поле адреси.
+   *
+   * Разом із підписами треба прибрати й те, що встигло набратися:
+   * обране відділення Нової Пошти в полі польської адреси — не
+   * адреса, а сміття, яке поїхало б у замовлення.
+   *
+   * Стираємо тільки те, що покупець обрав зі списку: якщо він писав
+   * адресу руками, вона лишається його.
+   */
+  function onCountry() {
+    if (atHome()) {
+      return;
+    }
+
+    if (whBox.hidden.value) {
+      warehouse.value = '';
+    }
+
+    if (cityBox.hidden.value) {
+      city.value = '';
+    }
+
+    cityBox.hidden.value = '';
+    whBox.hidden.value = '';
+
+    render(cityBox, []);
+    render(whBox, []);
+    say(cityBox, '');
+    say(whBox, '');
+  }
+
+  if (country) {
+    country.addEventListener('change', onCountry);
+    // select2 підміняє <select> своїм віджетом і шле подію через
+    // jQuery — нативний слухач її не бачить.
+    if (window.jQuery) {
+      window.jQuery(country).on('change', onCountry);
+    }
+  }
 })();

@@ -260,63 +260,81 @@ msgstr "%s products"
 msgid "%s товарів"
 msgstr "%s products"
 
-#: inc/checkout.php:65
+#: inc/checkout.php:74
 msgid "Туди надішлемо підтвердження й статус замовлення."
 msgstr "We will send the confirmation and order status there."
 
-#: inc/checkout.php:69
+#: inc/checkout.php:78
 msgid "Коментар до замовлення"
 msgstr "Order notes"
 
-#: inc/checkout.php:70
+#: inc/checkout.php:79
 msgid "Помел під іншу техніку, побажання до пакування, дата доставки"
 msgstr "A different grind, packaging requests, delivery date"
 
-#: inc/checkout.php:120
-msgid "Адреса або відділення"
-msgstr "Address or branch"
+#: inc/checkout.php:136
+msgid "Адреса"
+msgstr "Address"
 
-#: inc/checkout.php:121
-msgid "Відділення №12, вул. Кирилівська, 41"
-msgstr "Branch No. 12, 41 Kyrylivska St"
+#: inc/checkout.php:137
+msgid "Вулиця, будинок, квартира"
+msgstr "Street, building, apartment"
 
-#: inc/checkout.php:125
+#: inc/checkout.php:141
+#: inc/checkout.php:173
 #: page-wholesale.php:121
 msgid "Місто"
 msgstr "City"
 
-#: inc/checkout.php:126
-msgid "Київ"
-msgstr "Kyiv"
-
-#: inc/checkout.php:132
+#: inc/checkout.php:145
+#: inc/checkout.php:180
 msgid "Поштовий індекс"
 msgstr "Postcode"
 
-#: inc/checkout.php:292
+#: inc/checkout.php:168
+msgid "Адреса або відділення"
+msgstr "Address or branch"
+
+#: inc/checkout.php:169
+msgid "Відділення №12, вул. Кирилівська, 41"
+msgstr "Branch No. 12, 41 Kyrylivska St"
+
+#: inc/checkout.php:174
+msgid "Київ"
+msgstr "Kyiv"
+
+#: inc/checkout.php:353
 msgid "Спосіб отримання"
 msgstr "How you get it"
 
-#: inc/checkout.php:323
+#: inc/checkout.php:357
+msgid "Для цієї країни доставки поки немає. Оберіть іншу країну або напишіть нам — порахуємо окремо."
+msgstr "We do not deliver to this country yet. Pick another one, or write to us and we will work it out."
+
+#: inc/checkout.php:390
 #: woocommerce/cart/cart-shipping.php:56
 #: woocommerce/cart/cart-shipping.php:85
 msgid "Безкоштовно"
 msgstr "Free"
 
-#: inc/checkout.php:345
+#: inc/checkout.php:414
 msgid "Змінили спосіб отримання — натисніть «Оновити», щоб форма перебудувалась."
 msgstr "Changed how you get it? Press “Update” so the form rebuilds."
 
-#: inc/checkout.php:346
-#: inc/checkout.php:347
+#: inc/checkout.php:415
+#: inc/checkout.php:416
 msgid "Оновити"
 msgstr "Update"
 
-#: inc/checkout.php:367
+#: inc/checkout.php:463
+msgid "Нова Пошта Global, 5–9 днів. Трек-номер надішлемо на пошту."
+msgstr "Nova Poshta Global, 5–9 days. We will email the tracking number."
+
+#: inc/checkout.php:466
 msgid "Відділення або поштомат, 1–3 дні"
 msgstr "Branch or parcel locker, 1–3 days"
 
-#: inc/checkout.php:373
+#: inc/checkout.php:472
 msgid "безкоштовно від %s"
 msgstr "free from %s"
 
@@ -402,27 +420,27 @@ msgstr "roasted %s"
 msgid "Закрити меню"
 msgstr "Close menu"
 
-#: inc/enqueue.php:184
+#: inc/enqueue.php:187
 msgid "Шукаємо…"
 msgstr "Searching…"
 
-#: inc/enqueue.php:185
+#: inc/enqueue.php:188
 msgid "Спершу оберіть місто зі списку."
 msgstr "Pick a city from the list first."
 
-#: inc/enqueue.php:186
+#: inc/enqueue.php:189
 msgid "Такого міста не знайшли. Перевірте написання."
 msgstr "We could not find that city. Check the spelling."
 
-#: inc/enqueue.php:187
+#: inc/enqueue.php:190
 msgid "Нічого не знайшли. Можна вписати адресу вручну — звіримо її під час обробки."
 msgstr "Nothing found. You can type the address by hand — we will check it when we process the order."
 
-#: inc/enqueue.php:188
+#: inc/enqueue.php:191
 msgid "Не вдалося завантажити список. Впишіть адресу вручну — звіримо її під час обробки."
 msgstr "We could not load the list. Type the address by hand — we will check it when we process the order."
 
-#: inc/enqueue.php:189
+#: inc/enqueue.php:192
 msgid "Забагато запитів поспіль. Зачекайте хвилину або впишіть адресу вручну."
 msgstr "Too many requests in a row. Wait a minute, or type the address by hand."
 

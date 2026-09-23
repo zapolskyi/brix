@@ -26,7 +26,7 @@
   },
   "page|delivery": {
    "title": "Delivery & payment",
-   "content": "<!-- wp:paragraph --><p>We roast every Monday and ship the same day. Orders placed after Monday travel with the next batch.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Delivery</h2><!-- /wp:heading --><!-- wp:paragraph --><p><strong>Nova Poshta</strong> — branch or parcel locker, 1–2 days. Free from 1,200 ₴; below that, at the carrier’s rates.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p><strong>Pickup</strong> from the roastery at 41 Kyrylivska St — free, on weekdays from 9:00 to 18:00.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p><strong>EU countries</strong> — 5–9 days, the cost is calculated at checkout by weight.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Payment</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Card online, Apple Pay and Google Pay, cash on delivery, or an invoice for companies. Card details are never stored on our server.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Returns</h2><!-- /wp:heading --><!-- wp:paragraph --><p>If a lot did not suit you, write within a week and we will swap it for another at our cost. There is no need to send an opened bag back.</p><!-- /wp:paragraph -->"
+   "content": "<!-- wp:paragraph --><p>We roast every Monday and ship the same day. Orders placed after Monday travel with the next batch.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Delivery</h2><!-- /wp:heading --><!-- wp:paragraph --><p><strong>Nova Poshta</strong> — branch or parcel locker, 1–2 days. Free from 1,200 ₴; below that, at the carrier’s rates.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p><strong>Pickup</strong> from the roastery at 41 Kyrylivska St — free, on weekdays from 9:00 to 18:00.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p><strong>EU countries</strong> — Nova Poshta Global, 5–9 days, 450 ₴ per shipment regardless of weight. Any customs duty and taxes in the destination country are paid by the recipient.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Payment</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Card online, Apple Pay and Google Pay, cash on delivery, or an invoice for companies. Card details are never stored on our server. Cash on delivery works inside Ukraine only — it is a Nova Poshta service; orders going abroad are paid by card or by bank transfer against an invoice.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Returns</h2><!-- /wp:heading --><!-- wp:paragraph --><p>If a lot did not suit you, write within a week and we will swap it for another at our cost. There is no need to send an opened bag back.</p><!-- /wp:paragraph -->"
   },
   "page|contacts": {
    "title": "Contacts",
@@ -548,6 +548,9 @@
   "Вага": "Weight",
   "Помел": "Grind",
   "Оплата готівкою при отриманні.": "Pay in cash on delivery.",
-  "BRIX 22° · Обсмажувальня, Київ · {site_url}": "BRIX 22° · Roastery, Kyiv · {site_url}"
+  "BRIX 22° · Обсмажувальня, Київ · {site_url}": "BRIX 22° · Roastery, Kyiv · {site_url}",
+  "Банківський переказ": "Bank transfer",
+  "Рахунок надішлемо на пошту. Відправляємо, щойно кошти зарахуються.": "We will email you an invoice. We ship as soon as the money arrives.",
+  "Рахунок із реквізитами надішлемо на вашу пошту протягом робочого дня.": "We will email you an invoice with our bank details within one working day."
  }
 }

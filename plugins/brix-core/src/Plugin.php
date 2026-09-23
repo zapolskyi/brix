@@ -133,6 +133,7 @@ final class Plugin {
 				Shipping\Pickup::class,
 				Payments\Registrar::class,
 				Payments\CashOnDelivery::class,
+				Payments\BankTransfer::class,
 				Club\Subscription::class,
 				Club\Plan::class,
 				Club\Scheduler::class,

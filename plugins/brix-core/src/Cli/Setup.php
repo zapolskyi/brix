@@ -535,6 +535,27 @@ final class Setup {
 			)
 		);
 
+		/*
+		 * Переказ — єдиний спосіб оплати, який працює за кордоном без
+		 * підключеної платіжки. Показується він тільки там: модуль
+		 * Payments\BankTransfer прибирає його з українського checkout,
+		 * де є і накладний платіж, і картка.
+		 */
+		$bacs = (array) get_option( 'woocommerce_bacs_settings', array() );
+
+		update_option(
+			'woocommerce_bacs_settings',
+			array_merge(
+				$bacs,
+				array(
+					'enabled'      => 'yes',
+					'title'        => 'Банківський переказ',
+					'description'  => 'Рахунок надішлемо на пошту. Відправляємо, щойно кошти зарахуються.',
+					'instructions' => 'Рахунок із реквізитами надішлемо на вашу пошту протягом робочого дня.',
+				)
+			)
+		);
+
 		\WP_CLI::log( 'Способи оплати на місці.' );
 	}
 }

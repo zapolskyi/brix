@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-23T11:35:46+00:00\n"
+"POT-Creation-Date: 2026-09-23T12:36:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: brix\n"
@@ -305,64 +305,82 @@ msgstr ""
 msgid "%s товарів"
 msgstr ""
 
-#: inc/checkout.php:65
+#: inc/checkout.php:74
 msgid "Туди надішлемо підтвердження й статус замовлення."
 msgstr ""
 
-#: inc/checkout.php:69
+#: inc/checkout.php:78
 msgid "Коментар до замовлення"
 msgstr ""
 
-#: inc/checkout.php:70
+#: inc/checkout.php:79
 msgid "Помел під іншу техніку, побажання до пакування, дата доставки"
 msgstr ""
 
-#: inc/checkout.php:120
-msgid "Адреса або відділення"
+#: inc/checkout.php:136
+msgid "Адреса"
 msgstr ""
 
-#: inc/checkout.php:121
-msgid "Відділення №12, вул. Кирилівська, 41"
+#: inc/checkout.php:137
+msgid "Вулиця, будинок, квартира"
 msgstr ""
 
-#: inc/checkout.php:125
+#: inc/checkout.php:141
+#: inc/checkout.php:173
 #: page-wholesale.php:121
 msgid "Місто"
 msgstr ""
 
-#: inc/checkout.php:126
-msgid "Київ"
-msgstr ""
-
-#: inc/checkout.php:132
+#: inc/checkout.php:145
+#: inc/checkout.php:180
 msgid "Поштовий індекс"
 msgstr ""
 
-#: inc/checkout.php:292
+#: inc/checkout.php:168
+msgid "Адреса або відділення"
+msgstr ""
+
+#: inc/checkout.php:169
+msgid "Відділення №12, вул. Кирилівська, 41"
+msgstr ""
+
+#: inc/checkout.php:174
+msgid "Київ"
+msgstr ""
+
+#: inc/checkout.php:353
 msgid "Спосіб отримання"
 msgstr ""
 
-#: inc/checkout.php:323
+#: inc/checkout.php:357
+msgid "Для цієї країни доставки поки немає. Оберіть іншу країну або напишіть нам — порахуємо окремо."
+msgstr ""
+
+#: inc/checkout.php:390
 #: woocommerce/cart/cart-shipping.php:56
 #: woocommerce/cart/cart-shipping.php:85
 msgid "Безкоштовно"
 msgstr ""
 
-#: inc/checkout.php:345
+#: inc/checkout.php:414
 msgid "Змінили спосіб отримання — натисніть «Оновити», щоб форма перебудувалась."
 msgstr ""
 
-#: inc/checkout.php:346
-#: inc/checkout.php:347
+#: inc/checkout.php:415
+#: inc/checkout.php:416
 msgid "Оновити"
 msgstr ""
 
-#: inc/checkout.php:367
+#: inc/checkout.php:463
+msgid "Нова Пошта Global, 5–9 днів. Трек-номер надішлемо на пошту."
+msgstr ""
+
+#: inc/checkout.php:466
 msgid "Відділення або поштомат, 1–3 дні"
 msgstr ""
 
 #. translators: %s — сума порога безкоштовної доставки.
-#: inc/checkout.php:373
+#: inc/checkout.php:472
 #, php-format
 msgid "безкоштовно від %s"
 msgstr ""
@@ -451,27 +469,27 @@ msgstr ""
 msgid "Закрити меню"
 msgstr ""
 
-#: inc/enqueue.php:184
+#: inc/enqueue.php:187
 msgid "Шукаємо…"
 msgstr ""
 
-#: inc/enqueue.php:185
+#: inc/enqueue.php:188
 msgid "Спершу оберіть місто зі списку."
 msgstr ""
 
-#: inc/enqueue.php:186
+#: inc/enqueue.php:189
 msgid "Такого міста не знайшли. Перевірте написання."
 msgstr ""
 
-#: inc/enqueue.php:187
+#: inc/enqueue.php:190
 msgid "Нічого не знайшли. Можна вписати адресу вручну — звіримо її під час обробки."
 msgstr ""
 
-#: inc/enqueue.php:188
+#: inc/enqueue.php:191
 msgid "Не вдалося завантажити список. Впишіть адресу вручну — звіримо її під час обробки."
 msgstr ""
 
-#: inc/enqueue.php:189
+#: inc/enqueue.php:192
 msgid "Забагато запитів поспіль. Зачекайте хвилину або впишіть адресу вручну."
 msgstr ""
 

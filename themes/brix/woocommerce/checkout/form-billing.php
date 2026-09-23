@@ -16,7 +16,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$brix_address_keys = array( 'billing_country', 'billing_city', 'billing_address_1', 'billing_postcode' );
+$brix_address_keys = array( 'billing_country', 'billing_city', 'billing_address_1', 'billing_state', 'billing_postcode' );
 $brix_fields       = $checkout->get_checkout_fields( 'billing' );
 $brix_contact      = array();
 $brix_address      = array();

@@ -180,6 +180,9 @@ function brix_enqueue_checkout_script(): void {
 		'brix-checkout',
 		'brixCheckout',
 		array(
+			'home'    => class_exists( '\\Brix\\Core\\Shipping\\Destination' )
+				? \Brix\Core\Shipping\Destination::HOME
+				: 'UA',
 			'strings' => array(
 				'loading'  => __( 'Шукаємо…', 'brix' ),
 				'pickCity' => __( 'Спершу оберіть місто зі списку.', 'brix' ),
