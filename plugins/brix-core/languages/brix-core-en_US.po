@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BRIX Core\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/brix-core\n"
-"POT-Creation-Date: 2026-09-23T18:17:14+00:00\n"
+"POT-Creation-Date: 2026-09-23T19:19:59+00:00\n"
 "Last-Translator: Nazar Zapolskyi <nazar.zapolski@gmail.com>\n"
 "Language-Team: English\n"
 "Language: en_US\n"
@@ -90,25 +90,25 @@ msgstr "The next shipment has been skipped."
 msgid "Підписку скасовано. Лоти лишаються доступними в магазині."
 msgstr "The subscription is cancelled. The lots stay available in the shop."
 
-#: src/Club/Plan.php:82
+#: src/Club/Plan.php:84
 msgid "BRIX Club"
 msgstr "BRIX Club"
 
 #. translators: 1 — інтервал у тижнях, 2 — знижка.
-#: src/Club/Plan.php:85
+#: src/Club/Plan.php:87
 #, php-format
 msgid "кожні %1$d тижні, −%2$d%%"
 msgstr "every %1$d weeks, −%2$d%%"
 
 #. translators: %d — кількість підписок.
-#: src/Club/Plan.php:186
+#: src/Club/Plan.php:234
 #, php-format
 msgid "Створено %d підписку BRIX Club."
 msgid_plural "Створено %d підписки BRIX Club."
 msgstr[0] "Created %d BRIX Club subscription."
 msgstr[1] "Created %d BRIX Club subscriptions."
 
-#: src/Club/Scheduler.php:137
+#: src/Club/Scheduler.php:144
 msgid "Чергове замовлення BRIX Club."
 msgstr "The next BRIX Club order."
 
@@ -978,13 +978,17 @@ msgstr "Process"
 msgid ""
 "Мікролоти specialty-кави з паспортом: висота, обробка, цукристість ягоди при "
 "зборі й ціна фермеру. Обсмажуємо щопонеділка."
-msgstr "Specialty coffee microlots with a passport: altitude, process, cherry sugar content at harvest and the price paid to the farmer. Roasted every Monday."
+msgstr ""
+"Specialty coffee microlots with a passport: altitude, process, cherry sugar "
+"content at harvest and the price paid to the farmer. Roasted every Monday."
 
 #: src/Product/Schema.php:239
 msgid ""
 "BRIX 22° — specialty-обсмажувальня в Києві. Мікролоти від ферм, з якими "
 "працюємо напряму, і паспорт у кожній пачці. Обсмажуємо щопонеділка."
-msgstr "BRIX 22° is a specialty coffee roastery in Kyiv. Microlots from farms we work with directly, and a passport in every bag. Roasted every Monday."
+msgstr ""
+"BRIX 22° is a specialty coffee roastery in Kyiv. Microlots from farms we "
+"work with directly, and a passport in every bag. Roasted every Monday."
 
 #: src/Quiz/Questions.php:75
 msgid "Як ви найчастіше заварюєте вдома?"

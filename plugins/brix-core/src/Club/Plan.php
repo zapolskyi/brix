@@ -44,6 +44,8 @@ final class Plan implements Module {
 		add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'save_to_order' ), 10, 4 );
 		add_action( 'woocommerce_order_status_processing', array( $this, 'start_subscriptions' ) );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'start_subscriptions' ) );
+		add_filter( 'woocommerce_checkout_registration_required', array( $this, 'require_account' ) );
+		add_filter( 'woocommerce_checkout_registration_enabled', array( $this, 'enable_account' ) );
 	}
 
 	/**
@@ -140,6 +142,52 @@ final class Plan implements Module {
 		if ( ! empty( $values[ self::KEY ] ) ) {
 			$line->add_meta_data( '_' . self::KEY, (int) $values[ self::KEY ], true );
 		}
+	}
+
+	/**
+	 * Чи є в кошику підписка BRIX Club.
+	 *
+	 * @return bool
+	 */
+	public static function in_cart(): bool {
+		if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+			return false;
+		}
+
+		foreach ( WC()->cart->get_cart() as $item ) {
+			if ( ! empty( $item[ self::KEY ] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Підписка без кабінету не оформлюється.
+	 *
+	 * Підписку створює оплачене замовлення з покупцем, а гостьове
+	 * замовлення покупця не має. Довго це означало тиху пастку: гість
+	 * отримував знижку −10%, а підписки не з'являлось — ні наступної
+	 * пачки, ні паузи, ні скасування. Тепер із підпискою в кошику
+	 * checkout створює кабінет на пошту покупця, а пароль той задає
+	 * за посиланням із листа.
+	 *
+	 * @param bool $required Чи обов'язкова реєстрація.
+	 * @return bool
+	 */
+	public function require_account( $required ): bool {
+		return (bool) $required || ( ! is_user_logged_in() && self::in_cart() );
+	}
+
+	/**
+	 * Реєстрація на checkout увімкнена, щойно вона обов'язкова.
+	 *
+	 * @param bool $enabled Чи дозволена реєстрація.
+	 * @return bool
+	 */
+	public function enable_account( $enabled ): bool {
+		return (bool) $enabled || ( ! is_user_logged_in() && self::in_cart() );
 	}
 
 	/**

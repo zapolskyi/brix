@@ -734,6 +734,236 @@
   }
 }
 
+.woocommerce-account {
+  // Форми кабінету, які малює сам WooCommerce: особисті дані, адреси,
+  // відновлення пароля. Перевизначати кожен шаблон заради класів —
+  // дорожче за кілька правил: поля отримують вигляд полів checkout,
+  // кнопки — вигляд кнопок теми.
+  .woocommerce-EditAccountForm,
+  .woocommerce-address-fields,
+  .woocommerce-ResetPassword,
+  .lost_reset_password {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+    max-width: 640px;
+
+    > p:not([class]) { margin: 0; }
+  }
+
+  // Форма адреси повторює заголовок сторінки дослівно — двічі
+  // «Адреса доставки» підряд. Лишаємо той, що зверху.
+  &.woocommerce-edit-address form > h2 { display: none; }
+
+  .woocommerce-address-fields__field-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--brix-gap-8);
+
+    @include upto($bp-sm) { grid-template-columns: 1fr; }
+  }
+
+  .woocommerce-form-row,
+  .woocommerce-address-fields .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin: 0;
+  }
+
+  .woocommerce-form-row--first,
+  .woocommerce-form-row--last { width: auto; }
+
+  .woocommerce-EditAccountForm .clear { display: none; }
+
+  label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--brix-muted);
+  }
+
+  .input-text:not(.brix-input) {
+    @include control-base;
+  }
+
+  // Підказка під полем: у WooCommerce це <em> курсивом — у темі
+  // підказки прямі й приглушені, як під поштою в checkout.
+  .woocommerce-form-row em,
+  .form-row em,
+  .description {
+    font-size: 0.8125rem;
+    font-style: normal;
+    color: var(--brix-muted);
+  }
+
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+    margin: var(--brix-gap-8) 0 0;
+    padding: var(--brix-gap-12);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+
+    legend {
+      padding-inline: var(--brix-gap-4);
+      font-weight: 600;
+    }
+  }
+
+  // Кнопки WooCommerce у формах кабінету — як .brix-btn--dark.
+  .woocommerce-Button,
+  .woocommerce-button,
+  button.button {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--brix-ctl);
+    margin-top: var(--brix-gap-4);
+    padding-inline: var(--brix-gap-16);
+    border: 0;
+    border-radius: var(--brix-radius-pill);
+    background: var(--brix-roast);
+    color: var(--brix-mill);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--brix-dur) var(--brix-ease);
+
+    &:hover { background: var(--brix-cherry); }
+    &:focus-visible { @include focus-ring(2px); }
+  }
+}
+
+// ——— адреса в кабінеті ———
+.brix-address-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-8);
+  max-width: 640px;
+  padding: var(--brix-gap-12);
+  border: 1px solid var(--brix-line);
+  border-radius: var(--brix-radius-lg);
+  background: var(--brix-paper);
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--brix-gap-8);
+  }
+
+  &__title { font-size: var(--brix-fs-h3); }
+
+  &__body {
+    font-style: normal;
+    line-height: 1.6;
+  }
+
+  p { margin: 0; }
+}
+
+// ——— вхід і реєстрація ———
+.brix-auth {
+  display: grid;
+  gap: var(--brix-gap-12);
+  align-items: start;
+  max-width: 480px;
+
+  &--two {
+    grid-template-columns: 1fr 1fr;
+    max-width: 960px;
+
+    @include upto($bp-md) { grid-template-columns: 1fr; max-width: 480px; }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-12);
+    padding: var(--brix-gap-16);
+    border: 1px solid var(--brix-line);
+    border-radius: var(--brix-radius-lg);
+    background: var(--brix-paper);
+
+    @include upto($bp-sm) { padding: var(--brix-gap-12); }
+
+    &--new { background: var(--brix-mill); }
+  }
+
+  &__title { font-size: var(--brix-fs-h3); }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-8);
+
+    .brix-field { margin: 0; }
+  }
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--brix-gap-4);
+    margin: 0;
+  }
+
+  &__remember {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--brix-gap-4);
+    font-size: 0.9375rem;
+    color: var(--brix-roast);
+    cursor: pointer;
+  }
+
+  &__lost {
+    font-size: 0.9375rem;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  &__submit { width: 100%; }
+
+  &__perks {
+    display: flex;
+    flex-direction: column;
+    gap: var(--brix-gap-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      position: relative;
+      padding-inline-start: var(--brix-gap-12);
+      font-size: 0.9375rem;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.62em;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: 1.5px solid var(--brix-cherry);
+      }
+    }
+  }
+
+  &__note,
+  .woocommerce-privacy-policy-text {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--brix-muted);
+
+    p { margin: 0; }
+  }
+}
+
 .brix-account {
   &__dash {
     display: flex;
@@ -840,6 +1070,15 @@
     flex-wrap: wrap;
     align-items: center;
     gap: var(--brix-gap-4);
+  }
+
+  &__alert {
+    padding: var(--brix-gap-6) var(--brix-gap-8);
+    border-inline-start: 3px solid var(--brix-honey);
+    background: var(--brix-mill);
+    font-size: var(--brix-fs-sm);
+
+    a { margin-inline-start: var(--brix-gap-2); font-weight: 600; text-decoration: underline; text-underline-offset: 0.2em; }
   }
 
   &__cancel {

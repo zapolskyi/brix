@@ -3315,6 +3315,19 @@ h4 {
   border-color: var(--brix-error);
 }
 
+.woocommerce-account-fields {
+  margin-top: var(--brix-gap-8);
+}
+
+.brix-account-note {
+  margin: 0;
+  padding: var(--brix-gap-6) var(--brix-gap-8);
+  border-inline-start: 3px solid var(--brix-honey);
+  border-radius: var(--brix-radius);
+  background: var(--brix-bg-core);
+  font-size: var(--brix-fs-sm);
+}
+
 .woocommerce-form__label-for-checkbox {
   flex-direction: row;
   align-items: center;
@@ -4510,6 +4523,258 @@ h4 {
   color: var(--brix-muted);
 }
 
+.woocommerce-account .woocommerce-EditAccountForm,
+.woocommerce-account .woocommerce-address-fields,
+.woocommerce-account .woocommerce-ResetPassword,
+.woocommerce-account .lost_reset_password {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-8);
+  max-width: 640px;
+}
+.woocommerce-account .woocommerce-EditAccountForm > p:not([class]),
+.woocommerce-account .woocommerce-address-fields > p:not([class]),
+.woocommerce-account .woocommerce-ResetPassword > p:not([class]),
+.woocommerce-account .lost_reset_password > p:not([class]) {
+  margin: 0;
+}
+.woocommerce-account.woocommerce-edit-address form > h2 {
+  display: none;
+}
+.woocommerce-account .woocommerce-address-fields__field-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--brix-gap-8);
+}
+@media (max-width: 479px) {
+  .woocommerce-account .woocommerce-address-fields__field-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+.woocommerce-account .woocommerce-form-row,
+.woocommerce-account .woocommerce-address-fields .form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0;
+}
+.woocommerce-account .woocommerce-form-row--first,
+.woocommerce-account .woocommerce-form-row--last {
+  width: auto;
+}
+.woocommerce-account .woocommerce-EditAccountForm .clear {
+  display: none;
+}
+.woocommerce-account label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--brix-muted);
+}
+.woocommerce-account .input-text:not(.brix-input) {
+  width: 100%;
+  height: var(--brix-ctl);
+  padding-inline: var(--brix-gap-8);
+  border: 1px solid var(--brix-line);
+  border-radius: var(--brix-radius);
+  background: var(--brix-paper);
+  color: var(--brix-roast);
+  font-size: 1rem;
+}
+.woocommerce-account .input-text:not(.brix-input)::placeholder {
+  color: var(--brix-muted);
+}
+.woocommerce-account .input-text:not(.brix-input):focus-visible {
+  border-color: var(--brix-roast);
+  box-shadow: 0 0 0 3px rgba(29, 26, 25, 0.08);
+  outline: 2px solid var(--brix-focus);
+  outline-offset: 1px;
+}
+.woocommerce-account .input-text:not(.brix-input)[aria-invalid=true] {
+  border-color: var(--brix-error);
+}
+.woocommerce-account .input-text:not(.brix-input)[aria-invalid=true]:focus-visible {
+  box-shadow: 0 0 0 3px rgba(182, 31, 58, 0.14);
+}
+.woocommerce-account .woocommerce-form-row em,
+.woocommerce-account .form-row em,
+.woocommerce-account .description {
+  font-size: 0.8125rem;
+  font-style: normal;
+  color: var(--brix-muted);
+}
+.woocommerce-account fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-8);
+  margin: var(--brix-gap-8) 0 0;
+  padding: var(--brix-gap-12);
+  border: 1px solid var(--brix-line);
+  border-radius: var(--brix-radius-lg);
+}
+.woocommerce-account fieldset legend {
+  padding-inline: var(--brix-gap-4);
+  font-weight: 600;
+}
+.woocommerce-account .woocommerce-Button,
+.woocommerce-account .woocommerce-button,
+.woocommerce-account button.button {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--brix-ctl);
+  margin-top: var(--brix-gap-4);
+  padding-inline: var(--brix-gap-16);
+  border: 0;
+  border-radius: var(--brix-radius-pill);
+  background: var(--brix-roast);
+  color: var(--brix-mill);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--brix-dur) var(--brix-ease);
+}
+.woocommerce-account .woocommerce-Button:hover,
+.woocommerce-account .woocommerce-button:hover,
+.woocommerce-account button.button:hover {
+  background: var(--brix-cherry);
+}
+.woocommerce-account .woocommerce-Button:focus-visible,
+.woocommerce-account .woocommerce-button:focus-visible,
+.woocommerce-account button.button:focus-visible {
+  outline: 2px solid var(--brix-focus);
+  outline-offset: 2px;
+}
+
+.brix-address-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-8);
+  max-width: 640px;
+  padding: var(--brix-gap-12);
+  border: 1px solid var(--brix-line);
+  border-radius: var(--brix-radius-lg);
+  background: var(--brix-paper);
+}
+.brix-address-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--brix-gap-8);
+}
+.brix-address-card__title {
+  font-size: var(--brix-fs-h3);
+}
+.brix-address-card__body {
+  font-style: normal;
+  line-height: 1.6;
+}
+.brix-address-card p {
+  margin: 0;
+}
+
+.brix-auth {
+  display: grid;
+  gap: var(--brix-gap-12);
+  align-items: start;
+  max-width: 480px;
+}
+.brix-auth--two {
+  grid-template-columns: 1fr 1fr;
+  max-width: 960px;
+}
+@media (max-width: 767px) {
+  .brix-auth--two {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
+}
+.brix-auth__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-12);
+  padding: var(--brix-gap-16);
+  border: 1px solid var(--brix-line);
+  border-radius: var(--brix-radius-lg);
+  background: var(--brix-paper);
+}
+@media (max-width: 479px) {
+  .brix-auth__card {
+    padding: var(--brix-gap-12);
+  }
+}
+.brix-auth__card--new {
+  background: var(--brix-mill);
+}
+.brix-auth__title {
+  font-size: var(--brix-fs-h3);
+}
+.brix-auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-8);
+}
+.brix-auth__form .brix-field {
+  margin: 0;
+}
+.brix-auth__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--brix-gap-4);
+  margin: 0;
+}
+.brix-auth__remember {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--brix-gap-4);
+  font-size: 0.9375rem;
+  color: var(--brix-roast);
+  cursor: pointer;
+}
+.brix-auth__lost {
+  font-size: 0.9375rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.brix-auth__submit {
+  width: 100%;
+}
+.brix-auth__perks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--brix-gap-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.brix-auth__perks li {
+  position: relative;
+  padding-inline-start: var(--brix-gap-12);
+  font-size: 0.9375rem;
+}
+.brix-auth__perks li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--brix-cherry);
+}
+.brix-auth__note,
+.brix-auth .woocommerce-privacy-policy-text {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--brix-muted);
+}
+.brix-auth__note p,
+.brix-auth .woocommerce-privacy-policy-text p {
+  margin: 0;
+}
+
 .brix-account__dash {
   display: flex;
   flex-direction: column;
@@ -4612,6 +4877,18 @@ h4 {
   flex-wrap: wrap;
   align-items: center;
   gap: var(--brix-gap-4);
+}
+.brix-sub-card__alert {
+  padding: var(--brix-gap-6) var(--brix-gap-8);
+  border-inline-start: 3px solid var(--brix-honey);
+  background: var(--brix-mill);
+  font-size: var(--brix-fs-sm);
+}
+.brix-sub-card__alert a {
+  margin-inline-start: var(--brix-gap-2);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 .brix-sub-card__cancel {
   margin-left: auto;

@@ -21,11 +21,19 @@ $brix_orders = wc_get_orders(
 <div class="brix-account__dash">
 	<h2 class="brix-account__hello">
 		<?php
-		printf(
-			/* translators: %s — імʼя покупця. */
-			esc_html__( 'Привіт, %s', 'brix' ),
-			esc_html( $brix_user->first_name ? $brix_user->first_name : $brix_user->display_name )
-		);
+		/*
+		 * Лише справжнє ім'я. Без нього WooCommerce підставив би логін,
+		 * складений з пошти, — «Привіт, reg-test».
+		 */
+		if ( $brix_user->first_name ) {
+			printf(
+				/* translators: %s — імʼя покупця. */
+				esc_html__( 'Привіт, %s', 'brix' ),
+				esc_html( $brix_user->first_name )
+			);
+		} else {
+			esc_html_e( 'Вітаємо в кабінеті', 'brix' );
+		}
 		?>
 	</h2>
 
@@ -50,8 +58,30 @@ $brix_orders = wc_get_orders(
 				?>
 				<article class="brix-sub-card">
 					<h4 class="brix-sub-card__name">
-						<?php echo esc_html( $brix_data['product'] ? $brix_data['product']->get_name() : __( 'Лот недоступний', 'brix' ) ); ?>
+						<?php
+						if ( $brix_data['product'] ) {
+							echo esc_html( $brix_data['product']->get_name() );
+						} elseif ( $brix_data['lot'] ) {
+							echo esc_html( $brix_data['lot']->get_name() );
+						} else {
+							esc_html_e( 'Лот знято з продажу', 'brix' );
+						}
+						?>
 					</h4>
+
+					<?php if ( $brix_data['broken'] && $brix_data['lot'] ) : ?>
+						<?php
+						/*
+						 * Вагу чи помел підписки зняли з продажу. Мовчати
+						 * не можна — пачка просто не приїде. Кажемо, що
+						 * сталось, і ведемо на лот обрати заново.
+						 */
+						?>
+						<p class="brix-sub-card__alert">
+							<?php esc_html_e( 'Цієї ваги чи помелу більше немає в продажу, тож наступну пачку ми відкладаємо. Оберіть варіант заново — підписку буде оформлено з тією ж знижкою.', 'brix' ); ?>
+							<a href="<?php echo esc_url( $brix_data['lot']->get_permalink() ); ?>"><?php esc_html_e( 'Обрати заново', 'brix' ); ?></a>
+						</p>
+					<?php endif; ?>
 
 					<p class="brix-small brix-muted">
 						<?php
@@ -163,26 +193,22 @@ $brix_orders = wc_get_orders(
 							<span class="brix-tag brix-tag--soft"><?php echo esc_html( wc_get_order_status_name( $brix_order->get_status() ) ); ?></span>
 						</p>
 
-						<?php if ( brix_has_core() ) : ?>
+						<?php
+						/*
+						 * «Повторити» — лише для сплачених замовлень: повтор
+						 * неоплаченого — найпростіший спосіб отримати два
+						 * однакові. Кнопка власна, а не order-again
+						 * WooCommerce: той мовчки пропускає лоти, яких уже
+						 * немає, а наш називає їх уголос.
+						 */
+						if ( brix_has_core() && ( $brix_order->is_paid() || $brix_order->has_status( array( 'processing', 'completed' ) ) ) ) :
+							?>
 							<p class="brix-order-card__repeat">
 								<a class="brix-btn brix-btn--outline brix-btn--sm"
 									href="<?php echo esc_url( \Brix\Core\Orders\Repeat::url( $brix_order ) ); ?>">
 									<?php esc_html_e( 'Повторити замовлення', 'brix' ); ?>
 								</a>
 							</p>
-						<?php endif; ?>
-
-						<?php
-						/*
-						 * «Повторити» доступне лише для сплачених замовлень:
-						 * пропонувати повтор того, що ще не оплатили, —
-						 * найпростіший спосіб отримати два однакові.
-						 */
-						if ( $brix_order->is_paid() || $brix_order->has_status( array( 'processing', 'completed' ) ) ) :
-							?>
-							<a class="brix-btn brix-btn--sm brix-btn--outline" href="<?php echo esc_url( wc_get_endpoint_url( 'order-again', (string) $brix_order->get_id(), wc_get_cart_url() ) ); ?>">
-								<?php esc_html_e( 'Повторити замовлення', 'brix' ); ?>
-							</a>
 						<?php endif; ?>
 					</article>
 				<?php endforeach; ?>
@@ -200,8 +226,5 @@ $brix_orders = wc_get_orders(
 		</div>
 	<?php endif; ?>
 
-	<?php
-	// Підписка зʼявиться тут на фазі 6 — разом з паузою й пропуском.
-	do_action( 'woocommerce_account_dashboard' );
-	?>
+	<?php do_action( 'woocommerce_account_dashboard' ); ?>
 </div>

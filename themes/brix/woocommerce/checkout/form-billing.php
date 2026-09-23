@@ -61,7 +61,18 @@ foreach ( $brix_fields as $brix_key => $brix_field ) {
 
 <?php if ( ! is_user_logged_in() && $checkout->is_registration_enabled() ) : ?>
 	<div class="woocommerce-account-fields">
-		<?php if ( ! $checkout->is_registration_required() ) : ?>
+		<?php if ( $checkout->is_registration_required() ) : ?>
+			<?php
+			/*
+			 * Обов'язковим кабінет стає лише з підпискою BRIX Club у
+			 * кошику: без нього підписку нема як вести. Мовчки
+			 * реєструвати людину не годиться — кажемо, навіщо.
+			 */
+			?>
+			<p class="brix-account-note">
+				<?php esc_html_e( 'Для підписки BRIX Club створимо кабінет на вашу пошту — там пауза, пропуск і скасування. Пароль задасте за посиланням із листа.', 'brix' ); ?>
+			</p>
+		<?php else : ?>
 			<p class="form-row form-row-wide create-account">
 				<label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
 					<input class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" id="createaccount" <?php checked( ( true === $checkout->get_value( 'createaccount' ) || ( true === apply_filters( 'woocommerce_create_account_default_checked', false ) ) ), true ); ?> type="checkbox" name="createaccount" value="1" />

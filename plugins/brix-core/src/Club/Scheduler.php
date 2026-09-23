@@ -97,7 +97,14 @@ final class Scheduler implements Module {
 	private function renew( int $id ): void {
 		$data = Subscription::data( $id );
 
+		/*
+		 * Вагу чи помел зняли з продажу. Раніше тут був мовчазний
+		 * return без перенесення дати — і підписка назавжди
+		 * застигала. Тепер відкладаємо на наступний цикл, а кабінет
+		 * просить покупця обрати заново.
+		 */
 		if ( ! $data['product'] instanceof \WC_Product ) {
+			$this->postpone( $id, max( 7, $data['interval'] ) );
 			return;
 		}
 

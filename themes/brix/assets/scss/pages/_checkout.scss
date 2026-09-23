@@ -101,6 +101,19 @@
   &.woocommerce-invalid .brix-select { border-color: var(--brix-error); }
 }
 
+.woocommerce-account-fields { margin-top: var(--brix-gap-8); }
+
+// Чому з підпискою кабінет обов'язковий — поруч із полями, а не
+// сюрпризом у листі.
+.brix-account-note {
+  margin: 0;
+  padding: var(--brix-gap-6) var(--brix-gap-8);
+  border-inline-start: 3px solid var(--brix-honey);
+  border-radius: var(--brix-radius);
+  background: var(--brix-bg-core);
+  font-size: var(--brix-fs-sm);
+}
+
 .woocommerce-form__label-for-checkbox {
   flex-direction: row;
   align-items: center;

@@ -164,13 +164,17 @@ final class Subscription implements Module {
 	 * @return array<string, mixed>
 	 */
 	public static function data( int $id ): array {
+		$lot       = wc_get_product( (int) get_post_meta( $id, '_brix_product', true ) );
 		$variation = (int) get_post_meta( $id, '_brix_variation', true );
+		$product   = $variation ? wc_get_product( $variation ) : $lot;
 
-		if ( ! $variation ) {
-			$variation = (int) get_post_meta( $id, '_brix_product', true );
-		}
-
-		$product = wc_get_product( $variation );
+		/*
+		 * Вагу чи помел, на які оформлено підписку, власник може зняти з
+		 * продажу — варіація зникне, а лот лишиться. Тоді підписку не
+		 * можна ні поновити (без ваги пачку не зібрати), ні мовчки
+		 * загубити: кабінет має назвати лот і попросити обрати заново.
+		 */
+		$broken = $variation && ! ( $product instanceof \WC_Product && $product->is_purchasable() );
 
 		return array(
 			'id'       => $id,
@@ -178,7 +182,9 @@ final class Subscription implements Module {
 			'interval' => (int) get_post_meta( $id, '_brix_interval', true ),
 			'next'     => (int) get_post_meta( $id, '_brix_next', true ),
 			'quantity' => (int) get_post_meta( $id, '_brix_quantity', true ),
-			'product'  => $product instanceof \WC_Product ? $product : null,
+			'product'  => ! $broken && $product instanceof \WC_Product ? $product : null,
+			'lot'      => $lot instanceof \WC_Product ? $lot : null,
+			'broken'   => $broken,
 		);
 	}
 }

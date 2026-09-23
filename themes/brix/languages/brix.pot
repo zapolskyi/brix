@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-23T18:00:21+00:00\n"
+"POT-Creation-Date: 2026-09-23T19:19:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: brix\n"
@@ -49,7 +49,7 @@ msgid "Можливо, лот уже розкупили або посиланн�
 msgstr ""
 
 #: 404.php:27
-#: woocommerce/myaccount/dashboard.php:197
+#: woocommerce/myaccount/dashboard.php:223
 msgid "У магазин"
 msgstr ""
 
@@ -224,7 +224,15 @@ msgid "Моя кава"
 msgstr ""
 
 #: inc/account.php:27
-msgid "Адреси доставки"
+#: inc/account.php:93
+#: inc/account.php:96
+#: woocommerce/myaccount/my-address.php:23
+msgid "Адреса доставки"
+msgstr ""
+
+#: inc/account.php:75
+#: woocommerce/myaccount/dashboard.php:209
+msgid "Повторити замовлення"
 msgstr ""
 
 #: inc/analytics.php:30
@@ -622,7 +630,7 @@ msgstr ""
 
 #: page-club.php:22
 #: template-parts/home/teasers.php:24
-#: woocommerce/myaccount/dashboard.php:39
+#: woocommerce/myaccount/dashboard.php:47
 msgid "BRIX Club"
 msgstr ""
 
@@ -1612,7 +1620,11 @@ msgstr ""
 msgid "Куди доставити"
 msgstr ""
 
-#: woocommerce/checkout/form-billing.php:68
+#: woocommerce/checkout/form-billing.php:73
+msgid "Для підписки BRIX Club створимо кабінет на вашу пошту — там пауза, пропуск і скасування. Пароль задасте за посиланням із листа."
+msgstr ""
+
+#: woocommerce/checkout/form-billing.php:79
 msgid "Створити кабінет — бачитимете статус замовлення й зможете повторити його одним дотиком"
 msgstr ""
 
@@ -1744,6 +1756,38 @@ msgstr ""
 msgid "Залишилось %s штук"
 msgstr ""
 
+#. translators: %s — ім'я покупця.
+#: woocommerce/emails/customer-new-account.php:34
+#, php-format
+msgid "Привіт, %s!"
+msgstr ""
+
+#: woocommerce/emails/customer-new-account.php:35
+msgid "Вітаємо!"
+msgstr ""
+
+#: woocommerce/emails/customer-new-account.php:39
+msgid "Кабінет у BRIX 22° створено. Там історія замовлень і повтор одним дотиком, підписка BRIX Club і ваш профіль смаку."
+msgstr ""
+
+#: woocommerce/emails/customer-new-account.php:42
+msgid "Залишилось задати пароль:"
+msgstr ""
+
+#: woocommerce/emails/customer-new-account.php:45
+msgid "Задати пароль"
+msgstr ""
+
+#. translators: %s — пошта покупця.
+#: woocommerce/emails/customer-new-account.php:54
+#, php-format
+msgid "Входити можна поштою %s — логін запам’ятовувати не треба."
+msgstr ""
+
+#: woocommerce/emails/customer-new-account.php:60
+msgid "Відкрити кабінет"
+msgstr ""
+
 #: woocommerce/loop/orderby.php:31
 msgid "Сортування"
 msgstr ""
@@ -1753,84 +1797,163 @@ msgid "Сортувати"
 msgstr ""
 
 #. translators: %s — імʼя покупця.
-#: woocommerce/myaccount/dashboard.php:26
+#: woocommerce/myaccount/dashboard.php:31
 #, php-format
 msgid "Привіт, %s"
 msgstr ""
 
-#: woocommerce/myaccount/dashboard.php:33
+#: woocommerce/myaccount/dashboard.php:35
+msgid "Вітаємо в кабінеті"
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:41
 msgid "Тут ваші замовлення, адреси й підписка. Повторити попереднє замовлення — одна кнопка."
 msgstr ""
 
-#: woocommerce/myaccount/dashboard.php:53
-msgid "Лот недоступний"
+#: woocommerce/myaccount/dashboard.php:67
+msgid "Лот знято з продажу"
 msgstr ""
 
-#: woocommerce/myaccount/dashboard.php:59
+#: woocommerce/myaccount/dashboard.php:81
+msgid "Цієї ваги чи помелу більше немає в продажу, тож наступну пачку ми відкладаємо. Оберіть варіант заново — підписку буде оформлено з тією ж знижкою."
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:82
+msgid "Обрати заново"
+msgstr ""
+
+#: woocommerce/myaccount/dashboard.php:89
 msgid "На паузі"
 msgstr ""
 
 #. translators: 1 — інтервал у тижнях, 2 — дата наступної відправки.
-#: woocommerce/myaccount/dashboard.php:63
+#: woocommerce/myaccount/dashboard.php:93
 #, php-format
 msgid "Кожні %1$d тижні · наступна %2$s"
 msgstr ""
 
-#: woocommerce/myaccount/dashboard.php:75
+#: woocommerce/myaccount/dashboard.php:105
 msgid "Відновити"
 msgstr ""
 
-#: woocommerce/myaccount/dashboard.php:80
+#: woocommerce/myaccount/dashboard.php:110
 msgid "Пропустити"
 msgstr ""
 
-#: woocommerce/myaccount/dashboard.php:84
+#: woocommerce/myaccount/dashboard.php:114
 msgid "Пауза"
 msgstr ""
 
-#: woocommerce/myaccount/dashboard.php:90
+#: woocommerce/myaccount/dashboard.php:120
 msgid "Скасувати"
 msgstr ""
 
-#: woocommerce/myaccount/dashboard.php:101
+#: woocommerce/myaccount/dashboard.php:131
 msgid "Ваш профіль смаку"
 msgstr ""
 
 #. translators: %s — назва помелу.
-#: woocommerce/myaccount/dashboard.php:107
+#: woocommerce/myaccount/dashboard.php:137
 #, php-format
 msgid "Мелемо під %s"
 msgstr ""
 
-#: woocommerce/myaccount/dashboard.php:115
+#: woocommerce/myaccount/dashboard.php:145
 msgid "Пройти квіз заново"
 msgstr ""
 
-#: woocommerce/myaccount/dashboard.php:124
+#: woocommerce/myaccount/dashboard.php:154
 msgid "Останні замовлення"
 msgstr ""
 
-#: woocommerce/myaccount/dashboard.php:126
+#: woocommerce/myaccount/dashboard.php:156
 msgid "Усі замовлення"
 msgstr ""
 
 #. translators: %s — номер замовлення.
-#: woocommerce/myaccount/dashboard.php:142
+#: woocommerce/myaccount/dashboard.php:172
 #, php-format
 msgid "Замовлення №%s"
 msgstr ""
 
-#: woocommerce/myaccount/dashboard.php:170
-#: woocommerce/myaccount/dashboard.php:184
-msgid "Повторити замовлення"
-msgstr ""
-
-#: woocommerce/myaccount/dashboard.php:193
+#: woocommerce/myaccount/dashboard.php:219
 msgid "Замовлень поки немає"
 msgstr ""
 
-#: woocommerce/myaccount/dashboard.php:194
+#: woocommerce/myaccount/dashboard.php:220
 msgid "Щойно замовите — усе зʼявиться тут: статус, накладна й кнопка повтору."
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:27
+#: woocommerce/myaccount/form-login.php:63
+#: woocommerce/myaccount/form-login.php:64
+msgid "Увійти"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:34
+msgid "Пошта або логін"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:48
+#: woocommerce/myaccount/form-login.php:106
+msgid "Пароль"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:57
+msgid "Запам’ятати мене"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:59
+msgid "Забули пароль?"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:73
+msgid "Новий покупець"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:76
+msgid "Історія замовлень і повтор одним дотиком"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:77
+msgid "BRIX Club: пауза, пропуск і скасування підписки"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:78
+msgid "Профіль смаку з квізу й помел під вашу техніку"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:86
+msgid "Логін"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:92
+msgid "Пошта"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:111
+msgid "Пароль задасте самі за посиланням із листа. Щойно задасте — в кабінеті з’являться й замовлення, які ви вже робили на цю пошту."
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:118
+#: woocommerce/myaccount/form-login.php:119
+msgid "Створити кабінет"
+msgstr ""
+
+#: woocommerce/myaccount/my-address.php:25
+msgid "Змінити"
+msgstr ""
+
+#: woocommerce/myaccount/my-address.php:25
+msgid "Додати"
+msgstr ""
+
+#: woocommerce/myaccount/my-address.php:33
+msgid "Адреси ще немає. Вона збережеться сама з першого замовлення — або додайте її зараз."
+msgstr ""
+
+#: woocommerce/myaccount/my-address.php:38
+msgid "Checkout заповнить її за вас. Змінити адресу для одного замовлення можна просто під час оформлення."
 msgstr ""
 
 #: assets/js/blocks-editor.js:100

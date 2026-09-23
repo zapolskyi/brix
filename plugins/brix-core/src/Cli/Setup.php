@@ -269,6 +269,27 @@ final class Setup {
 			update_option( $key, $value );
 		}
 
+		/*
+		 * Кабінет. Купувати можна й гостем — змушувати реєструватись
+		 * заради пачки кави зайве. Але кабінет має бути доступний: на
+		 * сторінці входу й галочкою на checkout, а з підпискою BRIX
+		 * Club — обов'язково (це вмикає сам модуль Club\Plan).
+		 * Логін і пароль не питаємо: логін WooCommerce складе з пошти,
+		 * пароль покупець задасть за посиланням із листа.
+		 */
+		$accounts = array(
+			'woocommerce_enable_myaccount_registration'  => 'yes',
+			'woocommerce_registration_generate_username' => 'yes',
+			'woocommerce_registration_generate_password' => 'yes',
+		);
+
+		// Галочка «Створити кабінет» на checkout.
+		$accounts['woocommerce_enable_signup_and_login_from_checkout'] = 'yes';
+
+		foreach ( $accounts as $key => $value ) {
+			update_option( $key, $value );
+		}
+
 		\WP_CLI::log( 'Налаштування магазину застосовано.' );
 	}
 
