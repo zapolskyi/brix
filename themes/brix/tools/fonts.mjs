@@ -22,27 +22,41 @@ const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
 
 // Накреслення рівно ті, що реально вживаються в макетах.
 const API = 'https://fonts.googleapis.com/css2'
-  + '?family=Unbounded:wght@700;800'
-  + '&family=Onest:wght@400;500;600;700'
+  + '?family=Playfair+Display:wght@700;800'
+  + '&family=Inter:wght@400;500;600;700'
   + '&family=IBM+Plex+Mono:wght@400;500'
   + '&display=swap';
 
 const SUBSETS = ['cyrillic', 'latin'];
-const SLUG = { 'Unbounded': 'unbounded', 'Onest': 'onest', 'IBM Plex Mono': 'plex-mono' };
+const SLUG = { 'Playfair Display': 'playfair', 'Inter': 'inter', 'IBM Plex Mono': 'plex-mono' };
 
 const css = await (await fetch(API, { headers: { 'User-Agent': UA } })).text();
 
-const faces = [];
+// Змінні шрифти (Inter, Playfair Display) Google віддає одним файлом на
+// всі накреслення: той самий URL повторюється для кожної ваги. Такі
+// накреслення зливаємо в одне @font-face з діапазоном ваг — інакше
+// браузер тягнув би однаковий файл кілька разів під різними іменами.
+const byUrl = new Map();
 for (const [, subset, body] of css.matchAll(/\/\*\s*([a-z-]+)\s*\*\/\s*@font-face\s*\{([^}]*)\}/g)) {
   if (!SUBSETS.includes(subset)) continue;
   const family = body.match(/font-family:\s*'([^']+)'/)[1];
   const weight = Number(body.match(/font-weight:\s*(\d+)/)[1]);
   const url = body.match(/url\((https:\/\/[^)]+\.woff2)\)/)[1];
   const unicodeRange = body.match(/unicode-range:\s*([^;]+);/)[1].trim();
-  faces.push({ family, weight, subset, url, unicodeRange, file: `${SLUG[family]}-${weight}-${subset}.woff2` });
+  const seen = byUrl.get(url);
+  if (seen) { seen.weights.push(weight); continue; }
+  byUrl.set(url, { family, weights: [weight], subset, url, unicodeRange });
 }
 
-faces.sort((a, b) => a.family.localeCompare(b.family) || a.weight - b.weight || a.subset.localeCompare(b.subset));
+const faces = [...byUrl.values()].map((f) => {
+  const min = Math.min(...f.weights);
+  const max = Math.max(...f.weights);
+  const weight = min === max ? String(min) : `${min} ${max}`;
+  const tag = min === max ? String(min) : 'var';
+  return { ...f, weight, file: `${SLUG[f.family]}-${tag}-${f.subset}.woff2` };
+});
+
+faces.sort((a, b) => a.family.localeCompare(b.family) || String(a.weight).localeCompare(String(b.weight)) || a.subset.localeCompare(b.subset));
 
 await mkdir(FONTS_DIR, { recursive: true });
 for (const f of faces) {

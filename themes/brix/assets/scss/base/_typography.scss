@@ -4,7 +4,7 @@ h1, h2, h3, h4 {
   font-family: var(--brix-font-display);
   font-weight: 700;
   line-height: var(--brix-lh-display);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
   text-wrap: balance;
   // Дисплейний шрифт широкий: «конфіденційності» на телефоні в
   // рядок не вміщалась і розпирала сторінку вбік. Спершу браузер
@@ -13,9 +13,9 @@ h1, h2, h3, h4 {
   overflow-wrap: break-word;
 }
 
-h1 { font-size: var(--brix-fs-h1); letter-spacing: -0.045em; }
+h1 { font-size: var(--brix-fs-h1); letter-spacing: -0.015em; }
 h2 { font-size: var(--brix-fs-h2); }
-h3 { font-size: var(--brix-fs-h3); letter-spacing: -0.02em; }
+h3 { font-size: var(--brix-fs-h3); letter-spacing: 0; }
 
 // h4 у макетах — інтерфейсний, не дисплейний: це підзаголовок картки.
 h4 {
@@ -30,7 +30,7 @@ h4 {
   font-family: var(--brix-font-display);
   font-weight: 800;
   line-height: 0.88;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.015em;
 }
 
 .brix-lead   { font-size: var(--brix-fs-lead); line-height: 1.5; }

@@ -11,6 +11,10 @@ body {
   font-family: var(--brix-font-ui);
   font-size: var(--brix-fs-base);
   line-height: var(--brix-lh-base);
+  // Playfair Display за замовчуванням малює старостильні цифри, що
+  // стрибають по висоті. На сайті, де головне — числа паспорта лоту,
+  // цифри мають стояти рівно.
+  font-variant-numeric: lining-nums;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   // Шапка ховається за вирізом на телефонах без цього.

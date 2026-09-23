@@ -84,7 +84,7 @@ $brix_taste = array(
 				<h2>Вісім лотів, усі з паспортом</h2>
 				<h3>Стиглість вимірюють у градусах Brix</h3>
 				<h4>Ethiopia Guji Hambela</h4>
-				<p class="brix-lead">Ліва частина — Unbounded, текст набрано Onest, дані лоту — IBM Plex Mono.</p>
+				<p class="brix-lead">Заголовки — Playfair Display, текст набрано Inter, дані лоту — IBM Plex Mono.</p>
 				<p>Основний текст: солодкість стиглої черешні, кислотність зеленого яблука. Зібрано на висоті 2 000 м.</p>
 				<p class="brix-small brix-muted">Дрібний другорядний текст — підписи, застереження, примітки.</p>
 				<p class="brix-label">Моношрифтова мітка капсом</p>

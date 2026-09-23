@@ -84,14 +84,14 @@ function brix_enqueue_catalog_script(): void {
 /**
  * Попередньо завантажує шрифти, потрібні першому екрану.
  *
- * Кирилична підмножина Unbounded 800 і Onest 400 — це логотип, перший
+ * Кирилична підмножина Playfair Display і Inter — це логотип, перший
  * заголовок і навігація, тобто все, що впирається в LCP. Решта
  * накреслень довантажиться за unicode-range уже після першого малювання.
  *
  * @return void
  */
 function brix_preload_fonts(): void {
-	$critical = array( 'unbounded-800-cyrillic.woff2', 'onest-400-cyrillic.woff2' );
+	$critical = array( 'playfair-var-cyrillic.woff2', 'inter-var-cyrillic.woff2' );
 	$faces    = wp_list_pluck( brix_font_faces(), 'file' );
 
 	foreach ( $critical as $file ) {
