@@ -488,7 +488,7 @@
    ]
   },
   {
-   "slug": "ethiopia-yirgacheffe-konga",
+   "slug": "ethiopia-guji-shakiso",
    "title": "Ethiopia Guji Shakiso",
    "categories": [
     "Origin"
@@ -508,7 +508,7 @@
     "Aeropress"
    ],
    "fields": {
-    "code": "ET-YC-07",
+    "code": "ET-GS-07",
     "brix": 21.9,
     "sca": 87.5,
     "altitude_min": 1900,
@@ -525,7 +525,7 @@
     "taste_body": 2,
     "taste_intensity": 3,
     "taste_fruitiness": 4,
-    "cup_notes": "Класичний washed з Їргачеффе: прозора чашка, квітковий аромат і лаймова кислотність. Добре розкривається на фільтрі, в еспресо буде занадто гострим.",
+    "cup_notes": "Класичний washed з Гуджі: прозора чашка, квітковий аромат і лаймова кислотність. Добре розкривається на фільтрі, в еспресо буде занадто гострим.",
     "brew_guide": "v60",
     "lot_of_week": false
    },
