@@ -556,6 +556,8 @@
   "BRIX 22° · Обсмажувальня, Київ · {site_url}": "BRIX 22° · Roastery, Kyiv · {site_url}",
   "Банківський переказ": "Bank transfer",
   "Рахунок надішлемо на пошту. Відправляємо, щойно кошти зарахуються.": "We will email you an invoice. We ship as soon as the money arrives.",
-  "Рахунок із реквізитами надішлемо на вашу пошту протягом робочого дня.": "We will email you an invoice with our bank details within one working day."
+  "Рахунок із реквізитами надішлемо на вашу пошту протягом робочого дня.": "We will email you an invoice with our bank details within one working day.",
+  "Ваші дані потрібні, щоб оформити й доставити замовлення. Деталі — у [privacy_policy].": "We need your details to place and deliver the order. More in our [privacy_policy].",
+  "Ваші дані потрібні, щоб створити кабінет. Деталі — у [privacy_policy].": "We need your details to create your account. More in our [privacy_policy]."
  }
 }

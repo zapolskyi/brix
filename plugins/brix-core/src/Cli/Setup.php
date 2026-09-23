@@ -75,6 +75,17 @@ final class Setup {
 		'club'         => 'BRIX Club',
 		'quiz'         => 'Підібрати каву',
 		'privacy'      => 'Політика конфіденційності',
+		'ui-kit'       => 'UI-кіт',
+	);
+
+	/**
+	 * Сторінки WooCommerce: опція з ідентифікатором => [slug, заголовок].
+	 */
+	private const SHOP_PAGES = array(
+		'woocommerce_shop_page_id'      => array( 'shop', 'Магазин', '' ),
+		'woocommerce_cart_page_id'      => array( 'cart', 'Кошик', 'woocommerce_cart' ),
+		'woocommerce_checkout_page_id'  => array( 'checkout', 'Оформлення замовлення', 'woocommerce_checkout' ),
+		'woocommerce_myaccount_page_id' => array( 'account', 'Мій кабінет', 'woocommerce_my_account' ),
 	);
 
 	/**
@@ -107,6 +118,7 @@ final class Setup {
 		}
 
 		$this->core();
+		$this->languages();
 		$this->store();
 		$this->pages();
 		$this->categories();
@@ -117,6 +129,44 @@ final class Setup {
 		flush_rewrite_rules();
 
 		\WP_CLI::success( 'Магазин налаштовано.' );
+	}
+
+	/**
+	 * Українські переклади WordPress і WooCommerce.
+	 *
+	 * Тема й плагін несуть свої переклади з собою, а WooCommerce — ні:
+	 * його переклад приходить окремим мовним пакетом. Локально пакет
+	 * стояв давно, тож дірку видно не було. Чиста інсталяція без нього
+	 * показувала посеред українського магазину «Your cart is currently
+	 * empty!» і «Add to cart».
+	 *
+	 * Потрібен доступ в інтернет. Без нього setup не падає, а каже,
+	 * що поставити вручну.
+	 *
+	 * @return void
+	 */
+	private function languages(): void {
+		$commands = array(
+			'language core install uk',
+			'language plugin install woocommerce uk',
+		);
+
+		foreach ( $commands as $command ) {
+			$result = \WP_CLI::runcommand(
+				$command,
+				array(
+					'return'     => 'all',
+					'launch'     => false,
+					'exit_error' => false,
+				)
+			);
+
+			if ( 0 !== (int) $result->return_code ) {
+				\WP_CLI::warning( sprintf( 'Не вдалося: wp %s. Запустіть вручну, коли буде мережа.', $command ) );
+			}
+		}
+
+		\WP_CLI::log( 'Українські мовні пакети на місці.' );
 	}
 
 	/**
@@ -193,6 +243,11 @@ final class Setup {
 			// демо-стенду тільки заважають.
 			'woocommerce_show_marketplace_suggestions' => 'no',
 			'woocommerce_allow_tracking'               => 'no',
+			// WooCommerce пише ці тексти при активації мовою, яка на
+			// той момент є, — на свіжому сайті це англійська.
+			'woocommerce_checkout_privacy_policy_text' => 'Ваші дані потрібні, щоб оформити й доставити замовлення. Деталі — у [privacy_policy].',
+			'woocommerce_registration_privacy_policy_text' => 'Ваші дані потрібні, щоб створити кабінет. Деталі — у [privacy_policy].',
+			'woocommerce_email_footer_text'            => 'BRIX 22° · Обсмажувальня, Київ · {site_url}',
 			'woocommerce_task_list_hidden'             => 'yes',
 			'woocommerce_onboarding_profile'           => array( 'skipped' => true ),
 		);
@@ -224,8 +279,72 @@ final class Setup {
 		// Сторінки магазину створює сам WooCommerce, але на чистій
 		// інсталяції їх може ще не бути.
 		\WC_Install::create_pages();
+		$this->shop_pages();
+		$this->drop_samples();
 
 		\WP_CLI::log( 'Сторінки на місці.' );
+	}
+
+	/**
+	 * Називає сторінки WooCommerce так, як їх називає решта сайту.
+	 *
+	 * WooCommerce створює їх мовою власного перекладу, а на свіжому
+	 * хостингу перекладу може ще не бути: у меню з'являлись «Shop» і
+	 * «My account». Кабінет до того ж отримував slug my-account, і
+	 * англійський переклад, записаний для account, його не знаходив.
+	 *
+	 * Головне тут — вміст. Свіжий WooCommerce ставить у кошик і
+	 * checkout блоки, а тема перевизначає класичні шаблони: Нова
+	 * Пошта, спосіб отримання, картки оплати й робота без JavaScript
+	 * живуть саме там. З блоками покупець на хостингу побачив би
+	 * стандартний checkout WooCommerce, а без JavaScript — порожню
+	 * сторінку. Тож кладемо класичні шорткоди.
+	 *
+	 * @return void
+	 */
+	private function shop_pages(): void {
+		foreach ( self::SHOP_PAGES as $option => $page ) {
+			$id = (int) get_option( $option );
+
+			if ( ! $id || ! get_post( $id ) ) {
+				continue;
+			}
+
+			$args = array(
+				'ID'         => $id,
+				'post_name'  => $page[0],
+				'post_title' => $page[1],
+			);
+
+			if ( '' !== $page[2] ) {
+				$args['post_content'] = '<!-- wp:shortcode -->[' . $page[2] . ']<!-- /wp:shortcode -->';
+			}
+
+			wp_update_post( wp_slash( $args ) );
+		}
+	}
+
+	/**
+	 * Прибирає зразки WordPress: «Sample Page» і «Hello world!».
+	 *
+	 * Лише в кошик і лише поки вони неторкані — сторінку, яку хтось
+	 * уже переписав, не чіпаємо.
+	 *
+	 * @return void
+	 */
+	private function drop_samples(): void {
+		$samples = array(
+			array( 'sample-page', 'page' ),
+			array( 'hello-world', 'post' ),
+		);
+
+		foreach ( $samples as $sample ) {
+			$post = get_page_by_path( $sample[0], OBJECT, $sample[1] );
+
+			if ( $post instanceof \WP_Post && $post->post_modified_gmt === $post->post_date_gmt ) {
+				wp_trash_post( $post->ID );
+			}
+		}
 	}
 
 	/**
