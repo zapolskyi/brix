@@ -117,8 +117,12 @@ final class Setup {
 			\WP_CLI::error( 'WooCommerce не активовано.' );
 		}
 
-		$this->core();
+		// Мовні пакети — першими: WordPress мовчки відмовляється
+		// записати WPLANG=uk, поки українського пакета немає, і сайт
+		// лишався б англійським — з англійськими перекладами теми на
+		// українській версії.
 		$this->languages();
+		$this->core();
 		$this->store();
 		$this->pages();
 		$this->categories();
