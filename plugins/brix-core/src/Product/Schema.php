@@ -10,6 +10,7 @@ declare( strict_types=1 );
 namespace Brix\Core\Product;
 
 use Brix\Core\Contracts\Module;
+use Brix\Core\I18n\Language;
 use Brix\Core\Taxonomies\Registrar as Tax;
 
 defined( 'ABSPATH' ) || exit;
@@ -157,30 +158,39 @@ final class Schema implements Module {
 	}
 
 	/**
-	 * Open Graph для товару, виробника й гайда.
+	 * Опис сторінки й Open Graph для всього сайту.
 	 *
-	 * WordPress своїх og-тегів не друкує, а без них посилання
-	 * в месенджері виглядає голим рядком.
+	 * WordPress не друкує ні meta description, ні og-тегів, а без них
+	 * пошук показує під заголовком випадковий шматок тексту, а
+	 * посилання в месенджері виглядає голим рядком.
+	 *
+	 * Якщо на сайті з'явиться SEO-плагін, він робить це сам — тоді тут
+	 * мовчимо, щоб теги не двоїлись.
 	 *
 	 * @return void
 	 */
 	public function render_open_graph(): void {
-		if ( ! is_singular() ) {
+		if ( defined( 'WPSEO_VERSION' ) || class_exists( 'RankMath' ) || is_404() || is_search() ) {
 			return;
 		}
 
-		$post_id     = get_queried_object_id();
-		$title       = get_the_title( $post_id );
-		$description = $this->description( $post_id );
-		$image       = get_the_post_thumbnail_url( $post_id, 'full' );
+		$description = $this->page_description();
+
+		if ( '' !== $description ) {
+			printf( '<meta name="description" content="%s">' . "\n", esc_attr( $description ) );
+		}
+
+		$english = Language::is_second();
+		$image   = is_singular() ? get_the_post_thumbnail_url( get_queried_object_id(), 'full' ) : '';
 
 		$tags = array(
-			'og:type'        => is_product() ? 'product' : 'article',
-			'og:title'       => $title,
-			'og:description' => $description,
-			'og:url'         => (string) get_permalink( $post_id ),
-			'og:site_name'   => get_bloginfo( 'name' ),
-			'og:locale'      => 'uk_UA',
+			'og:type'             => function_exists( 'is_product' ) && is_product() ? 'product' : ( is_singular( 'post' ) ? 'article' : 'website' ),
+			'og:title'            => wp_get_document_title(),
+			'og:description'      => $description,
+			'og:url'              => $this->current_url(),
+			'og:site_name'        => get_bloginfo( 'name' ),
+			'og:locale'           => $english ? 'en_US' : 'uk_UA',
+			'og:locale:alternate' => $english ? 'uk_UA' : 'en_US',
 		);
 
 		if ( $image ) {
@@ -203,6 +213,71 @@ final class Schema implements Module {
 			'<meta name="twitter:card" content="%s">' . "\n",
 			esc_attr( $image ? 'summary_large_image' : 'summary' )
 		);
+	}
+
+	/**
+	 * Опис поточної сторінки, до 160 знаків.
+	 *
+	 * @return string
+	 */
+	private function page_description(): string {
+		$text = '';
+
+		if ( is_singular() && ! is_front_page() ) {
+			$text = $this->description( get_queried_object_id() );
+		} elseif ( is_tax() || is_category() || is_tag() ) {
+			$text = (string) term_description();
+		} elseif ( function_exists( 'is_shop' ) && is_shop() ) {
+			$text = __( 'Мікролоти specialty-кави з паспортом: висота, обробка, цукристість ягоди при зборі й ціна фермеру. Обсмажуємо щопонеділка.', 'brix-core' );
+		} elseif ( is_post_type_archive() ) {
+			$text = (string) get_the_post_type_description();
+		}
+
+		// Головна й усе, що лишилось без власного опису, — опис
+		// самої обсмажувальні: краще загальне, ніж порожнеча.
+		if ( '' === trim( wp_strip_all_tags( $text ) ) ) {
+			$text = __( 'BRIX 22° — specialty-обсмажувальня в Києві. Мікролоти від ферм, з якими працюємо напряму, і паспорт у кожній пачці. Обсмажуємо щопонеділка.', 'brix-core' );
+		}
+
+		$text = trim( preg_replace( '/\s+/u', ' ', html_entity_decode( wp_strip_all_tags( $text ), ENT_QUOTES, 'UTF-8' ) ) );
+
+		if ( mb_strlen( $text ) <= 160 ) {
+			return $text;
+		}
+
+		// Обрізаємо по слову, а не посеред нього.
+		$cut = mb_substr( $text, 0, 157 );
+
+		return rtrim( mb_substr( $cut, 0, (int) mb_strrpos( $cut, ' ' ) ), ' ,.;:—–-' ) . '…';
+	}
+
+	/**
+	 * Адреса поточної сторінки без службових параметрів.
+	 *
+	 * @return string
+	 */
+	private function current_url(): string {
+		if ( is_singular() ) {
+			return (string) get_permalink( get_queried_object_id() );
+		}
+
+		$term = get_queried_object();
+
+		if ( $term instanceof \WP_Term ) {
+			$link = get_term_link( $term );
+
+			return is_wp_error( $link ) ? '' : $link;
+		}
+
+		if ( function_exists( 'is_shop' ) && is_shop() ) {
+			return (string) wc_get_page_permalink( 'shop' );
+		}
+
+		if ( is_post_type_archive() ) {
+			return (string) get_post_type_archive_link( (string) get_query_var( 'post_type' ) );
+		}
+
+		return home_url( '/' );
 	}
 
 	/**

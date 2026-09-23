@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BRIX Core\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/brix-core\n"
-"POT-Creation-Date: 2026-09-23T18:00:20+00:00\n"
+"POT-Creation-Date: 2026-09-23T18:17:14+00:00\n"
 "Last-Translator: Nazar Zapolskyi <nazar.zapolski@gmail.com>\n"
 "Language-Team: English\n"
 "Language: en_US\n"
@@ -171,7 +171,7 @@ msgid "Працюємо з"
 msgstr "Working together since"
 
 #: src/Fields/FarmFields.php:76 src/Fields/LotFields.php:142
-#: src/Product/Schema.php:145
+#: src/Product/Schema.php:146
 msgid "Різновид"
 msgstr "Variety"
 
@@ -416,7 +416,7 @@ msgstr ""
 "A plain-language explanation under the flavour scales. Numbers instead of "
 "epithets."
 
-#: src/Fields/LotFields.php:229 src/Product/Schema.php:149
+#: src/Fields/LotFields.php:229 src/Product/Schema.php:150
 #: src/Taxonomies/Registrar.php:97
 msgid "Смакові ноти"
 msgstr "Tasting notes"
@@ -442,7 +442,7 @@ msgid "Головне число бренду. Стоїть на печатці 
 msgstr ""
 "The brand’s key number. It is on the bag stamp and on the ripeness scale."
 
-#: src/Fields/LotFields.php:281 src/Product/Schema.php:133
+#: src/Fields/LotFields.php:281 src/Product/Schema.php:134
 msgid "Оцінка SCA"
 msgstr "SCA score"
 
@@ -454,7 +454,7 @@ msgstr "Price to the farmer, $/kg FOB"
 msgid "З цього поля збирається сторінка «Прозорість»."
 msgstr "The Transparency page is built from this field."
 
-#: src/Fields/LotFields.php:303 src/Product/Schema.php:153
+#: src/Fields/LotFields.php:303 src/Product/Schema.php:154
 msgid "Дата обсмаження"
 msgstr "Roast date"
 
@@ -558,7 +558,9 @@ msgstr "Confirm your subscription"
 msgid ""
 "Щопонеділка — що обсмажили цього тижня, які лоти закінчуються і один рецепт. "
 "Щоб лист почав приходити, підтвердіть адресу:"
-msgstr "Every Monday — what we roasted this week, which lots are running out and one recipe. To start receiving the letter, confirm your address:"
+msgstr ""
+"Every Monday — what we roasted this week, which lots are running out and one "
+"recipe. To start receiving the letter, confirm your address:"
 
 #: src/Newsletter/Subscribers.php:226
 msgid "Так, надсилайте"
@@ -568,7 +570,8 @@ msgstr "Yes, send it"
 msgid ""
 "Якщо ви не підписувались — просто проігноруйте цей лист, більше ми не "
 "напишемо."
-msgstr "If you did not subscribe, just ignore this email — we will not write again."
+msgstr ""
+"If you did not subscribe, just ignore this email — we will not write again."
 
 #: src/Newsletter/Subscribers.php:228
 msgid "Передумали?"
@@ -582,7 +585,9 @@ msgstr "Unsubscribe"
 msgid ""
 "Майже готово. Ми надіслали вам лист — натисніть у ньому «Так, надсилайте», і "
 "підписку буде підтверджено."
-msgstr "Almost there. We have sent you an email — press “Yes, send it” in it to confirm your subscription."
+msgstr ""
+"Almost there. We have sent you an email — press “Yes, send it” in it to "
+"confirm your subscription."
 
 #: src/Newsletter/Subscribers.php:368
 msgid "Ця адреса вже підписана. Наступний лист прийде в понеділок."
@@ -957,17 +962,29 @@ msgid_plural "%s днів"
 msgstr[0] "%s day"
 msgstr[1] "%s days"
 
-#: src/Product/Schema.php:129
+#: src/Product/Schema.php:130
 msgid "Цукристість при зборі"
 msgstr "Sugar content at picking"
 
-#: src/Product/Schema.php:137
+#: src/Product/Schema.php:138
 msgid "Висота"
 msgstr "Altitude"
 
-#: src/Product/Schema.php:141 src/Taxonomies/Registrar.php:81
+#: src/Product/Schema.php:142 src/Taxonomies/Registrar.php:81
 msgid "Обробка"
 msgstr "Process"
+
+#: src/Product/Schema.php:231
+msgid ""
+"Мікролоти specialty-кави з паспортом: висота, обробка, цукристість ягоди при "
+"зборі й ціна фермеру. Обсмажуємо щопонеділка."
+msgstr "Specialty coffee microlots with a passport: altitude, process, cherry sugar content at harvest and the price paid to the farmer. Roasted every Monday."
+
+#: src/Product/Schema.php:239
+msgid ""
+"BRIX 22° — specialty-обсмажувальня в Києві. Мікролоти від ферм, з якими "
+"працюємо напряму, і паспорт у кожній пачці. Обсмажуємо щопонеділка."
+msgstr "BRIX 22° is a specialty coffee roastery in Kyiv. Microlots from farms we work with directly, and a passport in every bag. Roasted every Monday."
 
 #: src/Quiz/Questions.php:75
 msgid "Як ви найчастіше заварюєте вдома?"

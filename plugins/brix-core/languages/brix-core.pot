@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-23T18:00:20+00:00\n"
+"POT-Creation-Date: 2026-09-23T18:17:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: brix-core\n"
@@ -156,7 +156,7 @@ msgstr ""
 
 #: src/Fields/FarmFields.php:76
 #: src/Fields/LotFields.php:142
-#: src/Product/Schema.php:145
+#: src/Product/Schema.php:146
 msgid "Різновид"
 msgstr ""
 
@@ -397,7 +397,7 @@ msgid "Пояснення людською мовою під шкалами см
 msgstr ""
 
 #: src/Fields/LotFields.php:229
-#: src/Product/Schema.php:149
+#: src/Product/Schema.php:150
 #: src/Taxonomies/Registrar.php:97
 msgid "Смакові ноти"
 msgstr ""
@@ -419,7 +419,7 @@ msgid "Головне число бренду. Стоїть на печатці 
 msgstr ""
 
 #: src/Fields/LotFields.php:281
-#: src/Product/Schema.php:133
+#: src/Product/Schema.php:134
 msgid "Оцінка SCA"
 msgstr ""
 
@@ -432,7 +432,7 @@ msgid "З цього поля збирається сторінка «Прозо
 msgstr ""
 
 #: src/Fields/LotFields.php:303
-#: src/Product/Schema.php:153
+#: src/Product/Schema.php:154
 msgid "Дата обсмаження"
 msgstr ""
 
@@ -896,17 +896,25 @@ msgid_plural "%s днів"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Product/Schema.php:129
+#: src/Product/Schema.php:130
 msgid "Цукристість при зборі"
 msgstr ""
 
-#: src/Product/Schema.php:137
+#: src/Product/Schema.php:138
 msgid "Висота"
 msgstr ""
 
-#: src/Product/Schema.php:141
+#: src/Product/Schema.php:142
 #: src/Taxonomies/Registrar.php:81
 msgid "Обробка"
+msgstr ""
+
+#: src/Product/Schema.php:231
+msgid "Мікролоти specialty-кави з паспортом: висота, обробка, цукристість ягоди при зборі й ціна фермеру. Обсмажуємо щопонеділка."
+msgstr ""
+
+#: src/Product/Schema.php:239
+msgid "BRIX 22° — specialty-обсмажувальня в Києві. Мікролоти від ферм, з якими працюємо напряму, і паспорт у кожній пачці. Обсмажуємо щопонеділка."
 msgstr ""
 
 #: src/Quiz/Questions.php:75
