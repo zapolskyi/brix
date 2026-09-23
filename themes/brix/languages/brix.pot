@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-23T09:46:04+00:00\n"
+"POT-Creation-Date: 2026-09-23T10:58:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: brix\n"
@@ -288,19 +288,19 @@ msgid "яскрава"
 msgstr ""
 
 #. translators: %s — кількість товарів.
-#: inc/catalog.php:444
+#: inc/catalog.php:449
 #, php-format
 msgid "%s товар"
 msgstr ""
 
 #. translators: %s — кількість товарів.
-#: inc/catalog.php:444
+#: inc/catalog.php:449
 #, php-format
 msgid "%s товари"
 msgstr ""
 
 #. translators: %s — кількість товарів.
-#: inc/catalog.php:444
+#: inc/catalog.php:449
 #, php-format
 msgid "%s товарів"
 msgstr ""
@@ -741,23 +741,25 @@ msgstr ""
 msgid "Ціна фермеру, $/кг"
 msgstr ""
 
-#: page-transparency.php:43
-msgid "Наша ціна, ₴/кг"
+#. translators: %s — символ валюти магазину.
+#: page-transparency.php:47
+#, php-format
+msgid "Наша ціна, %s/кг"
 msgstr ""
 
-#: page-transparency.php:44
+#: page-transparency.php:52
 msgid "°Bx"
 msgstr ""
 
-#: page-transparency.php:74
+#: page-transparency.php:82
 msgid "Ціна фермеру — FOB, тобто вартість зеленої кави з доставкою в порт відправлення. У нашу ціну поверх неї входять логістика, мито, втрата ваги при обсмаженні (близько 16%), пакування, податки й робота."
 msgstr ""
 
-#: page-transparency.php:78
+#: page-transparency.php:86
 msgid "Даних поки немає"
 msgstr ""
 
-#: page-transparency.php:79
+#: page-transparency.php:87
 msgid "Таблиця заповнюється з паспортів лотів. Щойно в каталозі зʼявляться лоти з ціною фермеру — вони будуть тут."
 msgstr ""
 
@@ -1031,20 +1033,24 @@ msgstr ""
 msgid "Ціна"
 msgstr ""
 
-#: template-parts/catalog/filters.php:120
-msgid "від, ₴"
+#. translators: %s — символ валюти.
+#: template-parts/catalog/filters.php:124
+#, php-format
+msgid "від, %s"
 msgstr ""
 
-#: template-parts/catalog/filters.php:125
-msgid "до, ₴"
+#. translators: %s — символ валюти.
+#: template-parts/catalog/filters.php:137
+#, php-format
+msgid "до, %s"
 msgstr ""
 
-#: template-parts/catalog/filters.php:134
+#: template-parts/catalog/filters.php:150
 msgid "Тільки в наявності"
 msgstr ""
 
 #. translators: %s — кількість товарів.
-#: template-parts/catalog/filters.php:169
+#: template-parts/catalog/filters.php:185
 #, php-format
 msgid "Показати %s"
 msgstr ""

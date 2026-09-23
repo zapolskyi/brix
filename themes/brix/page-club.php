@@ -30,7 +30,7 @@ $brix_complete  = count( $brix_selection ) === count( $brix_config );
 					<dd class="brix-label"><?php esc_html_e( 'на кожне замовлення', 'brix' ); ?></dd>
 				</div>
 				<div>
-					<dt class="brix-club-hero__value">0 ₴</dt>
+					<dt class="brix-club-hero__value"><?php echo wp_kses_post( wc_price( 0 ) ); ?></dt>
 					<dd class="brix-label">
 						<?php
 						printf(

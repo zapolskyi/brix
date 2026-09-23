@@ -163,7 +163,14 @@ final class Setup {
 			// розриватись на кінці рядка.
 			'woocommerce_price_thousand_sep'           => "\u{00A0}",
 			'woocommerce_price_decimal_sep'            => ',',
-			'woocommerce_price_num_decimals'           => 0,
+			/*
+			 * Дві цифри після коми, хоч гривневі ціни цілі. Це не про
+			 * показ, а про точність: англійська версія рахує в євро,
+			 * і з нулем WooCommerce округлював би 14,17 € до 14 —
+			 * не на екрані, а в самому замовленні. Гривню без копійок
+			 * малює вже форматування.
+			 */
+			'woocommerce_price_num_decimals'           => 2,
 			'woocommerce_weight_unit'                  => 'kg',
 			'woocommerce_dimension_unit'               => 'cm',
 			'woocommerce_allowed_countries'            => 'specific',

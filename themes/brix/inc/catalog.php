@@ -408,10 +408,15 @@ function brix_apply_price_filter( WP_Query $query ): void {
 	 * MySQL зводить значення до DECIMAL, і PHP_INT_MAX там переповнює
 	 * тип — умова мовчки перестає відсікати будь-що.
 	 */
+	/*
+	 * Покупець вводить суму тією валютою, яку бачить, а в базі
+	 * лежить гривня. Англійською «до 15» означає 15 євро — без
+	 * переведення фільтр відсік би все, що дорожче за 15 гривень.
+	 */
 	if ( isset( $range['min'] ) ) {
 		$meta_query[] = array(
 			'key'     => '_price',
-			'value'   => $range['min'],
+			'value'   => brix_store_amount( (float) $range['min'] ),
 			'type'    => 'NUMERIC',
 			'compare' => '>=',
 		);
@@ -420,7 +425,7 @@ function brix_apply_price_filter( WP_Query $query ): void {
 	if ( isset( $range['max'] ) ) {
 		$meta_query[] = array(
 			'key'     => '_price',
-			'value'   => $range['max'],
+			'value'   => brix_store_amount( (float) $range['max'] ),
 			'type'    => 'NUMERIC',
 			'compare' => '<=',
 		);

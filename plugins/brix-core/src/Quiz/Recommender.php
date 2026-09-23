@@ -9,6 +9,8 @@ declare( strict_types=1 );
 
 namespace Brix\Core\Quiz;
 
+use Brix\Core\I18n\Currency;
+
 use Brix\Core\Product\LotMeta;
 use Brix\Core\Taxonomies\Registrar as Tax;
 
@@ -248,6 +250,16 @@ final class Recommender {
 		$chosen = (array) ( $answers['budget'] ?? array() );
 		$option = Questions::get( 'budget' )['options'][ reset( $chosen ) ] ?? null;
 
-		return is_array( $option ) && isset( $option['price'] ) ? (int) $option['price'] : null;
+		if ( ! is_array( $option ) || ! isset( $option['price'] ) ) {
+			return null;
+		}
+
+		/*
+		 * Стеля зберігається в гривні, а ціни лотів на цьому кроці вже
+		 * переведені у валюту показу. Без переведення стелі англійська
+		 * версія порівнювала б євро з гривнями — і бюджет переставав
+		 * впливати на порядок узагалі.
+		 */
+		return (int) round( Currency::amount( (float) $option['price'] ) );
 	}
 }

@@ -335,10 +335,18 @@ function brix_variation_grams( WC_Product $variation ): int {
 			}
 		}
 
-		if ( preg_match( '/([\d.,]+)\s*(кг|г)\b/u', $value, $match ) ) {
+		/*
+		 * Одиниці двома мовами: назва терміна під /en/ приходить уже
+		 * перекладеною, «250 g» замість «250 г». Поки тут стояла сама
+		 * кирилиця, англійська версія мовчки рахувала нуль грамів —
+		 * і разом з вагою зникали ціна за кілограм на сторінці
+		 * прозорості й мінімум 5 кг для оптовиків.
+		 */
+		if ( preg_match( '/([\d.,]+)\s*(кг|kg|г|g)\b/ui', $value, $match ) ) {
 			$number = (float) str_replace( ',', '.', $match[1] );
+			$kilos  = in_array( mb_strtolower( $match[2] ), array( 'кг', 'kg' ), true );
 
-			return (int) round( 'кг' === $match[2] ? $number * 1000 : $number );
+			return (int) round( $kilos ? $number * 1000 : $number );
 		}
 	}
 

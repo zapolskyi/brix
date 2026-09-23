@@ -133,3 +133,26 @@ function brix_t( string $text ): string {
 	/** This filter is documented in brix-core/src/Shipping/Pickup.php */
 	return (string) apply_filters( 'brix_translate', $text );
 }
+
+/**
+ * Сума з екрана назад у валюту бази.
+ *
+ * @param float $amount Сума у валюті показу.
+ * @return float
+ */
+function brix_store_amount( float $amount ): float {
+	return class_exists( '\Brix\Core\I18n\Currency' )
+		? \Brix\Core\I18n\Currency::to_store( $amount )
+		: $amount;
+}
+
+/**
+ * Символ валюти, якою зараз показуються ціни.
+ *
+ * @return string
+ */
+function brix_currency_symbol(): string {
+	return function_exists( 'get_woocommerce_currency_symbol' )
+		? html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' )
+		: '';
+}

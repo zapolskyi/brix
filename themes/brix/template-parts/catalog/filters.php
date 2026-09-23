@@ -117,12 +117,28 @@ $brix_total   = (int) wc_get_loop_prop( 'total' );
 
 		<div class="brix-filters__price">
 			<label class="brix-field">
-				<span class="brix-field__label"><?php esc_html_e( 'від, ₴', 'brix' ); ?></span>
+				<span class="brix-field__label">
+					<?php
+					printf(
+						/* translators: %s — символ валюти. */
+						esc_html__( 'від, %s', 'brix' ),
+						esc_html( brix_currency_symbol() )
+					);
+					?>
+				</span>
 				<input class="brix-input" type="number" name="price_min" min="0" step="10"
 					value="<?php echo esc_attr( (string) ( $brix_price['min'] ?? '' ) ); ?>">
 			</label>
 			<label class="brix-field">
-				<span class="brix-field__label"><?php esc_html_e( 'до, ₴', 'brix' ); ?></span>
+				<span class="brix-field__label">
+					<?php
+					printf(
+						/* translators: %s — символ валюти. */
+						esc_html__( 'до, %s', 'brix' ),
+						esc_html( brix_currency_symbol() )
+					);
+					?>
+				</span>
 				<input class="brix-input" type="number" name="price_max" min="0" step="10"
 					value="<?php echo esc_attr( (string) ( $brix_price['max'] ?? '' ) ); ?>">
 			</label>

@@ -40,7 +40,15 @@ $brix_rows = brix_transparency_rows();
 							<th scope="col"><?php esc_html_e( 'Країна', 'brix' ); ?></th>
 							<th scope="col"><?php esc_html_e( 'Виробник', 'brix' ); ?></th>
 							<th scope="col" class="brix-table__num"><?php esc_html_e( 'Ціна фермеру, $/кг', 'brix' ); ?></th>
-							<th scope="col" class="brix-table__num"><?php esc_html_e( 'Наша ціна, ₴/кг', 'brix' ); ?></th>
+							<th scope="col" class="brix-table__num">
+								<?php
+								printf(
+									/* translators: %s — символ валюти магазину. */
+									esc_html__( 'Наша ціна, %s/кг', 'brix' ),
+									esc_html( html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' ) )
+								);
+								?>
+							</th>
 							<th scope="col" class="brix-table__num"><?php esc_html_e( '°Bx', 'brix' ); ?></th>
 						</tr>
 					</thead>

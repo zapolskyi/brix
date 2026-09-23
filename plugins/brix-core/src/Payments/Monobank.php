@@ -30,9 +30,20 @@ final class Monobank extends \WC_Payment_Gateway {
 	private const API = 'https://api.monobank.ua/api/merchant';
 
 	/**
-	 * Код гривні за ISO 4217.
+	 * Коди валют за ISO 4217.
+	 *
+	 * monobank чекає число, а не літерний код. Валюта береться з
+	 * замовлення, а не з налаштувань магазину: англійська версія
+	 * рахує в євро, і лічильник «620 копійок» замість «12,92 €»
+	 * списав би з картки не ту суму й не ту валюту.
+	 *
+	 * @var array<string, int>
 	 */
-	private const UAH = 980;
+	private const CURRENCIES = array(
+		'UAH' => 980,
+		'EUR' => 978,
+		'USD' => 840,
+	);
 
 	/**
 	 * Скільки живе інвойс, секунд.
@@ -150,6 +161,18 @@ final class Monobank extends \WC_Payment_Gateway {
 	}
 
 	/**
+	 * Числовий код валюти замовлення.
+	 *
+	 * @param \WC_Order $order Замовлення.
+	 * @return int
+	 */
+	private static function currency_code( \WC_Order $order ): int {
+		$currency = strtoupper( (string) $order->get_currency() );
+
+		return self::CURRENCIES[ $currency ] ?? self::CURRENCIES['UAH'];
+	}
+
+	/**
 	 * Запит на створення інвойсу.
 	 *
 	 * @param \WC_Order $order Замовлення.
@@ -157,9 +180,9 @@ final class Monobank extends \WC_Payment_Gateway {
 	 */
 	private function create_invoice( \WC_Order $order ) {
 		$body = array(
-			// API рахує в копійках: 620,00 ₴ — це 62000.
+			// API рахує в сотих: 620,00 ₴ — це 62000, 12,92 € — це 1292.
 			'amount'           => (int) round( (float) $order->get_total() * 100 ),
-			'ccy'              => self::UAH,
+			'ccy'              => self::currency_code( $order ),
 			'merchantPaymInfo' => array(
 				'reference'   => (string) $order->get_id(),
 				'destination' => sprintf(

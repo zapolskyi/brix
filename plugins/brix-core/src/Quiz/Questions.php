@@ -9,6 +9,8 @@ declare( strict_types=1 );
 
 namespace Brix\Core\Quiz;
 
+use Brix\Core\I18n\Currency;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -191,11 +193,20 @@ final class Questions {
 				'multiple' => false,
 				'options'  => array(
 					'low' => array(
-						'label' => __( 'До 600 ₴', 'brix-core' ),
+						/*
+						 * Суми в гривні, підпис — валютою показу.
+						 * Англійська версія рахує в євро, і «До 600 ₴»
+						 * там означало б бюджет, якого не існує.
+						 */
+						'label' => sprintf(
+							/* translators: %s — сума з валютою. */
+							__( 'До %s', 'brix-core' ),
+							Currency::money( 600 )
+						),
 						'price' => 600,
 					),
 					'mid' => array(
-						'label' => __( '600–900 ₴', 'brix-core' ),
+						'label' => Currency::money( 600 ) . '–' . Currency::money( 900 ),
 						'price' => 900,
 					),
 					'any' => array(

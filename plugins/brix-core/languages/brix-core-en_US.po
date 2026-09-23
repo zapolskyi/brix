@@ -236,7 +236,7 @@ msgstr "Goal"
 
 #: src/Fields/GuideFields.php:130
 #: src/Payments/LiqPay.php:79
-#: src/Payments/Monobank.php:83
+#: src/Payments/Monobank.php:94
 msgid "Опис"
 msgstr "Description"
 
@@ -447,7 +447,7 @@ msgid "Оплата карткою на стороні LiqPay. Платіжні 
 msgstr "Card payment on LiqPay’s side. Card details never reach this site."
 
 #: src/Payments/LiqPay.php:67
-#: src/Payments/Monobank.php:69
+#: src/Payments/Monobank.php:80
 msgid "Увімкнено"
 msgstr "Enabled"
 
@@ -456,7 +456,7 @@ msgid "Приймати оплату карткою через LiqPay"
 msgstr "Accept card payments through LiqPay"
 
 #: src/Payments/LiqPay.php:73
-#: src/Payments/Monobank.php:75
+#: src/Payments/Monobank.php:86
 msgid "Назва для покупця"
 msgstr "Name shown to the customer"
 
@@ -505,51 +505,51 @@ msgid "Перейти до оплати"
 msgstr "Go to payment"
 
 #: src/Payments/LiqPay.php:195
-#: src/Payments/Monobank.php:167
+#: src/Payments/Monobank.php:190
 msgid "Замовлення №%s у BRIX 22°"
 msgstr "Order No. %s at BRIX 22°"
 
-#: src/Payments/Monobank.php:47
+#: src/Payments/Monobank.php:58
 msgid "monobank"
 msgstr "monobank"
 
-#: src/Payments/Monobank.php:48
+#: src/Payments/Monobank.php:59
 msgid "Оплата карткою на стороні monobank. Платіжні дані на сайт не потрапляють."
 msgstr "Card payment on monobank’s side. Card details never reach this site."
 
-#: src/Payments/Monobank.php:71
+#: src/Payments/Monobank.php:82
 msgid "Приймати оплату карткою через monobank"
 msgstr "Accept card payments through monobank"
 
-#: src/Payments/Monobank.php:80
+#: src/Payments/Monobank.php:91
 msgid "Картка · Apple Pay · Google Pay"
 msgstr "Card · Apple Pay · Google Pay"
 
-#: src/Payments/Monobank.php:85
+#: src/Payments/Monobank.php:96
 msgid "Оплата карткою на захищеній сторінці monobank. Apple Pay і Google Pay теж працюють."
 msgstr "Card payment on monobank’s secure page. Apple Pay and Google Pay work too."
 
-#: src/Payments/Monobank.php:88
+#: src/Payments/Monobank.php:99
 msgid "Токен продавця"
 msgstr "Merchant token"
 
-#: src/Payments/Monobank.php:92
+#: src/Payments/Monobank.php:103
 msgid "Тестовий токен видають на %s. Без токена спосіб оплати не показується покупцям."
 msgstr "A test token is issued at %s. Without one the payment method is not shown to customers."
 
-#: src/Payments/Monobank.php:132
+#: src/Payments/Monobank.php:143
 msgid "monobank не створив інвойс: %s"
 msgstr "monobank did not create an invoice: %s"
 
-#: src/Payments/Monobank.php:137
+#: src/Payments/Monobank.php:148
 msgid "Не вдалося перейти до оплати. Спробуйте ще раз або оберіть інший спосіб."
 msgstr "We could not take you to payment. Try again or pick another method."
 
-#: src/Payments/Monobank.php:143
+#: src/Payments/Monobank.php:154
 msgid "Очікуємо оплату через monobank."
 msgstr "Waiting for payment through monobank."
 
-#: src/Payments/Monobank.php:227
+#: src/Payments/Monobank.php:250
 msgid "шт"
 msgstr "pcs"
 
@@ -688,147 +688,143 @@ msgstr "Altitude"
 msgid "Обробка"
 msgstr "Process"
 
-#: src/Quiz/Questions.php:73
+#: src/Quiz/Questions.php:75
 msgid "Як ви найчастіше заварюєте вдома?"
 msgstr "How do you usually brew at home?"
 
-#: src/Quiz/Questions.php:74
+#: src/Quiz/Questions.php:76
 msgid "Від цього залежить помел, з яким приїде кава."
 msgstr "This decides the grind your coffee arrives with."
 
-#: src/Quiz/Questions.php:78
+#: src/Quiz/Questions.php:80
 msgid "V60 або інша лійка"
 msgstr "V60 or another pour-over"
 
-#: src/Quiz/Questions.php:82
+#: src/Quiz/Questions.php:84
 msgid "Еспресо-машина"
 msgstr "Espresso machine"
 
-#: src/Quiz/Questions.php:86
+#: src/Quiz/Questions.php:88
 msgid "Aeropress"
 msgstr "Aeropress"
 
-#: src/Quiz/Questions.php:90
+#: src/Quiz/Questions.php:92
 msgid "Френч-прес"
 msgstr "French press"
 
-#: src/Quiz/Questions.php:94
+#: src/Quiz/Questions.php:96
 msgid "Турка"
 msgstr "Cezve"
 
-#: src/Quiz/Questions.php:101
+#: src/Quiz/Questions.php:103
 msgid "Молоко додаєте?"
 msgstr "Do you add milk?"
 
-#: src/Quiz/Questions.php:102
+#: src/Quiz/Questions.php:104
 msgid "Молоко глушить кислотність, тож під нього беруть щільніші лоти."
 msgstr "Milk mutes acidity, so denser lots suit it better."
 
-#: src/Quiz/Questions.php:106
+#: src/Quiz/Questions.php:108
 msgid "Ніколи"
 msgstr "Never"
 
-#: src/Quiz/Questions.php:111
+#: src/Quiz/Questions.php:113
 msgid "Інколи"
 msgstr "Sometimes"
 
-#: src/Quiz/Questions.php:116
+#: src/Quiz/Questions.php:118
 msgid "Завжди"
 msgstr "Always"
 
-#: src/Quiz/Questions.php:124
+#: src/Quiz/Questions.php:126
 msgid "Що вам ближче у чашці?"
 msgstr "What do you like in the cup?"
 
-#: src/Quiz/Questions.php:125
+#: src/Quiz/Questions.php:127
 msgid "Можна обрати до двох варіантів."
 msgstr "You can pick up to two options."
 
-#: src/Quiz/Questions.php:130
+#: src/Quiz/Questions.php:132
 msgid "Ягоди й квіти"
 msgstr "Berries and flowers"
 
-#: src/Quiz/Questions.php:135
+#: src/Quiz/Questions.php:137
 msgid "Цитрус і чай"
 msgstr "Citrus and tea"
 
-#: src/Quiz/Questions.php:140
+#: src/Quiz/Questions.php:142
 msgid "Шоколад і горіхи"
 msgstr "Chocolate and nuts"
 
-#: src/Quiz/Questions.php:145
+#: src/Quiz/Questions.php:147
 msgid "Спеції й сухофрукти"
 msgstr "Spices and dried fruit"
 
-#: src/Quiz/Questions.php:153
+#: src/Quiz/Questions.php:155
 msgid "Яка кислотність вам смакує?"
 msgstr "What acidity do you enjoy?"
 
-#: src/Quiz/Questions.php:154
+#: src/Quiz/Questions.php:156
 msgid "Яскрава — це відчуття соковитості, а не кислоти."
 msgstr "Bright means juicy, not sour."
 
-#: src/Quiz/Questions.php:158
+#: src/Quiz/Questions.php:160
 msgid "Мʼяка"
 msgstr "Soft"
 
-#: src/Quiz/Questions.php:162
+#: src/Quiz/Questions.php:164
 msgid "Середня"
 msgstr "Medium"
 
-#: src/Quiz/Questions.php:166
+#: src/Quiz/Questions.php:168
 msgid "Яскрава"
 msgstr "Bright"
 
-#: src/Quiz/Questions.php:173
+#: src/Quiz/Questions.php:175
 msgid "Наскільки солодкою має бути чашка?"
 msgstr "How sweet should the cup be?"
 
-#: src/Quiz/Questions.php:174
+#: src/Quiz/Questions.php:176
 msgid "Йдеться про власну солодкість зерна, а не про цукор."
 msgstr "We mean the bean’s own sweetness, not sugar."
 
-#: src/Quiz/Questions.php:178
+#: src/Quiz/Questions.php:180
 msgid "Збалансовано"
 msgstr "Balanced"
 
-#: src/Quiz/Questions.php:182
+#: src/Quiz/Questions.php:184
 msgid "Чим солодше, тим краще"
 msgstr "The sweeter the better"
 
-#: src/Quiz/Questions.php:189
+#: src/Quiz/Questions.php:191
 msgid "Який бюджет на пачку 250 г?"
 msgstr "What is your budget for a 250 g bag?"
 
-#: src/Quiz/Questions.php:190
+#: src/Quiz/Questions.php:192
 msgid "Це не відсіє лоти, лише вплине на порядок."
 msgstr "This will not rule lots out, only change their order."
 
-#: src/Quiz/Questions.php:194
-msgid "До 600 ₴"
-msgstr "Up to 600 ₴"
+#: src/Quiz/Questions.php:203
+msgid "До %s"
+msgstr "Up to %s"
 
-#: src/Quiz/Questions.php:198
-msgid "600–900 ₴"
-msgstr "600–900 ₴"
-
-#: src/Quiz/Questions.php:202
+#: src/Quiz/Questions.php:213
 msgid "Без обмежень"
 msgstr "No limit"
 
-#: src/Quiz/Recommender.php:206
+#: src/Quiz/Recommender.php:208
 msgid "Найяскравіша кислотність"
 msgstr "The brightest acidity"
 
-#: src/Quiz/Recommender.php:210
+#: src/Quiz/Recommender.php:212
 msgid "Тримає молоко"
 msgstr "Holds up to milk"
 
-#: src/Quiz/Recommender.php:214
+#: src/Quiz/Recommender.php:216
 msgid "Найсолодший у добірці"
 msgstr "The sweetest of the three"
 
-#: src/Quiz/Recommender.php:217
+#: src/Quiz/Recommender.php:219
 msgid "Наймʼякший варіант"
 msgstr "The softest option"
 

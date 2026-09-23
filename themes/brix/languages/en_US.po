@@ -248,15 +248,15 @@ msgstr "soft"
 msgid "яскрава"
 msgstr "bright"
 
-#: inc/catalog.php:444
+#: inc/catalog.php:449
 msgid "%s товар"
 msgstr "%s product"
 
-#: inc/catalog.php:444
+#: inc/catalog.php:449
 msgid "%s товари"
 msgstr "%s products"
 
-#: inc/catalog.php:444
+#: inc/catalog.php:449
 msgid "%s товарів"
 msgstr "%s products"
 
@@ -680,23 +680,23 @@ msgstr "Producer"
 msgid "Ціна фермеру, $/кг"
 msgstr "Price to the farmer, $/kg"
 
-#: page-transparency.php:43
-msgid "Наша ціна, ₴/кг"
-msgstr "Our price, ₴/kg"
+#: page-transparency.php:47
+msgid "Наша ціна, %s/кг"
+msgstr "Our price, %s/kg"
 
-#: page-transparency.php:44
+#: page-transparency.php:52
 msgid "°Bx"
 msgstr "°Bx"
 
-#: page-transparency.php:74
+#: page-transparency.php:82
 msgid "Ціна фермеру — FOB, тобто вартість зеленої кави з доставкою в порт відправлення. У нашу ціну поверх неї входять логістика, мито, втрата ваги при обсмаженні (близько 16%), пакування, податки й робота."
 msgstr "The price to the farmer is FOB, that is the cost of green coffee delivered to the port of departure. On top of it our price covers logistics, duty, weight loss in roasting (about 16%), packaging, taxes and labour."
 
-#: page-transparency.php:78
+#: page-transparency.php:86
 msgid "Даних поки немає"
 msgstr "No data yet"
 
-#: page-transparency.php:79
+#: page-transparency.php:87
 msgid "Таблиця заповнюється з паспортів лотів. Щойно в каталозі зʼявляться лоти з ціною фермеру — вони будуть тут."
 msgstr "The table is filled from lot passports. As soon as the catalogue has lots with a farmer price, they will be here."
 
@@ -968,19 +968,19 @@ msgstr "Close filters"
 msgid "Ціна"
 msgstr "Price"
 
-#: template-parts/catalog/filters.php:120
-msgid "від, ₴"
-msgstr "from, ₴"
+#: template-parts/catalog/filters.php:124
+msgid "від, %s"
+msgstr "from, %s"
 
-#: template-parts/catalog/filters.php:125
-msgid "до, ₴"
-msgstr "to, ₴"
+#: template-parts/catalog/filters.php:137
+msgid "до, %s"
+msgstr "to, %s"
 
-#: template-parts/catalog/filters.php:134
+#: template-parts/catalog/filters.php:150
 msgid "Тільки в наявності"
 msgstr "In stock only"
 
-#: template-parts/catalog/filters.php:169
+#: template-parts/catalog/filters.php:185
 msgid "Показати %s"
 msgstr "Show %s"
 

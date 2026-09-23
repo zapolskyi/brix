@@ -55,7 +55,7 @@ function brix_transparency_rows(): array {
 			'country'  => is_array( $country ) ? $country[0]->name : '—',
 			'farm'     => $farm ? get_the_title( $farm ) : '—',
 			'farm_url' => $farm ? (string) get_permalink( $farm ) : '',
-			'fob'      => $lot && null !== $lot->farmer_price ? '$' . number_format( $lot->farmer_price, 2, ',', ' ' ) : '—',
+			'fob'      => $lot && null !== $lot->farmer_price ? brix_dollars( $lot->farmer_price ) : '—',
 			'retail'   => brix_price_per_kilo_label( $product ),
 			'brix'     => $lot && null !== $lot->brix ? (string) $lot->brix : '—',
 		);
@@ -100,8 +100,26 @@ function brix_price_per_kilo_label( WC_Product $product ): string {
 
 		$per_kilo = (float) $variation->get_price() / ( $grams / 1000 );
 
-		return wp_strip_all_tags( wc_price( round( $per_kilo ) ) );
+		// Округлення до точності валюти: у гривні копійок немає, в
+		// євро без центів 12,92 перетворилось би на 13.
+		return wp_strip_all_tags( wc_price( round( $per_kilo, wc_get_price_decimals() ) ) );
 	}
 
 	return '—';
+}
+
+/**
+ * Ціна фермеру в доларах, розділювачі — за мовою сторінки.
+ *
+ * FOB завжди в доларах, тож wc_price() тут не годиться: він малює
+ * валюту магазину. А розділювачі числа мовно залежні — «24,50»
+ * українською й «24.50» англійською.
+ *
+ * @param float $amount Сума.
+ * @return string
+ */
+function brix_dollars( float $amount ): string {
+	$english = function_exists( 'brix_is_en' ) && brix_is_en();
+
+	return '$' . number_format( $amount, 2, $english ? '.' : ',', $english ? ',' : ' ' );
 }

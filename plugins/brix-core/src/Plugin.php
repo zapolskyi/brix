@@ -121,6 +121,7 @@ final class Plugin {
 				I18n\Language::class,
 				I18n\Translations::class,
 				I18n\Emails::class,
+				I18n\Currency::class,
 				PostTypes\Farm::class,
 				PostTypes\BrewGuide::class,
 				Taxonomies\Registrar::class,
