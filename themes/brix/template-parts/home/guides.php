@@ -41,11 +41,11 @@ if ( ! $brix_guides ) {
 						$brix_bits = array();
 
 						if ( $brix_dose ) {
-							$brix_bits[] = $brix_dose . ' г';
+							$brix_bits[] = $brix_dose . __( ' г', 'brix' );
 						}
 
 						if ( $brix_water ) {
-							$brix_bits[] = $brix_water . ' мл';
+							$brix_bits[] = $brix_water . __( ' мл', 'brix' );
 						}
 
 						if ( $brix_temp ) {

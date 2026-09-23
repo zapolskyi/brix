@@ -19,6 +19,7 @@ define( 'BRIX_DIR', get_template_directory() );
 define( 'BRIX_URI', get_template_directory_uri() );
 
 require_once BRIX_DIR . '/inc/helpers.php';
+require_once BRIX_DIR . '/inc/i18n.php';
 require_once BRIX_DIR . '/inc/setup.php';
 require_once BRIX_DIR . '/inc/enqueue.php';
 require_once BRIX_DIR . '/inc/blocks.php';

@@ -41,9 +41,7 @@ defined( 'ABSPATH' ) || exit;
 	</nav>
 
 	<div class="brix-header__actions">
-		<span class="brix-lang" aria-label="<?php esc_attr_e( 'Мова сайту', 'brix' ); ?>">
-			<b><?php esc_html_e( 'UA', 'brix' ); ?></b> / EN
-		</span>
+		<?php brix_language_switcher(); ?>
 
 		<?php
 		/*

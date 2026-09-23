@@ -9,8 +9,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$brix_heading = (string) ( $attributes['heading'] ?? '' );
-$brix_accent  = (string) ( $attributes['accent'] ?? '' );
+$brix_heading = brix_t( (string) ( $attributes['heading'] ?? '' ) );
+$brix_accent  = brix_t( (string) ( $attributes['accent'] ?? '' ) );
 $brix_product = ! empty( $attributes['showLot'] ) ? brix_featured_lot() : null;
 $brix_lot     = $brix_product ? brix_lot( $brix_product ) : null;
 
@@ -33,7 +33,7 @@ if ( '' !== $brix_accent && str_contains( $brix_heading, $brix_accent ) ) {
 <section <?php echo get_block_wrapper_attributes( array( 'class' => 'brix-hero' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 	<div class="brix-hero__text">
 		<?php if ( ! empty( $attributes['label'] ) ) : ?>
-			<p class="brix-label"><?php echo esc_html( $attributes['label'] ); ?></p>
+			<p class="brix-label"><?php echo esc_html( brix_t( $attributes['label'] ) ); ?></p>
 		<?php endif; ?>
 
 		<h1 class="brix-hero__title brix-display">
@@ -41,22 +41,22 @@ if ( '' !== $brix_accent && str_contains( $brix_heading, $brix_accent ) ) {
 		</h1>
 
 		<?php if ( ! empty( $attributes['text'] ) ) : ?>
-			<p class="brix-lead brix-hero__lead"><?php echo esc_html( $attributes['text'] ); ?></p>
+			<p class="brix-lead brix-hero__lead"><?php echo esc_html( brix_t( $attributes['text'] ) ); ?></p>
 		<?php endif; ?>
 
 		<div class="brix-hero__actions">
 			<?php if ( ! empty( $attributes['primaryLabel'] ) ) : ?>
-				<?php $brix_primary_url = ! empty( $attributes['primaryUrl'] ) ? $attributes['primaryUrl'] : (string) wc_get_page_permalink( 'shop' ); ?>
+				<?php $brix_primary_url = ! empty( $attributes['primaryUrl'] ) ? brix_local_url( $attributes['primaryUrl'] ) : (string) wc_get_page_permalink( 'shop' ); ?>
 				<a class="brix-btn brix-btn--xl" href="<?php echo esc_url( $brix_primary_url ); ?>">
-					<?php echo esc_html( $attributes['primaryLabel'] ); ?>
+					<?php echo esc_html( brix_t( $attributes['primaryLabel'] ) ); ?>
 					<?php echo brix_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</a>
 			<?php endif; ?>
 
 			<?php if ( ! empty( $attributes['secondaryLabel'] ) ) : ?>
-				<?php $brix_secondary_url = ! empty( $attributes['secondaryUrl'] ) ? $attributes['secondaryUrl'] : brix_page_url( 'quiz' ); ?>
+				<?php $brix_secondary_url = ! empty( $attributes['secondaryUrl'] ) ? brix_local_url( $attributes['secondaryUrl'] ) : brix_page_url( 'quiz' ); ?>
 				<a class="brix-btn brix-btn--xl brix-btn--outline" href="<?php echo esc_url( $brix_secondary_url ); ?>">
-					<?php echo esc_html( $attributes['secondaryLabel'] ); ?>
+					<?php echo esc_html( brix_t( $attributes['secondaryLabel'] ) ); ?>
 				</a>
 			<?php endif; ?>
 		</div>

@@ -1,0 +1,996 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: BRIX Core\n"
+"Report-Msgid-Bugs-To: https://github.com/nzapolskyi/brix22\n"
+"Last-Translator: Nazar Zapolskyi <nazar.zapolski@gmail.com>\n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: brix-core\n"
+
+#: brix-core.php:101
+msgid "BRIX Core потребує активного WooCommerce. Плагін завантажено, але його модулі вимкнені."
+msgstr "BRIX Core needs WooCommerce to be active. The plugin is loaded, but its modules are switched off."
+
+#: brix-core.php:117
+msgid "BRIX Core: не знайдено Secure Custom Fields. Паспорт лоту, дані виробників і кроки гайдів не можна редагувати, доки плагін не активний. Уже збережені дані на місці — сайт показує їх як і раніше."
+msgstr "BRIX Core: Secure Custom Fields not found. Lot passports, producer data and guide steps cannot be edited until that plugin is active. Data already saved is intact — the site shows it as before."
+
+#: src/Cli/DemoContent.php:207
+msgid "Вага"
+msgstr "Weight"
+
+#: src/Cli/DemoContent.php:208
+#: src/Fields/GuideFields.php:77
+msgid "Помел"
+msgstr "Grind"
+
+#: src/Club/Actions.php:82
+msgid "Ця підписка недоступна."
+msgstr "This subscription is unavailable."
+
+#: src/Club/Actions.php:91
+msgid "Підписку поставлено на паузу. Відновити можна будь-коли."
+msgstr "The subscription is paused. You can resume it at any time."
+
+#: src/Club/Actions.php:97
+msgid "Підписку відновлено."
+msgstr "The subscription is back on."
+
+#: src/Club/Actions.php:103
+msgid "Найближчу відправку пропущено."
+msgstr "The next shipment has been skipped."
+
+#: src/Club/Actions.php:108
+msgid "Підписку скасовано. Лоти лишаються доступними в магазині."
+msgstr "The subscription is cancelled. The lots stay available in the shop."
+
+#: src/Club/Plan.php:82
+msgid "BRIX Club"
+msgstr "BRIX Club"
+
+#: src/Club/Plan.php:85
+msgid "кожні %1$d тижні, −%2$d%%"
+msgstr "every %1$d weeks, −%2$d%%"
+
+#: src/Club/Plan.php:186
+msgid "Створено %d підписку BRIX Club."
+msgid_plural "Створено %d підписки BRIX Club."
+msgstr[0] "Created %d BRIX Club subscription."
+msgstr[1] "Created %d BRIX Club subscriptions."
+
+#: src/Club/Scheduler.php:137
+msgid "Чергове замовлення BRIX Club."
+msgstr "The next BRIX Club order."
+
+#: src/Club/Subscription.php:62
+#: src/Club/Subscription.php:64
+msgid "Підписки"
+msgstr "Subscriptions"
+
+#: src/Club/Subscription.php:63
+msgid "Підписка"
+msgstr "Subscription"
+
+#: src/Club/Subscription.php:65
+msgid "Усі підписки"
+msgstr "All subscriptions"
+
+#: src/Club/Subscription.php:66
+msgid "Підписок немає"
+msgstr "No subscriptions"
+
+#: src/Club/Subscription.php:96
+msgid "%1$s (замовлення №%2$s)"
+msgstr "%1$s (order No. %2$s)"
+
+#: src/Emails/RestockReminder.php:124
+msgid "Три тижні тому ми відправили вам каву. Якщо пачка добігає кінця — свіже обсмаження вже на підході."
+msgstr "Three weeks ago we sent you coffee. If the bag is running out, a fresh roast is already on the way."
+
+#: src/Emails/RestockReminder.php:127
+msgid "Повторити замовлення"
+msgstr "Repeat order"
+
+#: src/Emails/RestockReminder.php:132
+#: src/Emails/RestockReminder.php:133
+msgid "Кава закінчується?"
+msgstr "Running low on coffee?"
+
+#: src/Emails/RestockReminder.php:137
+msgid "Надіслано нагадування «Кава закінчується?»."
+msgstr "The “Running low on coffee?” reminder has been sent."
+
+#: src/Fields/FarmFields.php:31
+msgid "Дані виробника"
+msgstr "Producer data"
+
+#: src/Fields/FarmFields.php:48
+msgid "Заголовок секції"
+msgstr "Section heading"
+
+#: src/Fields/FarmFields.php:57
+msgid "Господарств"
+msgstr "Farms"
+
+#: src/Fields/FarmFields.php:66
+msgid "Працюємо з"
+msgstr "Working together since"
+
+#: src/Fields/FarmFields.php:76
+#: src/Fields/LotFields.php:142
+#: src/Product/Schema.php:145
+msgid "Різновид"
+msgstr "Variety"
+
+#: src/Fields/FarmFields.php:85
+msgid "Ціна FOB, $/кг"
+msgstr "FOB price, $/kg"
+
+#: src/Fields/FarmFields.php:95
+msgid "Широта"
+msgstr "Latitude"
+
+#: src/Fields/FarmFields.php:99
+msgid "Так, як має бути надруковано."
+msgstr "Exactly as it should be printed."
+
+#: src/Fields/FarmFields.php:105
+msgid "Довгота"
+msgstr "Longitude"
+
+#: src/Fields/FarmFields.php:112
+msgid "Про місцевість"
+msgstr "About the area"
+
+#: src/Fields/FarmFields.php:115
+msgid "Як ми сюди потрапили"
+msgstr "How we got here"
+
+#: src/Fields/FarmFields.php:124
+msgid "Цитата"
+msgstr "Quote"
+
+#: src/Fields/FarmFields.php:133
+msgid "Хто сказав"
+msgstr "Who said it"
+
+#: src/Fields/FarmFields.php:142
+msgid "Рік на станції"
+msgstr "A year at the mill"
+
+#: src/Fields/FarmFields.php:145
+msgid "Від квітки до пачки. Порядок рядків — порядок на сторінці."
+msgstr "From blossom to bag. The order of the rows is the order on the page."
+
+#: src/Fields/FarmFields.php:147
+msgid "Додати етап"
+msgstr "Add a stage"
+
+#: src/Fields/FarmFields.php:149
+msgid "Період"
+msgstr "Period"
+
+#: src/Fields/FarmFields.php:150
+msgid "Що відбувається"
+msgstr "What happens"
+
+#: src/Fields/FarmFields.php:151
+msgid "Примітка"
+msgstr "Note"
+
+#: src/Fields/FarmFields.php:157
+msgid "Фото зі станції"
+msgstr "Photo from the mill"
+
+#: src/Fields/GuideFields.php:31
+msgid "Рецепт"
+msgstr "Recipe"
+
+#: src/Fields/GuideFields.php:48
+msgid "Кава, г"
+msgstr "Coffee, g"
+
+#: src/Fields/GuideFields.php:58
+msgid "Вода, мл"
+msgstr "Water, ml"
+
+#: src/Fields/GuideFields.php:67
+msgid "Температура, °C"
+msgstr "Temperature, °C"
+
+#: src/Fields/GuideFields.php:86
+msgid "Загальний час, с"
+msgstr "Total time, s"
+
+#: src/Fields/GuideFields.php:90
+msgid "У секундах: 3:00 — це 180."
+msgstr "In seconds: 3:00 is 180."
+
+#: src/Fields/GuideFields.php:96
+msgid "Кроки"
+msgstr "Steps"
+
+#: src/Fields/GuideFields.php:99
+msgid "Час кроку — секунди від старту. За ними йде таймер на сторінці."
+msgstr "A step’s time is seconds from the start. The timer on the page follows them."
+
+#: src/Fields/GuideFields.php:101
+msgid "Додати крок"
+msgstr "Add a step"
+
+#: src/Fields/GuideFields.php:105
+msgid "На секунді"
+msgstr "At second"
+
+#: src/Fields/GuideFields.php:114
+msgid "Назва"
+msgstr "Name"
+
+#: src/Fields/GuideFields.php:123
+msgid "Ціль"
+msgstr "Goal"
+
+#: src/Fields/GuideFields.php:130
+#: src/Payments/LiqPay.php:79
+#: src/Payments/Monobank.php:83
+msgid "Опис"
+msgstr "Description"
+
+#: src/Fields/GuideFields.php:136
+msgid "Підказка · заголовок"
+msgstr "Tip · heading"
+
+#: src/Fields/GuideFields.php:145
+msgid "Підказка · текст"
+msgstr "Tip · text"
+
+#: src/Fields/GuideFields.php:154
+msgid "Що знадобиться"
+msgstr "What you will need"
+
+#: src/Fields/GuideFields.php:160
+msgid "Товари з категорії Gear. Показуються блоком під рецептом."
+msgstr "Products from the Gear category. Shown in a block under the recipe."
+
+#: src/Fields/LotFields.php:35
+msgid "Паспорт лоту"
+msgstr "Lot passport"
+
+#: src/Fields/LotFields.php:42
+msgid "Дані, які показуються в картці товару, каталозі, квізі й на сторінці «Прозорість»."
+msgstr "The data shown on the product page, in the catalogue, in the quiz and on the Transparency page."
+
+#: src/Fields/LotFields.php:55
+msgid "Походження"
+msgstr "Origin"
+
+#: src/Fields/LotFields.php:57
+msgid "Смак"
+msgstr "Flavour"
+
+#: src/Fields/LotFields.php:59
+msgid "Закупівля і свіжість"
+msgstr "Purchase and freshness"
+
+#: src/Fields/LotFields.php:90
+msgid "Код лоту"
+msgstr "Lot code"
+
+#: src/Fields/LotFields.php:94
+msgid "Стоїть у заголовку паспорта й на пачці. Порожній код означає, що товар не є лотом."
+msgstr "Appears in the passport heading and on the bag. An empty code means the product is not a lot."
+
+#: src/Fields/LotFields.php:100
+#: src/PostTypes/Farm.php:49
+msgid "Виробник"
+msgstr "Producer"
+
+#: src/Fields/LotFields.php:106
+msgid "Звідси ж будується зворотний список «лоти цієї ферми»."
+msgstr "The reverse list, “lots from this farm”, is built from here too."
+
+#: src/Fields/LotFields.php:112
+msgid "Регіон"
+msgstr "Region"
+
+#: src/Fields/LotFields.php:121
+msgid "Висота від, м"
+msgstr "Altitude from, m"
+
+#: src/Fields/LotFields.php:131
+msgid "Висота до, м"
+msgstr "Altitude to, m"
+
+#: src/Fields/LotFields.php:136
+msgid "У каталозі показується середина діапазону."
+msgstr "The catalogue shows the middle of the range."
+
+#: src/Fields/LotFields.php:151
+msgid "Урожай"
+msgstr "Harvest"
+
+#: src/Fields/LotFields.php:160
+msgid "Днів обробки"
+msgstr "Days of processing"
+
+#: src/Fields/LotFields.php:165
+msgid "Показується поруч з обробкою: «Natural, 18 днів»."
+msgstr "Shown next to the process: “Natural, 18 days”."
+
+#: src/Fields/LotFields.php:179
+#: src/Product/Lot.php:328
+msgid "Кислотність"
+msgstr "Acidity"
+
+#: src/Fields/LotFields.php:180
+#: src/Product/Lot.php:329
+msgid "Солодкість"
+msgstr "Sweetness"
+
+#: src/Fields/LotFields.php:181
+#: src/Product/Lot.php:330
+msgid "Тіло"
+msgstr "Body"
+
+#: src/Fields/LotFields.php:182
+#: src/Product/Lot.php:331
+msgid "Інтенсивність"
+msgstr "Intensity"
+
+#: src/Fields/LotFields.php:183
+#: src/Product/Lot.php:332
+msgid "Фруктовість"
+msgstr "Fruitiness"
+
+#: src/Fields/LotFields.php:205
+msgid "Ступінь обсмаження"
+msgstr "Roast level"
+
+#: src/Fields/LotFields.php:212
+msgid "1 — світле, 5 — темне. Фільтра за ним немає, але за ним підбирає квіз."
+msgstr "1 is light, 5 is dark. There is no filter for it, but the quiz matches on it."
+
+#: src/Fields/LotFields.php:219
+msgid "Що це означає в чашці"
+msgstr "What that means in the cup"
+
+#: src/Fields/LotFields.php:223
+msgid "Пояснення людською мовою під шкалами смаку. Цифри замість епітетів."
+msgstr "A plain-language explanation under the flavour scales. Numbers instead of epithets."
+
+#: src/Fields/LotFields.php:229
+#: src/Product/Schema.php:149
+#: src/Taxonomies/Registrar.php:97
+msgid "Смакові ноти"
+msgstr "Tasting notes"
+
+#: src/Fields/LotFields.php:241
+msgid "Порядок має значення: перша нота — найпомітніша. Саме так вони стоять під назвою товару."
+msgstr "Order matters: the first note is the most prominent. That is how they sit under the product name."
+
+#: src/Fields/LotFields.php:247
+msgid "Рецепт під цей лот"
+msgstr "A recipe for this lot"
+
+#: src/Fields/LotFields.php:269
+msgid "Цукристість при зборі, °Bx"
+msgstr "Sugar content at picking, °Bx"
+
+#: src/Fields/LotFields.php:275
+msgid "Головне число бренду. Стоїть на печатці пачки й на шкалі стиглості."
+msgstr "The brand’s key number. It is on the bag stamp and on the ripeness scale."
+
+#: src/Fields/LotFields.php:281
+#: src/Product/Schema.php:133
+msgid "Оцінка SCA"
+msgstr "SCA score"
+
+#: src/Fields/LotFields.php:292
+msgid "Ціна фермеру, $/кг FOB"
+msgstr "Price to the farmer, $/kg FOB"
+
+#: src/Fields/LotFields.php:297
+msgid "З цього поля збирається сторінка «Прозорість»."
+msgstr "The Transparency page is built from this field."
+
+#: src/Fields/LotFields.php:303
+#: src/Product/Schema.php:153
+msgid "Дата обсмаження"
+msgstr "Roast date"
+
+#: src/Fields/LotFields.php:309
+msgid "Від неї рахується вікно свіжості: тиждень дегазації, далі три тижні піку."
+msgstr "The freshness window is counted from it: a week of degassing, then three weeks at peak."
+
+#: src/Fields/LotFields.php:315
+msgid "Лот тижня"
+msgstr "Lot of the week"
+
+#: src/Fields/LotFields.php:319
+msgid "Плашка в каталозі. Вмикати варто одному товару."
+msgstr "A badge in the catalogue. Worth switching on for one product only."
+
+#: src/Orders/Repeat.php:80
+msgid "Це замовлення недоступне."
+msgstr "This order is unavailable."
+
+#: src/Orders/Repeat.php:122
+msgid "Склад замовлення №%s у кошику."
+msgstr "The contents of order No. %s are in your cart."
+
+#: src/Orders/Repeat.php:133
+msgid "Цих лотів уже немає: %s. Свіжі партії — у магазині."
+msgstr "These lots are gone: %s. Fresh batches are in the shop."
+
+#: src/Payments/CashOnDelivery.php:57
+msgid "Максимальна сума замовлення"
+msgstr "Maximum order amount"
+
+#: src/Payments/CashOnDelivery.php:59
+msgid "Понад цю суму оплата при отриманні недоступна. Нуль вимикає обмеження."
+msgstr "Above this amount cash on delivery is unavailable. Zero switches the limit off."
+
+#: src/Payments/CashOnDelivery.php:131
+msgid "Оплата при отриманні доступна для замовлень до %s. Для більших сум лишається оплата карткою — так ми впевнені, що змелений під ваш рецепт лот дочекається саме вас."
+msgstr "Cash on delivery is available for orders up to %s. Above that, card payment remains — that way we know the lot ground for your recipe will wait for you and no one else."
+
+#: src/Payments/LiqPay.php:44
+msgid "LiqPay"
+msgstr "LiqPay"
+
+#: src/Payments/LiqPay.php:45
+msgid "Оплата карткою на стороні LiqPay. Платіжні дані на сайт не потрапляють."
+msgstr "Card payment on LiqPay’s side. Card details never reach this site."
+
+#: src/Payments/LiqPay.php:67
+#: src/Payments/Monobank.php:69
+msgid "Увімкнено"
+msgstr "Enabled"
+
+#: src/Payments/LiqPay.php:69
+msgid "Приймати оплату карткою через LiqPay"
+msgstr "Accept card payments through LiqPay"
+
+#: src/Payments/LiqPay.php:73
+#: src/Payments/Monobank.php:75
+msgid "Назва для покупця"
+msgstr "Name shown to the customer"
+
+#: src/Payments/LiqPay.php:75
+msgid "Картка онлайн"
+msgstr "Card online"
+
+#: src/Payments/LiqPay.php:76
+msgid "Якщо ввімкнено кілька карткових способів, назви мають відрізнятись."
+msgstr "If several card methods are enabled, their names must differ."
+
+#: src/Payments/LiqPay.php:81
+msgid "Visa, Mastercard, Apple Pay і Google Pay на захищеній сторінці LiqPay."
+msgstr "Visa, Mastercard, Apple Pay and Google Pay on LiqPay’s secure page."
+
+#: src/Payments/LiqPay.php:84
+msgid "Публічний ключ"
+msgstr "Public key"
+
+#: src/Payments/LiqPay.php:86
+msgid "З кабінету LiqPay. Тестовий ключ починається на sandbox_."
+msgstr "From your LiqPay account. A test key starts with sandbox_."
+
+#: src/Payments/LiqPay.php:90
+msgid "Приватний ключ"
+msgstr "Private key"
+
+#: src/Payments/LiqPay.php:95
+msgid "Тестовий режим"
+msgstr "Test mode"
+
+#: src/Payments/LiqPay.php:97
+msgid "Платежі не списують справжні гроші"
+msgstr "Payments do not charge real money"
+
+#: src/Payments/LiqPay.php:127
+msgid "Очікуємо оплату через LiqPay."
+msgstr "Waiting for payment through LiqPay."
+
+#: src/Payments/LiqPay.php:158
+msgid "Переходимо на захищену сторінку LiqPay…"
+msgstr "Taking you to LiqPay’s secure page…"
+
+#: src/Payments/LiqPay.php:170
+msgid "Перейти до оплати"
+msgstr "Go to payment"
+
+#: src/Payments/LiqPay.php:195
+#: src/Payments/Monobank.php:167
+msgid "Замовлення №%s у BRIX 22°"
+msgstr "Order No. %s at BRIX 22°"
+
+#: src/Payments/Monobank.php:47
+msgid "monobank"
+msgstr "monobank"
+
+#: src/Payments/Monobank.php:48
+msgid "Оплата карткою на стороні monobank. Платіжні дані на сайт не потрапляють."
+msgstr "Card payment on monobank’s side. Card details never reach this site."
+
+#: src/Payments/Monobank.php:71
+msgid "Приймати оплату карткою через monobank"
+msgstr "Accept card payments through monobank"
+
+#: src/Payments/Monobank.php:80
+msgid "Картка · Apple Pay · Google Pay"
+msgstr "Card · Apple Pay · Google Pay"
+
+#: src/Payments/Monobank.php:85
+msgid "Оплата карткою на захищеній сторінці monobank. Apple Pay і Google Pay теж працюють."
+msgstr "Card payment on monobank’s secure page. Apple Pay and Google Pay work too."
+
+#: src/Payments/Monobank.php:88
+msgid "Токен продавця"
+msgstr "Merchant token"
+
+#: src/Payments/Monobank.php:92
+msgid "Тестовий токен видають на %s. Без токена спосіб оплати не показується покупцям."
+msgstr "A test token is issued at %s. Without one the payment method is not shown to customers."
+
+#: src/Payments/Monobank.php:132
+msgid "monobank не створив інвойс: %s"
+msgstr "monobank did not create an invoice: %s"
+
+#: src/Payments/Monobank.php:137
+msgid "Не вдалося перейти до оплати. Спробуйте ще раз або оберіть інший спосіб."
+msgstr "We could not take you to payment. Try again or pick another method."
+
+#: src/Payments/Monobank.php:143
+msgid "Очікуємо оплату через monobank."
+msgstr "Waiting for payment through monobank."
+
+#: src/Payments/Monobank.php:227
+msgid "шт"
+msgstr "pcs"
+
+#: src/Payments/Registrar.php:156
+msgid "monobank повідомив статус «%s»."
+msgstr "monobank reported the status “%s”."
+
+#: src/Payments/Registrar.php:259
+msgid "LiqPay: тестовий платіж, гроші не списані."
+msgstr "LiqPay: test payment, no money charged."
+
+#: src/Payments/Registrar.php:277
+msgid "LiqPay повідомив статус «%s»."
+msgstr "LiqPay reported the status “%s”."
+
+#: src/PostTypes/BrewGuide.php:42
+msgid "Гайди заварювання"
+msgstr "Brewing guides"
+
+#: src/PostTypes/BrewGuide.php:43
+msgid "Гайд"
+msgstr "Guide"
+
+#: src/PostTypes/BrewGuide.php:44
+msgid "Додати гайд"
+msgstr "Add a guide"
+
+#: src/PostTypes/BrewGuide.php:45
+#: src/PostTypes/BrewGuide.php:47
+msgid "Новий гайд"
+msgstr "New guide"
+
+#: src/PostTypes/BrewGuide.php:46
+msgid "Редагувати гайд"
+msgstr "Edit guide"
+
+#: src/PostTypes/BrewGuide.php:48
+msgid "Переглянути гайд"
+msgstr "View guide"
+
+#: src/PostTypes/BrewGuide.php:49
+msgid "Шукати гайди"
+msgstr "Search guides"
+
+#: src/PostTypes/BrewGuide.php:50
+msgid "Гайдів немає"
+msgstr "No guides"
+
+#: src/PostTypes/BrewGuide.php:51
+#: src/PostTypes/Farm.php:57
+msgid "У кошику порожньо"
+msgstr "The bin is empty"
+
+#: src/PostTypes/BrewGuide.php:52
+msgid "Усі гайди"
+msgstr "All guides"
+
+#: src/PostTypes/BrewGuide.php:53
+msgid "Гайди"
+msgstr "Guides"
+
+#: src/PostTypes/Farm.php:48
+#: src/PostTypes/Farm.php:59
+msgid "Виробники"
+msgstr "Producers"
+
+#: src/PostTypes/Farm.php:50
+msgid "Додати виробника"
+msgstr "Add a producer"
+
+#: src/PostTypes/Farm.php:51
+#: src/PostTypes/Farm.php:53
+msgid "Новий виробник"
+msgstr "New producer"
+
+#: src/PostTypes/Farm.php:52
+msgid "Редагувати виробника"
+msgstr "Edit producer"
+
+#: src/PostTypes/Farm.php:54
+msgid "Переглянути виробника"
+msgstr "View producer"
+
+#: src/PostTypes/Farm.php:55
+msgid "Шукати виробників"
+msgstr "Search producers"
+
+#: src/PostTypes/Farm.php:56
+msgid "Виробників немає"
+msgstr "No producers"
+
+#: src/PostTypes/Farm.php:58
+msgid "Усі виробники"
+msgstr "All producers"
+
+#: src/Product/Freshness.php:122
+msgid "Дегазація"
+msgstr "Degassing"
+
+#: src/Product/Freshness.php:124
+msgid "Пік смаку"
+msgstr "Peak flavour"
+
+#: src/Product/Freshness.php:126
+msgid "Ще смачно"
+msgstr "Still good"
+
+#: src/Product/Freshness.php:128
+msgid "Краще взяти свіжіше"
+msgstr "Better to take something fresher"
+
+#: src/Product/Lot.php:105
+msgid "%s м"
+msgstr "%s m"
+
+#: src/Product/Lot.php:109
+msgid "%1$s–%2$s м"
+msgstr "%1$s–%2$s m"
+
+#: src/Product/Lot.php:250
+msgid "%s день"
+msgid_plural "%s днів"
+msgstr[0] "%s day"
+msgstr[1] "%s days"
+
+#: src/Product/Schema.php:129
+msgid "Цукристість при зборі"
+msgstr "Sugar content at picking"
+
+#: src/Product/Schema.php:137
+msgid "Висота"
+msgstr "Altitude"
+
+#: src/Product/Schema.php:141
+#: src/Taxonomies/Registrar.php:81
+msgid "Обробка"
+msgstr "Process"
+
+#: src/Quiz/Questions.php:73
+msgid "Як ви найчастіше заварюєте вдома?"
+msgstr "How do you usually brew at home?"
+
+#: src/Quiz/Questions.php:74
+msgid "Від цього залежить помел, з яким приїде кава."
+msgstr "This decides the grind your coffee arrives with."
+
+#: src/Quiz/Questions.php:78
+msgid "V60 або інша лійка"
+msgstr "V60 or another pour-over"
+
+#: src/Quiz/Questions.php:82
+msgid "Еспресо-машина"
+msgstr "Espresso machine"
+
+#: src/Quiz/Questions.php:86
+msgid "Aeropress"
+msgstr "Aeropress"
+
+#: src/Quiz/Questions.php:90
+msgid "Френч-прес"
+msgstr "French press"
+
+#: src/Quiz/Questions.php:94
+msgid "Турка"
+msgstr "Cezve"
+
+#: src/Quiz/Questions.php:101
+msgid "Молоко додаєте?"
+msgstr "Do you add milk?"
+
+#: src/Quiz/Questions.php:102
+msgid "Молоко глушить кислотність, тож під нього беруть щільніші лоти."
+msgstr "Milk mutes acidity, so denser lots suit it better."
+
+#: src/Quiz/Questions.php:106
+msgid "Ніколи"
+msgstr "Never"
+
+#: src/Quiz/Questions.php:111
+msgid "Інколи"
+msgstr "Sometimes"
+
+#: src/Quiz/Questions.php:116
+msgid "Завжди"
+msgstr "Always"
+
+#: src/Quiz/Questions.php:124
+msgid "Що вам ближче у чашці?"
+msgstr "What do you like in the cup?"
+
+#: src/Quiz/Questions.php:125
+msgid "Можна обрати до двох варіантів."
+msgstr "You can pick up to two options."
+
+#: src/Quiz/Questions.php:130
+msgid "Ягоди й квіти"
+msgstr "Berries and flowers"
+
+#: src/Quiz/Questions.php:135
+msgid "Цитрус і чай"
+msgstr "Citrus and tea"
+
+#: src/Quiz/Questions.php:140
+msgid "Шоколад і горіхи"
+msgstr "Chocolate and nuts"
+
+#: src/Quiz/Questions.php:145
+msgid "Спеції й сухофрукти"
+msgstr "Spices and dried fruit"
+
+#: src/Quiz/Questions.php:153
+msgid "Яка кислотність вам смакує?"
+msgstr "What acidity do you enjoy?"
+
+#: src/Quiz/Questions.php:154
+msgid "Яскрава — це відчуття соковитості, а не кислоти."
+msgstr "Bright means juicy, not sour."
+
+#: src/Quiz/Questions.php:158
+msgid "Мʼяка"
+msgstr "Soft"
+
+#: src/Quiz/Questions.php:162
+msgid "Середня"
+msgstr "Medium"
+
+#: src/Quiz/Questions.php:166
+msgid "Яскрава"
+msgstr "Bright"
+
+#: src/Quiz/Questions.php:173
+msgid "Наскільки солодкою має бути чашка?"
+msgstr "How sweet should the cup be?"
+
+#: src/Quiz/Questions.php:174
+msgid "Йдеться про власну солодкість зерна, а не про цукор."
+msgstr "We mean the bean’s own sweetness, not sugar."
+
+#: src/Quiz/Questions.php:178
+msgid "Збалансовано"
+msgstr "Balanced"
+
+#: src/Quiz/Questions.php:182
+msgid "Чим солодше, тим краще"
+msgstr "The sweeter the better"
+
+#: src/Quiz/Questions.php:189
+msgid "Який бюджет на пачку 250 г?"
+msgstr "What is your budget for a 250 g bag?"
+
+#: src/Quiz/Questions.php:190
+msgid "Це не відсіє лоти, лише вплине на порядок."
+msgstr "This will not rule lots out, only change their order."
+
+#: src/Quiz/Questions.php:194
+msgid "До 600 ₴"
+msgstr "Up to 600 ₴"
+
+#: src/Quiz/Questions.php:198
+msgid "600–900 ₴"
+msgstr "600–900 ₴"
+
+#: src/Quiz/Questions.php:202
+msgid "Без обмежень"
+msgstr "No limit"
+
+#: src/Quiz/Recommender.php:206
+msgid "Найяскравіша кислотність"
+msgstr "The brightest acidity"
+
+#: src/Quiz/Recommender.php:210
+msgid "Тримає молоко"
+msgstr "Holds up to milk"
+
+#: src/Quiz/Recommender.php:214
+msgid "Найсолодший у добірці"
+msgstr "The sweetest of the three"
+
+#: src/Quiz/Recommender.php:217
+msgid "Наймʼякший варіант"
+msgstr "The softest option"
+
+#: src/Shipping/NovaPoshta.php:83
+msgid "Оберіть місто зі списку — так ми точно знаємо, куди відправляти."
+msgstr "Pick a city from the list — that way we know exactly where to ship."
+
+#: src/Shipping/NovaPoshta.php:89
+msgid "Оберіть відділення зі списку."
+msgstr "Pick a branch from the list."
+
+#: src/Shipping/NovaPoshta.php:95
+msgid "Це відділення не належить обраному місту. Оберіть зі списку ще раз."
+msgstr "This branch does not belong to the chosen city. Pick from the list again."
+
+#: src/Shipping/NovaPoshta.php:145
+msgid "Довідник Нової Пошти порожній. Запустіть wp brix np-sync там, де є ключ API — після цього підказки працюватимуть без звернень до Нової Пошти."
+msgstr "The Nova Poshta directory is empty. Run wp brix np-sync where the API key is available — after that the suggestions work without calling Nova Poshta."
+
+#: src/Shipping/NovaPoshta.php:157
+msgid "Нова Пошта"
+msgstr "Nova Poshta"
+
+#: src/Shipping/NovaPoshta.php:163
+msgid "Ключ API"
+msgstr "API key"
+
+#: src/Shipping/NovaPoshta.php:164
+msgid "Без ключа місто й відділення лишаються звичайними текстовими полями: замовлення оформлюється, просто без підказок."
+msgstr "Without a key, city and branch stay plain text fields: the order still goes through, just without suggestions."
+
+#: src/Shipping/Pickup.php:104
+#: src/Shipping/Pickup.php:124
+#: src/Shipping/Pickup.php:236
+msgid "Самовивіз"
+msgstr "Pickup"
+
+#: src/Shipping/Pickup.php:216
+msgid "Пн–Пт 10:00–19:00, Сб 11:00–17:00"
+msgstr "Mon–Fri 10:00–19:00, Sat 11:00–17:00"
+
+#: src/Shipping/Pickup.php:225
+msgid "Зазвичай замовлення готове за 24 години — напишемо, щойно можна забирати."
+msgstr "An order is usually ready within 24 hours — we will write as soon as you can collect it."
+
+#: src/Shipping/Pickup.php:240
+msgid "Адресу точки беремо з налаштувань магазину: %s."
+msgstr "The pickup address comes from the store settings: %s."
+
+#: src/Shipping/Pickup.php:247
+msgid "Години роботи"
+msgstr "Opening hours"
+
+#: src/Shipping/Pickup.php:254
+msgid "Коли буде готове"
+msgstr "When it will be ready"
+
+#: src/Shipping/Pickup.php:255
+msgid "Цей рядок покупець бачить у checkout, щойно обере самовивіз."
+msgstr "The customer sees this line at checkout as soon as they choose pickup."
+
+#: src/Taxonomies/Registrar.php:69
+msgid "Країни"
+msgstr "Countries"
+
+#: src/Taxonomies/Registrar.php:70
+msgid "Країна"
+msgstr "Country"
+
+#: src/Taxonomies/Registrar.php:80
+msgid "Обробки"
+msgstr "Processes"
+
+#: src/Taxonomies/Registrar.php:98
+msgid "Смакова нота"
+msgstr "Tasting note"
+
+#: src/Taxonomies/Registrar.php:108
+msgid "Способи заварювання"
+msgstr "Brew methods"
+
+#: src/Taxonomies/Registrar.php:109
+msgid "Спосіб заварювання"
+msgstr "Brew method"
+
+#: src/Taxonomies/Registrar.php:130
+msgid "Шукати: %s"
+msgstr "Search: %s"
+
+#: src/Taxonomies/Registrar.php:132
+msgid "Редагувати: %s"
+msgstr "Edit: %s"
+
+#: src/Taxonomies/Registrar.php:133
+msgid "Додати: %s"
+msgstr "Add: %s"
+
+#: src/Taxonomies/Registrar.php:134
+msgid "Нічого не знайдено"
+msgstr "Nothing found"
+
+#: src/Taxonomies/Registrar.php:158
+#: src/Taxonomies/Registrar.php:174
+msgid "Стиль пачки"
+msgstr "Bag style"
+
+#: src/Taxonomies/Registrar.php:160
+#: src/Taxonomies/Registrar.php:177
+msgid "Задає колір пачки й тега для лотів цієї обробки."
+msgstr "Sets the bag and tag colour for lots with this process."
+
+#: src/Taxonomies/Registrar.php:193
+msgid "— за замовчуванням —"
+msgstr "— default —"
+
+#: src/Wholesale/Application.php:68
+#: src/Wholesale/Application.php:70
+msgid "Заявки B2B"
+msgstr "B2B requests"
+
+#: src/Wholesale/Application.php:69
+#: src/Wholesale/Application.php:72
+msgid "Заявка"
+msgstr "Request"
+
+#: src/Wholesale/Application.php:71
+msgid "Усі заявки"
+msgstr "All requests"
+
+#: src/Wholesale/Application.php:73
+msgid "Заявок немає"
+msgstr "No requests"
+
+#: src/Wholesale/Pricing.php:111
+msgid "Оптове замовлення — від %1$s кг. Зараз у кошику %2$s кг."
+msgstr "A wholesale order starts at %1$s kg. Your cart currently holds %2$s kg."
+
+#: src/Wholesale/Role.php:66
+msgid "Оптовий клієнт"
+msgstr "Wholesale customer"
+
+#: src/Wholesale/Role.php:84
+msgid "Уже схвалено"
+msgstr "Already approved"
+
+#: src/Wholesale/Role.php:103
+msgid "Схвалити й дати оптові ціни"
+msgstr "Approve and grant wholesale prices"
+
+#: src/Wholesale/Role.php:118
+msgid "Недостатньо прав."
+msgstr "Not enough permissions."
+
+#: src/Wholesale/Role.php:173
+msgid "Заявку схвалено. Клієнт отримав лист із посиланням на пароль і бачить оптові ціни."
+msgstr "The request is approved. The customer has received an email with a password link and now sees wholesale prices."
+
+#: src/Wholesale/Role.php:174
+msgid "У заявці немає коректної пошти — акаунт створити нема на що."
+msgstr "The request has no valid email — there is nothing to create an account on."
+
+#: src/Wholesale/Role.php:175
+msgid "Не вдалося створити користувача."
+msgstr "We could not create the user."
+

@@ -30,7 +30,7 @@ $brix_grind = (string) get_post_meta( $brix_guide->ID, 'brix_guide_grind', true 
 				<?php if ( $brix_dose && $brix_water ) : ?>
 					<div>
 						<dt class="brix-label"><?php esc_html_e( 'Пропорція', 'brix' ); ?></dt>
-						<dd class="brix-mono"><?php echo esc_html( $brix_dose . ' г / ' . $brix_water . ' мл' ); ?></dd>
+						<dd class="brix-mono"><?php echo esc_html( $brix_dose . __( ' г', 'brix' ) . ' / ' . $brix_water . __( ' мл', 'brix' ) ); ?></dd>
 					</div>
 				<?php endif; ?>
 

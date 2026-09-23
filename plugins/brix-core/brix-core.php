@@ -126,6 +126,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	\WP_CLI::add_command( 'brix setup', Cli\Setup::class );
 	\WP_CLI::add_command( 'brix np-sync', Cli\NovaPoshtaSync::class );
 	\WP_CLI::add_command( 'brix demo', Cli\DemoContent::class );
+	\WP_CLI::add_command( 'brix translate', Cli\Translate::class );
 }
 
 register_activation_hook( __FILE__, array( Plugin::class, 'on_activate' ) );

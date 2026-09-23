@@ -1,0 +1,553 @@
+{
+ "_readme": "Англійські тексти сайту. Заливаються командою wp brix translate. Ключ запису — тип|slug, ключ терміна — таксономія|slug, ключ пункту меню — його український підпис. Порожнє або відсутнє поле означає «лишити як українською».",
+ "posts": {
+  "page|home": {
+   "title": "Home",
+   "content": "<!-- wp:brix/hero {\"label\":\"Lot of the week\",\"text\":\"Microlots from farms we work with directly. We roast every Monday and put a passport in every bag: altitude, process, sugar content of the cherry at picking and the price the farmer received.\",\"secondaryLabel\":\"Find yours in a minute\"} /-->\n\n<!-- wp:brix/marquee /-->\n\n<!-- wp:brix/lot-grid {\"heading\":\"Lots with a passport\"} /-->\n\n<!-- wp:brix/feature {\"label\":\"What we actually measure\",\"heading\":\"Ripeness is measured in degrees Brix\",\"text\":\"\\u00b0Bx shows the sugar content of the cherry\\u2019s juice. The farmer checks it with a refractometer right on the tree: below 20 the cherry is unripe, above 24 it is overripe. We buy only what was picked inside this window.\",\"buttonLabel\":\"How we choose lots\",\"buttonUrl\":\"/about/\",\"media\":\"brix-scale\",\"dark\":true} /-->\n\n<!-- wp:brix/feature {\"label\":\"A match in a minute\",\"heading\":\"Not sure where to start?\",\"text\":\"Six questions about how you brew and what you like in the cup. Out come three lots with the grind already set.\",\"buttonLabel\":\"Take the quiz\",\"buttonUrl\":\"/quiz/\",\"tone\":\"green\"} /-->\n\n<!-- wp:brix/feature {\"label\":\"BRIX Club\",\"heading\":\"Fresh coffee arrives on its own\",\"text\":\"A subscription every 2 or 4 weeks with a 10% discount. Pause, skip and lot changes are in your account.\",\"buttonLabel\":\"How it works\",\"buttonUrl\":\"/club/\",\"tone\":\"cherry\",\"reversed\":true} /-->\n\n<!-- wp:brix/farm-teaser /-->\n\n<!-- wp:brix/brew-guide /-->\n\n<!-- wp:brix/feature {\"label\":\"For caf\\u00e9s\",\"heading\":\"Coffee your guests will recognise\",\"text\":\"Wholesale prices from 5 kg, steady deliveries on your roasting schedule, invoice and closing documents. We will work out the profile for your machine together.\",\"buttonLabel\":\"Send a request\",\"buttonUrl\":\"/wholesale/\",\"tone\":\"dark\",\"dark\":true} /-->"
+  },
+  "page|ui-kit": {
+   "title": "UI kit"
+  },
+  "page|quiz": {
+   "title": "Find your coffee"
+  },
+  "page|club": {
+   "title": "BRIX Club"
+  },
+  "page|wholesale": {
+   "title": "For cafés"
+  },
+  "page|transparency": {
+   "title": "Transparency"
+  },
+  "page|faq": {
+   "title": "FAQ",
+   "content": "<!-- wp:paragraph --><p>The short answers to what people ask most. Did not find yours — write to hello@brix22.coffee.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">When do you roast?</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Every Monday. The roast date is in every lot passport, and the product page shows the peak-flavour window: a week of degassing, then three weeks at its best.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Which grind should I choose?</h2><!-- /wp:heading --><!-- wp:paragraph --><p>The one you brew with: V60 and filter — medium-fine, espresso — fine, French press — coarse, cezve — the finest. If you own a grinder, take whole bean: ground coffee loses its aroma in a few days.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">What is the °Bx on the bag?</h2><!-- /wp:heading --><!-- wp:paragraph --><p>The sugar content of the cherry at the moment of picking. A ripe coffee cherry gives 20–24 °Bx. We buy only what was picked inside that window — <a href=\"/about/\">more about it here</a>.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">How long does coffee keep?</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Whole bean holds its flavour for about six weeks from roasting, ground coffee for a few days. Keep it in a closed bag at room temperature, not in the fridge.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Do you sell gift certificates?</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Yes, they will appear in the catalogue together with the tasting sets.</p><!-- /wp:paragraph -->"
+  },
+  "page|delivery": {
+   "title": "Delivery & payment",
+   "content": "<!-- wp:paragraph --><p>We roast every Monday and ship the same day. Orders placed after Monday travel with the next batch.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Delivery</h2><!-- /wp:heading --><!-- wp:paragraph --><p><strong>Nova Poshta</strong> — branch or parcel locker, 1–2 days. Free from 1,200 ₴; below that, at the carrier’s rates.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p><strong>Pickup</strong> from the roastery at 41 Kyrylivska St — free, on weekdays from 9:00 to 18:00.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p><strong>EU countries</strong> — 5–9 days, the cost is calculated at checkout by weight.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Payment</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Card online, Apple Pay and Google Pay, cash on delivery, or an invoice for companies. Card details are never stored on our server.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Returns</h2><!-- /wp:heading --><!-- wp:paragraph --><p>If a lot did not suit you, write within a week and we will swap it for another at our cost. There is no need to send an opened bag back.</p><!-- /wp:paragraph -->"
+  },
+  "page|contacts": {
+   "title": "Contacts",
+   "content": "<!-- wp:paragraph --><p>Write, call or come by — the roastery is open to guests on weekdays.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Get in touch</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Email: hello@brix22.coffee<br>Phone: +38 044 000 00 00<br>Telegram: @brix22</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">The roastery</h2><!-- /wp:heading --><!-- wp:paragraph --><p>41 Kyrylivska St, Kyiv, 04080<br>Mon–Fri 9:00–18:00, pickup by arrangement</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">For cafés</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Wholesale enquiries go through the <a href=\"/wholesale/\">café form</a>. We reply within one working day.</p><!-- /wp:paragraph -->"
+  },
+  "page|about": {
+   "title": "About us",
+   "content": "<!-- wp:paragraph --><p>BRIX 22° is a roastery in Kyiv. We bring in microlots from farms we work with directly, and we put a passport in every bag: altitude, process, sugar content of the cherry at picking and the price the farmer received.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Why 22 degrees</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Brix (°Bx) is a unit of sugar content in a liquid. The farmer measures the juice of the coffee cherry with a refractometer right on the tree: below 20 the cherry is unripe and the coffee comes out hollow, above 24 it is overripe. 22° is the middle of that window, the moment the cherry is worth picking.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">What we do differently</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Most roasters write “notes of berries and chocolate” and stop there. We sell data. Every figure in a lot passport was collected at the mill during picking and confirmed at purchase — and the same figure is on the bag, in the catalogue and on the transparency page.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p>We roast every Monday and ship the same day. We keep no warehouse of finished coffee: the bag that reaches you was roasted this week.</p><!-- /wp:paragraph --><!-- wp:heading --><h2 class=\"wp-block-heading\">Honestly, about this demo</h2><!-- /wp:heading --><!-- wp:paragraph --><p>This is a concept project for a portfolio. The brand, the farm names, the SCA scores, the prices and the addresses are invented demo content.</p><!-- /wp:paragraph -->"
+  },
+  "page|account": {
+   "title": "My account"
+  },
+  "page|checkout": {
+   "title": "Checkout"
+  },
+  "page|cart": {
+   "title": "Cart"
+  },
+  "page|shop": {
+   "title": "Shop"
+  },
+  "product|gooseneck-kettle": {
+   "title": "Gooseneck kettle",
+   "excerpt": "Temperature control from 40 to 100 °C and a thin spout for an even spiral.",
+   "content": "Temperature control from 40 to 100 °C and a thin spout for an even spiral."
+  },
+  "product|scale-with-timer": {
+   "title": "Scale with a timer",
+   "excerpt": "0.1 g accuracy, a built-in timer, auto power-off. Without scales a recipe cannot be repeated.",
+   "content": "0.1 g accuracy, a built-in timer, auto power-off. Without scales a recipe cannot be repeated."
+  },
+  "product|v60-02-filters": {
+   "title": "V60 02 + filters",
+   "excerpt": "A Hario V60 size 02 dripper and a hundred paper filters in the box.",
+   "content": "A Hario V60 size 02 dripper and a hundred paper filters in the box."
+  },
+  "product|tasting-set-three-origins": {
+   "title": "Tasting set “Three Origins”",
+   "excerpt": "Three 250 g lots at 15% off. Ethiopia, Kenya and Rwanda — to compare processes side by side.",
+   "content": "Three 250 g lots at 15% off. Ethiopia, Kenya and Rwanda — to compare processes side by side."
+  },
+  "product|open-filter": {
+   "title": "Open Filter",
+   "content": "A light filter blend: berry acidity and a tea-like body. It changes with the season, but we keep the profile the same.",
+   "meta": {
+    "brix_lot_cup_notes": "A light filter blend: berry acidity and a tea-like body. It changes with the season, but we keep the profile the same."
+   }
+  },
+  "product|everyday": {
+   "title": "Everyday",
+   "content": "A blend for espresso and milk: caramel, almond, milk chocolate. Stable from batch to batch — exactly what a morning asks for.",
+   "meta": {
+    "brix_lot_cup_notes": "A blend for espresso and milk: caramel, almond, milk chocolate. Stable from batch to batch — exactly what a morning asks for."
+   }
+  },
+  "product|panama-geisha-boquete": {
+   "title": "Panama Geisha Boquete",
+   "content": "Geisha from Boquete, the most expensive lot we bring in. Jasmine in the aroma, apricot in the cup, a tea-like body. Brew it on filter only, and only with soft water.",
+   "meta": {
+    "brix_lot_region": "Boquete",
+    "brix_lot_harvest": "May 2025",
+    "brix_lot_cup_notes": "Geisha from Boquete, the most expensive lot we bring in. Jasmine in the aroma, apricot in the cup, a tea-like body. Brew it on filter only, and only with soft water."
+   }
+  },
+  "product|guatemala-huehuetenango": {
+   "title": "Guatemala Huehuetenango",
+   "content": "A natural process at altitude: dark berries, chocolate and a light spice. The body is dense, so this lot holds up well in a French press and a cezve.",
+   "meta": {
+    "brix_lot_region": "Huehuetenango",
+    "brix_lot_harvest": "Apr 2025",
+    "brix_lot_cup_notes": "A natural process at altitude: dark berries, chocolate and a light spice. The body is dense, so this lot holds up well in a French press and a cezve."
+   }
+  },
+  "product|rwanda-nyamasheke": {
+   "title": "Rwanda Nyamasheke",
+   "content": "The honey process leaves the mucilage on the bean and gives honeyed sweetness without heaviness. The softest lot in the range — a good place to start if you are moving on from supermarket coffee.",
+   "meta": {
+    "brix_lot_region": "Nyamasheke, Kivu",
+    "brix_lot_harvest": "Aug 2025",
+    "brix_lot_cup_notes": "The honey process leaves the mucilage on the bean and gives honeyed sweetness without heaviness. The softest lot in the range — a good place to start if you are moving on from supermarket coffee."
+   }
+  },
+  "product|colombia-narino-la-esperanza": {
+   "title": "Colombia Nariño La Esperanza",
+   "content": "A balanced everyday lot: nuts, cocoa and caramel without sharp acidity. It works equally well on filter and espresso, and holds up to milk.",
+   "meta": {
+    "brix_lot_region": "Nariño",
+    "brix_lot_harvest": "Jun 2025",
+    "brix_lot_cup_notes": "A balanced everyday lot: nuts, cocoa and caramel without sharp acidity. It works equally well on filter and espresso, and holds up to milk."
+   }
+  },
+  "product|colombia-huila-el-paraiso": {
+   "title": "Colombia Huila El Paraíso",
+   "content": "Anaerobic fermentation, 72 hours at 18 °C. The aroma is closer to wine than to coffee: strawberry, rose, a long sweet finish. An experimental lot, in limited quantity.",
+   "meta": {
+    "brix_lot_region": "Huila, Pitalito",
+    "brix_lot_harvest": "Jul 2025",
+    "brix_lot_cup_notes": "Anaerobic fermentation, 72 hours at 18 °C. The aroma is closer to wine than to coffee: strawberry, rose, a long sweet finish. An experimental lot, in limited quantity."
+   }
+  },
+  "product|kenya-nyeri-ab-lot-14": {
+   "title": "Kenya Nyeri AB Lot 14",
+   "content": "Double fermentation gives that very Kenyan blackcurrant. The acidity is bright and juicy, the body denser than in Ethiopian lots. It holds up to milk if you brew it stronger.",
+   "meta": {
+    "brix_lot_region": "Nyeri, Tegu",
+    "brix_lot_harvest": "Jan 2026",
+    "brix_lot_cup_notes": "Double fermentation gives that very Kenyan blackcurrant. The acidity is bright and juicy, the body denser than in Ethiopian lots. It holds up to milk if you brew it stronger."
+   }
+  },
+  "product|ethiopia-yirgacheffe-konga": {
+   "title": "Ethiopia Guji Shakiso",
+   "content": "A classic washed from Yirgacheffe: a clean cup, a floral aroma and lime acidity. It opens up on filter; in espresso it would be too sharp.",
+   "meta": {
+    "brix_lot_region": "Guji, Shakiso",
+    "brix_lot_harvest": "Jan 2026",
+    "brix_lot_cup_notes": "A classic washed from Yirgacheffe: a clean cup, a floral aroma and lime acidity. It opens up on filter; in espresso it would be too sharp."
+   }
+  },
+  "product|ethiopia-guji-hambela": {
+   "title": "Ethiopia Guji Hambela",
+   "content": "Eighteen days of dry fermentation on African beds give a dense berry sweetness. In a V60 it is ripe cherry and bergamot; as it cools, cocoa comes through. Milk mutes the acidity, so we suggest drinking this one black.",
+   "meta": {
+    "brix_lot_region": "Guji, Hambela",
+    "brix_lot_harvest": "Dec 2025",
+    "brix_lot_cup_notes": "Eighteen days of dry fermentation on African beds give a dense berry sweetness. In a V60 it is ripe cherry and bergamot; as it cools, cocoa comes through. Milk mutes the acidity, so we suggest drinking this one black."
+   }
+  },
+  "brix_farm|nyamasheke": {
+   "title": "Nyamasheke mill",
+   "excerpt": "A mill on the shore of Lake Kivu, working with the honey process since 2024.",
+   "meta": {
+    "brix_farm_headline": "The hills above Kivu",
+    "brix_farm_region_note": "Western Rwanda, the shores of Lake Kivu. Altitude and cool nights stretch out the ripening.",
+    "brix_farm_story": "<p>The mill moved to the honey process in 2024: the mucilage is left on the bean and dried slowly. That takes constant turning, but it gives the honeyed sweetness the local washed lots do not have.</p>",
+    "brix_farm_quote": "Honey is harder here than washed. But it shows that our hills can do more.",
+    "brix_farm_quote_author": "Claudine, the mill’s agronomist",
+    "brix_farm_year_calendar_0_brix_farm_calendar_period": "Sep–Oct",
+    "brix_farm_year_calendar_0_brix_farm_calendar_title": "Flowering",
+    "brix_farm_year_calendar_0_brix_farm_calendar_note": "After the short rains",
+    "brix_farm_year_calendar_1_brix_farm_calendar_period": "Mar–May",
+    "brix_farm_year_calendar_1_brix_farm_calendar_title": "Picking",
+    "brix_farm_year_calendar_1_brix_farm_calendar_note": "Cherry from 20 °Bx, the rest kept apart",
+    "brix_farm_year_calendar_2_brix_farm_calendar_period": "May–Jun",
+    "brix_farm_year_calendar_2_brix_farm_calendar_title": "Honey drying, 21 days",
+    "brix_farm_year_calendar_2_brix_farm_calendar_note": "Turned three times a day",
+    "brix_farm_year_calendar_3_brix_farm_calendar_period": "Jul",
+    "brix_farm_year_calendar_3_brix_farm_calendar_title": "Shipping",
+    "brix_farm_year_calendar_3_brix_farm_calendar_note": "Kigali → Mombasa → Gdańsk",
+    "brix_farm_lat": "2°21′ S",
+    "brix_farm_lng": "29°09′ E"
+   }
+  },
+  "brix_farm|el-paraiso": {
+   "title": "El Paraíso farm",
+   "excerpt": "A family farm in Huila that specialises in controlled fermentations.",
+   "meta": {
+    "brix_farm_headline": "Fermentation as a recipe, not an accident",
+    "brix_farm_region_note": "The department of Huila, the slopes of the Central Andes. Two harvests a year.",
+    "brix_farm_story": "<p>Diego runs fermentation in closed tanks with temperature and pH control, records every batch and repeats the successful protocols the following season. It is closer to winemaking than to the usual coffee processing.</p>",
+    "brix_farm_quote": "I am not after a wild flavour. I am after the same flavour in the next harvest.",
+    "brix_farm_quote_author": "Diego, the farm’s owner",
+    "brix_farm_year_calendar_0_brix_farm_calendar_period": "Feb–Apr",
+    "brix_farm_year_calendar_0_brix_farm_calendar_title": "Main harvest",
+    "brix_farm_year_calendar_0_brix_farm_calendar_note": "By hand, in three passes",
+    "brix_farm_year_calendar_1_brix_farm_calendar_period": "Apr",
+    "brix_farm_year_calendar_1_brix_farm_calendar_title": "Anaerobic fermentation",
+    "brix_farm_year_calendar_1_brix_farm_calendar_note": "72 hours, 18 °C, pH controlled",
+    "brix_farm_year_calendar_2_brix_farm_calendar_period": "May–Jun",
+    "brix_farm_year_calendar_2_brix_farm_calendar_title": "Slow drying",
+    "brix_farm_year_calendar_2_brix_farm_calendar_note": "20 days in greenhouses",
+    "brix_farm_year_calendar_3_brix_farm_calendar_period": "Jul",
+    "brix_farm_year_calendar_3_brix_farm_calendar_title": "Shipping",
+    "brix_farm_year_calendar_3_brix_farm_calendar_note": "Buenaventura → Hamburg",
+    "brix_farm_lat": "2°01′ N",
+    "brix_farm_lng": "75°55′ W"
+   }
+  },
+  "brix_farm|gathaithi": {
+   "title": "Gathaithi factory",
+   "excerpt": "The wet mill of the Tegu cooperative in Nyeri county.",
+   "meta": {
+    "brix_farm_headline": "Volcanic soil and double fermentation",
+    "brix_farm_region_note": "Central Kenya, the slopes of Nyeri. Red volcanic soil and two picking campaigns a year.",
+    "brix_farm_story": "<p>Gathaithi is one of the four factories of the Tegu cooperative. Cherry is taken in daily until eight in the evening, sorted in water and fermented twice with a wash in between.</p>",
+    "brix_farm_quote": "Double fermentation costs a day. But it is what gives the blackcurrant people come back to us for.",
+    "brix_farm_quote_author": "James, the factory’s technologist",
+    "brix_farm_year_calendar_0_brix_farm_calendar_period": "Mar–May",
+    "brix_farm_year_calendar_0_brix_farm_calendar_title": "Flowering",
+    "brix_farm_year_calendar_0_brix_farm_calendar_note": "The main harvest is set here",
+    "brix_farm_year_calendar_1_brix_farm_calendar_period": "Oct–Dec",
+    "brix_farm_year_calendar_1_brix_farm_calendar_title": "Main harvest",
+    "brix_farm_year_calendar_1_brix_farm_calendar_note": "Two waves, by ripeness",
+    "brix_farm_year_calendar_2_brix_farm_calendar_period": "Dec–Jan",
+    "brix_farm_year_calendar_2_brix_farm_calendar_title": "Drying, 14–18 days",
+    "brix_farm_year_calendar_2_brix_farm_calendar_note": "Raised beds, covered at midday",
+    "brix_farm_year_calendar_3_brix_farm_calendar_period": "Feb",
+    "brix_farm_year_calendar_3_brix_farm_calendar_title": "Shipping",
+    "brix_farm_year_calendar_3_brix_farm_calendar_note": "Mombasa → Gdańsk",
+    "brix_farm_lat": "0°25′ S",
+    "brix_farm_lng": "36°57′ E"
+   }
+  },
+  "brix_farm|kebele-12": {
+   "title": "Kebele 12 station",
+   "excerpt": "A collection station in the Guji zone working with 640 smallholders.",
+   "meta": {
+    "brix_farm_headline": "One station, 640 families",
+    "brix_farm_region_note": "Southern Ethiopia, the Guji zone. The dry season runs from December to March — exactly when the cherry is dried on open-air beds.",
+    "brix_farm_story": "<p>Kebele 12 takes cherry from smallholders within a seven-kilometre radius. The average plot is under a hectare, so the quality of a lot depends not on one farm but on how the station sorts and dries what is brought to it.</p><p>We first came here in 2023 with the importer we work with. The station was already measuring °Bx, but only on a sample basis. We agreed on something simple: we pay a premium for batches picked from 20 °Bx, and we buy them separately from the rest of the harvest.</p>",
+    "brix_farm_quote": "Selective picking costs more on every kilo. It only makes sense when the buyer pays for it separately.",
+    "brix_farm_quote_author": "Abebe, the station’s manager",
+    "brix_farm_year_calendar_0_brix_farm_calendar_period": "Oct–Nov",
+    "brix_farm_year_calendar_0_brix_farm_calendar_title": "Ripening",
+    "brix_farm_year_calendar_0_brix_farm_calendar_note": "We check °Bx twice a week",
+    "brix_farm_year_calendar_1_brix_farm_calendar_period": "Dec–Jan",
+    "brix_farm_year_calendar_1_brix_farm_calendar_title": "Selective picking",
+    "brix_farm_year_calendar_1_brix_farm_calendar_note": "Cherry from 20 °Bx only",
+    "brix_farm_year_calendar_2_brix_farm_calendar_period": "Jan–Feb",
+    "brix_farm_year_calendar_2_brix_farm_calendar_title": "Drying, 18–21 days",
+    "brix_farm_year_calendar_2_brix_farm_calendar_note": "African beds, shade at midday",
+    "brix_farm_year_calendar_3_brix_farm_calendar_period": "Mar–Apr",
+    "brix_farm_year_calendar_3_brix_farm_calendar_title": "Shipping",
+    "brix_farm_year_calendar_3_brix_farm_calendar_note": "Jimma → Djibouti → Gdańsk",
+    "brix_farm_year_calendar_4_brix_farm_calendar_period": "Sep",
+    "brix_farm_year_calendar_4_brix_farm_calendar_title": "Roasting",
+    "brix_farm_year_calendar_4_brix_farm_calendar_note": "The first batch in Kyiv",
+    "brix_farm_lat": "6°10′ N",
+    "brix_farm_lng": "38°30′ E"
+   }
+  },
+  "brix_guide|turka": {
+   "title": "Cezve",
+   "excerpt": "The finest grind and no boiling: a dense cup the eastern way.",
+   "meta": {
+    "brix_guide_grind": "Finest",
+    "brix_guide_tip_title": "Do not let it boil",
+    "brix_guide_tip_text": "The moment the foam starts to rise, take it off the heat. Boiling takes the aroma away.",
+    "brix_guide_steps_0_brix_guide_step_title": "Cold water",
+    "brix_guide_steps_0_brix_guide_step_target": "100 ml",
+    "brix_guide_steps_0_brix_guide_step_text": "Add the coffee and pour in cold water.",
+    "brix_guide_steps_1_brix_guide_step_title": "Slow heat",
+    "brix_guide_steps_1_brix_guide_step_target": "lowest flame",
+    "brix_guide_steps_1_brix_guide_step_text": "Do not stir once it starts heating.",
+    "brix_guide_steps_2_brix_guide_step_title": "First foam",
+    "brix_guide_steps_2_brix_guide_step_target": "off the heat",
+    "brix_guide_steps_2_brix_guide_step_text": "Let it settle and repeat once more."
+   }
+  },
+  "brix_guide|french-press": {
+   "title": "French press",
+   "excerpt": "The simplest method: a dense body and full flavour with no equipment.",
+   "meta": {
+    "brix_guide_grind": "Coarse",
+    "brix_guide_tip_title": "Do not push the plunger to the bottom",
+    "brix_guide_tip_text": "Lower it only to the surface and pour — the grounds stay below and the cup is cleaner.",
+    "brix_guide_steps_0_brix_guide_step_title": "Pour",
+    "brix_guide_steps_0_brix_guide_step_target": "all 500 g",
+    "brix_guide_steps_0_brix_guide_step_text": "Pour the water in and stir.",
+    "brix_guide_steps_1_brix_guide_step_title": "Take off the crust",
+    "brix_guide_steps_1_brix_guide_step_target": "with a spoon",
+    "brix_guide_steps_1_brix_guide_step_text": "Skim the foam off the top with two spoons.",
+    "brix_guide_steps_2_brix_guide_step_title": "Pouring",
+    "brix_guide_steps_2_brix_guide_step_target": "gently",
+    "brix_guide_steps_2_brix_guide_step_text": "Lower the plunger to the surface and pour."
+   }
+  },
+  "brix_guide|espresso": {
+   "title": "Espresso",
+   "excerpt": "18 g into 40 g in 28 seconds — the starting point for dialling in the grind.",
+   "meta": {
+    "brix_guide_grind": "Fine",
+    "brix_guide_tip_title": "If it runs faster than 24 seconds",
+    "brix_guide_tip_text": "Make the grind one step finer. If it is slower than 34 — one step coarser instead.",
+    "brix_guide_steps_0_brix_guide_step_title": "Tamping",
+    "brix_guide_steps_0_brix_guide_step_target": "an even bed",
+    "brix_guide_steps_0_brix_guide_step_text": "Level it out and press with steady force.",
+    "brix_guide_steps_1_brix_guide_step_title": "Pre-infusion",
+    "brix_guide_steps_1_brix_guide_step_target": "5 seconds",
+    "brix_guide_steps_1_brix_guide_step_text": "If your machine can, let the coffee swell.",
+    "brix_guide_steps_2_brix_guide_step_title": "Stop",
+    "brix_guide_steps_2_brix_guide_step_target": "40 g in the cup",
+    "brix_guide_steps_2_brix_guide_step_text": "Weigh the result rather than watching the volume."
+   }
+  },
+  "brix_guide|aeropress": {
+   "title": "Aeropress",
+   "excerpt": "A quick recipe for travelling: a denser body, less acidity.",
+   "meta": {
+    "brix_guide_grind": "Medium",
+    "brix_guide_tip_title": "The inverted method",
+    "brix_guide_tip_text": "If you want a longer extraction, brew it inverted and flip it 20 seconds before pressing.",
+    "brix_guide_steps_0_brix_guide_step_title": "Pour",
+    "brix_guide_steps_0_brix_guide_step_target": "all 220 g",
+    "brix_guide_steps_0_brix_guide_step_text": "Pour the water in at once and stir twice.",
+    "brix_guide_steps_1_brix_guide_step_title": "Steeping",
+    "brix_guide_steps_1_brix_guide_step_target": "1:30",
+    "brix_guide_steps_1_brix_guide_step_text": "Cover with the filter and let it stand.",
+    "brix_guide_steps_2_brix_guide_step_title": "Pressing",
+    "brix_guide_steps_2_brix_guide_step_target": "30 seconds",
+    "brix_guide_steps_2_brix_guide_step_text": "Press evenly, without force. Stop at the hiss."
+   }
+  },
+  "brix_guide|v60": {
+   "title": "V60",
+   "excerpt": "The classic recipe for a Hario V60: a clean cup, pronounced acidity.",
+   "meta": {
+    "brix_guide_grind": "Medium-fine",
+    "brix_guide_tip_title": "If you have no thermometer",
+    "brix_guide_tip_text": "Boil the water and wait 45 seconds with the lid open — that gives about 93 °C.",
+    "brix_guide_steps_0_brix_guide_step_title": "Bloom",
+    "brix_guide_steps_0_brix_guide_step_target": "up to 45 g of water",
+    "brix_guide_steps_0_brix_guide_step_text": "Pour in 45 g of water, stir with a spoon and let the coffee open up.",
+    "brix_guide_steps_1_brix_guide_step_title": "First pour",
+    "brix_guide_steps_1_brix_guide_step_target": "up to 150 g",
+    "brix_guide_steps_1_brix_guide_step_text": "Pour in a slow spiral from the centre outwards.",
+    "brix_guide_steps_2_brix_guide_step_title": "Second pour",
+    "brix_guide_steps_2_brix_guide_step_target": "up to 250 g",
+    "brix_guide_steps_2_brix_guide_step_text": "Do not pour onto the walls of the dripper.",
+    "brix_guide_steps_3_brix_guide_step_title": "Drawdown",
+    "brix_guide_steps_3_brix_guide_step_target": "the cup is ready",
+    "brix_guide_steps_3_brix_guide_step_text": "The water should pass through completely. The bed is flat, with no craters."
+   }
+  }
+ },
+ "terms": {
+  "product_cat|core": {
+   "description": "Two everyday blends: Everyday for espresso and Open Filter for filter."
+  },
+  "product_cat|drip-try": {
+   "name": "Drip & Try",
+   "description": "Drip bags and tasting sets of 3–4 lots."
+  },
+  "product_cat|gear": {
+   "description": "V60, scales, a grinder, a gooseneck kettle."
+  },
+  "product_cat|lab": {
+   "description": "Limited experimental processes. In small quantity."
+  },
+  "product_cat|origin": {
+   "description": "Seasonal single origin microlots from farms we work with directly."
+  },
+  "brix_country|hvatemala": {
+   "name": "Guatemala"
+  },
+  "brix_country|efiopiia": {
+   "name": "Ethiopia"
+  },
+  "brix_country|keniia": {
+   "name": "Kenya"
+  },
+  "brix_country|kolumbiia": {
+   "name": "Colombia"
+  },
+  "brix_country|panama": {
+   "name": "Panama"
+  },
+  "brix_country|ruanda": {
+   "name": "Rwanda"
+  },
+  "brix_note|abrykos": {
+   "name": "apricot"
+  },
+  "brix_note|berhamot": {
+   "name": "bergamot"
+  },
+  "brix_note|hirkyi-shokolad": {
+   "name": "dark chocolate"
+  },
+  "brix_note|horikhy": {
+   "name": "nuts"
+  },
+  "brix_note|hreipfrut": {
+   "name": "grapefruit"
+  },
+  "brix_note|zhasmyn": {
+   "name": "jasmine"
+  },
+  "brix_note|kakao": {
+   "name": "cocoa"
+  },
+  "brix_note|karamel": {
+   "name": "caramel"
+  },
+  "brix_note|kardamon": {
+   "name": "cardamom"
+  },
+  "brix_note|kvity": {
+   "name": "flowers"
+  },
+  "brix_note|laim": {
+   "name": "lime"
+  },
+  "brix_note|med": {
+   "name": "honey"
+  },
+  "brix_note|myhdal": {
+   "name": "almond"
+  },
+  "brix_note|molochnyi-shokolad": {
+   "name": "milk chocolate"
+  },
+  "brix_note|palena-karamel": {
+   "name": "burnt caramel"
+  },
+  "brix_note|polunytsia": {
+   "name": "strawberry"
+  },
+  "brix_note|spetsii": {
+   "name": "spices"
+  },
+  "brix_note|trostynnyi-tsukor": {
+   "name": "cane sugar"
+  },
+  "brix_note|troianda": {
+   "name": "rose"
+  },
+  "brix_note|ulun": {
+   "name": "oolong"
+  },
+  "brix_note|funduk": {
+   "name": "hazelnut"
+  },
+  "brix_note|tsytrus": {
+   "name": "citrus"
+  },
+  "brix_note|chai": {
+   "name": "tea"
+  },
+  "brix_note|chereshnia": {
+   "name": "cherry"
+  },
+  "brix_note|chorna-smorodyna": {
+   "name": "blackcurrant"
+  },
+  "brix_note|chornyi-perets": {
+   "name": "black pepper"
+  },
+  "brix_note|chornyi-chai": {
+   "name": "black tea"
+  },
+  "brix_note|shokolad": {
+   "name": "chocolate"
+  },
+  "brix_note|yahody": {
+   "name": "berries"
+  },
+  "brix_brew_method|v60-filtr": {
+   "name": "V60 / filter"
+  },
+  "brix_brew_method|espreso": {
+   "name": "Espresso"
+  },
+  "brix_brew_method|turka": {
+   "name": "Cezve"
+  },
+  "brix_brew_method|french-pres": {
+   "name": "French press"
+  },
+  "pa_grind|v60-filtr": {
+   "name": "V60 / filter"
+  },
+  "pa_grind|espreso": {
+   "name": "Espresso"
+  },
+  "pa_grind|zerno": {
+   "name": "Whole bean"
+  },
+  "pa_grind|turka": {
+   "name": "Cezve"
+  },
+  "pa_grind|french-pres": {
+   "name": "French press"
+  },
+  "pa_weight|1-kh": {
+   "name": "1 kg"
+  },
+  "pa_weight|100-h": {
+   "name": "100 g"
+  },
+  "pa_weight|250-h": {
+   "name": "250 g"
+  }
+ },
+ "menu": {
+  "Магазин": "Shop",
+  "Підбір кави": "Coffee finder",
+  "Виробники": "Producers",
+  "Гайди": "Guides",
+  "Для кав’ярень": "For cafés",
+  "Про нас": "About us",
+  "Прозорість": "Transparency",
+  "Доставка й оплата": "Delivery & payment",
+  "Питання": "FAQ",
+  "Контакти": "Contacts",
+  "Публічна оферта": "Terms of service"
+ },
+ "strings": {
+  "Нова Пошта — відділення": "Nova Poshta — branch",
+  "Самовивіз з обжарювальні": "Pickup from the roastery",
+  "Безкоштовна доставка": "Free delivery",
+  "Доставка в ЄС": "Delivery to the EU",
+  "Картка · Apple Pay · Google Pay": "Card · Apple Pay · Google Pay",
+  "Оплата карткою на захищеній сторінці monobank. Apple Pay і Google Pay теж працюють.": "Card payment on monobank’s secure page. Apple Pay and Google Pay work too.",
+  "Картка онлайн": "Card online",
+  "Visa, Mastercard, Apple Pay і Google Pay на захищеній сторінці LiqPay.": "Visa, Mastercard, Apple Pay and Google Pay on LiqPay’s secure page.",
+  "Оплата при отриманні": "Cash on delivery",
+  "Оплатите у відділенні Нової Пошти, коли забиратимете посилку.": "Pay at the Nova Poshta branch when you collect the parcel.",
+  "вул. Кирилівська, 41, Київ": "41 Kyrylivska St, Kyiv",
+  "вул. Кирилівська, 41": "41 Kyrylivska St",
+  "Київ": "Kyiv",
+  "Зібрано при 22°Bx": "Picked at 22°Bx",
+  "Обрати каву": "Choose your coffee",
+  "Зараз в обсмаженні": "Roasting right now",
+  "Вісім лотів, усі з паспортом": "Eight lots, all with a passport",
+  "Без снобізму": "No snobbery",
+  "Заварити вдома": "Brew it at home",
+  "Прямі стосунки": "Direct relationships",
+  "Виробники, з якими працюємо": "The producers we work with",
+  "Вага": "Weight",
+  "Помел": "Grind",
+  "Оплата готівкою при отриманні.": "Pay in cash on delivery.",
+  "BRIX 22° · Обсмажувальня, Київ · {site_url}": "BRIX 22° · Roastery, Kyiv · {site_url}"
+ }
+}

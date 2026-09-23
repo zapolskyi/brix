@@ -94,7 +94,7 @@ if ( $brix_sold ) {
 			<?php endif; ?>
 
 			<?php if ( $brix_lot->altitude_average() ) : ?>
-				<span><b><?php echo esc_html( \Brix\Core\Support\Format::number( (float) $brix_lot->altitude_average() ) . ' м' ); ?></b></span>
+				<span><b><?php echo esc_html( \Brix\Core\Support\Format::number( (float) $brix_lot->altitude_average() ) . __( ' м', 'brix' ) ); ?></b></span>
 			<?php endif; ?>
 
 			<?php if ( null !== $brix_lot->brix ) : ?>

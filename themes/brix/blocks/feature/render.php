@@ -31,21 +31,21 @@ $brix_button_class = $brix_dark ? 'brix-btn brix-btn--light' : 'brix-btn brix-bt
 	<div class="brix-wrap brix-teaser <?php echo $brix_reversed ? 'brix-teaser--reverse' : ''; ?>">
 		<div class="brix-teaser__text">
 			<?php if ( ! empty( $attributes['label'] ) ) : ?>
-				<p class="brix-label"><?php echo esc_html( $attributes['label'] ); ?></p>
+				<p class="brix-label"><?php echo esc_html( brix_t( $attributes['label'] ) ); ?></p>
 			<?php endif; ?>
 
 			<?php if ( ! empty( $attributes['heading'] ) ) : ?>
-				<h2><?php echo esc_html( $attributes['heading'] ); ?></h2>
+				<h2><?php echo esc_html( brix_t( $attributes['heading'] ) ); ?></h2>
 			<?php endif; ?>
 
 			<?php if ( ! empty( $attributes['text'] ) ) : ?>
-				<p class="brix-lead <?php echo $brix_dark ? '' : 'brix-muted'; ?>"><?php echo esc_html( $attributes['text'] ); ?></p>
+				<p class="brix-lead <?php echo $brix_dark ? '' : 'brix-muted'; ?>"><?php echo esc_html( brix_t( $attributes['text'] ) ); ?></p>
 			<?php endif; ?>
 
 			<?php if ( ! empty( $attributes['buttonLabel'] ) ) : ?>
 				<p>
-					<a class="<?php echo esc_attr( $brix_button_class ); ?>" href="<?php echo esc_url( $attributes['buttonUrl'] ? $attributes['buttonUrl'] : home_url( '/' ) ); ?>">
-						<?php echo esc_html( $attributes['buttonLabel'] ); ?>
+					<a class="<?php echo esc_attr( $brix_button_class ); ?>" href="<?php echo esc_url( $attributes['buttonUrl'] ? brix_local_url( $attributes['buttonUrl'] ) : home_url( '/' ) ); ?>">
+						<?php echo esc_html( brix_t( $attributes['buttonLabel'] ) ); ?>
 						<?php echo brix_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</a>
 				</p>
@@ -77,7 +77,7 @@ $brix_button_class = $brix_dark ? 'brix-btn brix-btn--light' : 'brix-btn brix-bt
 			</div>
 		<?php else : ?>
 			<div class="brix-photo <?php echo esc_attr( 'brix-photo--' . $brix_tone ); ?> brix-teaser__photo">
-				<span class="brix-photo__caption"><?php echo esc_html( $attributes['heading'] ?? '' ); ?></span>
+				<span class="brix-photo__caption"><?php echo esc_html( brix_t( (string) ( $attributes['heading'] ?? '' ) ) ); ?></span>
 			</div>
 		<?php endif; ?>
 	</div>

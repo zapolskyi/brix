@@ -1,0 +1,135 @@
+<?php
+/**
+ * Мова сайту з боку теми.
+ *
+ * Саму мову визначає модуль brix-core: це маршрутизація, а не
+ * оформлення. Тема лише питає, якою мовою малювати, і будує перемикач.
+ * Без плагіна сайт лишається одномовним, і жоден шаблон не падає.
+ *
+ * @package BRIX
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Клас модуля мови, якщо плагін на місці.
+ *
+ * @return class-string|null
+ */
+function brix_lang_class(): ?string {
+	return class_exists( '\Brix\Core\I18n\Language' ) ? '\Brix\Core\I18n\Language' : null;
+}
+
+/**
+ * Код поточної мови: uk або en.
+ *
+ * @return string
+ */
+function brix_lang(): string {
+	$class = brix_lang_class();
+
+	return $class ? $class::current() : 'uk';
+}
+
+/**
+ * Чи англійська зараз.
+ *
+ * @return bool
+ */
+function brix_is_en(): bool {
+	return 'en' === brix_lang();
+}
+
+/**
+ * Мови сайту: код => підпис.
+ *
+ * @return array<string, string>
+ */
+function brix_languages(): array {
+	$class = brix_lang_class();
+
+	return $class ? $class::all() : array();
+}
+
+/**
+ * Поточна сторінка іншою мовою.
+ *
+ * @param string $lang Код мови.
+ * @return string
+ */
+function brix_lang_url( string $lang ): string {
+	$class = brix_lang_class();
+
+	return $class ? $class::switch_url( $lang ) : home_url( '/' );
+}
+
+/**
+ * Перемикач мов у шапці.
+ *
+ * Це посилання, а не кнопка й не select: перехід між мовами — це
+ * перехід між адресами. Тому він працює без JavaScript, відкривається
+ * у новій вкладці середньою кнопкою і потрапляє в історію браузера.
+ *
+ * @return void
+ */
+function brix_language_switcher(): void {
+	$languages = brix_languages();
+
+	if ( count( $languages ) < 2 ) {
+		return;
+	}
+
+	$current = brix_lang();
+	?>
+	<nav class="brix-lang" aria-label="<?php esc_attr_e( 'Мова сайту', 'brix' ); ?>">
+		<?php foreach ( $languages as $brix_code => $brix_label ) : ?>
+			<?php if ( $brix_code === $current ) : ?>
+				<b class="brix-lang__item is-current" aria-current="true"><?php echo esc_html( $brix_label ); ?></b>
+			<?php else : ?>
+				<a class="brix-lang__item" href="<?php echo esc_url( brix_lang_url( $brix_code ) ); ?>"
+					hreflang="<?php echo esc_attr( $brix_code ); ?>"
+					lang="<?php echo esc_attr( $brix_code ); ?>">
+					<?php echo esc_html( $brix_label ); ?>
+				</a>
+			<?php endif; ?>
+		<?php endforeach; ?>
+	</nav>
+	<?php
+}
+
+/**
+ * Адреса всередині сайту з урахуванням мови.
+ *
+ * Посилання в атрибутах блоків редактор зберігає відносними: «/about/».
+ * Під /en/ такий шлях вів би на українську сторінку, бо префікса в
+ * ньому немає — його додає home_url(), через який відносний шлях тут
+ * і пропускається. Зовнішні адреси лишаються як є.
+ *
+ * @param string $url Адреса або шлях.
+ * @return string
+ */
+function brix_local_url( string $url ): string {
+	$url = trim( $url );
+
+	if ( '' === $url || 0 !== strpos( $url, '/' ) || 0 === strpos( $url, '//' ) ) {
+		return $url;
+	}
+
+	return home_url( $url );
+}
+
+/**
+ * Переклад рядка, що лежить у базі, а не в коді.
+ *
+ * Значення атрибутів блоків, назви способів доставки, підписи
+ * платіжок — усе, чого не бачить .po, бо в коді цього тексту немає.
+ * Таблиця таких рядків живе в плагіні; без нього повертається
+ * оригінал.
+ *
+ * @param string $text Оригінал.
+ * @return string
+ */
+function brix_t( string $text ): string {
+	/** This filter is documented in brix-core/src/Shipping/Pickup.php */
+	return (string) apply_filters( 'brix_translate', $text );
+}

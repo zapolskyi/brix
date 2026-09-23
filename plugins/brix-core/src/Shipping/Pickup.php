@@ -176,7 +176,15 @@ final class Pickup implements Module {
 			(string) get_option( 'woocommerce_store_city', '' ),
 		);
 
-		return implode( ', ', array_filter( array_map( 'trim', $parts ) ) );
+		/**
+		 * Адреса точки самовивозу.
+		 *
+		 * Проходить через brix_translate, бо лежить у налаштуваннях
+		 * магазину, а не в рядках коду: .po її не бачить.
+		 *
+		 * @param string $address Адреса одним рядком.
+		 */
+		return (string) apply_filters( 'brix_translate', implode( ', ', array_filter( array_map( 'trim', $parts ) ) ) );
 	}
 
 	/**
@@ -185,7 +193,8 @@ final class Pickup implements Module {
 	 * @return string
 	 */
 	public static function hours(): string {
-		return (string) get_option( self::HOURS, self::default_hours() );
+		/** This filter is documented in src/Shipping/Pickup.php */
+		return (string) apply_filters( 'brix_translate', (string) get_option( self::HOURS, self::default_hours() ) );
 	}
 
 	/**
@@ -194,7 +203,8 @@ final class Pickup implements Module {
 	 * @return string
 	 */
 	public static function ready(): string {
-		return (string) get_option( self::READY, self::default_ready() );
+		/** This filter is documented in src/Shipping/Pickup.php */
+		return (string) apply_filters( 'brix_translate', (string) get_option( self::READY, self::default_ready() ) );
 	}
 
 	/**

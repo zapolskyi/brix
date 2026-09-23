@@ -547,15 +547,28 @@ h4 {
 }
 
 .brix-lang {
+  display: flex;
+  align-items: center;
   padding-inline: var(--brix-gap-6);
   font-family: var(--brix-font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.1em;
-  color: var(--brix-muted);
 }
-.brix-lang b {
+.brix-lang__item {
+  color: var(--brix-muted);
+  text-decoration: none;
+}
+.brix-lang__item:hover {
+  color: var(--brix-roast);
+}
+.brix-lang__item.is-current {
   font-weight: 500;
   color: var(--brix-roast);
+}
+.brix-lang__item + .brix-lang__item::before {
+  content: "/";
+  margin-inline: var(--brix-gap-2);
+  color: var(--brix-line);
 }
 @media (max-width: 479px) {
   .brix-lang {

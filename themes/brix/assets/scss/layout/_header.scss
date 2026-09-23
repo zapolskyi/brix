@@ -108,14 +108,31 @@
   gap: var(--brix-gap-4);
 }
 
+// Перемикач мов: поточна мова — просто текст, друга — посилання.
+// Розділяє їх скісна риска, намальована псевдоелементом: у розмітці
+// її немає, бо вона нічого не означає для того, хто слухає сторінку.
 .brix-lang {
+  display: flex;
+  align-items: center;
   padding-inline: var(--brix-gap-6);
   font-family: var(--brix-font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.1em;
-  color: var(--brix-muted);
 
-  b { font-weight: 500; color: var(--brix-roast); }
+  &__item {
+    color: var(--brix-muted);
+    text-decoration: none;
+
+    &:hover { color: var(--brix-roast); }
+
+    &.is-current { font-weight: 500; color: var(--brix-roast); }
+
+    & + &::before {
+      content: '/';
+      margin-inline: var(--brix-gap-2);
+      color: var(--brix-line);
+    }
+  }
 
   @include upto($bp-sm) { display: none; }
 }

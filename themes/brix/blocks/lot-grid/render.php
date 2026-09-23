@@ -48,11 +48,11 @@ if ( ! $brix_products ) {
 		<header class="brix-section__head">
 			<div>
 				<?php if ( ! empty( $attributes['label'] ) ) : ?>
-					<p class="brix-label"><?php echo esc_html( $attributes['label'] ); ?></p>
+					<p class="brix-label"><?php echo esc_html( brix_t( $attributes['label'] ) ); ?></p>
 				<?php endif; ?>
 
 				<?php if ( ! empty( $attributes['heading'] ) ) : ?>
-					<h2><?php echo esc_html( $attributes['heading'] ); ?></h2>
+					<h2><?php echo esc_html( brix_t( $attributes['heading'] ) ); ?></h2>
 				<?php endif; ?>
 			</div>
 

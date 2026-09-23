@@ -42,7 +42,7 @@ $brix_complete  = count( $brix_selection ) === count( $brix_config );
 					</dd>
 				</div>
 				<div>
-					<dt class="brix-club-hero__value">24 год</dt>
+					<dt class="brix-club-hero__value"><?php esc_html_e( '24 год', 'brix' ); ?></dt>
 					<dd class="brix-label"><?php esc_html_e( 'від обсмаження до відправки', 'brix' ); ?></dd>
 				</div>
 			</dl>

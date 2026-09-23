@@ -68,7 +68,13 @@ final class Plugin {
 
 		$this->booted = true;
 
-		$this->load_textdomain();
+		/*
+		 * Переклади підключаються на init, а не тут. Мову запиту
+		 * визначає модуль I18n\Language, і його фільтр locale має
+		 * стояти раніше, ніж WordPress піде шукати файл перекладу —
+		 * інакше під /en/ завантажився б український.
+		 */
+		add_action( 'init', array( $this, 'load_textdomain' ), 1 );
 
 		foreach ( $this->module_classes() as $module_class ) {
 			if ( ! class_exists( $module_class ) || ! is_subclass_of( $module_class, Module::class ) ) {
@@ -112,6 +118,9 @@ final class Plugin {
 		return (array) apply_filters(
 			'brix_core_modules',
 			array(
+				I18n\Language::class,
+				I18n\Translations::class,
+				I18n\Emails::class,
 				PostTypes\Farm::class,
 				PostTypes\BrewGuide::class,
 				Taxonomies\Registrar::class,
@@ -141,7 +150,7 @@ final class Plugin {
 	 *
 	 * @return void
 	 */
-	private function load_textdomain(): void {
+	public function load_textdomain(): void {
 		load_plugin_textdomain( 'brix-core', false, dirname( plugin_basename( BRIX_CORE_FILE ) ) . '/languages' );
 	}
 
