@@ -730,6 +730,20 @@ final class Setup {
 			update_option( 'woocommerce_bacs_settings', array_merge( $bacs, array( 'enabled' => 'no' ) ) );
 		}
 
+		/*
+		 * Картка першою: вона працює і вдома, і за кордоном, і саме її
+		 * checkout обирає за замовчуванням. Накладний платіж — другим.
+		 */
+		update_option(
+			'woocommerce_gateway_order',
+			array(
+				'brix_liqpay'   => 0,
+				'brix_monobank' => 1,
+				'cod'           => 2,
+				'bacs'          => 3,
+			)
+		);
+
 		\WP_CLI::log( 'Способи оплати на місці.' );
 	}
 }
