@@ -31,8 +31,10 @@ jobs:
       - name: Синтаксис PHP
         run: find themes/brix plugins/brix-core -name '*.php' -not -path '*/vendor/*' -print0 | xargs -0 -n1 php -l
 
+      # -q обов'язковий: у phpcs.xml.dist увімкнений показ прогресу, і його
+      # крапки потрапляли б у XML-звіт, який cs2pr не може розібрати.
       - name: PHPCS
-        run: plugins/brix-core/vendor/bin/phpcs --standard=phpcs.xml.dist --report=checkstyle | cs2pr
+        run: plugins/brix-core/vendor/bin/phpcs -q --standard=phpcs.xml.dist --report=checkstyle | cs2pr
 
   assets:
     name: Складання стилів і синтаксис JS
