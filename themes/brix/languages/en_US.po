@@ -2,18 +2,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BRIX 22°\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/brix\n"
-"POT-Creation-Date: 2026-09-23T22:23:11+00:00\n"
 "Last-Translator: Nazar Zapolskyi <nazar.zapolski@gmail.com>\n"
 "Language-Team: English\n"
-"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-23T22:23:11+00:00\n"
+"PO-Revision-Date: 2026-09-24T12:22:34+00:00\n"
+"Language: en_US\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: brix\n"
 
 #. Theme Name of the theme
-#: style.css inc/blocks.php:106
+#: style.css
+#: inc/blocks.php:106
 msgid "BRIX 22°"
 msgstr ""
 
@@ -24,16 +26,8 @@ msgstr ""
 
 #. Description of the theme
 #: style.css
-msgid ""
-"Кастомна тема WordPress для specialty-обсмажувальні BRIX 22°. WooCommerce, "
-"паспорт лоту на кожен товар, AJAX-фільтри каталогу, checkout з Новою Поштою. "
-"SCSS + BEM, ванільний JS, без page builder'ів. Бізнес-логіка живе в окремому "
-"плагіні brix-core."
-msgstr ""
-"Custom WordPress theme for the BRIX 22° specialty roastery. WooCommerce, a "
-"lot passport on every product, AJAX catalogue filters, checkout with Nova "
-"Poshta. SCSS + BEM, vanilla JS, no page builders. Business logic lives in "
-"the separate brix-core plugin."
+msgid "Кастомна тема WordPress для specialty-обсмажувальні BRIX 22°. WooCommerce, паспорт лоту на кожен товар, AJAX-фільтри каталогу, checkout з Новою Поштою. SCSS + BEM, ванільний JS, без page builder'ів. Бізнес-логіка живе в окремому плагіні brix-core."
+msgstr "Custom WordPress theme for the BRIX 22° specialty roastery. WooCommerce, a lot passport on every product, AJAX catalogue filters, checkout with Nova Poshta. SCSS + BEM, vanilla JS, no page builders. Business logic lives in the separate brix-core plugin."
 
 #. Author of the theme
 #: style.css
@@ -50,14 +44,11 @@ msgid "Такої сторінки немає"
 msgstr "This page doesn’t exist"
 
 #: 404.php:21
-msgid ""
-"Можливо, лот уже розкупили або посилання застаріло. Загляньте в магазин — "
-"там завжди є свіже."
-msgstr ""
-"The lot may be sold out, or the link has gone stale. Have a look in the shop "
-"— there is always something fresh."
+msgid "Можливо, лот уже розкупили або посилання застаріло. Загляньте в магазин — там завжди є свіже."
+msgstr "The lot may be sold out, or the link has gone stale. Have a look in the shop — there is always something fresh."
 
-#: 404.php:27 woocommerce/myaccount/dashboard.php:223
+#: 404.php:27
+#: woocommerce/myaccount/dashboard.php:223
 msgid "У магазин"
 msgstr "To the shop"
 
@@ -65,24 +56,24 @@ msgstr "To the shop"
 msgid "На головну"
 msgstr "Home"
 
-#: archive-brix_farm.php:16 template-parts/home/farms.php:21
+#: archive-brix_farm.php:16
+#: template-parts/home/farms.php:21
 msgid "Прямі стосунки"
 msgstr "Direct relationships"
 
-#: archive-brix_farm.php:17 inc/search.php:31 single-brix_farm.php:37
+#: archive-brix_farm.php:17
+#: inc/search.php:31
+#: single-brix_farm.php:37
 msgid "Виробники"
 msgstr "Producers"
 
 #: archive-brix_farm.php:19
-msgid ""
-"Ферми й станції, з якими працюємо напряму. Для кожної — скільки років "
-"співпраці, що вона вирощує і скільки ми за це платимо."
-msgstr ""
-"Farms and mills we work with directly. For each one: how long we have worked "
-"together, what it grows and how much we pay for it."
+msgid "Ферми й станції, з якими працюємо напряму. Для кожної — скільки років співпраці, що вона вирощує і скільки ми за це платимо."
+msgstr "Farms and mills we work with directly. For each one: how long we have worked together, what it grows and how much we pay for it."
 
 #. translators: %d — рік початку співпраці.
-#: archive-brix_farm.php:46 template-parts/home/farms.php:49
+#: archive-brix_farm.php:46
+#: template-parts/home/farms.php:49
 #, php-format
 msgid "з %d"
 msgstr "of %d"
@@ -105,7 +96,8 @@ msgstr "%s farms"
 msgid "%s господарств"
 msgstr "%s farms"
 
-#: archive-brix_guide.php:16 template-parts/home/guides.php:21
+#: archive-brix_guide.php:16
+#: template-parts/home/guides.php:21
 msgid "Без снобізму"
 msgstr "No snobbery"
 
@@ -114,30 +106,31 @@ msgid "Гайди заварювання"
 msgstr "Brewing guides"
 
 #: archive-brix_guide.php:19
-msgid ""
-"Пропорції, температура й кроки для кожного способу. Почніть із того, що вже "
-"стоїть у вас на кухні."
-msgstr ""
-"Ratios, temperature and steps for every method. Start with whatever is "
-"already in your kitchen."
+msgid "Пропорції, температура й кроки для кожного способу. Почніть із того, що вже стоїть у вас на кухні."
+msgstr "Ratios, temperature and steps for every method. Start with whatever is already in your kitchen."
 
-#: blocks/brew-guide/render.php:32 template-parts/home/guides.php:25
+#: blocks/brew-guide/render.php:32
+#: template-parts/home/guides.php:25
 msgid "Усі рецепти"
 msgstr "All recipes"
 
-#: blocks/farm-teaser/render.php:32 template-parts/home/farms.php:25
+#: blocks/farm-teaser/render.php:32
+#: template-parts/home/farms.php:25
 msgid "Усі виробники"
 msgstr "All producers"
 
-#: blocks/feature/render.php:27 template-parts/home/teasers.php:22
+#: blocks/feature/render.php:27
+#: template-parts/home/teasers.php:22
 msgid "Способи заварювання поруч: V60, аеропрес, турка, френч-прес"
 msgstr "Brewing methods side by side: V60, AeroPress, cezve and French press"
 
-#: blocks/feature/render.php:28 template-parts/home/teasers.php:33
+#: blocks/feature/render.php:28
+#: template-parts/home/teasers.php:33
 msgid "Три пачки кави в коробці доставки"
 msgstr "Three bags of coffee in a delivery box"
 
-#: blocks/feature/render.php:29 page-wholesale.php:37
+#: blocks/feature/render.php:29
+#: page-wholesale.php:37
 #: template-parts/home/wholesale.php:32
 msgid "Бариста готує еспресо за баром кав’ярні"
 msgstr "A barista pulling an espresso at a café bar"
@@ -146,11 +139,13 @@ msgstr "A barista pulling an espresso at a café bar"
 msgid "Зелена смуга — вікно стиглості, 20–24 °Bx."
 msgstr "The green band is the ripeness window, 20–24 °Bx."
 
-#: blocks/hero/render.php:77 template-parts/home/hero.php:78
+#: blocks/hero/render.php:77
+#: template-parts/home/hero.php:78
 msgid "Рефрактометр, станція"
 msgstr "Refractometer, mill"
 
-#: blocks/lot-grid/render.php:61 template-parts/home/lots.php:37
+#: blocks/lot-grid/render.php:61
+#: template-parts/home/lots.php:37
 #: template-parts/quiz/result.php:121
 msgid "Весь каталог"
 msgstr "The whole catalogue"
@@ -160,12 +155,8 @@ msgid "Лист у понеділок"
 msgstr "The Monday letter"
 
 #: footer.php:21
-msgid ""
-"Що обсмажили цього тижня, які лоти закінчуються і один рецепт. Без спаму — 4 "
-"листи на місяць."
-msgstr ""
-"What we roasted this week, which lots are running out and one recipe. No "
-"spam — four letters a month."
+msgid "Що обсмажили цього тижня, які лоти закінчуються і один рецепт. Без спаму — 4 листи на місяць."
+msgstr "What we roasted this week, which lots are running out and one recipe. No spam — four letters a month."
 
 #: footer.php:50
 msgid "Ваш email"
@@ -183,20 +174,20 @@ msgstr "Subscribe"
 msgid "Надішлемо лист для підтвердження. Відписатися можна з будь-якого листа."
 msgstr "We will send an email to confirm. You can unsubscribe from any letter."
 
-#: footer.php:75
+#: footer.php:78
 msgid "Магазин"
 msgstr "Shop"
 
-#: footer.php:76
+#: footer.php:79
 msgid "Бренд"
 msgstr "Brand"
 
-#: footer.php:77
+#: footer.php:80
 msgid "Допомога"
 msgstr "Help"
 
 #. translators: %s — поточний рік.
-#: footer.php:87
+#: footer.php:90
 #, php-format
 msgid "© %s BRIX 22° · Обсмажувальня, Київ"
 msgstr "© %s BRIX 22° · Roastery, Kyiv"
@@ -205,7 +196,8 @@ msgstr "© %s BRIX 22° · Roastery, Kyiv"
 msgid "Перейти до вмісту"
 msgstr "Skip to content"
 
-#: header.php:29 inc/setup.php:53
+#: header.php:29
+#: inc/setup.php:53
 msgid "Головне меню"
 msgstr "Main menu"
 
@@ -237,7 +229,8 @@ msgstr "My account"
 msgid "Кошик"
 msgstr "Cart"
 
-#: header.php:105 inc/enqueue.php:45
+#: header.php:105
+#: inc/enqueue.php:45
 msgid "Відкрити меню"
 msgstr "Open menu"
 
@@ -245,28 +238,25 @@ msgstr "Open menu"
 msgid "Моя кава"
 msgstr "My coffee"
 
-#: inc/account.php:27 inc/account.php:93 inc/account.php:96
+#: inc/account.php:27
+#: inc/account.php:93
+#: inc/account.php:96
 #: woocommerce/myaccount/my-address.php:23
 msgid "Адреса доставки"
 msgstr "Delivery address"
 
-#: inc/account.php:75 woocommerce/myaccount/dashboard.php:209
+#: inc/account.php:75
+#: woocommerce/myaccount/dashboard.php:209
 msgid "Повторити замовлення"
 msgstr "Repeat order"
 
-#: inc/analytics.php:30
+#: inc/analytics.php:45
 msgid "Аналітика"
 msgstr "Analytics"
 
-#: inc/analytics.php:36
+#: inc/analytics.php:51
 msgid "Ідентифікатор потоку GA4"
 msgstr "GA4 stream ID"
-
-#: inc/analytics.php:37
-msgid "Порожнє поле вимикає аналітику повністю — жодного запиту до Google."
-msgstr ""
-"An empty field switches analytics off completely — not a single request to "
-"Google."
 
 #: inc/blocks.php:65
 msgid "Усі лінійки"
@@ -296,11 +286,13 @@ msgstr "There is no such catalogue section."
 msgid "Спосіб заварювання"
 msgstr "Brew method"
 
-#: inc/catalog.php:30 template-parts/product/passport.php:44
+#: inc/catalog.php:30
+#: template-parts/product/passport.php:44
 msgid "Обробка"
 msgstr "Process"
 
-#: inc/catalog.php:34 page-transparency.php:40
+#: inc/catalog.php:34
+#: page-transparency.php:40
 #: template-parts/product/passport.php:23
 msgid "Країна"
 msgstr "Country"
@@ -309,7 +301,8 @@ msgstr "Country"
 msgid "Смакові ноти"
 msgstr "Tasting notes"
 
-#: inc/catalog.php:45 template-parts/quiz/result.php:16
+#: inc/catalog.php:45
+#: template-parts/quiz/result.php:16
 msgid "Кислотність"
 msgstr "Acidity"
 
@@ -359,11 +352,14 @@ msgstr "Address"
 msgid "Вулиця, будинок, квартира"
 msgstr "Street, building, apartment"
 
-#: inc/checkout.php:141 inc/checkout.php:173 page-wholesale.php:127
+#: inc/checkout.php:141
+#: inc/checkout.php:173
+#: page-wholesale.php:127
 msgid "Місто"
 msgstr "City"
 
-#: inc/checkout.php:145 inc/checkout.php:180
+#: inc/checkout.php:145
+#: inc/checkout.php:180
 msgid "Поштовий індекс"
 msgstr "Postcode"
 
@@ -384,24 +380,21 @@ msgid "Спосіб отримання"
 msgstr "How you get it"
 
 #: inc/checkout.php:357
-msgid ""
-"Для цієї країни доставки поки немає. Оберіть іншу країну або напишіть нам — "
-"порахуємо окремо."
-msgstr ""
-"We do not deliver to this country yet. Pick another one, or write to us and "
-"we will work it out."
+msgid "Для цієї країни доставки поки немає. Оберіть іншу країну або напишіть нам — порахуємо окремо."
+msgstr "We do not deliver to this country yet. Pick another one, or write to us and we will work it out."
 
-#: inc/checkout.php:390 woocommerce/cart/cart-shipping.php:56
+#: inc/checkout.php:390
+#: woocommerce/cart/cart-shipping.php:56
 #: woocommerce/cart/cart-shipping.php:85
 msgid "Безкоштовно"
 msgstr "Free"
 
 #: inc/checkout.php:414
-msgid ""
-"Змінили спосіб отримання — натисніть «Оновити», щоб форма перебудувалась."
+msgid "Змінили спосіб отримання — натисніть «Оновити», щоб форма перебудувалась."
 msgstr "Changed how you get it? Press “Update” so the form rebuilds."
 
-#: inc/checkout.php:415 inc/checkout.php:416
+#: inc/checkout.php:415
+#: inc/checkout.php:416
 msgid "Оновити"
 msgstr "Update"
 
@@ -487,7 +480,8 @@ msgstr "Every 4 weeks"
 msgid "Якщо чашка не щодня"
 msgstr "If a cup is not a daily thing"
 
-#: inc/club.php:74 single-brix_guide.php:77
+#: inc/club.php:74
+#: single-brix_guide.php:77
 #: template-parts/product/recipe.php:46
 msgid "Помел"
 msgstr "Grind"
@@ -515,24 +509,16 @@ msgid "Такого міста не знайшли. Перевірте напи�
 msgstr "We could not find that city. Check the spelling."
 
 #: inc/enqueue.php:190
-msgid ""
-"Нічого не знайшли. Можна вписати адресу вручну — звіримо її під час обробки."
-msgstr ""
-"Nothing found. You can type the address by hand — we will check it when we "
-"process the order."
+msgid "Нічого не знайшли. Можна вписати адресу вручну — звіримо її під час обробки."
+msgstr "Nothing found. You can type the address by hand — we will check it when we process the order."
 
 #: inc/enqueue.php:191
-msgid ""
-"Не вдалося завантажити список. Впишіть адресу вручну — звіримо її під час "
-"обробки."
-msgstr ""
-"We could not load the list. Type the address by hand — we will check it when "
-"we process the order."
+msgid "Не вдалося завантажити список. Впишіть адресу вручну — звіримо її під час обробки."
+msgstr "We could not load the list. Type the address by hand — we will check it when we process the order."
 
 #: inc/enqueue.php:192
 msgid "Забагато запитів поспіль. Зачекайте хвилину або впишіть адресу вручну."
-msgstr ""
-"Too many requests in a row. Wait a minute, or type the address by hand."
+msgstr "Too many requests in a row. Wait a minute, or type the address by hand."
 
 #: inc/i18n.php:84
 msgid "Мова сайту"
@@ -557,7 +543,7 @@ msgid "Такого лоту немає."
 msgstr "There is no such lot."
 
 #. translators: %s — найнижча ціна варіації.
-#: inc/products.php:177
+#: inc/products.php:187
 #, php-format
 msgid "від %s"
 msgstr "from %s"
@@ -570,7 +556,8 @@ msgstr "The quiz is unavailable."
 msgid "Лоти"
 msgstr "Lots"
 
-#: inc/search.php:27 single-brix_guide.php:46
+#: inc/search.php:27
+#: single-brix_guide.php:46
 msgid "Гайди"
 msgstr "Guides"
 
@@ -594,11 +581,13 @@ msgstr "Footer · Legal"
 msgid "22 градуси — на головну"
 msgstr "22 degrees — home"
 
-#: inc/template-tags.php:39 template-parts/home/hero.php:56
+#: inc/template-tags.php:39
+#: template-parts/home/hero.php:56
 msgid "Обсмажуємо щопонеділка"
 msgstr "We roast every Monday"
 
-#: inc/template-tags.php:40 template-parts/home/hero.php:57
+#: inc/template-tags.php:40
+#: template-parts/home/hero.php:57
 msgid "Відправка в день обсмаження"
 msgstr "Shipped on roast day"
 
@@ -636,11 +625,13 @@ msgstr "Results for “%s”"
 msgid "Журнал"
 msgstr "Journal"
 
-#: index.php:51 template-parts/quiz/step.php:65
+#: index.php:51
+#: template-parts/quiz/step.php:65
 msgid "Назад"
 msgstr "Back"
 
-#: index.php:52 template-parts/quiz/step.php:87
+#: index.php:52
+#: template-parts/quiz/step.php:87
 msgid "Далі"
 msgstr "Next"
 
@@ -648,18 +639,15 @@ msgstr "Next"
 msgid "Підписка"
 msgstr "Subscription"
 
-#: page-club.php:22 template-parts/home/teasers.php:26
+#: page-club.php:22
+#: template-parts/home/teasers.php:26
 #: woocommerce/myaccount/dashboard.php:47
 msgid "BRIX Club"
 msgstr "BRIX Club"
 
 #: page-club.php:24
-msgid ""
-"Свіже обсмаження кожні два або чотири тижні, −10% на все і жодного "
-"листування: пауза, пропуск і заміна лоту — в кабінеті у два кліки."
-msgstr ""
-"A fresh roast every two or four weeks, −10% on everything and no "
-"correspondence: pause, skip and lot swap take two clicks in your account."
+msgid "Свіже обсмаження кожні два або чотири тижні, −10% на все і жодного листування: пауза, пропуск і заміна лоту — в кабінеті у два кліки."
+msgstr "A fresh roast every two or four weeks, −10% on everything and no correspondence: pause, skip and lot swap take two clicks in your account."
 
 #: page-club.php:30
 msgid "на кожне замовлення"
@@ -717,7 +705,8 @@ msgstr "Choose the first lot"
 msgid "Пройдіть усі чотири кроки, щоб побачити ціну."
 msgstr "Go through all four steps to see the price."
 
-#: page-club.php:169 template-parts/home/teasers.php:29
+#: page-club.php:169
+#: template-parts/home/teasers.php:29
 msgid "Як це працює"
 msgstr "How it works"
 
@@ -731,8 +720,7 @@ msgstr "You build the subscription"
 
 #: page-club.php:175
 msgid "Обираєте вагу, частоту й помел. Змінити можна будь-коли."
-msgstr ""
-"You pick the weight, the frequency and the grind. Changeable at any time."
+msgstr "You pick the weight, the frequency and the grind. Changeable at any time."
 
 #: page-club.php:176
 msgid "Крок 2"
@@ -779,12 +767,8 @@ msgid "Чи можна пропустити одну відправку?"
 msgstr "Can I skip one shipment?"
 
 #: page-club.php:199
-msgid ""
-"Так. У кабінеті є кнопка «Пропустити» — наступна відправка просто зсунеться "
-"на цикл."
-msgstr ""
-"Yes. There is a “Skip” button in your account — the next shipment simply "
-"moves on by one cycle."
+msgid "Так. У кабінеті є кнопка «Пропустити» — наступна відправка просто зсунеться на цикл."
+msgstr "Yes. There is a “Skip” button in your account — the next shipment simply moves on by one cycle."
 
 #: page-club.php:200
 msgid "А якщо лот не сподобався?"
@@ -792,16 +776,14 @@ msgstr "What if I do not like the lot?"
 
 #: page-club.php:200
 msgid "Напишіть нам протягом тижня — замінимо на інший безкоштовно."
-msgstr ""
-"Write to us within a week and we will swap it for another one free of charge."
+msgstr "Write to us within a week and we will swap it for another one free of charge."
 
 #: page-club.php:201
 msgid "Можна обрати конкретний лот?"
 msgstr "Can I choose a specific lot?"
 
 #: page-club.php:201
-msgid ""
-"Так, але тільки поки він є в наявності. Мікролоти закінчуються за 3–6 тижнів."
+msgid "Так, але тільки поки він є в наявності. Мікролоти закінчуються за 3–6 тижнів."
 msgstr "Yes, but only while it is in stock. Microlots run out in 3–6 weeks."
 
 #: page-club.php:202
@@ -817,13 +799,8 @@ msgid "Прозорість"
 msgstr "Transparency"
 
 #: page-transparency.php:25
-msgid ""
-"Скільки коштує кілограм зеленої кави на фермі й скільки ви платите за пачку. "
-"Цифри беруться з паспорта кожного лоту й оновлюються разом із каталогом."
-msgstr ""
-"What a kilo of green coffee costs at the farm and what you pay for a bag. "
-"The figures come from each lot’s passport and update together with the "
-"catalogue."
+msgid "Скільки коштує кілограм зеленої кави на фермі й скільки ви платите за пачку. Цифри беруться з паспорта кожного лоту й оновлюються разом із каталогом."
+msgstr "What a kilo of green coffee costs at the farm and what you pay for a bag. The figures come from each lot’s passport and update together with the catalogue."
 
 #: page-transparency.php:36
 msgid "Закупівельні ціни за лотами"
@@ -833,7 +810,8 @@ msgstr "Purchase prices by lot"
 msgid "Лот"
 msgstr "Lot"
 
-#: page-transparency.php:41 single-brix_farm.php:45
+#: page-transparency.php:41
+#: single-brix_farm.php:45
 #: template-parts/product/farm.php:23
 msgid "Виробник"
 msgstr "Producer"
@@ -853,26 +831,16 @@ msgid "°Bx"
 msgstr "°Bx"
 
 #: page-transparency.php:82
-msgid ""
-"Ціна фермеру — FOB, тобто вартість зеленої кави з доставкою в порт "
-"відправлення. У нашу ціну поверх неї входять логістика, мито, втрата ваги "
-"при обсмаженні (близько 16%), пакування, податки й робота."
-msgstr ""
-"The price to the farmer is FOB, that is the cost of green coffee delivered "
-"to the port of departure. On top of it our price covers logistics, duty, "
-"weight loss in roasting (about 16%), packaging, taxes and labour."
+msgid "Ціна фермеру — FOB, тобто вартість зеленої кави з доставкою в порт відправлення. У нашу ціну поверх неї входять логістика, мито, втрата ваги при обсмаженні (близько 16%), пакування, податки й робота."
+msgstr "The price to the farmer is FOB, that is the cost of green coffee delivered to the port of departure. On top of it our price covers logistics, duty, weight loss in roasting (about 16%), packaging, taxes and labour."
 
 #: page-transparency.php:86
 msgid "Даних поки немає"
 msgstr "No data yet"
 
 #: page-transparency.php:87
-msgid ""
-"Таблиця заповнюється з паспортів лотів. Щойно в каталозі зʼявляться лоти з "
-"ціною фермеру — вони будуть тут."
-msgstr ""
-"The table is filled from lot passports. As soon as the catalogue has lots "
-"with a farmer price, they will be here."
+msgid "Таблиця заповнюється з паспортів лотів. Щойно в каталозі зʼявляться лоти з ціною фермеру — вони будуть тут."
+msgstr "The table is filled from lot passports. As soon as the catalogue has lots with a farmer price, they will be here."
 
 #: page-wholesale.php:19
 msgid "Для кавʼярень"
@@ -883,14 +851,11 @@ msgid "Кава, яку гості впізнають"
 msgstr "Coffee your guests will recognise"
 
 #: page-wholesale.php:22
-msgid ""
-"Оптові ціни від 5 кг, обсмаження під ваш графік, профіль під вашу машину. "
-"Рахунок і закривні документи — як годиться."
-msgstr ""
-"Wholesale prices from 5 kg, roasting on your schedule, a profile for your "
-"machine. Invoice and closing documents, as they should be."
+msgid "Оптові ціни від 5 кг, обсмаження під ваш графік, профіль під вашу машину. Рахунок і закривні документи — як годиться."
+msgstr "Wholesale prices from 5 kg, roasting on your schedule, a profile for your machine. Invoice and closing documents, as they should be."
 
-#: page-wholesale.php:26 template-parts/home/wholesale.php:21
+#: page-wholesale.php:26
+#: template-parts/home/wholesale.php:21
 msgid "Залишити заявку"
 msgstr "Send a request"
 
@@ -907,38 +872,24 @@ msgid "«Мікролоти надто дорогі для меню»"
 msgstr "“Microlots are too expensive for a menu”"
 
 #: page-wholesale.php:58
-msgid ""
-"Для щоденного напою беріть Core: він дешевший за більшість спешелті й "
-"стабільний від партії до партії. Мікролоти лишіть на гостьову позицію — вона "
-"й продає, і виправдовує ціну."
-msgstr ""
-"For the everyday drink take Core: it is cheaper than most specialty and "
-"stable from batch to batch. Leave microlots for the guest slot — it both "
-"sells and justifies the price."
+msgid "Для щоденного напою беріть Core: він дешевший за більшість спешелті й стабільний від партії до партії. Мікролоти лишіть на гостьову позицію — вона й продає, і виправдовує ціну."
+msgstr "For the everyday drink take Core: it is cheaper than most specialty and stable from batch to batch. Leave microlots for the guest slot — it both sells and justifies the price."
 
 #: page-wholesale.php:61
 msgid "«Профіль пливе від партії до партії»"
 msgstr "“The profile drifts from batch to batch”"
 
 #: page-wholesale.php:62
-msgid ""
-"Тому ми фіксуємо профіль обсмаження й перевіряємо кожну партію на каппінгу. "
-"Якщо чашка поїхала — міняємо за свій рахунок."
-msgstr ""
-"That is why we lock the roast profile and cup every batch. If the cup has "
-"drifted, we replace it at our own cost."
+msgid "Тому ми фіксуємо профіль обсмаження й перевіряємо кожну партію на каппінгу. Якщо чашка поїхала — міняємо за свій рахунок."
+msgstr "That is why we lock the roast profile and cup every batch. If the cup has drifted, we replace it at our own cost."
 
 #: page-wholesale.php:65
 msgid "«Бариста доведеться перенавчати»"
 msgstr "“We will have to retrain the baristas”"
 
 #: page-wholesale.php:66
-msgid ""
-"Приїжджаємо на калібрування при першій поставці й лишаємо рецепт під вашу "
-"машину. Далі — на звʼязку в месенджері."
-msgstr ""
-"We come to calibrate with the first delivery and leave a recipe for your "
-"machine. After that we are a message away."
+msgid "Приїжджаємо на калібрування при першій поставці й лишаємо рецепт під вашу машину. Далі — на звʼязку в месенджері."
+msgstr "We come to calibrate with the first delivery and leave a recipe for your machine. After that we are a message away."
 
 #: page-wholesale.php:84
 msgid "Заявка"
@@ -949,12 +900,8 @@ msgid "Розкажіть про заклад"
 msgstr "Tell us about your place"
 
 #: page-wholesale.php:87
-msgid ""
-"Відповімо протягом робочого дня: надішлемо прайс, зразки на пробу й "
-"домовимось про калібрування."
-msgstr ""
-"We will reply within one working day: price list, samples to try and a time "
-"for calibration."
+msgid "Відповімо протягом робочого дня: надішлемо прайс, зразки на пробу й домовимось про калібрування."
+msgstr "We will reply within one working day: price list, samples to try and a time for calibration."
 
 #: page-wholesale.php:91
 msgid "Мінімальне замовлення — 5 кг"
@@ -973,15 +920,11 @@ msgid "Заявку отримали. Відповімо протягом роб
 msgstr "We have your request. We will reply within one working day."
 
 #: page-wholesale.php:104
-msgid ""
-"Не всі обовʼязкові поля заповнені або email виглядає неправильно. Перевірте, "
-"будь ласка."
-msgstr ""
-"Some required fields are empty, or the email looks wrong. Please check."
+msgid "Не всі обовʼязкові поля заповнені або email виглядає неправильно. Перевірте, будь ласка."
+msgstr "Some required fields are empty, or the email looks wrong. Please check."
 
 #: page-wholesale.php:108
-msgid ""
-"Не вдалося надіслати заявку. Спробуйте ще раз або напишіть нам на пошту."
+msgid "Не вдалося надіслати заявку. Спробуйте ще раз або напишіть нам на пошту."
 msgstr "We could not send the request. Try again or write to us by email."
 
 #: page-wholesale.php:120
@@ -1018,17 +961,11 @@ msgstr "Comment"
 
 #: page-wholesale.php:159
 msgid "Що вже пробували, який профіль шукаєте, коли потрібна перша поставка"
-msgstr ""
-"What you have tried, the profile you are after, when you need the first "
-"delivery"
+msgstr "What you have tried, the profile you are after, when you need the first delivery"
 
 #: page-wholesale.php:163
 msgid "Надіслати заявку"
 msgstr "Send request"
-
-#: page-wholesale.php:164
-msgid "Поля із зірочкою обовʼязкові."
-msgstr "Fields marked with an asterisk are required."
 
 #. translators: %s — пошуковий запит.
 #: search.php:40
@@ -1041,18 +978,15 @@ msgid "Нічого не знайшлось"
 msgstr "Nothing found"
 
 #: search.php:53
-msgid ""
-"Спробуйте назву країни, ферми або ноту смаку — наприклад «Ефіопія», "
-"«бергамот» або «Natural»."
-msgstr ""
-"Try a country, a farm or a tasting note — “Ethiopia”, “bergamot” or "
-"“Natural”, for example."
+msgid "Спробуйте назву країни, ферми або ноту смаку — наприклад «Ефіопія», «бергамот» або «Natural»."
+msgstr "Try a country, a farm or a tasting note — “Ethiopia”, “bergamot” or “Natural”, for example."
 
 #: search.php:57
 msgid "Перейти в магазин"
 msgstr "Go to the shop"
 
-#: single-brix_farm.php:36 single-brix_guide.php:45
+#: single-brix_farm.php:36
+#: single-brix_guide.php:45
 msgid "Головна"
 msgstr "Home"
 
@@ -1064,7 +998,8 @@ msgstr "Farms"
 msgid "Працюємо з"
 msgstr "Working together since"
 
-#: single-brix_farm.php:78 template-parts/product/passport.php:40
+#: single-brix_farm.php:78
+#: template-parts/product/passport.php:40
 msgid "Різновид"
 msgstr "Variety"
 
@@ -1072,7 +1007,8 @@ msgstr "Variety"
 msgid "Ціна FOB"
 msgstr "FOB price"
 
-#: single-brix_farm.php:82 template-parts/product/passport.php:52
+#: single-brix_farm.php:82
+#: template-parts/product/passport.php:52
 msgid " / кг"
 msgstr " / kg"
 
@@ -1116,8 +1052,10 @@ msgstr "Recipe"
 msgid "Кава"
 msgstr "Coffee"
 
-#: single-brix_guide.php:65 template-parts/guide/tile.php:23
-#: template-parts/home/guides.php:44 template-parts/product/recipe.php:33
+#: single-brix_guide.php:65
+#: template-parts/guide/tile.php:23
+#: template-parts/home/guides.php:44
+#: template-parts/product/recipe.php:33
 msgid " г"
 msgstr " g"
 
@@ -1125,12 +1063,15 @@ msgstr " g"
 msgid "Вода"
 msgstr "Water"
 
-#: single-brix_guide.php:69 template-parts/guide/tile.php:27
-#: template-parts/home/guides.php:48 template-parts/product/recipe.php:33
+#: single-brix_guide.php:69
+#: template-parts/guide/tile.php:27
+#: template-parts/home/guides.php:48
+#: template-parts/product/recipe.php:33
 msgid " мл"
 msgstr " ml"
 
-#: single-brix_guide.php:73 template-parts/product/recipe.php:39
+#: single-brix_guide.php:73
+#: template-parts/product/recipe.php:39
 msgid "Температура"
 msgstr "Temperature"
 
@@ -1146,7 +1087,8 @@ msgstr "Other recipes"
 msgid "прибрати фільтр"
 msgstr "remove filter"
 
-#: template-parts/catalog/filters.php:21 woocommerce/archive-product.php:62
+#: template-parts/catalog/filters.php:21
+#: woocommerce/archive-product.php:62
 msgid "Фільтри"
 msgstr "Filters"
 
@@ -1197,12 +1139,8 @@ msgid "Під ці фільтри нічого немає"
 msgstr "Nothing matches these filters"
 
 #: template-parts/catalog/results.php:37
-msgid ""
-"Спробуйте прибрати частину умов — лотів у нас небагато, і вони швидко "
-"закінчуються."
-msgstr ""
-"Try removing some of the conditions — we do not keep many lots, and they run "
-"out quickly."
+msgid "Спробуйте прибрати частину умов — лотів у нас небагато, і вони швидко закінчуються."
+msgstr "Try removing some of the conditions — we do not keep many lots, and they run out quickly."
 
 #: template-parts/catalog/results.php:41
 msgid "Скинути фільтри"
@@ -1225,16 +1163,8 @@ msgid "Стиглість вимірюють у градусах Brix"
 msgstr "Ripeness is measured in degrees Brix"
 
 #: template-parts/home/brix-explainer.php:22
-msgid ""
-"°Bx показує вміст цукру в соку ягоди. Фермер перевіряє його рефрактометром "
-"просто на дереві: нижче 20 — ягода недостигла і кава вийде порожньою, вище "
-"24 — переспіла. Ми купуємо тільки те, що зібрано в цьому вікні, і пишемо "
-"цифру на пачці."
-msgstr ""
-"°Bx shows the sugar content of the cherry’s juice. The farmer checks it with "
-"a refractometer right on the tree: below 20 the cherry is unripe and the "
-"coffee comes out hollow, above 24 it is overripe. We buy only what was "
-"picked inside this window, and we print the number on the bag."
+msgid "°Bx показує вміст цукру в соку ягоди. Фермер перевіряє його рефрактометром просто на дереві: нижче 20 — ягода недостигла і кава вийде порожньою, вище 24 — переспіла. Ми купуємо тільки те, що зібрано в цьому вікні, і пишемо цифру на пачці."
+msgstr "°Bx shows the sugar content of the cherry’s juice. The farmer checks it with a refractometer right on the tree: below 20 the cherry is unripe and the coffee comes out hollow, above 24 it is overripe. We buy only what was picked inside this window, and we print the number on the bag."
 
 #: template-parts/home/brix-explainer.php:26
 msgid "Як ми обираємо лоти"
@@ -1245,12 +1175,8 @@ msgid "22°"
 msgstr "22°"
 
 #: template-parts/home/brix-explainer.php:48
-msgid ""
-"Зелена смуга — вікно стиглості, 20–24 °Bx. Позначка — середина, від якої "
-"бренд і взяв назву."
-msgstr ""
-"The green band is the ripeness window, 20–24 °Bx. The mark is its middle — "
-"where the brand took its name."
+msgid "Зелена смуга — вікно стиглості, 20–24 °Bx. Позначка — середина, від якої бренд і взяв назву."
+msgstr "The green band is the ripeness window, 20–24 °Bx. The mark is its middle — where the brand took its name."
 
 #: template-parts/home/farms.php:22
 msgid "Виробники, з якими працюємо"
@@ -1260,7 +1186,8 @@ msgstr "The producers we work with"
 msgid "Заварити вдома"
 msgstr "Brew it at home"
 
-#: template-parts/home/hero.php:21 woocommerce/content-product.php:35
+#: template-parts/home/hero.php:21
+#: woocommerce/content-product.php:35
 msgid "Лот тижня"
 msgstr "Lot of the week"
 
@@ -1273,14 +1200,8 @@ msgid "при"
 msgstr "at"
 
 #: template-parts/home/hero.php:42
-msgid ""
-"Мікролоти від ферм, з якими працюємо напряму. Обсмажуємо щопонеділка і "
-"кладемо в кожну пачку паспорт: висота, обробка, цукристість ягоди при зборі "
-"та ціна, яку отримав фермер."
-msgstr ""
-"Microlots from farms we work with directly. We roast every Monday and put a "
-"passport in every bag: altitude, process, sugar content of the cherry at "
-"picking and the price the farmer received."
+msgid "Мікролоти від ферм, з якими працюємо напряму. Обсмажуємо щопонеділка і кладемо в кожну пачку паспорт: висота, обробка, цукристість ягоди при зборі та ціна, яку отримав фермер."
+msgstr "Microlots from farms we work with directly. We roast every Monday and put a passport in every bag: altitude, process, sugar content of the cherry at picking and the price the farmer received."
 
 #: template-parts/home/hero.php:47
 msgid "Обрати каву"
@@ -1333,12 +1254,8 @@ msgid "Не знаєте, з чого почати?"
 msgstr "Not sure where to start?"
 
 #: template-parts/home/teasers.php:17
-msgid ""
-"Шість питань про те, як ви заварюєте і що любите в чашці. На виході — три "
-"лоти з уже виставленим помелом."
-msgstr ""
-"Six questions about how you brew and what you like in the cup. Out come "
-"three lots with the grind already set."
+msgid "Шість питань про те, як ви заварюєте і що любите в чашці. На виході — три лоти з уже виставленим помелом."
+msgstr "Six questions about how you brew and what you like in the cup. Out come three lots with the grind already set."
 
 #: template-parts/home/teasers.php:18
 msgid "Пройти квіз"
@@ -1349,12 +1266,8 @@ msgid "Свіжа кава приїжджає сама"
 msgstr "Fresh coffee arrives on its own"
 
 #: template-parts/home/teasers.php:28
-msgid ""
-"Підписка кожні 2 або 4 тижні зі знижкою 10%. Паузу, пропуск і зміну лоту "
-"вмикаєте в кабінеті."
-msgstr ""
-"A subscription every 2 or 4 weeks with a 10% discount. Pause, skip and lot "
-"changes are in your account."
+msgid "Підписка кожні 2 або 4 тижні зі знижкою 10%. Паузу, пропуск і зміну лоту вмикаєте в кабінеті."
+msgstr "A subscription every 2 or 4 weeks with a 10% discount. Pause, skip and lot changes are in your account."
 
 #: template-parts/home/wholesale.php:14
 msgid "Для кав’ярень"
@@ -1365,46 +1278,47 @@ msgid "Кава для кав’ярень, яку гості впізнають
 msgstr "Café coffee your guests will recognise"
 
 #: template-parts/home/wholesale.php:17
-msgid ""
-"Оптові ціни від 5 кг, стабільні поставки під графік обсмаження, рахунок і "
-"закривні документи. Профіль під вашу машину підберемо разом."
-msgstr ""
-"Wholesale prices from 5 kg, steady deliveries on your roasting schedule, "
-"invoice and closing documents. We will work out the profile for your machine "
-"together."
+msgid "Оптові ціни від 5 кг, стабільні поставки під графік обсмаження, рахунок і закривні документи. Профіль під вашу машину підберемо разом."
+msgstr "Wholesale prices from 5 kg, steady deliveries on your roasting schedule, invoice and closing documents. We will work out the profile for your machine together."
 
 #. translators: %s — кількість пачок.
-#: template-parts/product/buy.php:51 woocommerce/content-product.php:117
+#: template-parts/product/buy.php:51
+#: woocommerce/content-product.php:117
 #, php-format
 msgid "Залишилась %s пачка"
 msgstr "%s bag left"
 
 #. translators: %s — кількість пачок.
-#: template-parts/product/buy.php:51 woocommerce/content-product.php:119
+#: template-parts/product/buy.php:51
+#: woocommerce/content-product.php:119
 #, php-format
 msgid "Залишилось %s пачки"
 msgstr "%s bags left"
 
 #. translators: %s — кількість пачок.
-#: template-parts/product/buy.php:51 woocommerce/content-product.php:121
+#: template-parts/product/buy.php:51
+#: woocommerce/content-product.php:121
 #, php-format
 msgid "Залишилось %s пачок"
 msgstr "%s bags left"
 
 #. translators: %s — кількість штук.
-#: template-parts/product/buy.php:53 woocommerce/content-product.php:127
+#: template-parts/product/buy.php:53
+#: woocommerce/content-product.php:127
 #, php-format
 msgid "Залишилась %s штука"
 msgstr "%s left"
 
 #. translators: %s — кількість штук.
-#: template-parts/product/buy.php:53 woocommerce/content-product.php:129
+#: template-parts/product/buy.php:53
+#: woocommerce/content-product.php:129
 #, php-format
 msgid "Залишилось %s штуки"
 msgstr "%s left"
 
 #. translators: %s — кількість штук.
-#: template-parts/product/buy.php:53 woocommerce/content-product.php:131
+#: template-parts/product/buy.php:53
+#: woocommerce/content-product.php:131
 #, php-format
 msgid "Залишилось %s штук"
 msgstr "%s left"
@@ -1531,8 +1445,7 @@ msgstr "Everything about this coffee"
 
 #: template-parts/product/passport.php:78
 msgid "Дані зібрані на станції під час збору й підтверджені при закупівлі."
-msgstr ""
-"The data was collected at the mill during picking and confirmed at purchase."
+msgstr "The data was collected at the mill during picking and confirmed at purchase."
 
 #: template-parts/product/passport.php:96
 msgid "Цукристість при зборі"
@@ -1541,11 +1454,8 @@ msgstr "Sugar content at picking"
 #. translators: 1: нижня межа стиглості, 2: верхня межа.
 #: template-parts/product/passport.php:118
 #, php-format
-msgid ""
-"Пік стиглості — від %1$d до %2$d °Bx. Нижче ягода недостигла, вище переспіла."
-msgstr ""
-"Peak ripeness runs from %1$d to %2$d °Bx. Below that the cherry is unripe, "
-"above it overripe."
+msgid "Пік стиглості — від %1$d до %2$d °Bx. Нижче ягода недостигла, вище переспіла."
+msgstr "Peak ripeness runs from %1$d to %2$d °Bx. Below that the cherry is unripe, above it overripe."
 
 #: template-parts/product/passport.php:129
 msgid "Профіль смаку"
@@ -1640,12 +1550,8 @@ msgid "Не змогли підібрати"
 msgstr "We could not find a match"
 
 #: template-parts/quiz/result.php:112
-msgid ""
-"Схоже, під такі відповіді зараз немає лотів у наявності. Спробуйте пройти ще "
-"раз або подивіться весь каталог."
-msgstr ""
-"It looks like nothing in stock matches these answers. Try again, or browse "
-"the whole catalogue."
+msgid "Схоже, під такі відповіді зараз немає лотів у наявності. Спробуйте пройти ще раз або подивіться весь каталог."
+msgstr "It looks like nothing in stock matches these answers. Try again, or browse the whole catalogue."
 
 #: template-parts/quiz/result.php:118
 msgid "Пройти ще раз"
@@ -1687,9 +1593,7 @@ msgstr "Shipping"
 
 #: woocommerce/cart/cart-shipping.php:43
 msgid "Спосіб доставки з’явиться, щойно в кошику буде хоч одна пачка."
-msgstr ""
-"A delivery method will appear as soon as there is at least one bag in the "
-"cart."
+msgstr "A delivery method will appear as soon as there is at least one bag in the cart."
 
 #: woocommerce/cart/cart.php:83
 msgid "Немає в наявності — доставимо окремо."
@@ -1707,15 +1611,18 @@ msgstr "Quantity: %s"
 msgid "Прибрати з кошика: %s"
 msgstr "Remove from cart: %s"
 
-#: woocommerce/cart/cart.php:131 woocommerce/cart/cart.php:132
+#: woocommerce/cart/cart.php:131
+#: woocommerce/cart/cart.php:132
 msgid "Промокод"
 msgstr "Promo code"
 
-#: woocommerce/cart/cart.php:133 woocommerce/cart/cart.php:134
+#: woocommerce/cart/cart.php:133
+#: woocommerce/cart/cart.php:134
 msgid "Застосувати"
 msgstr "Apply"
 
-#: woocommerce/cart/cart.php:146 woocommerce/cart/cart.php:147
+#: woocommerce/cart/cart.php:146
+#: woocommerce/cart/cart.php:147
 msgid "Оновити кошик"
 msgstr "Update cart"
 
@@ -1738,21 +1645,12 @@ msgid "Куди доставити"
 msgstr "Where to deliver"
 
 #: woocommerce/checkout/form-billing.php:73
-msgid ""
-"Для підписки BRIX Club створимо кабінет на вашу пошту — там пауза, пропуск і "
-"скасування. Пароль задасте за посиланням із листа."
-msgstr ""
-"For a BRIX Club subscription we will create an account for your email — that "
-"is where you pause, skip and cancel. You will set a password via the link in "
-"our email."
+msgid "Для підписки BRIX Club створимо кабінет на вашу пошту — там пауза, пропуск і скасування. Пароль задасте за посиланням із листа."
+msgstr "For a BRIX Club subscription we will create an account for your email — that is where you pause, skip and cancel. You will set a password via the link in our email."
 
 #: woocommerce/checkout/form-billing.php:79
-msgid ""
-"Створити кабінет — бачитимете статус замовлення й зможете повторити його "
-"одним дотиком"
-msgstr ""
-"Create an account — you will see the order status and can repeat it with one "
-"tap"
+msgid "Створити кабінет — бачитимете статус замовлення й зможете повторити його одним дотиком"
+msgstr "Create an account — you will see the order status and can repeat it with one tap"
 
 #: woocommerce/checkout/form-checkout.php:22
 msgid "Щоб оформити замовлення, увійдіть у кабінет."
@@ -1771,12 +1669,8 @@ msgid "Оплата не пройшла"
 msgstr "The payment did not go through"
 
 #: woocommerce/checkout/thankyou.php:49
-msgid ""
-"Банк відхилив платіж. Замовлення ми зберегли — спробуйте оплатити ще раз або "
-"оберіть інший спосіб."
-msgstr ""
-"The bank declined the payment. We have kept the order — try paying again or "
-"pick another method."
+msgid "Банк відхилив платіж. Замовлення ми зберегли — спробуйте оплатити ще раз або оберіть інший спосіб."
+msgstr "The bank declined the payment. We have kept the order — try paying again or pick another method."
 
 #: woocommerce/checkout/thankyou.php:53
 msgid "Спробувати ще раз"
@@ -1793,12 +1687,8 @@ msgstr "Payment not confirmed yet"
 #. translators: %s — номер замовлення.
 #: woocommerce/checkout/thankyou.php:65
 #, php-format
-msgid ""
-"Замовлення №%s збережене. Якщо ви вже оплатили, банк підтвердить за хвилину "
-"— оновіть сторінку. Якщо ні, оплатити можна зараз."
-msgstr ""
-"Order No. %s is saved. If you have already paid, the bank will confirm "
-"within a minute — refresh the page. If not, you can pay now."
+msgid "Замовлення №%s збережене. Якщо ви вже оплатили, банк підтвердить за хвилину — оновіть сторінку. Якщо ні, оплатити можна зараз."
+msgstr "Order No. %s is saved. If you have already paid, the bank will confirm within a minute — refresh the page. If not, you can pay now."
 
 #: woocommerce/checkout/thankyou.php:72
 msgid "Оплатити"
@@ -1820,8 +1710,7 @@ msgstr "Roasting and shipping"
 #: woocommerce/checkout/thankyou.php:88
 #, php-format
 msgid "Замовлення №%1$s. Напишемо на %2$s, щойно його можна забирати."
-msgstr ""
-"Order No. %1$s. We will write to %2$s as soon as it is ready for collection."
+msgstr "Order No. %1$s. We will write to %2$s as soon as it is ready for collection."
 
 #. translators: 1 — номер замовлення, 2 — пошта покупця.
 #: woocommerce/checkout/thankyou.php:90
@@ -1884,12 +1773,8 @@ msgid "Вітаємо!"
 msgstr "Welcome!"
 
 #: woocommerce/emails/customer-new-account.php:39
-msgid ""
-"Кабінет у BRIX 22° створено. Там історія замовлень і повтор одним дотиком, "
-"підписка BRIX Club і ваш профіль смаку."
-msgstr ""
-"Your BRIX 22° account is ready. It holds your order history with one-tap "
-"reorder, your BRIX Club subscription and your taste profile."
+msgid "Кабінет у BRIX 22° створено. Там історія замовлень і повтор одним дотиком, підписка BRIX Club і ваш профіль смаку."
+msgstr "Your BRIX 22° account is ready. It holds your order history with one-tap reorder, your BRIX Club subscription and your taste profile."
 
 #: woocommerce/emails/customer-new-account.php:42
 msgid "Залишилось задати пароль:"
@@ -1928,25 +1813,16 @@ msgid "Вітаємо в кабінеті"
 msgstr "Welcome to your account"
 
 #: woocommerce/myaccount/dashboard.php:41
-msgid ""
-"Тут ваші замовлення, адреси й підписка. Повторити попереднє замовлення — "
-"одна кнопка."
-msgstr ""
-"Your orders, addresses and subscription live here. Repeating a previous "
-"order is one button."
+msgid "Тут ваші замовлення, адреси й підписка. Повторити попереднє замовлення — одна кнопка."
+msgstr "Your orders, addresses and subscription live here. Repeating a previous order is one button."
 
 #: woocommerce/myaccount/dashboard.php:67
 msgid "Лот знято з продажу"
 msgstr "Lot no longer on sale"
 
 #: woocommerce/myaccount/dashboard.php:81
-msgid ""
-"Цієї ваги чи помелу більше немає в продажу, тож наступну пачку ми "
-"відкладаємо. Оберіть варіант заново — підписку буде оформлено з тією ж "
-"знижкою."
-msgstr ""
-"This weight or grind is no longer on sale, so we are holding your next bag. "
-"Choose again and the subscription will keep the same discount."
+msgid "Цієї ваги чи помелу більше немає в продажу, тож наступну пачку ми відкладаємо. Оберіть варіант заново — підписку буде оформлено з тією ж знижкою."
+msgstr "This weight or grind is no longer on sale, so we are holding your next bag. Choose again and the subscription will keep the same discount."
 
 #: woocommerce/myaccount/dashboard.php:82
 msgid "Обрати заново"
@@ -2012,9 +1888,7 @@ msgstr "No orders yet"
 
 #: woocommerce/myaccount/dashboard.php:220
 msgid "Щойно замовите — усе зʼявиться тут: статус, накладна й кнопка повтору."
-msgstr ""
-"As soon as you order, it all shows up here: status, tracking number and a "
-"repeat button."
+msgstr "As soon as you order, it all shows up here: status, tracking number and a repeat button."
 
 #: woocommerce/myaccount/form-login.php:27
 #: woocommerce/myaccount/form-login.php:63
@@ -2064,12 +1938,8 @@ msgid "Пошта"
 msgstr "Email"
 
 #: woocommerce/myaccount/form-login.php:111
-msgid ""
-"Пароль задасте самі за посиланням із листа. Щойно задасте — в кабінеті "
-"з’являться й замовлення, які ви вже робили на цю пошту."
-msgstr ""
-"You will set your password via the link in our email. Once you do, any "
-"orders you have already placed with this email will appear in your account."
+msgid "Пароль задасте самі за посиланням із листа. Щойно задасте — в кабінеті з’являться й замовлення, які ви вже робили на цю пошту."
+msgstr "You will set your password via the link in our email. Once you do, any orders you have already placed with this email will appear in your account."
 
 #: woocommerce/myaccount/form-login.php:118
 #: woocommerce/myaccount/form-login.php:119
@@ -2085,19 +1955,12 @@ msgid "Додати"
 msgstr "Add"
 
 #: woocommerce/myaccount/my-address.php:33
-msgid ""
-"Адреси ще немає. Вона збережеться сама з першого замовлення — або додайте її "
-"зараз."
-msgstr ""
-"No address yet. It will be saved from your first order — or add it now."
+msgid "Адреси ще немає. Вона збережеться сама з першого замовлення — або додайте її зараз."
+msgstr "No address yet. It will be saved from your first order — or add it now."
 
 #: woocommerce/myaccount/my-address.php:38
-msgid ""
-"Checkout заповнить її за вас. Змінити адресу для одного замовлення можна "
-"просто під час оформлення."
-msgstr ""
-"Checkout will fill it in for you. To use a different address for one order, "
-"just change it at checkout."
+msgid "Checkout заповнить її за вас. Змінити адресу для одного замовлення можна просто під час оформлення."
+msgstr "Checkout will fill it in for you. To use a different address for one order, just change it at checkout."
 
 #: assets/js/blocks-editor.js:100
 msgid "Налаштування блока"
@@ -2108,18 +1971,17 @@ msgid "Поки що нічого показати"
 msgstr "Nothing to show yet"
 
 #: assets/js/blocks-editor.js:113
-msgid ""
-"Блок бере дані з каталогу. Щойно там зʼявиться потрібне — воно буде тут."
-msgstr ""
-"This block pulls data from the catalogue. As soon as something fits, it will "
-"appear here."
+msgid "Блок бере дані з каталогу. Щойно там зʼявиться потрібне — воно буде тут."
+msgstr "This block pulls data from the catalogue. As soon as something fits, it will appear here."
 
 #: assets/js/blocks-editor.js:127
 msgid "Мітка над заголовком"
 msgstr "Label above the heading"
 
-#: assets/js/blocks-editor.js:128 assets/js/blocks-editor.js:140
-#: assets/js/blocks-editor.js:157 assets/js/blocks-editor.js:199
+#: assets/js/blocks-editor.js:128
+#: assets/js/blocks-editor.js:140
+#: assets/js/blocks-editor.js:157
+#: assets/js/blocks-editor.js:199
 #: assets/js/blocks-editor.js:205
 msgid "Заголовок"
 msgstr "Heading"
@@ -2132,7 +1994,8 @@ msgstr "What to highlight in cherry"
 msgid "Частина заголовка. Має збігатися дослівно."
 msgstr "Part of the heading. Must match word for word."
 
-#: assets/js/blocks-editor.js:130 assets/js/blocks-editor.js:158
+#: assets/js/blocks-editor.js:130
+#: assets/js/blocks-editor.js:158
 msgid "Текст"
 msgstr "Text"
 
@@ -2140,7 +2003,8 @@ msgstr "Text"
 msgid "Головна кнопка"
 msgstr "Primary button"
 
-#: assets/js/blocks-editor.js:132 assets/js/blocks-editor.js:134
+#: assets/js/blocks-editor.js:132
+#: assets/js/blocks-editor.js:134
 msgid "Її посилання"
 msgstr "Its link"
 
@@ -2160,8 +2024,10 @@ msgstr "Empty — links to the quiz."
 msgid "Показувати лот тижня"
 msgstr "Show lot of the week"
 
-#: assets/js/blocks-editor.js:139 assets/js/blocks-editor.js:156
-#: assets/js/blocks-editor.js:198 assets/js/blocks-editor.js:204
+#: assets/js/blocks-editor.js:139
+#: assets/js/blocks-editor.js:156
+#: assets/js/blocks-editor.js:198
+#: assets/js/blocks-editor.js:204
 msgid "Мітка"
 msgstr "Label"
 
@@ -2193,7 +2059,8 @@ msgstr "Button link"
 msgid "Що праворуч"
 msgstr "What goes on the right"
 
-#: assets/js/blocks-editor.js:166 assets/js/blocks-editor.js:172
+#: assets/js/blocks-editor.js:166
+#: assets/js/blocks-editor.js:172
 msgid "Фото"
 msgstr "Photo"
 
@@ -2284,12 +2151,8 @@ msgstr "Text section"
 
 #: blocks/feature/block.json
 msgctxt "block description"
-msgid ""
-"Заголовок, текст і кнопка поруч з фото або шкалою °Bx. Нею зібрані врізки "
-"квізу, клубу й B2B."
-msgstr ""
-"A heading, text and a button next to a photo or the °Bx scale. The quiz, "
-"club and B2B call-outs are built from it."
+msgid "Заголовок, текст і кнопка поруч з фото або шкалою °Bx. Нею зібрані врізки квізу, клубу й B2B."
+msgstr "A heading, text and a button next to a photo or the °Bx scale. The quiz, club and B2B call-outs are built from it."
 
 #: blocks/hero/block.json
 msgctxt "block title"
@@ -2298,11 +2161,8 @@ msgstr "Hero"
 
 #: blocks/hero/block.json
 msgctxt "block description"
-msgid ""
-"Великий заголовок, текст і дві кнопки. Пачка праворуч — лот тижня з каталогу."
-msgstr ""
-"A large heading, text and two buttons. The bag on the right is the lot of "
-"the week from the catalogue."
+msgid "Великий заголовок, текст і дві кнопки. Пачка праворуч — лот тижня з каталогу."
+msgstr "A large heading, text and two buttons. The bag on the right is the lot of the week from the catalogue."
 
 #: blocks/lot-grid/block.json
 msgctxt "block title"
@@ -2311,12 +2171,8 @@ msgstr "Lot grid"
 
 #: blocks/lot-grid/block.json
 msgctxt "block description"
-msgid ""
-"Картки лотів із каталогу. Дані беруться запитом при кожному показі, тож "
-"сітка не протухає."
-msgstr ""
-"Lot cards from the catalogue. The data is queried on every render, so the "
-"grid never goes stale."
+msgid "Картки лотів із каталогу. Дані беруться запитом при кожному показі, тож сітка не протухає."
+msgstr "Lot cards from the catalogue. The data is queried on every render, so the grid never goes stale."
 
 #: blocks/marquee/block.json
 msgctxt "block title"
@@ -2325,24 +2181,45 @@ msgstr "Tasting note strip"
 
 #: blocks/marquee/block.json
 msgctxt "block description"
-msgid ""
-"Темна смуга з нотами лотів. Береться з таксономії, тож змінюється разом з "
-"каталогом."
-msgstr ""
-"A dark strip with lot notes. It comes from the taxonomy, so it changes with "
-"the catalogue."
+msgid "Темна смуга з нотами лотів. Береться з таксономії, тож змінюється разом з каталогом."
+msgstr "A dark strip with lot notes. It comes from the taxonomy, so it changes with the catalogue."
 
-#~ msgid "Фото · бар кавʼярні"
-#~ msgstr "Photo · café bar"
+#: footer.php:70
+msgid "Як ми бережемо адресу"
+msgstr "How we protect your address"
 
-#~ msgid "Фото · бар кав’ярні"
-#~ msgstr "Photo · café bar"
+#: footer.php:100
+msgid "Налаштування cookies"
+msgstr "Cookie settings"
 
-#~ msgid "Фото · станція"
-#~ msgstr "Photo · mill"
+#: inc/analytics.php:52
+msgid "Порожнє поле вимикає аналітику повністю — жодного запиту до Google. Із заповненим сайт спершу питає згоди відвідувача."
+msgstr "An empty field turns analytics off completely — not a single request to Google. When it is filled in, the site asks visitors for consent first."
 
-#~ msgid "Адреси доставки"
-#~ msgstr "Delivery addresses"
+#: page-wholesale.php:165
+msgid "Поля із зірочкою обовʼязкові. Контакти з заявки потрібні лише, щоб відповісти вам."
+msgstr "Fields marked with an asterisk are required. We use your contacts only to reply to you."
 
-#~ msgid "Лот недоступний"
-#~ msgstr "Lot unavailable"
+#: page-wholesale.php:167
+msgid "Політика конфіденційності"
+msgstr "Privacy policy"
+
+#: template-parts/consent.php:24
+msgid "Cookies для статистики"
+msgstr "Cookies for statistics"
+
+#: template-parts/consent.php:26
+msgid "Кошик і вхід працюють і без вашої згоди. Дозвольте Google Analytics рахувати відвідування — так ми бачимо, які сторінки корисні. Відповідь можна змінити в підвалі сайту."
+msgstr "The cart and login work without your consent. Let Google Analytics count visits — that’s how we see which pages are useful. You can change your answer in the site footer."
+
+#: template-parts/consent.php:28
+msgid "Докладніше"
+msgstr "Learn more"
+
+#: template-parts/consent.php:32
+msgid "Дозволити"
+msgstr "Allow"
+
+#: template-parts/consent.php:33
+msgid "Відмовитись"
+msgstr "Decline"

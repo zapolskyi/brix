@@ -1,0 +1,44 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/tokens' as *;
+
+// Питання про cookies аналітики. Не перекриває сторінку й не блокує
+// її: відповідати не обов'язково, без відповіді аналітика вимкнена.
+.brix-consent {
+  position: fixed;
+  inset: auto var(--brix-sec-x) var(--brix-sec-x) auto;
+  z-index: 60;
+  display: grid;
+  gap: var(--brix-gap-8);
+  width: min(420px, calc(100% - 2 * var(--brix-sec-x)));
+  padding: var(--brix-gap-12);
+  border-radius: var(--brix-radius-lg);
+  background: var(--brix-roast);
+  color: var(--brix-mill);
+  border: 1px solid rgb(242 243 238 / 18%);
+  box-shadow: var(--brix-shadow-pack);
+
+  a { color: var(--brix-mill); text-decoration: underline; text-underline-offset: 0.2em; }
+  a:hover { color: var(--brix-honey); }
+
+  :focus-visible { outline-color: var(--brix-honey); }
+}
+
+.brix-consent__title {
+  margin: 0;
+  font-family: var(--brix-font-display);
+  font-size: 1.125rem;
+  line-height: 1.25;
+}
+
+.brix-consent__text {
+  margin: 0;
+  color: #D6D0CB;
+  font-size: var(--brix-fs-sm);
+  line-height: var(--brix-lh-base);
+}
+
+.brix-consent__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}

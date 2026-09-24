@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-23T22:23:11+00:00\n"
+"POT-Creation-Date: 2026-09-24T12:22:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: brix\n"
@@ -175,22 +175,30 @@ msgstr ""
 msgid "Надішлемо лист для підтвердження. Відписатися можна з будь-якого листа."
 msgstr ""
 
-#: footer.php:75
+#: footer.php:70
+msgid "Як ми бережемо адресу"
+msgstr ""
+
+#: footer.php:78
 msgid "Магазин"
 msgstr ""
 
-#: footer.php:76
+#: footer.php:79
 msgid "Бренд"
 msgstr ""
 
-#: footer.php:77
+#: footer.php:80
 msgid "Допомога"
 msgstr ""
 
 #. translators: %s — поточний рік.
-#: footer.php:87
+#: footer.php:90
 #, php-format
 msgid "© %s BRIX 22° · Обсмажувальня, Київ"
+msgstr ""
+
+#: footer.php:100
+msgid "Налаштування cookies"
 msgstr ""
 
 #: header.php:22
@@ -251,16 +259,16 @@ msgstr ""
 msgid "Повторити замовлення"
 msgstr ""
 
-#: inc/analytics.php:30
+#: inc/analytics.php:45
 msgid "Аналітика"
 msgstr ""
 
-#: inc/analytics.php:36
+#: inc/analytics.php:51
 msgid "Ідентифікатор потоку GA4"
 msgstr ""
 
-#: inc/analytics.php:37
-msgid "Порожнє поле вимикає аналітику повністю — жодного запиту до Google."
+#: inc/analytics.php:52
+msgid "Порожнє поле вимикає аналітику повністю — жодного запиту до Google. Із заповненим сайт спершу питає згоди відвідувача."
 msgstr ""
 
 #: inc/blocks.php:65
@@ -548,7 +556,7 @@ msgid "Такого лоту немає."
 msgstr ""
 
 #. translators: %s — найнижча ціна варіації.
-#: inc/products.php:177
+#: inc/products.php:187
 #, php-format
 msgid "від %s"
 msgstr ""
@@ -972,8 +980,12 @@ msgstr ""
 msgid "Надіслати заявку"
 msgstr ""
 
-#: page-wholesale.php:164
-msgid "Поля із зірочкою обовʼязкові."
+#: page-wholesale.php:165
+msgid "Поля із зірочкою обовʼязкові. Контакти з заявки потрібні лише, щоб відповісти вам."
+msgstr ""
+
+#: page-wholesale.php:167
+msgid "Політика конфіденційності"
 msgstr ""
 
 #. translators: %s — пошуковий запит.
@@ -1153,6 +1165,26 @@ msgstr ""
 
 #: template-parts/catalog/results.php:41
 msgid "Скинути фільтри"
+msgstr ""
+
+#: template-parts/consent.php:24
+msgid "Cookies для статистики"
+msgstr ""
+
+#: template-parts/consent.php:26
+msgid "Кошик і вхід працюють і без вашої згоди. Дозвольте Google Analytics рахувати відвідування — так ми бачимо, які сторінки корисні. Відповідь можна змінити в підвалі сайту."
+msgstr ""
+
+#: template-parts/consent.php:28
+msgid "Докладніше"
+msgstr ""
+
+#: template-parts/consent.php:32
+msgid "Дозволити"
+msgstr ""
+
+#: template-parts/consent.php:33
+msgid "Відмовитись"
 msgstr ""
 
 #: template-parts/content/content-none.php:12

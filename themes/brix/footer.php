@@ -66,6 +66,9 @@ defined( 'ABSPATH' ) || exit;
 				</form>
 				<p class="brix-newsletter__fine">
 					<?php esc_html_e( 'Надішлемо лист для підтвердження. Відписатися можна з будь-якого листа.', 'brix' ); ?>
+					<?php if ( get_privacy_policy_url() ) : ?>
+						<a href="<?php echo esc_url( get_privacy_policy_url() ); ?>"><?php esc_html_e( 'Як ми бережемо адресу', 'brix' ); ?></a>
+					<?php endif; ?>
 				</p>
 			<?php endif; ?>
 		</div>
@@ -93,6 +96,9 @@ defined( 'ABSPATH' ) || exit;
 		<?php if ( has_nav_menu( 'legal' ) ) : ?>
 			<span class="brix-footer__legal">
 				<?php brix_menu_links( 'legal' ); ?>
+				<?php if ( class_exists( '\Brix\Core\Privacy\Consent' ) && \Brix\Core\Privacy\Consent::needed() ) : ?>
+					<a href="<?php echo esc_url( \Brix\Core\Privacy\Consent::ask_url() . '#brix-consent' ); ?>"><?php esc_html_e( 'Налаштування cookies', 'brix' ); ?></a>
+				<?php endif; ?>
 			</span>
 		<?php endif; ?>
 
@@ -103,6 +109,8 @@ defined( 'ABSPATH' ) || exit;
 
 	<div class="brix-footer__mark" aria-hidden="true">BRIX 22°</div>
 </footer>
+
+<?php get_template_part( 'template-parts/consent' ); ?>
 
 <?php wp_footer(); ?>
 </body>

@@ -51,6 +51,25 @@ final class Application implements Module {
 		add_action( 'init', array( $this, 'register_post_type' ), 5 );
 		add_action( 'admin_post_nopriv_' . self::ACTION, array( $this, 'handle' ) );
 		add_action( 'admin_post_' . self::ACTION, array( $this, 'handle' ) );
+		add_action( 'template_redirect', array( $this, 'no_cache' ) );
+	}
+
+	/**
+	 * Не кешує сторінку з формою.
+	 *
+	 * У формі nonce, а він живе добу. Сторінка, яку кеш LiteSpeed
+	 * віддавав би тиждень, приймала б заявки лише першого дня — далі
+	 * кожна поверталась би з помилкою «форма застаріла».
+	 *
+	 * @return void
+	 */
+	public function no_cache(): void {
+		if ( ! is_page( 'wholesale' ) ) {
+			return;
+		}
+
+		do_action( 'litespeed_control_set_nocache', 'nonce у формі заявки' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Хук LiteSpeed Cache.
+		nocache_headers();
 	}
 
 	/**

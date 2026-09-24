@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-23T22:23:11+00:00\n"
+"POT-Creation-Date: 2026-09-24T12:26:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: brix-core\n"
@@ -860,6 +860,20 @@ msgstr ""
 msgid "Усі виробники"
 msgstr ""
 
+#: src/Privacy/Terms.php:57
+msgid "Поставте галочку «Я погоджуюсь з умовами продажу» — без неї замовлення не оформити."
+msgstr ""
+
+#. translators: %s — посилання на сторінку умов продажу.
+#: src/Privacy/Terms.php:75
+#, php-format
+msgid "Я погоджуюсь з %s"
+msgstr ""
+
+#: src/Privacy/Terms.php:79
+msgid "умовами продажу"
+msgstr ""
+
 #: src/Product/Freshness.php:122
 msgid "Дегазація"
 msgstr ""
@@ -909,11 +923,11 @@ msgstr ""
 msgid "Обробка"
 msgstr ""
 
-#: src/Product/Schema.php:231
+#: src/Product/Schema.php:241
 msgid "Мікролоти specialty-кави з паспортом: висота, обробка, цукристість ягоди при зборі й ціна фермеру. Обсмажуємо щопонеділка."
 msgstr ""
 
-#: src/Product/Schema.php:239
+#: src/Product/Schema.php:249
 msgid "BRIX 22° — specialty-обсмажувальня в Києві. Мікролоти від ферм, з якими працюємо напряму, і паспорт у кожній пачці. Обсмажуємо щопонеділка."
 msgstr ""
 
@@ -1180,21 +1194,21 @@ msgstr ""
 msgid "— за замовчуванням —"
 msgstr ""
 
-#: src/Wholesale/Application.php:68
-#: src/Wholesale/Application.php:70
+#: src/Wholesale/Application.php:87
+#: src/Wholesale/Application.php:89
 msgid "Заявки B2B"
 msgstr ""
 
-#: src/Wholesale/Application.php:69
-#: src/Wholesale/Application.php:72
+#: src/Wholesale/Application.php:88
+#: src/Wholesale/Application.php:91
 msgid "Заявка"
 msgstr ""
 
-#: src/Wholesale/Application.php:71
+#: src/Wholesale/Application.php:90
 msgid "Усі заявки"
 msgstr ""
 
-#: src/Wholesale/Application.php:73
+#: src/Wholesale/Application.php:92
 msgid "Заявок немає"
 msgstr ""
 

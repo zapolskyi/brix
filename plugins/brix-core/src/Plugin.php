@@ -144,6 +144,9 @@ final class Plugin {
 				Wholesale\Pricing::class,
 				Newsletter\Subscribers::class,
 				Mail\Brevo::class,
+				Privacy\Consent::class,
+				Privacy\Terms::class,
+				Security\Hardening::class,
 			)
 		);
 	}

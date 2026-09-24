@@ -20,6 +20,21 @@ function brix_ga4_id(): string {
 }
 
 /**
+ * Чи можна вмикати аналітику на цій сторінці.
+ *
+ * Мало задати ідентифікатор — відвідувач має погодитись. Без модуля
+ * згоди в плагіні аналітика не вмикається зовсім: краще без цифр,
+ * ніж із ними, але без дозволу.
+ *
+ * @return bool
+ */
+function brix_ga4_enabled(): bool {
+	return '' !== brix_ga4_id()
+		&& class_exists( '\Brix\Core\Privacy\Consent' )
+		&& \Brix\Core\Privacy\Consent::granted();
+}
+
+/**
  * Додає поле ідентифікатора в налаштування WooCommerce.
  *
  * @param array<int, array<string, mixed>> $settings Налаштування.
@@ -34,7 +49,7 @@ function brix_ga4_setting( array $settings ): array {
 
 	$settings[] = array(
 		'title'   => __( 'Ідентифікатор потоку GA4', 'brix' ),
-		'desc'    => __( 'Порожнє поле вимикає аналітику повністю — жодного запиту до Google.', 'brix' ),
+		'desc'    => __( 'Порожнє поле вимикає аналітику повністю — жодного запиту до Google. Із заповненим сайт спершу питає згоди відвідувача.', 'brix' ),
 		'id'      => 'brix_ga4_id',
 		'type'    => 'text',
 		'default' => '',
@@ -55,11 +70,11 @@ add_filter( 'woocommerce_general_settings', 'brix_ga4_setting', 20 );
  * @return void
  */
 function brix_ga4_script(): void {
-	$id = brix_ga4_id();
-
-	if ( '' === $id || is_admin() ) {
+	if ( ! brix_ga4_enabled() || is_admin() ) {
 		return;
 	}
+
+	$id = brix_ga4_id();
 
 	wp_enqueue_script(
 		'brix-gtag',
@@ -88,7 +103,7 @@ add_action( 'wp_enqueue_scripts', 'brix_ga4_script', 5 );
  * @return void
  */
 function brix_ga4_event( string $name, array $data ): void {
-	if ( '' === brix_ga4_id() ) {
+	if ( ! brix_ga4_enabled() ) {
 		return;
 	}
 
@@ -132,7 +147,7 @@ add_action( 'wp_enqueue_scripts', 'brix_ga4_view_item', 20 );
  * @return void
  */
 function brix_ga4_purchase(): void {
-	if ( ! brix_has_woocommerce() || ! is_order_received_page() ) {
+	if ( ! brix_ga4_enabled() || ! brix_has_woocommerce() || ! is_order_received_page() ) {
 		return;
 	}
 

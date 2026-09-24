@@ -161,7 +161,12 @@ $brix_status = isset( $_GET['b2b'] ) ? sanitize_key( wp_unslash( $_GET['b2b'] ) 
 
 				<p class="brix-b2b__submit">
 					<button class="brix-btn brix-btn--xl" type="submit"><?php esc_html_e( 'Надіслати заявку', 'brix' ); ?></button>
-					<span class="brix-small brix-muted"><?php esc_html_e( 'Поля із зірочкою обовʼязкові.', 'brix' ); ?></span>
+					<span class="brix-small brix-muted">
+						<?php esc_html_e( 'Поля із зірочкою обовʼязкові. Контакти з заявки потрібні лише, щоб відповісти вам.', 'brix' ); ?>
+						<?php if ( get_privacy_policy_url() ) : ?>
+							<a href="<?php echo esc_url( get_privacy_policy_url() ); ?>"><?php esc_html_e( 'Політика конфіденційності', 'brix' ); ?></a>
+						<?php endif; ?>
+					</span>
 				</p>
 			</form>
 		</div>

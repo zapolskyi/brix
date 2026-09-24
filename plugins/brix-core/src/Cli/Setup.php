@@ -75,6 +75,7 @@ final class Setup {
 		'club'         => 'BRIX Club',
 		'quiz'         => 'Підібрати каву',
 		'privacy'      => 'Політика конфіденційності',
+		'terms'        => 'Умови продажу',
 		'ui-kit'       => 'UI-кіт',
 	);
 
@@ -262,6 +263,11 @@ final class Setup {
 			// демо-стенду тільки заважають.
 			'woocommerce_show_marketplace_suggestions' => 'no',
 			'woocommerce_allow_tracking'               => 'no',
+			// «Атрибуція замовлень» ставить кожному відвідувачу
+			// cookies sbjs_* — звідки прийшов, з якої реклами. Це
+			// маркетингові cookies, без згоди їх ставити не можна, а
+			// рекламних кампаній у магазину немає.
+			'woocommerce_feature_order_attribution_enabled' => 'no',
 			'woocommerce_task_list_hidden'             => 'yes',
 			'woocommerce_onboarding_profile'           => array( 'skipped' => true ),
 		);
@@ -275,8 +281,8 @@ final class Setup {
 		 * момент є, — на свіжому сайті це англійська.
 		 */
 		$texts = array(
-			'woocommerce_checkout_privacy_policy_text'     => 'Ваші дані потрібні, щоб оформити й доставити замовлення. Деталі — у [privacy_policy].',
-			'woocommerce_registration_privacy_policy_text' => 'Ваші дані потрібні, щоб створити кабінет. Деталі — у [privacy_policy].',
+			'woocommerce_checkout_privacy_policy_text'     => 'Ваші дані потрібні, щоб оформити й доставити замовлення. Як ми їх бережемо — [privacy_policy].',
+			'woocommerce_registration_privacy_policy_text' => 'Ваші дані потрібні, щоб створити кабінет. Як ми їх бережемо — [privacy_policy].',
 			'woocommerce_email_footer_text'                => 'BRIX 22° · Обсмажувальня, Київ · {site_url}',
 		);
 
@@ -428,6 +434,17 @@ final class Setup {
 			update_option( 'wp_page_for_privacy_policy', $privacy );
 		}
 
+		/*
+		 * Умови продажу. Щойно сторінка вказана в налаштуваннях,
+		 * WooCommerce сам ставить на checkout галочку згоди й не
+		 * приймає замовлення без неї. Текст галочки — Privacy\Terms.
+		 */
+		$terms = $this->page( 'terms', self::PAGES['terms'] );
+
+		if ( $terms ) {
+			update_option( 'woocommerce_terms_page_id', $terms );
+		}
+
 		$refund = get_page_by_path( 'refund_returns' );
 
 		if (
@@ -552,6 +569,7 @@ final class Setup {
 				'items' => array(
 					array( 'url', 'https://instagram.com', 'Instagram' ),
 					array( 'url', 'https://t.me', 'Telegram' ),
+					array( 'page', 'terms', 'Умови продажу' ),
 					array( 'page', 'privacy', 'Політика конфіденційності' ),
 				),
 			),
@@ -569,13 +587,26 @@ final class Setup {
 
 			$locations[ $location ] = $id;
 
-			// Пункти додаються лише в порожнє меню: інакше повторний
-			// запуск подвоїв би їх.
-			if ( wp_get_nav_menu_items( $id ) ) {
-				continue;
+			/*
+			 * Пункти, яких у меню ще немає. Раніше додавались лише в
+			 * порожнє меню — і пункт, що з'явився в коді пізніше,
+			 * наприклад «Умови продажу», на готовий сайт не потрапляв.
+			 * Повторний запуск нічого не подвоює: наявне пропускаємо.
+			 */
+			$existing = (array) wp_get_nav_menu_items( $id );
+			$titles   = array();
+
+			// Заголовки пунктів приходять уже з типографікою:
+			// «кав&#8217;ярень», «Drip &amp; Try».
+			foreach ( $existing as $present ) {
+				$titles[] = html_entity_decode( (string) $present->title, ENT_QUOTES, 'UTF-8' );
 			}
 
 			foreach ( $menu['items'] as $item ) {
+				if ( in_array( $item[2], $titles, true ) ) {
+					continue;
+				}
+
 				$this->menu_item( $id, $item[0], $item[1], $item[2] );
 			}
 		}
