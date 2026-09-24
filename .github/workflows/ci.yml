@@ -21,22 +21,18 @@ jobs:
           tools: cs2pr
           coverage: none
 
-      # Тема й плагін не мають власних залежностей у рантаймі —
-      # composer тут лише щоб поставити сам PHPCS зі стандартами.
+      # Інструменти перевірки ставимо з composer.lock плагіна — тих
+      # самих версій, якими код перевіряється локально. Тема й плагін
+      # не мають залежностей у рантаймі: це лише PHPCS зі стандартами.
       - name: Інструменти перевірки
-        run: |
-          composer global require --no-interaction --no-progress \
-            squizlabs/php_codesniffer \
-            wp-coding-standards/wpcs:"^3.1" \
-            phpcompatibility/phpcompatibility-wp:"^2.1" \
-            dealerdirect/phpcodesniffer-composer-installer:"^1.0"
-          echo "$HOME/.composer/vendor/bin" >> "$GITHUB_PATH"
+        working-directory: plugins/brix-core
+        run: composer install --no-interaction --no-progress --prefer-dist
 
       - name: Синтаксис PHP
         run: find themes/brix plugins/brix-core -name '*.php' -not -path '*/vendor/*' -print0 | xargs -0 -n1 php -l
 
       - name: PHPCS
-        run: phpcs --standard=phpcs.xml.dist --report=checkstyle | cs2pr
+        run: plugins/brix-core/vendor/bin/phpcs --standard=phpcs.xml.dist --report=checkstyle | cs2pr
 
   assets:
     name: Складання стилів і синтаксис JS
