@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   php:
@@ -52,9 +53,12 @@ jobs:
         working-directory: themes/brix
         run: npm ci || npm install
 
+      # У git лежить розгорнутий CSS (`npm run css`), а стиснений
+      # `npm run build` збирає лише архів для хостингу. Порівнювати
+      # треба те, що справді закомічено.
       - name: Складання CSS
         working-directory: themes/brix
-        run: npm run build
+        run: npm run css
 
       # Скомпільований CSS комітиться, тож він має збігатися з
       # джерелом: інакше на хостинг поїде застарілий файл.
