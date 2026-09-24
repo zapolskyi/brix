@@ -6,6 +6,8 @@ sugar content of the cherry at harvest (°Bx) and the price the farmer was paid.
 Ukrainian and English, hryvnia and euro, card payments through LiqPay, delivery
 through Nova Poshta, subscriptions, a taste quiz and a B2B channel.
 
+[![CI](https://github.com/zapolskyi/brix/actions/workflows/ci.yml/badge.svg)](https://github.com/zapolskyi/brix/actions/workflows/ci.yml)
+
 **Live demo:** [brix.zapolskyi.com](https://brix.zapolskyi.com)
 
 > Pet project. The roastery, farms, prices, reviews and contact details are
